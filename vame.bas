@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.53
+REM Build 2.8.54
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,53,2853
-$VERSIONINFO:PRODUCTVERSION#=2,8,53,2853
+$VERSIONINFO:FILEVERSION#=2,8,54,2854
+$VERSIONINFO:PRODUCTVERSION#=2,8,54,2854
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.53"
+LET hardbuild$ = "2.8.54"
 
 setup:
 REM initiates engine and assigns values
@@ -7994,9 +7994,8 @@ DO
         REM enables a spoof trigger to run a script
         LET triggerspoofa = 1
         LET triggerspoofname$ = temp13$
-        'LET temp33 = 1
         LET temp33 = 2
-        LET nextmapscript = mapscript
+        LET nextmapscript = 1
         LET eventtitle$ = "SCRIPT DIVERT:"
         LET eventdata$ = triggerspoofname$
         LET eventnumber = scriptline

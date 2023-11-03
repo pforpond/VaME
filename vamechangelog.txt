@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+03/11/2023 - Update 128. (2.8.54)
+TWEAKS
+- Script command 'script' now ensures the script is run from a map folder rather than the value of the previous script.
+
 28/10/2023 - Update 127. (2.8.53)
 BUG FIXES
 - Fixed 'script' script command that would not work when requested on a chained script.
