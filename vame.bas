@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.54
+REM Build 2.8.55
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,54,2854
-$VERSIONINFO:PRODUCTVERSION#=2,8,54,2854
+$VERSIONINFO:FILEVERSION#=2,8,55,2855
+$VERSIONINFO:PRODUCTVERSION#=2,8,55,2855
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.54"
+LET hardbuild$ = "2.8.55"
 
 setup:
 REM initiates engine and assigns values
@@ -6164,6 +6164,23 @@ IF scriptrun <> 1 THEN
     INPUT #1, txtfile1$, txtfile2$, txtfile3$, txtfile4$, txtfile5$, txtfile6$, sysstat
     CLOSE #1
 END IF
+REM find any script variable values and injects them into the terminal file
+FOR inj = 1 TO 6
+	IF inj = 1 THEN LET textspeech$ = txtfile1$
+	IF inj = 2 THEN LET textspeech$ = txtfile2$
+	IF inj = 3 THEN LET textspeech$ = txtfile3$
+	IF inj = 4 THEN LET textspeech$ = txtfile4$
+	IF inj = 5 THEN LET textspeech$ = txtfile5$
+	IF inj = 6 THEN LET textspeech$ = txtfile6$
+	GOSUB variablevalueinjector
+	IF inj = 1 THEN LET txtfile1$ = textspeech$
+	IF inj = 2 THEN LET txtfile2$ = textspeech$
+	IF inj = 3 THEN LET txtfile3$ = textspeech$
+	IF inj = 4 THEN LET txtfile4$ = textspeech$
+	IF inj = 5 THEN LET txtfile5$ = textspeech$
+	IF inj = 6 THEN LET txtfile6$ = textspeech$
+	LET textspeech$ = ""
+NEXT inj
 PRINT tos$
 PRINT
 PRINT txtfile1$
@@ -6301,7 +6318,7 @@ DO
 	LET findmoddingname% = INSTR(findmoddingname% + 1, textspeech$, "[moddingname]")
 	LET findgametime% = INSTR(findgametime% + 1, textspeech$, "[gametime]")
 	LET findrandom% = INSTR(findrandom% + 1, textspeech$, "[random]")
-	LET findscriptvalue% = INSTR(findscriptvalue% + 1, textspeech$, "[scriptvalue-")
+	LET findscriptvalue% = INSTR(findscriptvalue% + 1, textspeech$, "[value]-")
 	IF temp204 = 0 THEN IF findhelditem1% THEN LET variablevalue$ = "[helditem1]": LET temp204 = 1
 	IF temp204 = 0 THEN IF findhelditem2% THEN LET variablevalue$ = "[helditem2]": LET temp204 = 1
 	IF temp204 = 0 THEN IF findselectobject% THEN LET variablevalue$ = "[selectobject]": LET temp204 = 1
@@ -6314,7 +6331,7 @@ DO
 	IF temp204 = 0 THEN IF findmoddingname% THEN LET variablevalue$ = "[moddingname]": LET temp204 = 1
 	IF temp204 = 0 THEN IF findgametime% THEN LET variablevalue$ = "[gametime]": LET temp204 = 1
 	IF temp204 = 0 THEN IF findrandom% THEN LET variablevalue$ = "[random]": LET temp204 = 1
-	IF temp204 = 0 THEN IF findscriptvalue% THEN LET variablevalue$ = "[scriptvalue-": LET temp204 = 1
+	IF temp204 = 0 THEN IF findscriptvalue% THEN LET variablevalue$ = "[value]-": LET temp204 = 1
 	IF temp204 = 1 THEN
 		REM value marker found! finds and replaces!
 		LET variablelength = LEN(variablevalue$)
@@ -6358,11 +6375,11 @@ DO
 						injectend1:
 					END IF
 					IF variablevalue$ = "[random]" THEN LET textspeech$ = texttemp1$ + LTRIM$(STR$(randomscriptvalue)) + texttemp2$
-					IF variablevalue$ = "[scriptvalue-" THEN
-						LET temp63$ = LEFT$(texttemp2$, INSTR(texttemp2$, "]"))
+					IF variablevalue$ = "[value]-" THEN
+						LET temp63$ = MID$(textspeech$, INSTR(textspeech$, "-") + 1)
 						LET temp208 = VAL(temp63$)
-						LET texttemp2$ = RIGHT$(texttemp2$, INSTR(texttemp2$, "]") - 1)
-						LET textspeech$ = texttemp1$ + LTRIM$(STR$(scriptvalue(temp208))) + texttemp2$
+						LET texttemp2$ = RIGHT$(texttemp2$, INSTR(texttemp2$, " "))
+						LET textspeech$ = texttemp1$ + LTRIM$(STR$(scriptvalue(temp208))) + " " + texttemp2$
 						LET temp63$ = ""
 						LET temp208 = 0
 					END IF
@@ -7990,7 +8007,7 @@ DO
         LET temp13$ = MID$(scriptline$, INSTR(scriptline$, " "))
         LET temp13$ = LTRIM$(temp13$)
         LET temp26 = 2
-        LET temp200 = 0
+        LET temp200 = 999
         REM enables a spoof trigger to run a script
         LET triggerspoofa = 1
         LET triggerspoofname$ = temp13$
@@ -8437,7 +8454,7 @@ IF temp86 = 1 THEN
 END IF
 IF scriptskip = 1 AND temp200 = 0 THEN GOSUB fadein: REM fade in after a script is skipped
 REM resets if counting values
-IF temp200 = 0 THEN
+IF temp200 = 0 AND temp200 <> 999 THEN
     LET ifcheckpointno = 0
     LET ifcurrencyno = 0
     LET ifdirectionno = 0
@@ -8450,6 +8467,19 @@ IF temp200 = 0 THEN
     LET ifvalueno = 0
     LET scriptskip = 0
     LET skipallowed = 0
+    LET allowscriptcontrol = 0
+END IF
+IF temp200 = 999 THEN
+    LET ifcheckpointno = 0
+    LET ifcurrencyno = 0
+    LET ifdirectionno = 0
+    LET ifpocketno = 0
+    LET ifholdingno = 0
+    LET ifmodelno = 0
+    LET ifmapnono = 0
+    LET ifgoneno = 0
+    LET ifrandomno = 0
+    LET ifvalueno = 0
     LET allowscriptcontrol = 0
 END IF
 IF temp200 = 0 AND fadestatus = 1 THEN LET fadestatus = 0: LET clearscreen = 1

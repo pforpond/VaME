@@ -1,6 +1,17 @@
 VAME CHANGELOG
 By Danielle Pond
 
+06/11/2023 - Update 129. (2.8.55)
+NEW FEATURES
+- Terminal text files are now compatible with script variables.
+BUG FIXES
+- Fixed bug where using script variable values would attempt to chain a script.
+- Fixed bug where script variable values over three figures and up wouldn't display correctly when called upon.
+TWEAKS
+- Improvements to script skipping that can now bridge across scripts chained with the 'script' command.
+- Changed some GUI wording in the updater.
+- Changed text banner and terminal text variable calling term from [scriptvalue-(no)] to [value]-(no).
+
 03/11/2023 - Update 128. (2.8.54)
 TWEAKS
 - Script command 'script' now ensures the script is run from a map folder rather than the value of the previous script.

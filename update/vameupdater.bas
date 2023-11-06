@@ -81,10 +81,10 @@ IF ov1 = nv1 THEN
 	REM checks extra version numbers
 	LET ov2 = VAL(RIGHT$(oldversionno$, INSTR(oldversionno$, ".")))
 	LET nv2 = VAL(RIGHT$(minsavever$, INSTR(minsavever$, ".")))
-	IF ov2 < nv2 THEN LET erasesave = 1: PRINT "Your saves will be erased!"
+	IF ov2 < nv2 THEN LET erasesave = 1: PRINT "Your saves will be removed!"
 ELSE
 	REM makes descision
-	IF ov1 < nv1 THEN LET erasesave = 1: PRINT "Your saves will be erased!"
+	IF ov1 < nv1 THEN LET erasesave = 1: PRINT "Your saves will be removed!"
 END IF
 LET updatestep = 1: REM sets update step to 1
 REM diverts to sub depending on OS
@@ -110,7 +110,7 @@ IF updatestep = 5 THEN
 	IF erasesave = 0 THEN 
 		PRINT "* Restoring saves..."
 	ELSE
-		PRINT "* Erasing saves..."
+		PRINT "* Removing saves..."
 	END IF
 END IF
 IF updatestep = 6 THEN PRINT "* Removing updater files..."
