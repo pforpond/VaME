@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.55
+REM Build 2.8.56
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,55,2855
-$VERSIONINFO:PRODUCTVERSION#=2,8,55,2855
+$VERSIONINFO:FILEVERSION#=2,8,56,2856
+$VERSIONINFO:PRODUCTVERSION#=2,8,56,2856
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.55"
+LET hardbuild$ = "2.8.56"
 
 setup:
 REM initiates engine and assigns values
@@ -2512,6 +2512,7 @@ IF anisprite$ = "mainplayer" THEN
         LET effectani = 0
         REM draws animation frames
         _PUTIMAGE (mpposx, mpposy), aniframe(temp98)
+        IF parallaxmode = 2 THEN GOSUB parallaxdraw
         GOSUB effectdraw
         _DISPLAY
         REM calculates when to move onto next frame
@@ -2556,6 +2557,7 @@ ELSE
             GOSUB mainplayerdraw
             IF aniobject <> 0 THEN _PUTIMAGE (objectx(aniobject) + posx, objecty(aniobject) + posy), aniframe(temp98)
         END IF
+        IF parallaxmode = 2 THEN GOSUB parallaxdraw
         GOSUB effectdraw
         _DISPLAY
         REM calculates when to move onto next frame
@@ -8930,7 +8932,7 @@ GOSUB mainplayerdraw: REM draws mainplayer
 LET objectl = objectl + 1: REM increases layer counter
 IF mapobjectno > 0 THEN GOSUB objectdraw: REM draws map objects (second layer)
 IF mapplayerno > 0 THEN GOSUB playerdraw: REM draws NPCs (second layer)
-IF parallaxmode = 2 THEN GOSUB parallaxdraw: REM draws foreground parallax layer
+IF parallaxmode = 2 AND effectani = 0 THEN GOSUB parallaxdraw: REM draws foreground parallax layer
 IF hud <> 0 THEN GOSUB hud: REM calls for developer hud to be drawn if needed
 IF mapeffect > 0 THEN GOSUB effectdraw: REM draws special map effects
 REM draws cutscene running image

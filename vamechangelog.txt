@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+14/11/2023 - Update 130. (2.8.56)
+BUG FIXES
+- Fixed oversight that would allow animations to be played above a foreground parallax layer.
+
 06/11/2023 - Update 129. (2.8.55)
 NEW FEATURES
 - Terminal text files are now compatible with script variables.
