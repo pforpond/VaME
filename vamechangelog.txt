@@ -1,6 +1,14 @@
 VAME CHANGELOG
 By Danielle Pond
 
+30/11/2023 - Update 131. (2.8.57)
+NEW FEATURES
+- New menu command available that allows for reloading the previous save, 'loadsave'.
+- Mouse location hud now updated to take into account how far map has scrolled, providing pixel perfect co-ordinates for the map rather than just the window.
+TWEAKS
+- Script choices now halts script skipping as the player is required to make a choice.
+- Stage director script utility now supports negative numbers down to -9999 for warp/sprint/move co-ordinates.
+
 14/11/2023 - Update 130. (2.8.56)
 BUG FIXES
 - Fixed oversight that would allow animations to be played above a foreground parallax layer.

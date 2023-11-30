@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.56
+REM Build 2.8.57
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,56,2856
-$VERSIONINFO:PRODUCTVERSION#=2,8,56,2856
+$VERSIONINFO:FILEVERSION#=2,8,57,2857
+$VERSIONINFO:PRODUCTVERSION#=2,8,57,2857
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.56"
+LET hardbuild$ = "2.8.57"
 
 setup:
 REM initiates engine and assigns values
@@ -3811,6 +3811,36 @@ DO
                 GOSUB erasesave
             END IF
         END IF
+        REM reloads current save 
+        IF temp15$ = "loadsave" THEN
+			CLS
+			_PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+			IF setupboot = 0 THEN
+				LET scriptname$ = "loadsave"
+			ELSE
+				LET scriptname$ = "loadsavefail"
+			END IF
+            LET mapscript = 5
+            GOSUB script
+            IF setupboot = 0 THEN
+				CLS
+				_PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+				FOR x = 1 TO 2
+					IF x = 1 THEN LET choicename$(x) = "YES"
+					IF x = 2 THEN LET choicename$(x) = "NO"
+				NEXT x
+				LET choicetotal = 2
+				GOSUB choicebannerdraw
+				IF choiceno = 1 THEN
+					CLS
+					GOSUB loadgame
+					CLS
+					LET scriptname$ = "postloadsave"
+					LET mapscript = 5
+					GOSUB script
+				END IF
+            END IF
+        END IF
         REM toggles music on and off
         IF temp15$ = "musictoggle" THEN
             CLS
@@ -6933,7 +6963,14 @@ DO
         ELSE
             REM go to choice drawing sub, clear values, divert to choice
             LET x = 0
-            IF scriptskip = 0 THEN GOSUB choicebannerdraw
+            IF allowskip = 1 THEN LET allowskip = 0
+            IF scriptskip = 1 THEN 
+				REM halt a script skip and present choice on screen
+				LET scriptskip = 0
+				IF fadestatus = 1 THEN GOSUB fadein
+				GOSUB screendraw
+			END IF
+            GOSUB choicebannerdraw
             LET temp26 = 2
             REM enables a spoof trigger to run a script
             LET triggerspoofa = 1
@@ -7902,24 +7939,26 @@ DO
             REM main player
             LET temp12$ = LEFT$(scriptline$, INSTR(scriptline$, " ") - 1)
             LET temp135 = 2
+            IF findminus% THEN LET temp135 = temp135 - 1
             LET temp13$ = RIGHT$(scriptline$, INSTR(scriptline$, " ") - temp135)
             GOSUB coordinatefixer
             LET temp27 = VAL(temp13$)
             IF finduserandom% THEN LET temp27 = randomscriptvalue
             IF findusevalue% THEN GOSUB scriptvaluefetcher: LET temp27 = fetchedvalue
-            IF findminus% AND temp27 >= 100 THEN LET temp27 = (temp27 - temp27) - temp27
+            IF findminus% AND temp27 >= 1000 THEN LET temp27 = (temp27 - temp27) - temp27
             IF findx% THEN LET posx = ((resx / 2) - temp27): LET temp26 = 1
             IF findy% THEN LET posy = ((resy / 2) - temp27): LET temp26 = 1
         END IF
         IF findobject% THEN
             LET temp12$ = LEFT$(scriptline$, INSTR(scriptline$, " ") - 1)
             LET temp135 = 2
+            IF findminus% THEN LET temp135 = temp135 - 1
             LET temp13$ = RIGHT$(scriptline$, INSTR(scriptline$, " ") - temp135)
             GOSUB coordinatefixer
             LET temp27 = VAL(temp13$)
             IF finduserandom% THEN LET temp27 = randomscriptvalue
             IF findusevalue% THEN GOSUB scriptvaluefetcher: LET temp27 = fetchedvalue
-            IF findminus% AND temp27 >= 100 THEN LET temp27 = (temp27 - temp27) - temp27
+            IF findminus% AND temp27 >= 1000 THEN LET temp27 = (temp27 - temp27) - temp27
             LET x = 0
             DO
                 LET x = x + 1
@@ -7933,12 +7972,13 @@ DO
         IF findplayer% THEN
             LET temp12$ = LEFT$(scriptline$, INSTR(scriptline$, " ") - 1)
             LET temp135 = 2
+            IF findminus% THEN LET temp135 = temp135 - 1
             LET temp13$ = RIGHT$(scriptline$, INSTR(scriptline$, " ") - temp135)
             GOSUB coordinatefixer
             LET temp27 = VAL(temp13$)
             IF finduserandom% THEN LET temp27 = randomscriptvalue
             IF findusevalue% THEN GOSUB scriptvaluefetcher: LET temp27 = fetchedvalue
-            IF findminus% AND temp27 >= 100 THEN LET temp27 = (temp27 - temp27) - temp27
+            IF findminus% AND temp27 >= 1000 THEN LET temp27 = (temp27 - temp27) - temp27
             LET x = 0
             DO
                 LET x = x + 1
@@ -8101,12 +8141,13 @@ DO
             ELSE
                 LET temp135 = 2
             END IF
+            IF findminus% THEN LET temp135 = temp135 - 1
             LET temp13$ = RIGHT$(scriptline$, INSTR(scriptline$, " ") - temp135)
             GOSUB coordinatefixer
             LET temp27 = VAL(temp13$)
             IF finduserandom% THEN LET temp27 = randomscriptvalue
             IF findusevalue% THEN GOSUB scriptvaluefetcher: LET temp27 = fetchedvalue
-            IF findminus% AND temp27 >= 100 THEN LET temp27 = (temp27 - temp27) - temp27
+            IF findminus% AND temp27 >= 1000 THEN LET temp27 = (temp27 - temp27) - temp27
         END IF
         IF findsprint% THEN
             REM sets sprint speed
@@ -8117,12 +8158,13 @@ DO
             ELSE
                 LET temp135 = 4
             END IF
+            IF findminus% THEN LET temp135 = temp135 - 1
             LET temp13$ = RIGHT$(scriptline$, INSTR(scriptline$, " ") - temp135)
             GOSUB coordinatefixer
             LET temp27 = VAL(temp13$)
             IF finduserandom% THEN LET temp27 = randomscriptvalue
             IF findusevalue% THEN GOSUB scriptvaluefetcher: LET temp27 = fetchedvalue
-            IF findminus% AND temp27 >= 100 THEN LET temp27 = (temp27 - temp27) - temp27
+            IF findminus% AND temp27 >= 1000 THEN LET temp27 = (temp27 - temp27) - temp27
         END IF
         IF findobject% THEN
             REM object
@@ -9660,8 +9702,8 @@ END IF
 REM mouse location
 IF hud = 11 THEN
     LET mouse = _MOUSEINPUT
-    LOCATE 1, 1: PRINT _MOUSEX
-    LOCATE 2, 1: PRINT _MOUSEY
+    LOCATE 1, 1: PRINT _MOUSEX - maploc1x
+    LOCATE 2, 1: PRINT _MOUSEY - maploc1y
 END IF
 REM last console line
 IF hud = 12 THEN LOCATE 1, 1: PRINT lastconsoleline$
