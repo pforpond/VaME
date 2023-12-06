@@ -164,3 +164,10 @@ temp206 - fadein /fadeout
 temp207 - scriptvaluefetcher
 temp208 - variablevalueinjector:
 temp209 - timeframecounter:
+temp210 - mapunload:
+temp211 - awardload:
+temp212 - awarddraw:
+temp213 - awarddraw:
+temp214 - awarddraw:
+temp215 - selectobjectbanner:
+temp216 - selectobjectbanner:

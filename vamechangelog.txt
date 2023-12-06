@@ -1,6 +1,18 @@
 VAME CHANGELOG
 By Danielle Pond
 
+06/12/2023 - Update 132. (2.8.58)
+NEW FEATURES
+- Support for achievements/awards! (internal only)
+- Example game now has 10 awards.
+- New script command 'giveaward' that gives an award to the player.
+- New menu that displays granted awards, can be called with menu command 'displayawards'.
+BUG FIXES
+- Fixed selected object banner displaying collision only objects as interactive after changing map.
+- Fixed selected object banner from not realising when an NPC walks away.
+TWEAKS
+- Selected object banner now uses its own colour values instead of the developer prompt values.
+
 30/11/2023 - Update 131. (2.8.57)
 NEW FEATURES
 - New menu command available that allows for reloading the previous save, 'loadsave'.
