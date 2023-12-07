@@ -1,6 +1,11 @@
 VAME CHANGELOG
 By Danielle Pond
 
+07/12/2023 - Update 133. (2.8.59)
+BUG FIXES
+- Fixed issue with script command 'allowcontrol' which made it not work.
+- Fixed selected object banner from not realising when an object moves away.
+
 06/12/2023 - Update 132. (2.8.58)
 NEW FEATURES
 - Support for achievements/awards! (internal only)

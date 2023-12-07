@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.58
+REM Build 2.8.59
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,58,2858
-$VERSIONINFO:PRODUCTVERSION#=2,8,58,2858
+$VERSIONINFO:FILEVERSION#=2,8,59,2859
+$VERSIONINFO:PRODUCTVERSION#=2,8,59,2859
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.58"
+LET hardbuild$ = "2.8.59"
 
 setup:
 REM initiates engine and assigns values
@@ -3028,7 +3028,7 @@ RETURN
 collision:
 REM collision sub manager
 IF noclip = 1 THEN RETURN: REM return if no clip is on
-LET selectobject$ = "": LET objecttype$ = "NON": REM clears current selected object
+LET selectobject$ = "": LET selectobjectlong$ = "": LET objecttype$ = "NON": REM clears current selected object
 GOSUB mapcollision: REM map sprite boundaries
 GOSUB objectcollision: REM object sprite boundaries and selection
 GOSUB playercollision: REM NPC collision
@@ -6835,7 +6835,7 @@ DO
     LET findifrandom% = INSTR(findifrandom% + 1, scriptline$, "ifrandom ")
     LET findshelllnx% = INSTR(findshelllnx% + 1, scriptline$, "shelllnx ")
     LET findshellwin% = INSTR(findshellwin% + 1, scriptline$, "shellwin ")
-    'LET findallowcontrol% = INSTR(findallowcontrol% + 1, scriptline$, "allowcontrol")
+    LET findallowcontrol% = INSTR(findallowcontrol% + 1, scriptline$, "allowcontrol")
     LET findmakevalue% = INSTR(findmakevalue% + 1, scriptline$, "makevalue ")
     LET findusevalue% = INSTR(findusevalue% + 1, scriptline$, " usevalue-")
     LET findmodvalue% = INSTR(findmodvalue% + 1, scriptline$, "modvalue ")
@@ -8280,7 +8280,7 @@ DO
     END IF
     IF findcollision% THEN
         REM changes noclip value
-        IF findon% THEN LET noclip = 0: LET temp26 = 1: REM switches noclip off
+        IF findon% THEN LET noclip = 0: GOSUB collision: LET temp26 = 1: REM switches noclip off
         IF findoff% THEN LET noclip = 1: LET temp26 = 1: REM switches noclip on
     END IF
     IF findscript% THEN
