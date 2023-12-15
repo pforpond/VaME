@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.60
+REM Build 2.8.61
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,60,2860
-$VERSIONINFO:PRODUCTVERSION#=2,8,60,2860
+$VERSIONINFO:FILEVERSION#=2,8,61,2861
+$VERSIONINFO:PRODUCTVERSION#=2,8,61,2861
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.60"
+LET hardbuild$ = "2.8.61"
 
 setup:
 REM initiates engine and assigns values
@@ -5753,8 +5753,8 @@ IF temp8 + 1 < ctime THEN
     LET temp8 = ctime: REM reset temp values
 END IF
 REM keep track of script timer
-LET temp209 = ifcurrencyno + ifdirectionno + ifpocketno + ifholdingno + ifmodelno + ifmapnono + ifgoneno + ifrandomno + ifvalueno
-IF scripttimer > 0 AND temp209 = 0 AND runterminal = 0 AND pocketon = 0 THEN
+LET temp209 = ifcurrencyno + ifdirectionno + ifpocketno + ifholdingno + ifmodelno + ifmapnono + ifgoneno + ifrandomno + ifvalueno + ifcheckpointno + ifmodelno + iftimedno
+IF scripttimer > 0 AND temp209 = 0 AND runterminal = 0 AND pocketon = 0 AND scriptrun = 0 THEN
     REM sets values depending on gameplay type
     LET temp9989 = ctime
     IF INT(temp9989) >= INT(iscripttimer) + INT(scripttimer) THEN

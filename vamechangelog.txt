@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+15/12/2023 - Update 135. (2.8.61)
+BUG FIXES
+- Fixed chained scripts being interrupted by timed scripts.
+
 14/12/2023 - Update 134. (2.8.60)
 TWEAKS
 - Award UI now uses its own assets rather than pocket ones. (pocket resolution still used however).
