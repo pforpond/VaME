@@ -1,6 +1,11 @@
 VAME CHANGELOG
 By Danielle Pond
 
+22/12/2023 - Update 136. (2.8.62)
+NEW FEATURES
+- sfx support for when awards are granted.
+- New script command 'ifaward' that checks if player has been granted an award, diverts script if so.
+
 15/12/2023 - Update 135. (2.8.61)
 BUG FIXES
 - Fixed chained scripts being interrupted by timed scripts.

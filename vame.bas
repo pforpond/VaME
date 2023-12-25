@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.61
+REM Build 2.8.62
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,61,2861
-$VERSIONINFO:PRODUCTVERSION#=2,8,61,2861
+$VERSIONINFO:FILEVERSION#=2,8,62,2862
+$VERSIONINFO:PRODUCTVERSION#=2,8,62,2862
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.61"
+LET hardbuild$ = "2.8.62"
 
 setup:
 REM initiates engine and assigns values
@@ -5344,6 +5344,7 @@ IF temp201 = 7 THEN LET scriptnametrim = 9: REM ifmapno
 IF temp201 = 8 THEN LET scriptnametrim = 8: REM ifgone
 IF temp201 = 9 THEN LET scriptnametrim = 10: REM ifrandom
 IF temp201 = 10 THEN LET scriptnametrim = 9: REM ifvalue
+IF temp201 = 11 THEN LET scriptnametrim = 9: REM ifaward
 RETURN
 
 erasesave:
@@ -5753,7 +5754,7 @@ IF temp8 + 1 < ctime THEN
     LET temp8 = ctime: REM reset temp values
 END IF
 REM keep track of script timer
-LET temp209 = ifcurrencyno + ifdirectionno + ifpocketno + ifholdingno + ifmodelno + ifmapnono + ifgoneno + ifrandomno + ifvalueno + ifcheckpointno + ifmodelno + iftimedno
+LET temp209 = ifcurrencyno + ifdirectionno + ifpocketno + ifholdingno + ifmodelno + ifmapnono + ifgoneno + ifrandomno + ifvalueno + ifcheckpointno + ifmodelno + iftimedno + ifawardno
 IF scripttimer > 0 AND temp209 = 0 AND runterminal = 0 AND pocketon = 0 AND scriptrun = 0 THEN
     REM sets values depending on gameplay type
     LET temp9989 = ctime
@@ -6115,6 +6116,15 @@ DO
 LOOP UNTIL x >= pocketnos
 LET x = 0
 LET temp122 = 0: REM scrub temp values
+RETURN
+
+ifaward:
+IF awardvalue(ifaward) = 1 THEN 
+	LET ifawardresult = 1
+ELSE
+	LET ifawardresult = 0
+END IF
+LET ifaward = 0
 RETURN
 
 ifpocket:
@@ -6853,6 +6863,7 @@ DO
     LET findtimes% = INSTR(findtimes% + 1, scriptline$, " times ")
     LET finddivide% = INSTR(finddivide% + 1, scriptline$, " divide ")
     LET findgiveaward% = INSTR(findgiveaward% + 1, scriptline$, "giveaward ")
+    LET findifaward% = INSTR(findifaward% + 1, scriptline$, "ifaward ")
     LET findspecial666% = INSTR(findspecial666% + 1, scriptline$, "special666")
     IF _KEYDOWN(bcontrolcode1) OR _KEYDOWN(bcontrolcode2) OR _KEYDOWN(bcontrolcode3) OR _KEYDOWN(bcontrolcode4) THEN
 		REM request that the script be skipped
@@ -7835,6 +7846,41 @@ DO
         END IF
         LET temp140 = 0
     END IF
+    IF findifaward% THEN
+		REM checks if award has been granted
+		LET temp12$ = LEFT$(scriptline$, INSTR(scriptline$, " ") - 1)
+        LET temp13$ = RIGHT$(scriptline$, LEN(scriptline$) - LEN(temp12$))
+        LET temp13$ = LTRIM$(temp13$)
+        LET ifaward = VAL(temp13$)
+        LET ifawardresult = 0
+        GOSUB ifaward
+        LET temp26 = 1
+        IF ifawardresult = 1 THEN
+			REM diverts script if award is granted
+			LET temp26 = 2
+			LET triggerspoofa = 1
+            LET nextmapscript = mapscript
+            LET nodraw = 1
+            REM calculates how many values to take from the script filename
+            IF temp201 <> 0 THEN
+                GOSUB scriptnametrim
+            ELSE
+                LET scriptnametrim = 9
+            END IF
+            REM checks how many times ifaward has been run
+            IF temp200 <> 11 THEN LET ifawardno = ifawardno + 1
+            IF ifawardno > 1 THEN
+                IF temp201 = 11 THEN
+                    IF ifawardno <= 9 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
+                    IF ifawardno > 9 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+                END IF
+            END IF
+            LET triggerspoofname$ = scriptname$ + "-ifaward" + LTRIM$(STR$(ifawardno))
+            LET temp33 = 2
+            LET temp200 = 11
+            LET temp201 = temp200
+        END IF
+    END IF
     IF findifpocket% THEN
         REM checks pocket for item
         LET temp12$ = LEFT$(scriptline$, INSTR(scriptline$, " ") - 1)
@@ -8717,7 +8763,7 @@ DO
     GOSUB consoleprinter
     REM scrubs search terms and temp values
     IF temp26 = 1 THEN LET temp26 = 0: LET temp157 = 1
-    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholding% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findspecial666% = 0
+    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholding% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findspecial666% = 0
     LET x = 0
     DO
         LET x = x + 1
@@ -8757,6 +8803,7 @@ IF temp200 = 0 AND temp200 <> 999 THEN
     LET ifgoneno = 0
     LET ifrandomno = 0
     LET ifvalueno = 0
+    LET ifawardno = 0
     LET scriptskip = 0
     LET skipallowed = 0
     LET allowscriptcontrol = 0
@@ -8772,6 +8819,7 @@ IF temp200 = 999 THEN
     LET ifgoneno = 0
     LET ifrandomno = 0
     LET ifvalueno = 0
+    LET ifawardno = 0
     LET allowscriptcontrol = 0
 END IF
 IF temp200 = 0 AND fadestatus = 1 THEN LET fadestatus = 0: LET clearscreen = 1
@@ -9243,6 +9291,12 @@ IF temp212 < awardbannerresy THEN LET temp212 = temp212 + awardspeed: LET temp21
 awarddraw2:
 REM banner hovers for a while
 IF temp214 = 0 THEN LET temp214 = ctime + awardgracetime
+IF temp217 = 0 THEN
+	REM plays sfx
+	LET playsfx$ = "awardgranted"
+	GOSUB sfxplay
+	LET temp217 = 1
+END IF
 COLOR _RGBA(letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura), _RGBA(bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura)
 _PUTIMAGE (awardbannerlocx, awardbannerlocy)-(awardbannerresx - 1, awardbannerresy - 1), awardbanner
 _PUTIMAGE (awarditemlocx, awarditemlocy)-(awarditemlocx + awarditemresx - 1, awarditemlocy + awarditemresy - 1), awardsprite(awarddisplay)
@@ -9254,6 +9308,7 @@ IF temp214 =< ctime THEN
 	LET temp212 = 0
 	LET temp213 = 0
 	LET temp214 = 0
+	LET temp217 = 0
 	LET clearscreen = 1
 END IF
 COLOR 0, 0
