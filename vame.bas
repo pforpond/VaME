@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.62
+REM Build 2.8.63
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,62,2862
-$VERSIONINFO:PRODUCTVERSION#=2,8,62,2862
+$VERSIONINFO:FILEVERSION#=2,8,63,2863
+$VERSIONINFO:PRODUCTVERSION#=2,8,63,2863
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.62"
+LET hardbuild$ = "2.8.63"
 
 setup:
 REM initiates engine and assigns values
@@ -837,6 +837,7 @@ LET eventdata$ = "ACTIVE!"
 LET pocketon = 1
 LET eventnumber = 0
 LET pocketredraw = 1
+LET awarddisplay = 0
 GOSUB consoleprinter
 DO
     REM sets values
@@ -1604,6 +1605,7 @@ textbannerdraw:
 REM draws text banner and NPC pic
 _KEYCLEAR
 LET banneron = 1
+LET awarddisplay = 0
 COLOR _RGBA(letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura), _RGBA(bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura)
 IF mainmenu = 0 THEN GOSUB slightfadeout
 LET temp71 = (resy + 1)
@@ -1716,6 +1718,16 @@ IF autotxtsfx = 2 THEN
     IF temp9000 = 1 THEN RETURN
     LET playsfx$ = "talk": GOSUB sfxplay: REM plays sound efffect
     LET temp9000 = 1
+END IF
+IF autotxtsfx = 3 THEN
+	IF temp9000 = 1 THEN RETURN
+	IF objecttype$ = "OBJ" OR objecttype$ = "" THEN
+		LET playsfx$ = "talk-" + mplayermodel$: GOSUB sfxplay
+	END IF
+	IF objecttype$ = "NPC" THEN
+		LET playsfx$ = "talk-" + playername$(temp80): GOSUB sfxplay
+	END IF
+	LET temp9000 = 1
 END IF
 RETURN
 
@@ -2259,6 +2271,108 @@ ELSE
     END IF
     GOTO optionload
 END IF
+RETURN
+
+savevalue:
+REM saves a specific value to save file
+REM loads savedata, stores temp values
+OPEN sloc$ + "savedata.ddf" FOR INPUT AS #1
+INPUT #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, tempigametime, temppocketcarry
+REM loads pocket items
+LET x = 0
+DO
+    LET x = x + 1
+    INPUT #1, temppocketitem(x)
+LOOP UNTIL x >= totalpockets
+REM loads extra pocket data
+LET x = 0
+DO
+    LET x = x + 1
+    INPUT #1, temppocketvisible(x)
+LOOP UNTIL x >= totalpockets
+REM loads checkpoints
+LET x = 0
+DO
+    LET x = x + 1
+    INPUT #1, tempcheckpoint(x)
+LOOP UNTIL x >= totalcheckpoints
+REM loads custom script values
+LET x = 0
+DO
+	LET x = x + 1
+	INPUT #1, tempscriptvalue(x)
+LOOP UNTIL x >= totalscriptvalues
+REM writes awards
+LET x = 0 
+DO
+	LET x = x + 1
+	INPUT #1, tempawardvalue(x)
+LOOP UNTIL x >= totalawards
+REM loads main player
+LET x = 0
+INPUT #1, tempmplayermodel$
+CLOSE #1
+REM saves time to file
+OPEN sloc$ + "savedata.ddf" FOR OUTPUT AS #1
+WRITE #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, gametime, temppocketcarry
+REM writes pocket items
+LET x = 0
+DO
+    LET x = x + 1
+    WRITE #1, temppocketitem(x)
+LOOP UNTIL x >= totalpockets
+REM writes extra pocket data
+LET x = 0
+DO
+    LET x = x + 1
+    WRITE #1, temppocketvisible(x)
+LOOP UNTIL x >= totalpockets
+REM writes checkpoints
+LET x = 0
+DO
+    LET x = x + 1
+    WRITE #1, tempcheckpoint(x)
+LOOP UNTIL x >= totalcheckpoints
+REM writes custom script values
+LET x = 0
+DO
+	LET x = x + 1
+	IF x = valuesaveno THEN
+		WRITE #1, scriptvalue(valuesaveno)
+	ELSE
+		WRITE #1, tempscriptvalue(x)
+	END IF
+LOOP UNTIL x >= totalscriptvalues
+REM writes awards
+LET x = 0 
+DO
+	LET x = x + 1
+	WRITE #1, awardvalue(x)
+LOOP UNTIL x >= totalawards
+REM writes main player
+LET x = 0
+WRITE #1, tempmplayermodel$
+CLOSE #1
+REM erases temp values
+FOR x = 1 TO totalpockets
+	LET temppocketitem(x) = 0
+NEXT x
+FOR x = 1 TO totalpockets
+	LET temppocketvisible(x) = 0
+NEXT x
+FOR x = 1 TO totalcheckpoints
+	LET tempcheckpoint(x) = 0
+NEXT x
+FOR x = 1 TO totalawards
+	LET tempawardvalue(x) = 0
+NEXT x
+LET tempmplayermodel$ = ""
+LET tempmapno = 0: LET tempposx = 0: LET tempposy = 0: LET tempcurrency = 0: LET tempdirection = 0: LET tempigametime = 0: LET temppocketcarry = 0
+REM prints to console
+LET eventtitle$ = "VALUE " + LTRIM$(STR$(valuesaveno)) + " DATA SAVED:"
+LET eventdata$ = sloc$ + "savedata.ddf"
+LET eventnumber = 0
+GOSUB consoleprinter
 RETURN
 
 savetime:
@@ -4541,8 +4655,12 @@ DO
 		END IF
 		REM display award image (or none)
 		IF awardvalue(awardmenuno) = 1 THEN
-			REM award granted, show image
+			REM award granted, show image + display text 
 			_PUTIMAGE ((resx / 2) - (awarditemresx / 2), resy / 2), awardsprite(awardmenuno)
+			LET centretext$ = awardnotification$
+			GOSUB centretext
+			COLOR _RGBA(letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura), _RGBA(bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura)
+			_PRINTSTRING((resx / 2) - (centreno / 2), (resy / 2) + (awarditemresy + fontsize)), awardnotification$
 		ELSE
 			REM award locked, show none image
 			_PUTIMAGE ((resx / 2) - (awarditemresx / 2), resy / 2), awardnone
@@ -6233,6 +6351,7 @@ LET eventtitle$ = "TERMINAL LAUNCHED:"
 LET eventdata$ = runterminal$
 LET eventnumber = 0
 GOSUB consoleprinter
+LET awarddisplay = 0
 REM display terminal open animation (if directory isnt open)
 IF terminaldir = 0 AND terminalnoboot = 0 THEN
     LET playsfx$ = "terminalon": GOSUB sfxplay: REM plays sound efffect
@@ -6711,6 +6830,7 @@ ELSE
     RETURN
 END IF
 LET scriptrun = 1: REM sets script value to running
+LET awarddisplay = 0
 LET oldscript$ = scriptname$
 IF triggerspoofa = 1 THEN LET triggerspoofa = 0
 REM prints to console
@@ -6864,6 +6984,7 @@ DO
     LET finddivide% = INSTR(finddivide% + 1, scriptline$, " divide ")
     LET findgiveaward% = INSTR(findgiveaward% + 1, scriptline$, "giveaward ")
     LET findifaward% = INSTR(findifaward% + 1, scriptline$, "ifaward ")
+    LET findsavevalue% = INSTR(findsavevalue% + 1, scriptline$, "savevalue ")
     LET findspecial666% = INSTR(findspecial666% + 1, scriptline$, "special666")
     IF _KEYDOWN(bcontrolcode1) OR _KEYDOWN(bcontrolcode2) OR _KEYDOWN(bcontrolcode3) OR _KEYDOWN(bcontrolcode4) THEN
 		REM request that the script be skipped
@@ -7731,6 +7852,17 @@ DO
             LET temp201 = temp200
 		END IF
 		LET temp140 = 0
+    END IF
+    IF findsavevalue% THEN
+		REM saves a specific in-game value to save file
+		LET temp12$ = LEFT$(scriptline$, INSTR(scriptline$, " ") - 1)
+        LET temp13$ = RIGHT$(scriptline$, LEN(scriptline$) - LEN(temp12$))
+        LET temp13$ = LTRIM$(temp13$)
+        LET temp140 = VAL(temp13$)
+        LET valuesaveno = temp140
+        GOSUB savevalue
+        LET temp26 = 1
+        LET temp140 = 0
     END IF
     IF findifcheckpoint% THEN
         REM checks checkpoints
@@ -8763,7 +8895,7 @@ DO
     GOSUB consoleprinter
     REM scrubs search terms and temp values
     IF temp26 = 1 THEN LET temp26 = 0: LET temp157 = 1
-    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholding% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findspecial666% = 0
+    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholding% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findspecial666% = 0
     LET x = 0
     DO
         LET x = x + 1
@@ -9420,7 +9552,7 @@ IF temp1 = 4 THEN
 END IF
 LET diagonalmove = 0
 IF scriptrun = 1 THEN _KEYCLEAR: LET temp1 = 0: LET keypressedup = 0: LET keypresseddown = 0: LET keypressedleft = 0: LET keypressedright = 0: RETURN: REM return for if a script is running when allowscriptcontrol is active
-IF bcontrol = 1 THEN IF a = bcontrolcode1 OR a = bcontrolcode2 OR a = bcontrolcode3 OR a = bcontrolcode4 THEN _KEYCLEAR: GOSUB fadeout: LET menu$ = "mainmenu": GOSUB menugenerator: GOSUB mapmusicsetter: GOSUB musicplay: GOSUB fadein: REM opens main menu
+IF bcontrol = 1 THEN IF a = bcontrolcode1 OR a = bcontrolcode2 OR a = bcontrolcode3 OR a = bcontrolcode4 THEN _KEYCLEAR: LET awarddisplay = 0: GOSUB fadeout: LET menu$ = "mainmenu": GOSUB menugenerator: GOSUB mapmusicsetter: GOSUB musicplay: GOSUB fadein: REM opens main menu
 IF pcontrol = 1 THEN IF a = pcontrolcode1 OR a = pcontrolcode2 OR a = pcontrolcode3 OR a = pcontrolcode4 THEN _KEYCLEAR: GOSUB pocketdraw: REM opens pockets
 IF scontrol = 1 THEN IF a = scontrolcode1 OR a = scontrolcode2 OR a = scontrolcode3 OR a = scontrolcode4 THEN _KEYCLEAR: GOSUB useobject: REM interacts world object or player
 _KEYCLEAR

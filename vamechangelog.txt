@@ -1,6 +1,15 @@
 VAME CHANGELOG
 By Danielle Pond
 
+08/01/2024 - Update 137. (2.8.63)
+NEW FEATURES
+- NPCs can now have individual sound effects for talking.
+- New script command 'savevalue' that allows to save a specific script value.
+BUG FIXES
+- Fixed award banner fighting with other UI elements such as pockets, text banners and terminals.
+TWEAKS
+- Award menu now makes it clearer when an award is granted.
+
 22/12/2023 - Update 136. (2.8.62)
 NEW FEATURES
 - sfx support for when awards are granted.
