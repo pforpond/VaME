@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.64
+REM Build 2.8.65
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,64,2864
-$VERSIONINFO:PRODUCTVERSION#=2,8,64,2864
+$VERSIONINFO:FILEVERSION#=2,8,65,2865
+$VERSIONINFO:PRODUCTVERSION#=2,8,65,2865
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.64"
+LET hardbuild$ = "2.8.65"
 
 setup:
 REM initiates engine and assigns values
@@ -6990,6 +6990,8 @@ DO
     LET findifaward% = INSTR(findifaward% + 1, scriptline$, "ifaward ")
     LET findsavevalue% = INSTR(findsavevalue% + 1, scriptline$, "savevalue ")
     LET findspecial666% = INSTR(findspecial666% + 1, scriptline$, "special666")
+    LET findspecial667% = INSTR(findspecial667% + 1, scriptline$, "special667")
+    LET findspecial668% = INSTR(findspecial668% + 1, scriptline$, "special668")
     IF _KEYDOWN(bcontrolcode1) OR _KEYDOWN(bcontrolcode2) OR _KEYDOWN(bcontrolcode3) OR _KEYDOWN(bcontrolcode4) THEN
 		REM request that the script be skipped
 		IF mainmenu = 0 AND skipallowed = 1 THEN 
@@ -8866,14 +8868,41 @@ DO
 		LET temp26 = 1
     END IF
     IF findspecial666% THEN
-		REM special function
+		REM special function (spiderbro 1 completion)
 		IF _FILEEXISTS("data/utility/data/saves/savedata.ddf") THEN
 			OPEN "data/utility/data/saves/savedata.ddf" FOR INPUT AS #14
-			INPUT #14, scriptvalue(1)
+			INPUT #14, scriptvalue(39)
 			CLOSE #14
+			IF scriptvalue(39) = 113 THEN
+				LET scriptvalue(39) = 1
+			ELSE
+				LET scriptvalue(39) = 0
+			END IF
 			LET temp26 = 1
 			REM tells console 
-			LET eventtitle$ = "SPECIAL FUNCTION:"
+			LET eventtitle$ = "SPECIAL FUNCTION 666:"
+			LET eventdata$ = "SUCCESS!"
+			LET eventnumber = 0
+			GOSUB consoleprinter
+		END IF
+    END IF
+    IF findspecial667% THEN
+		REM special function (count number of deaths experienced)
+		LET scriptvalue(4) = scriptvalue(10) + scriptvalue(11) + scriptvalue(12) + scriptvalue(13) + scriptvalue(14) + scriptvalue(15) + scriptvalue(16) + scriptvalue(17) + scriptvalue(18) + scriptvalue(19) + scriptvalue(20) + scriptvalue(21) + scriptvalue(22) + scriptvalue(23) + scriptvalue(24) + scriptvalue(25) + scriptvalue(26) + scriptvalue(27) + scriptvalue(28) + scriptvalue(29) + scriptvalue(30) + scriptvalue(31) + scriptvalue(32) + scriptvalue(33) + scriptvalue(34) + scriptvalue(35) + scriptvalue(36) + scriptvalue(37) + scriptvalue(38)
+		LET temp26 = 1
+		REM tells console 
+		LET eventtitle$ = "SPECIAL FUNCTION 667:"
+		LET eventdata$ = "SUCCESS!"
+		LET eventnumber = 0
+		GOSUB consoleprinter
+    END IF
+    IF findspecial668% THEN
+		REM special function (count time! if under 3 hrs)
+		IF gametime < 10800 THEN 
+			LET scriptvalue(41) = 1
+			LET temp26 = 1
+			REM tells console 
+			LET eventtitle$ = "SPECIAL FUNCTION 668:"
 			LET eventdata$ = "SUCCESS!"
 			LET eventnumber = 0
 			GOSUB consoleprinter
@@ -8899,7 +8928,7 @@ DO
     GOSUB consoleprinter
     REM scrubs search terms and temp values
     IF temp26 = 1 THEN LET temp26 = 0: LET temp157 = 1
-    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholding% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findspecial666% = 0
+    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholding% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findspecial666% = 0: LET findspecial667% = 0: LET findspecial668% = 0
     LET x = 0
     DO
         LET x = x + 1
