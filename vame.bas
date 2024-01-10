@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.63
+REM Build 2.8.64
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,63,2863
-$VERSIONINFO:PRODUCTVERSION#=2,8,63,2863
+$VERSIONINFO:FILEVERSION#=2,8,64,2864
+$VERSIONINFO:PRODUCTVERSION#=2,8,64,2864
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.63"
+LET hardbuild$ = "2.8.64"
 
 setup:
 REM initiates engine and assigns values
@@ -4675,6 +4675,8 @@ DO
 	IF ami = lcontrolcode1 OR ami = lcontrolcode2 OR ami = lcontrolcode3 OR ami = lcontrolcode4 THEN
 		REM go left
 		IF awardmenuno <> 1 THEN
+			LET playsfx$ = "move"
+            GOSUB sfxplay
 			_PUTIMAGE (1, (resy / 2) - (pocketarrowresy / 2)), awardarrowls
 			_DELAY 0.1
 			LET awardmenuno = awardmenuno - 1
@@ -4684,6 +4686,8 @@ DO
 	IF ami = rcontrolcode1 OR ami = rcontrolcode2 OR ami = rcontrolcode3 OR ami = rcontrolcode4 THEN
 		REM go right
 		IF awardmenuno <> totalawards THEN
+			LET playsfx$ = "move"
+            GOSUB sfxplay
 			_PUTIMAGE ((resx - pocketarrowresx) - 1, (resy / 2) - (pocketarrowresy / 2)), awardarrowrs
 			_DELAY 0.1
 			LET awardmenuno = awardmenuno + 1
