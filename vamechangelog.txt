@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+13/01/2024 - Update 140. (2.8.66)
+NEW FEATURES
+- New script command 'whitefade' that fades out and in using white instead of black.
+
 10/01/2024 - Update 139. (2.8.65)
 TWEAKS
 - Added specific functionality needed for Spiderbro 2.
