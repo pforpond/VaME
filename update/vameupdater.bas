@@ -45,7 +45,7 @@ ELSE
 END IF
 REM checks VaME game metadata for title and version numbers
 OPEN "updatevals.ddf" FOR INPUT AS #1
-    INPUT #1, oldversionno$, engineversionno$, installtype, title$, filename$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, downloadicon$, downloadiconresx, downloadiconresy, readmecheck
+    INPUT #1, oldversionno$, engineversionno$, installtype, title$, filename$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, downloadicon$, downloadiconresx, downloadiconresy, readmecheck, weareusingmacos
 CLOSE #1
 REM sets title
 IF title$ = "" THEN LET title$ = "VaME"
@@ -388,6 +388,7 @@ GOSUB displaystep
 _DELAY 10
 IF readmecheck = 2 THEN SHELL "type " + readme$ + " | more && pause"
 SHELL _DONTWAIT winexe$ + " -noupdate"
+_SCREENHIDE
 SYSTEM
 
 linuxupdate:
@@ -502,6 +503,11 @@ SHELL _HIDE "rm modlist.tmp"
 GOSUB nextstep
 GOSUB displaystep
 _DELAY 10
-IF readmecheck = 2 THEN SHELL _DONTWAIT "cat " + readme$ + " | more"
-SHELL _HIDE "chmod +rwxrwxrwx " + lnxexe$: SHELL _DONTWAIT "./" + lnxexe$ + " -noupdate"
+'IF readmecheck = 2 THEN SHELL _DONTWAIT "cat " + readme$ + " | more"
+IF weareusingmacos = 1 THEN
+	SHELL _HIDE "chmod +rwxrwxrwx spiderbro2_macos": SHELL _DONTWAIT "./spiderbro2_macos -noupdate"
+ELSE
+	SHELL _HIDE "chmod +rwxrwxrwx " + lnxexe$: SHELL _DONTWAIT "./" + lnxexe$ + " -noupdate"
+END IF
+_SCREENHIDE
 SYSTEM

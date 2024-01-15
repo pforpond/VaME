@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.66
+REM Build 2.8.67
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,66,2866
-$VERSIONINFO:PRODUCTVERSION#=2,8,66,2866
+$VERSIONINFO:FILEVERSION#=2,8,67,2867
+$VERSIONINFO:PRODUCTVERSION#=2,8,67,2867
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.66"
+LET hardbuild$ = "2.8.67"
 
 setup:
 REM initiates engine and assigns values
@@ -22,7 +22,7 @@ REM check os
 IF INSTR(_OS$, "[WINDOWS]") THEN LET ros$ = "win"
 IF INSTR(_OS$, "[LINUX]") THEN LET ros$ = "lnx"
 IF INSTR(_OS$, "[MACOSX]") THEN LET ros$ = "mac"
-IF ros$ = "mac" THEN ERROR 430
+IF ros$ = "mac" THEN LET ros$ = "lnx": LET weareusingmacos = 1
 IF ros$ <> "win" AND ros$ <> "lnx" THEN ERROR 430
 GOSUB modload: REM checks to see if any mods are requested instead of main game
 REM check metadata exists, checks developer console settings and load engine values
@@ -3581,8 +3581,13 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
         REM download updater
         _PUTIMAGE (1, 1)-(downloadiconresx, downloadiconresy), downloadicon
         IF ros$ = "lnx" THEN
-            LET temp29$ = updateupdaterzip$ + "_linux"
-            SHELL _HIDE "curl -o " + temp29$ + " " + updaterlinklnx$
+			IF weareusingmacos = 1 THEN
+				LET temp29$ = updateupdaterzip$ + "_macos"
+				SHELL _HIDE "curl -o " + temp29$ + " https://www.dropbox.com/scl/fi/qsdhogkcx2x6h9rfsitc3/spiderbro2updater_macos?rlkey=5n9m87wp3tvqm3jc8nmk0abp3&dl=1"
+			ELSE
+				LET temp29$ = updateupdaterzip$ + "_linux"
+				SHELL _HIDE "curl -o " + temp29$ + " " + updaterlinklnx$
+            END IF
             IF _FILEEXISTS(temp29$) THEN
 				REM nothing
             ELSE
@@ -3599,7 +3604,7 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
             LET runupdate = 1
             REM writes updater file
             OPEN "updatevals.ddf" FOR OUTPUT AS #1
-            WRITE #1, versionno$, engineversionno$, installtype, title$, filename$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, downloadicon$, downloadiconresx, downloadiconresy, autoupdate
+            WRITE #1, versionno$, engineversionno$, installtype, title$, filename$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, downloadicon$, downloadiconresx, downloadiconresy, autoupdate, weareusingmacos
             CLOSE #1
             GOSUB endgame
             REM run updater
@@ -3613,8 +3618,13 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
                 LET eventnumber = 0
             END IF
             GOSUB consoleprinter
-            IF ros$ = "lnx" THEN SHELL _HIDE "chmod +x " + temp29$: SHELL _DONTWAIT "./" + temp29$
+            IF weareusingmacos = 1 THEN
+				SHELL _HIDE "chmod +x spiderbro2updater_macos": SHELL _DONTWAIT "./spiderbro2updater_macos"
+            ELSE
+				IF ros$ = "lnx" THEN SHELL _HIDE "chmod +x " + temp29$: SHELL _DONTWAIT "./" + temp29$
+            END IF
             IF ros$ = "win" THEN SHELL _DONTWAIT temp29$
+            _SCREENHIDE
             SYSTEM
         ELSE
             REM updater download failed!

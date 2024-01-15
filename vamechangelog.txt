@@ -1,6 +1,13 @@
 VAME CHANGELOG
 By Danielle Pond
 
+15/01/2024 - Update 141. (2.8.67)
+NEW FEATURES
+- Terminals now use their own move and select sfx instead using menu sounds.
+- Temp Intel macOS support for Spiderbro 2 development purposes. Do not use this feature as it will be removed as soon as it is not needed.
+BUG FIXES
+- Fixed bug where old windows would fail to close whilst updating. (Linux only).
+
 13/01/2024 - Update 140. (2.8.66)
 NEW FEATURES
 - New script command 'whitefade' that fades out and in using white instead of black.
