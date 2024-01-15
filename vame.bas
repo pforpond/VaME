@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.67
+REM Build 2.8.68
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,67,2867
-$VERSIONINFO:PRODUCTVERSION#=2,8,67,2867
+$VERSIONINFO:FILEVERSION#=2,8,68,2868
+$VERSIONINFO:PRODUCTVERSION#=2,8,68,2868
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.67"
+LET hardbuild$ = "2.8.68"
 
 setup:
 REM initiates engine and assigns values
@@ -2151,6 +2151,22 @@ CLOSE #1
 LET temp29 = 0: REM scrub temp values
 RETURN
 
+sfxstop:
+REM stops all playing sfx
+OPEN sfxloc$ + "sfxfiles.ddf" FOR INPUT AS #8
+DO
+    INPUT #8, sfxfile$
+    LET temp37 = temp37 + 1
+    _SNDSTOP sfxdata(temp37)
+LOOP UNTIL EOF(8)
+CLOSE #8
+LET eventtitle$ = "SOUND EFFECTS STOPPED!"
+LET eventdata$ = ""
+LET eventnumber = 0
+GOSUB consoleprinter
+LET temp37 = 0
+RETURN
+
 sfxplay:
 REM plays sfx
 REM diverts
@@ -3473,6 +3489,7 @@ RETURN
 updatechecker:
 REM automatically checks for updates
 IF exitsave = 1 AND setupboot = 0 THEN GOSUB savesave: REM saves game if needed
+IF weareusingmacos = 1 THEN RETURN
 CLS
 REM checks to see if engine is in developer mode
 LET finddev% = INSTR(finddev% + 1, versionno$, "DEV")
@@ -3581,13 +3598,8 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
         REM download updater
         _PUTIMAGE (1, 1)-(downloadiconresx, downloadiconresy), downloadicon
         IF ros$ = "lnx" THEN
-			IF weareusingmacos = 1 THEN
-				LET temp29$ = updateupdaterzip$ + "_macos"
-				SHELL _HIDE "curl -o " + temp29$ + " https://www.dropbox.com/scl/fi/qsdhogkcx2x6h9rfsitc3/spiderbro2updater_macos?rlkey=5n9m87wp3tvqm3jc8nmk0abp3&dl=1"
-			ELSE
-				LET temp29$ = updateupdaterzip$ + "_linux"
-				SHELL _HIDE "curl -o " + temp29$ + " " + updaterlinklnx$
-            END IF
+			LET temp29$ = updateupdaterzip$ + "_linux"
+			SHELL _HIDE "curl -o " + temp29$ + " " + updaterlinklnx$
             IF _FILEEXISTS(temp29$) THEN
 				REM nothing
             ELSE
@@ -3604,7 +3616,7 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
             LET runupdate = 1
             REM writes updater file
             OPEN "updatevals.ddf" FOR OUTPUT AS #1
-            WRITE #1, versionno$, engineversionno$, installtype, title$, filename$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, downloadicon$, downloadiconresx, downloadiconresy, autoupdate, weareusingmacos
+            WRITE #1, versionno$, engineversionno$, installtype, title$, filename$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, downloadicon$, downloadiconresx, downloadiconresy, autoupdate
             CLOSE #1
             GOSUB endgame
             REM run updater
@@ -3618,11 +3630,7 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
                 LET eventnumber = 0
             END IF
             GOSUB consoleprinter
-            IF weareusingmacos = 1 THEN
-				SHELL _HIDE "chmod +x spiderbro2updater_macos": SHELL _DONTWAIT "./spiderbro2updater_macos"
-            ELSE
-				IF ros$ = "lnx" THEN SHELL _HIDE "chmod +x " + temp29$: SHELL _DONTWAIT "./" + temp29$
-            END IF
+			IF ros$ = "lnx" THEN SHELL _HIDE "chmod +x " + temp29$: SHELL _DONTWAIT "./" + temp29$
             IF ros$ = "win" THEN SHELL _DONTWAIT temp29$
             _SCREENHIDE
             SYSTEM
@@ -6485,7 +6493,7 @@ DO
         _KEYCLEAR
         IF temp89 <> terminalrow1 THEN
             LET temp89 = terminalrow1
-            LET playsfx$ = "move"
+            LET playsfx$ = "terminalmove"
             GOSUB sfxplay
             CLS
             GOTO termloop
@@ -6496,7 +6504,7 @@ DO
         _KEYCLEAR
         IF temp89 <> terminalrow2 THEN
             LET temp89 = terminalrow2
-            LET playsfx$ = "move"
+            LET playsfx$ = "terminalmove"
             GOSUB sfxplay
             CLS
             GOTO termloop
@@ -6506,7 +6514,7 @@ DO
     IF t = lcontrolcode1 OR t = lcontrolcode2 OR t = lcontrolcode3 OR t = lcontrolcode4 THEN
         _KEYCLEAR
         IF temp88 <> terminalcol1 THEN
-            LET playsfx$ = "move"
+            LET playsfx$ = "terminalmove"
             GOSUB sfxplay
         END IF
         IF temp88 = terminalcol1 THEN LET temp88 = terminalcol1: CLS: GOTO termloop
@@ -6516,7 +6524,7 @@ DO
     REM right
     IF t = rcontrolcode1 OR t = rcontrolcode2 OR t = rcontrolcode3 OR t = rcontrolcode4 THEN
         IF temp88 <> terminalcol3 THEN
-            LET playsfx$ = "move"
+            LET playsfx$ = "terminalmove"
             GOSUB sfxplay
         END IF
         IF temp88 = terminalcol1 THEN LET temp88 = terminalcol2: CLS: GOTO termloop
@@ -6527,7 +6535,7 @@ DO
         _KEYCLEAR
         REM file type
         IF ttype = 1 THEN
-            LET playsfx$ = "select"
+            LET playsfx$ = "terminalselect"
             GOSUB sfxplay
             GOSUB readtxt
             LET temp88 = terminalcol1
@@ -6552,7 +6560,7 @@ DO
             IF tselect$ = "exit" THEN GOTO endterm: REM quits terminal
             IF tselect$ = "back" THEN
                 REM goes back a directory
-                LET playsfx$ = "select"
+                LET playsfx$ = "terminalselect"
                 GOSUB sfxplay
                 CLS
                 LET runterminal$ = parentdir$
@@ -6561,7 +6569,7 @@ DO
                 GOTO terminaldraw
             END IF
             REM runs script
-            LET playsfx$ = "select"
+            LET playsfx$ = "terminalselect"
             GOSUB sfxplay
             LET nextmapscript = 1
             LET triggerspoofa = 1
@@ -6670,7 +6678,7 @@ DO
     GOSUB timeframecounter 
 LOOP UNTIL tt = scontrolcode1 OR tt = scontrolcode2 OR scriptskip = 1
 _KEYCLEAR
-LET playsfx$ = "select"
+LET playsfx$ = "terminalselect"
 GOSUB sfxplay
 LET tselect$ = "": LET temp90 = 0: REM scrub temp values
 CLS
@@ -7053,6 +7061,7 @@ DO
 		REM request that the script be skipped
 		IF mainmenu = 0 AND skipallowed = 1 THEN 
 			LET scriptskip = 1
+			GOSUB sfxstop
 			REM tells console
 			LET eventtitle$ = "SCRIPT SKIP REQUESTED"
 			LET eventdata$ = "line:"

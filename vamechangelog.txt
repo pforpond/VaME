@@ -1,6 +1,13 @@
 VAME CHANGELOG
 By Danielle Pond
 
+15/01/2024 - Update 142. (2.8.68)
+BUG FIXES
+- Fixed bug where sound effects would continue playing when a script is skipped.
+- Fixed bug where terminal text files would still use legacy sound effects.
+REMOVED FEATURES
+- Updater support for the temp macOS version has been removed.
+
 15/01/2024 - Update 141. (2.8.67)
 NEW FEATURES
 - Terminals now use their own move and select sfx instead using menu sounds.
