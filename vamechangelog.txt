@@ -1,6 +1,14 @@
 VAME CHANGELOG
 By Danielle Pond
 
+23/01/2024 - Update 143. (2.8.69)
+NEW FEATURES
+- New script command 'sfxloop' that allows the looping of sfx.
+- New script command 'sfxstop' thats stops all sfx playing including looping sfx.
+BUG FIXES
+- Fixed bug where terminals would still play old menu sfx when selecting a directory.
+- Fixed bug where white fade command would fail to clear when moving onto next script line, sometimes resulting in visual glitches.
+
 15/01/2024 - Update 142. (2.8.68)
 BUG FIXES
 - Fixed bug where sound effects would continue playing when a script is skipped.
