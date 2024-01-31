@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.69
+REM Build 2.8.70
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,69,2869
-$VERSIONINFO:PRODUCTVERSION#=2,8,69,2869
+$VERSIONINFO:FILEVERSION#=2,8,70,2870
+$VERSIONINFO:PRODUCTVERSION#=2,8,70,2870
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.69"
+LET hardbuild$ = "2.8.70"
 
 setup:
 REM initiates engine and assigns values
@@ -28,7 +28,7 @@ GOSUB modload: REM checks to see if any mods are requested instead of main game
 REM check metadata exists, checks developer console settings and load engine values
 IF _FILEEXISTS(dloc$ + "engine.ddf") THEN
     OPEN dloc$ + "engine.ddf" FOR INPUT AS #1
-    INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowunavailableright$, pocketarrowunavailableleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, tos$, tdelay, stposx, stposy, tanidelay, terminalcol1, terminalcol2, terminalcol3, terminalrow1, terminalrow2, terminalfacex, terminalfacey, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$
+    INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowunavailableright$, pocketarrowunavailableleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, tos$, tdelay, stposx, stposy, tanidelay, terminalcol1, terminalcol2, terminalcol3, terminalrow1, terminalrow2, terminalfacex, terminalfacey, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$
     CLOSE #1
     REM finds metadata directory paths
     IF _FILEEXISTS(dloc$ + "fileloc.ddf") THEN
@@ -1996,22 +1996,42 @@ REM plays music
 REM diverts
 IF soundmode = 1 OR soundmode = 4 THEN RETURN: REM diverts if sound is off
 IF playmusic$ = currentmusic$ THEN RETURN: REM diverts if music is the same
-IF currentmusic$ <> "" AND musicpause = 0 THEN GOSUB musicstop: REM stops currently playing music
+IF musictransitionmode = 1 AND tempmusicfade = 0 THEN IF currentmusic$ <> "" AND musicpause = 0 THEN GOSUB musicstop: REM stops currently playing music
+IF musictransitionmode = 2 OR tempmusicfade = 1 THEN
+	REM fades in music
+	IF currentmusic$ <> "" AND musicpause = 0 THEN GOSUB musicfadeoutstart: REM fades out currently playing music
+	IF musicfadein = 1 THEN
+		LET musicfadeinvol = musicfadeoutvol
+	ELSE
+		LET musicfadein = 1
+		LET musicfadeinvol = 0
+	END IF
+END IF
 OPEN museloc$ + "musicfiles.ddf" FOR INPUT AS #1
 DO
     INPUT #1, musicfile$
     LET temp30 = temp30 + 1
     IF temp30 = 1 THEN
-        IF playmusic$ = musicfile$ THEN LET currentmusic$ = musicfile$: _SNDLOOP menumusic%
+        IF playmusic$ = musicfile$ THEN 
+			IF musicfadein = 1 THEN _SNDVOL menumusic%, 0.01: LET fadeinmusic = temp30
+			LET currentmusic$ = musicfile$: _SNDLOOP menumusic%
+		END IF
     ELSE
-        IF playmusic$ = musicfile$ THEN LET currentmusic$ = musicfile$: _SNDLOOP musicdata(temp30 - 1)
+        IF playmusic$ = musicfile$ THEN 
+        	IF musicfadein = 1 THEN _SNDVOL musicdata(temp30 - 1), 0.01: LET fadeinmusic = temp30
+			LET currentmusic$ = musicfile$: _SNDLOOP musicdata(temp30 - 1)
+		END IF
     END IF
 LOOP UNTIL EOF(1)
 CLOSE #1
 REM prints result to console
 IF currentmusic$ <> "" THEN
     IF currentmusic$ = playmusic$ THEN
-        LET eventtitle$ = "MUSIC PLAYING:"
+		IF musicfadein = 1 THEN
+			LET eventtitle$ = "MUSIC FADING IN + PLAYING:"
+		ELSE
+			LET eventtitle$ = "MUSIC PLAYING:"
+		END IF
         LET eventdata$ = currentmusic$
         LET eventnumber = 0
         GOSUB consoleprinter
@@ -2048,6 +2068,91 @@ IF musicpause = 1 THEN
     GOSUB consoleprinter
 END IF
 LET temp32 = 0: REM scrub temp values
+RETURN
+
+musicfadein:
+REM fades in music
+IF soundmode = 1 OR soundmode = 4 OR musicfadein = 0 THEN RETURN: REM return for is sound is off or no fade needed
+LET musicfadeinvol = musicfadeinvol + musicfadechange
+IF musicfadeinvol > musicvol THEN LET musicfadeinvol = musicvol
+IF fadeinmusic = 1 THEN
+	_SNDVOL menumusic%, musicfadeinvol
+ELSE
+	_SNDVOL musicdata(fadeinmusic - 1), musicfadeinvol
+END IF
+IF musicfadeinvol = musicvol THEN
+	REM music fade in finished!
+	LET musicfadein = 0
+	LET fadeinmusic = 0
+	LET musicfadeinvol = 0
+    LET eventtitle$ = "MUSIC FADE IN FINISHED!"
+    LET eventdata$ = ""
+    LET eventnumber = 0
+    GOSUB consoleprinter
+END IF
+RETURN
+
+musicfadeout:
+REM fades out music 
+IF soundmode = 1 OR soundmode = 4 OR musicfadeout = 0 THEN RETURN: REM return for is sound is off or no fade needed
+LET musicfadeoutvol = musicfadeoutvol - musicfadechange
+IF musicfadeoutvol < 0 THEN LET musicfadeoutvol = 0
+IF fadeoutmusic = 1 THEN
+	_SNDVOL menumusic%, musicfadeoutvol
+ELSE
+	_SNDVOL musicdata(fadeoutmusic - 1), musicfadeoutvol
+END IF
+IF musicfadeoutvol = 0 THEN
+	REM music fade out finished!
+	IF fadeoutmusic = 1 THEN
+		_SNDSTOP menumusic%
+		_SNDVOL menumusic%, musicvol
+	ELSE
+		_SNDSTOP musicdata(fadeoutmusic - 1)
+		_SNDVOL musicdata(fadeoutmusic - 1), musicvol
+	END IF
+	LET musicfadeout = 0
+	LET fadeoutmusic = 0
+    LET eventtitle$ = "MUSIC FADE OUT FINISHED!"
+    LET eventdata$ = ""
+    LET eventnumber = 0
+    GOSUB consoleprinter
+END IF
+RETURN
+
+musicfadeoutstart:
+REM begins fading music out
+IF soundmode = 1 OR soundmode = 4 THEN RETURN: REM return for is sound is off
+OPEN museloc$ + "musicfiles.ddf" FOR INPUT AS #1
+DO
+    INPUT #1, musicfile$
+    LET temp31 = temp31 + 1
+	IF currentmusic$ = musicfile$ THEN 
+		LET oldmusic$ = currentmusic$
+		LET fadeoutmusic = temp31
+		LET currentmusic$ = ""
+		IF musicfadeout = 0 THEN 
+			LET musicfadeoutvol = musicvol
+		ELSE
+			LET musicfadeoutvol = musicfadeinvol
+		END IF
+		LET musicfadeout = 1
+	END IF
+LOOP UNTIL EOF(1)
+CLOSE #1
+REM prints result to console
+IF currentmusic$ = "" THEN
+    LET eventtitle$ = "MUSIC FADE OUT BEGINS:"
+    LET eventdata$ = oldmusic$
+    LET eventnumber = 0
+    GOSUB consoleprinter
+ELSE
+    LET eventtitle$ = "MUSIC NOT STOPPED:"
+    LET eventdata$ = "FILE NOT LOADED"
+    LET eventnumber = 0
+    GOSUB consoleprinter
+END IF
+LET temp31 = 0: REM scrub temp values
 RETURN
 
 musicstop:
@@ -4050,6 +4155,8 @@ DO
                 _PRINTSTRING (menuposx, mcy6), menuchoice6$
             END IF
         END IF
+        GOSUB musicfadeout 
+		GOSUB musicfadein 
         REM input
         IF d = dcontrolcode1 OR d = dcontrolcode2 OR d = dcontrolcode3 OR d = dcontrolcode4 THEN
             IF temp78 + 1 <= menunos THEN
@@ -5990,6 +6097,9 @@ IF scripttimer > 0 AND temp209 = 0 AND runterminal = 0 AND pocketon = 0 AND scri
         END IF
     END IF
 END IF
+REM music fades
+GOSUB musicfadeout 
+GOSUB musicfadein
 RETURN
 
 game:
@@ -8538,16 +8648,22 @@ DO
     IF findmusic% THEN
         REM changes music
         IF findcontrol% THEN
-            REM plays or stops music
-            IF findplay% THEN
-                IF musicpause = 0 THEN
-                    LET playmusic$ = oldmusic$: GOSUB musicplay: LET temp26 = 1
-                ELSE
-                    GOSUB musicplay: LET temp26 = 1
-                END IF
-            END IF
-            IF findstop% THEN GOSUB musicstop: LET temp26 = 1
-            IF findpause% THEN GOSUB musicpause: LET temp26 = 1
+            IF findfade% = 0 THEN
+				REM plays or stops music
+				IF findplay% THEN
+					IF musicpause = 0 THEN
+						LET playmusic$ = oldmusic$: GOSUB musicplay: LET temp26 = 1
+					ELSE
+						GOSUB musicplay: LET temp26 = 1
+					END IF
+				END IF
+				IF findstop% THEN GOSUB musicstop: LET temp26 = 1
+				IF findpause% THEN GOSUB musicpause: LET temp26 = 1
+			END IF
+            IF findfade% THEN 
+				IF findstop% THEN GOSUB musicfadeoutstart: LET temp26 = 1
+				IF findplay% THEN LET tempmusicfade = 1: LET playmusic$ = oldmusic$: GOSUB musicplay: LET tempmusicfade = 0
+			END IF
         END IF
         IF findfile% THEN
             REM changes current music files and plays (and stops previous music)

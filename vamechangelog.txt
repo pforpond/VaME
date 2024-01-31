@@ -1,6 +1,11 @@
 VAME CHANGELOG
 By Danielle Pond
 
+31/01/2024 - Update 144. (2.8.70)
+NEW FEATURES
+- Background music can now fade in and out and crossfade between tracks automatically.
+- New script arguments to script command 'music' that allows the fading in and out of music.
+
 23/01/2024 - Update 143. (2.8.69)
 NEW FEATURES
 - New script command 'sfxloop' that allows the looping of sfx.
