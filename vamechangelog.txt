@@ -1,6 +1,13 @@
 VAME CHANGELOG
 By Danielle Pond
 
+05/02/2024 - Update 145. (2.8.71)
+NEW FEATURES
+- New arguments for 'music control' script command.
+- New arguments for prompt command 'whatis'.
+TWEAKS
+- Behaviour changed for 'music control fade' script command.
+
 31/01/2024 - Update 144. (2.8.70)
 NEW FEATURES
 - Background music can now fade in and out and crossfade between tracks automatically.

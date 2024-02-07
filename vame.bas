@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.70
+REM Build 2.8.71
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,70,2870
-$VERSIONINFO:PRODUCTVERSION#=2,8,70,2870
+$VERSIONINFO:FILEVERSION#=2,8,71,2871
+$VERSIONINFO:PRODUCTVERSION#=2,8,71,2871
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.70"
+LET hardbuild$ = "2.8.71"
 
 setup:
 REM initiates engine and assigns values
@@ -1996,8 +1996,8 @@ REM plays music
 REM diverts
 IF soundmode = 1 OR soundmode = 4 THEN RETURN: REM diverts if sound is off
 IF playmusic$ = currentmusic$ THEN RETURN: REM diverts if music is the same
-IF musictransitionmode = 1 AND tempmusicfade = 0 THEN IF currentmusic$ <> "" AND musicpause = 0 THEN GOSUB musicstop: REM stops currently playing music
-IF musictransitionmode = 2 OR tempmusicfade = 1 THEN
+IF musictransitionmode = 1 AND tempmusicfade = 0 OR tempmusiccut = 1 THEN IF currentmusic$ <> "" AND musicpause = 0 THEN GOSUB musicstop: REM stops currently playing music
+IF musictransitionmode = 2 AND tempmusiccut = 0 OR tempmusicfade = 1 THEN
 	REM fades in music
 	IF currentmusic$ <> "" AND musicpause = 0 THEN GOSUB musicfadeoutstart: REM fades out currently playing music
 	IF musicfadein = 1 THEN
@@ -7192,6 +7192,7 @@ DO
     LET findwhitefade% = INSTR(findwhitefade% + 1, scriptline$, "white ")
     LET findsfxloop% = INSTR(findsfxloop% + 1, scriptline$, "sfxloop ")
     LET findsfxstop% = INSTR(findsfxstop% + 1, scriptline$, "sfxstop")
+    LET findcut% = INSTR(findcut% + 1, scriptline$, " cut ")
     LET findspecial666% = INSTR(findspecial666% + 1, scriptline$, "special666")
     LET findspecial667% = INSTR(findspecial667% + 1, scriptline$, "special667")
     LET findspecial668% = INSTR(findspecial668% + 1, scriptline$, "special668")
@@ -8648,7 +8649,7 @@ DO
     IF findmusic% THEN
         REM changes music
         IF findcontrol% THEN
-            IF findfade% = 0 THEN
+            IF findfade% = 0 AND findcut% = 0 THEN
 				REM plays or stops music
 				IF findplay% THEN
 					IF musicpause = 0 THEN
@@ -8661,8 +8662,30 @@ DO
 				IF findpause% THEN GOSUB musicpause: LET temp26 = 1
 			END IF
             IF findfade% THEN 
-				IF findstop% THEN GOSUB musicfadeoutstart: LET temp26 = 1
-				IF findplay% THEN LET tempmusicfade = 1: LET playmusic$ = oldmusic$: GOSUB musicplay: LET tempmusicfade = 0
+				IF findoff% THEN 
+					LET tempmusicfade = 0
+					LET temp26 = 1
+					GOTO scriptsay
+				END IF
+				IF findon% THEN 
+					LET tempmusicfade = 1
+					LET temp26 = 1
+					IF tempmusiccut = 1 THEN LET tempmusiccut = 0
+					GOTO scriptsay
+				END IF
+			END IF
+			IF findcut% THEN 
+				IF findoff% THEN 
+					LET tempmusiccut = 0
+					LET temp26 = 1
+					GOTO scriptsay
+				END IF
+				IF findon% THEN 
+					LET tempmusiccut = 1
+					LET temp26 = 1
+					IF tempmusicfade = 1 THEN LET tempmusicfade = 0
+					GOTO scriptsay
+				END IF
 			END IF
         END IF
         IF findfile% THEN
@@ -9157,7 +9180,7 @@ DO
     GOSUB consoleprinter
     REM scrubs search terms and temp values
     IF temp26 = 1 THEN LET temp26 = 0: LET temp157 = 1
-    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholding% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findwhitefade% = 0: LET findsfxloop% = 0: LET findsfxstop% = 0: LET findspecial666% = 0: LET findspecial667% = 0: LET findspecial668% = 0
+    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholding% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findwhitefade% = 0: LET findsfxloop% = 0: LET findsfxstop% = 0: LET findcut% = 0: LET findspecial666% = 0: LET findspecial667% = 0: LET findspecial668% = 0
     LET x = 0
     DO
         LET x = x + 1
@@ -10136,6 +10159,8 @@ DO
         IF value$ = "mainmenu" THEN PRINT mainmenu: LET temp = 1
         IF value$ = "fadestatus" THEN PRINT fadestatus: LET temp = 1
         IF value$ = "random" THEN PRINT randomscriptvalue: LET temp = 1
+        IF value$ = "tempmusiccut" THEN PRINT tempmusiccut: LET temp = 1
+        IF value$ = "tempmusicfade" THEN PRINT tempmusicfade: LET temp = 1
         IF value$ = "checkpoint" THEN
             LET temp = 1
             LET x = 0
