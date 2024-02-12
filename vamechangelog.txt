@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+12/02/2024 - Update 146. (2.8.72)
+BUG FIXES
+- Fixed bug where audio would turn off after an update.
+
 05/02/2024 - Update 145. (2.8.71)
 NEW FEATURES
 - New arguments for 'music control' script command.

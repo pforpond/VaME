@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.71
+REM Build 2.8.72
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,71,2871
-$VERSIONINFO:PRODUCTVERSION#=2,8,71,2871
+$VERSIONINFO:FILEVERSION#=2,8,72,2872
+$VERSIONINFO:PRODUCTVERSION#=2,8,72,2872
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.71"
+LET hardbuild$ = "2.8.72"
 
 setup:
 REM initiates engine and assigns values
@@ -3715,7 +3715,7 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
         END IF
         GOSUB consoleprinter
         IF soundmode = 2 OR soundmode = 3 THEN GOSUB musicstop: REM stops music if needed
-        LET soundmode = 1
+        'LET soundmode = 1
         IF fixvame = 1 THEN
             LET eventtitle$ = "ENGINE REPAIR:"
             LET eventdata$ = "Downloading repair file!"
