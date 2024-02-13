@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.72
+REM Build 2.8.73
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,72,2872
-$VERSIONINFO:PRODUCTVERSION#=2,8,72,2872
+$VERSIONINFO:FILEVERSION#=2,8,73,2873
+$VERSIONINFO:PRODUCTVERSION#=2,8,73,2873
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.72"
+LET hardbuild$ = "2.8.73"
 
 setup:
 REM initiates engine and assigns values
@@ -2113,11 +2113,32 @@ IF musicfadeoutvol = 0 THEN
 	END IF
 	LET musicfadeout = 0
 	LET fadeoutmusic = 0
+	REM tells console
     LET eventtitle$ = "MUSIC FADE OUT FINISHED!"
     LET eventdata$ = ""
     LET eventnumber = 0
     GOSUB consoleprinter
+    REM double checks no unwanted music is playing
+    GOSUB musicfadestopper
 END IF
+RETURN
+
+musicfadestopper:
+REM checks for any unwanted music tracks that are still playing and stops them
+OPEN museloc$ + "musicfiles.ddf" FOR INPUT AS #1
+DO
+    INPUT #1, musicfile$
+    LET temp31 = temp31 + 1
+	IF currentmusic$ <> musicfile$ THEN 
+		IF temp31 = 1 THEN
+			_SNDSTOP menumusic%
+		ELSE
+			_SNDSTOP musicdata(temp31 - 1)
+		END IF	
+	END IF
+LOOP UNTIL EOF(1)
+CLOSE #1
+LET temp31 = 0: REM scrub temp values
 RETURN
 
 musicfadeoutstart:

@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+13/02/2024 - Update 147. (2.8.73)
+BUG FIXES
+- Fixed bug where fading between music tracks too quickly would result in an unwanted music track playing over the wanted music track.
+
 12/02/2024 - Update 146. (2.8.72)
 BUG FIXES
 - Fixed bug where audio would turn off after an update.
