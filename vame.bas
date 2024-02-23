@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.73
+REM Build 2.8.74
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,73,2873
-$VERSIONINFO:PRODUCTVERSION#=2,8,73,2873
+$VERSIONINFO:FILEVERSION#=2,8,74,2874
+$VERSIONINFO:PRODUCTVERSION#=2,8,74,2874
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.73"
+LET hardbuild$ = "2.8.74"
 
 setup:
 REM initiates engine and assigns values
@@ -4747,6 +4747,8 @@ DO
     DO
         LET dsr = _KEYHIT
         _LIMIT hertz
+        GOSUB musicfadeout 
+		GOSUB musicfadein 
     LOOP UNTIL dsr = ucontrolcode1 OR dsr = ucontrolcode2 OR dsr = ucontrolcode3 OR dsr = ucontrolcode4 OR dsr = dcontrolcode1 OR dsr = dcontrolcode2 OR dsr = dcontrolcode3 OR dsr = dcontrolcode4 OR dsr = scontrolcode1 OR dsr = scontrolcode2 OR dsr = scontrolcode3 OR dsr = scontrolcode4
     REM decides results from input
     REM up
@@ -4883,6 +4885,8 @@ DO
 			REM award locked, show none image
 			_PUTIMAGE ((resx / 2) - (awarditemresx / 2), resy / 2), awardnone
 		END IF
+		GOSUB musicfadeout 
+		GOSUB musicfadein 
 	LOOP UNTIL ami = bcontrolcode1 OR ami = bcontrolcode2 OR ami = bcontrolcode3 OR ami = bcontrolcode4 OR ami = lcontrolcode1 OR ami = lcontrolcode2 OR ami = lcontrolcode3 OR ami = lcontrolcode4 OR ami = rcontrolcode1 OR ami = rcontrolcode2 OR ami = rcontrolcode3 OR ami = rcontrolcode4
 	REM processes inputs
 	IF ami = bcontrolcode1 OR ami = bcontrolcode2 OR ami = bcontrolcode3 OR ami = bcontrolcode4 THEN
@@ -5018,6 +5022,8 @@ DO
     DO
         LET dsr = _KEYHIT
         _LIMIT hertz
+        GOSUB musicfadeout 
+		GOSUB musicfadein
     LOOP UNTIL dsr = ucontrolcode1 OR dsr = ucontrolcode2 OR dsr = ucontrolcode3 OR dsr = ucontrolcode4 OR dsr = dcontrolcode1 OR dsr = dcontrolcode2 OR dsr = dcontrolcode3 OR dsr = dcontrolcode4 OR dsr = scontrolcode1 OR dsr = scontrolcode2 OR dsr = scontrolcode3 OR dsr = scontrolcode4
     REM decides results from input
     REM up
