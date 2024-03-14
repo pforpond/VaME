@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+14/03/2024 - Update 149. (2.8.75)
+BUG FIXES
+- Fixed bug where the gametime value in the save file would incorrectly inflate when loading a save during gameplay.
+
 23/02/2024 - Update 148. (2.8.74)
 BUG FIXES
 - Fixed bug where music fades would pause when entering the award, save restore and mods menus.

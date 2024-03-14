@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.74
+REM Build 2.8.75
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,74,2874
-$VERSIONINFO:PRODUCTVERSION#=2,8,74,2874
+$VERSIONINFO:FILEVERSION#=2,8,75,2875
+$VERSIONINFO:PRODUCTVERSION#=2,8,75,2875
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.74"
+LET hardbuild$ = "2.8.75"
 
 setup:
 REM initiates engine and assigns values
@@ -2654,7 +2654,11 @@ REM checks save data file exists and diverts to save erase if not
 IF _FILEEXISTS(sloc$ + "savedata.ddf") THEN
     REM loads savedata
     OPEN sloc$ + "savedata.ddf" FOR INPUT AS #1
-    INPUT #1, mapno, currency, posx, posy, direction, igametime, pocketcarry
+    IF setupboot = 1 THEN
+		INPUT #1, mapno, currency, posx, posy, direction, igametime, pocketcarry
+	ELSE
+		INPUT #1, mapno, currency, posx, posy, direction, gametime, pocketcarry
+	END IF
     REM loads pocket items
     LET x = 0
     DO
@@ -6086,7 +6090,7 @@ END IF
 LET ctime = (TIMER - itime): REM time keeper
 REM save time keeper
 LET stime = (TIMER - sitime)
-LET gametime = (gametime + (stime - gametime)) + igametime
+LET gametime = (gametime + (stime - gametime)) + igametime: REM wtf? this is not working!
 REM calculates full save time 
 LET savetimehour = INT(gametime) \ 3600
 LET savetimemin = (INT(gametime) - (3600 * savetimehour)) \ 60
