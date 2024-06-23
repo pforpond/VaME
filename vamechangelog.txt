@@ -1,0 +1,1475 @@
+VAME CHANGELOG
+By Danielle Pond
+
+15/06/2024 - Update 152. (2.8.78)
+NEW FEATURES
+- macOS support reintroduced. (Excluding updater for now).
+BUG FIXES
+- Fixed an issue where holding down a directional key whist opening the pockets would break some of the pocket controls. Pockets now do not open until all directional keys are not being pressed.
+
+08/05/2024 - Update 151. (2.8.77)
+NEW FEATURES
+- New script command 'resetsavetime' that resets save timer back to 0.
+BUG FIXES
+- Fixed an issue where restoring a save would wipe the received awards from the save being restored.
+- Fixed timed scripts from interrupting terminal script requests.
+TWEAKS
+- Rewritten script sub with modular code, unified temporary value array and unified command splitter. Results include less code and improved performance. Over time all temporary values will be converted to use the unified temporary value array for cleaner code and improved performance.
+
+03/05/2024 - Update 150. (2.8.76)
+BUG FIXES
+- Fixed an issue where facing collision only objects would act like objects in the pockets, allowing the player to pointlessly use items with nothing.
+
+14/03/2024 - Update 149. (2.8.75)
+BUG FIXES
+- Fixed bug where the gametime value in the save file would incorrectly inflate when loading a save during gameplay.
+
+23/02/2024 - Update 148. (2.8.74)
+BUG FIXES
+- Fixed bug where music fades would pause when entering the award, save restore and mods menus.
+
+13/02/2024 - Update 147. (2.8.73)
+BUG FIXES
+- Fixed bug where fading between music tracks too quickly would result in an unwanted music track playing over the wanted music track.
+
+12/02/2024 - Update 146. (2.8.72)
+BUG FIXES
+- Fixed bug where audio would turn off after an update.
+
+05/02/2024 - Update 145. (2.8.71)
+NEW FEATURES
+- New arguments for 'music control' script command.
+- New arguments for prompt command 'whatis'.
+TWEAKS
+- Behaviour changed for 'music control fade' script command.
+
+31/01/2024 - Update 144. (2.8.70)
+NEW FEATURES
+- Background music can now fade in and out and crossfade between tracks automatically.
+- New script arguments to script command 'music' that allows the fading in and out of music.
+
+23/01/2024 - Update 143. (2.8.69)
+NEW FEATURES
+- New script command 'sfxloop' that allows the looping of sfx.
+- New script command 'sfxstop' thats stops all sfx playing including looping sfx.
+BUG FIXES
+- Fixed bug where terminals would still play old menu sfx when selecting a directory.
+- Fixed bug where white fade command would fail to clear when moving onto next script line, sometimes resulting in visual glitches.
+
+15/01/2024 - Update 142. (2.8.68)
+BUG FIXES
+- Fixed bug where sound effects would continue playing when a script is skipped.
+- Fixed bug where terminal text files would still use legacy sound effects.
+REMOVED FEATURES
+- Updater support for the temp macOS version has been removed.
+
+15/01/2024 - Update 141. (2.8.67)
+NEW FEATURES
+- Terminals now use their own move and select sfx instead using menu sounds.
+- Temp Intel macOS support for Spiderbro 2 development purposes. Do not use this feature as it will be removed as soon as it is not needed.
+BUG FIXES
+- Fixed bug where old windows would fail to close whilst updating. (Linux only).
+
+13/01/2024 - Update 140. (2.8.66)
+NEW FEATURES
+- New script command 'whitefade' that fades out and in using white instead of black.
+
+10/01/2024 - Update 139. (2.8.65)
+TWEAKS
+- Added specific functionality needed for Spiderbro 2.
+
+10/01/2024 - Update 138. (2.8.64)
+TWEAKS
+- Added sfx support for the award menu.
+
+08/01/2024 - Update 137. (2.8.63)
+NEW FEATURES
+- NPCs can now have individual sound effects for talking.
+- New script command 'savevalue' that allows to save a specific script value.
+BUG FIXES
+- Fixed award banner fighting with other UI elements such as pockets, text banners and terminals.
+TWEAKS
+- Award menu now makes it clearer when an award is granted.
+
+22/12/2023 - Update 136. (2.8.62)
+NEW FEATURES
+- sfx support for when awards are granted.
+- New script command 'ifaward' that checks if player has been granted an award, diverts script if so.
+
+15/12/2023 - Update 135. (2.8.61)
+BUG FIXES
+- Fixed chained scripts being interrupted by timed scripts.
+
+14/12/2023 - Update 134. (2.8.60)
+TWEAKS
+- Award UI now uses its own assets rather than pocket ones. (pocket resolution still used however).
+
+07/12/2023 - Update 133. (2.8.59)
+BUG FIXES
+- Fixed issue with script command 'allowcontrol' which made it not work.
+- Fixed selected object banner from not realising when an object moves away.
+
+06/12/2023 - Update 132. (2.8.58)
+NEW FEATURES
+- Support for achievements/awards! (internal only)
+- Example game now has 10 awards.
+- New script command 'giveaward' that gives an award to the player.
+- New menu that displays granted awards, can be called with menu command 'displayawards'.
+BUG FIXES
+- Fixed selected object banner displaying collision only objects as interactive after changing map.
+- Fixed selected object banner from not realising when an NPC walks away.
+TWEAKS
+- Selected object banner now uses its own colour values instead of the developer prompt values.
+
+30/11/2023 - Update 131. (2.8.57)
+NEW FEATURES
+- New menu command available that allows for reloading the previous save, 'loadsave'.
+- Mouse location hud now updated to take into account how far map has scrolled, providing pixel perfect co-ordinates for the map rather than just the window.
+TWEAKS
+- Script choices now halts script skipping as the player is required to make a choice.
+- Stage director script utility now supports negative numbers down to -9999 for warp/sprint/move co-ordinates.
+
+14/11/2023 - Update 130. (2.8.56)
+BUG FIXES
+- Fixed oversight that would allow animations to be played above a foreground parallax layer.
+
+06/11/2023 - Update 129. (2.8.55)
+NEW FEATURES
+- Terminal text files are now compatible with script variables.
+BUG FIXES
+- Fixed bug where using script variable values would attempt to chain a script.
+- Fixed bug where script variable values over three figures and up wouldn't display correctly when called upon.
+TWEAKS
+- Improvements to script skipping that can now bridge across scripts chained with the 'script' command.
+- Changed some GUI wording in the updater.
+- Changed text banner and terminal text variable calling term from [scriptvalue-(no)] to [value]-(no).
+
+03/11/2023 - Update 128. (2.8.54)
+TWEAKS
+- Script command 'script' now ensures the script is run from a map folder rather than the value of the previous script.
+
+28/10/2023 - Update 127. (2.8.53)
+BUG FIXES
+- Fixed 'script' script command that would not work when requested on a chained script.
+
+24/10/2023 - Update 126. (2.8.52)
+TWEAKS
+- Options are now saved to options.ddf immediately after an option has been changed.
+
+20/10/2023 - Update 125. (2.8.51)
+BUG FIXES
+- Fixed ghosting of UI elements whist fading out.
+
+17/10/2023 - Update 124. (2.8.50)
+BUG FIXES
+- Fixed bug where objects and players set with (NOCULL) value (now: (nocull)) wouldn't respond to script commands requesting control of them.
+
+12/10/2023 - Update 123. (2.8.49)
+BUG FIXES
+- Fixed bug where NPC walk routes would often break and jitter if a higher speed modifier is used.
+
+11/10/2023 - Update 122. (2.8.48)
+NEW FEATURES
+- Objects and Players can now be set to no automatic culling with the value (NOCULL) being somewhere in the object or player name.
+
+08/10/2023 - Update 121. (2.8.47)
+BUG FIXES
+- Fixed timed scripts interrupting chained scripts.
+- Fixed bug with updater where wget wouldn't name files correctly.
+- Fixed oversight where updater would also delete the options file when a save needed erasing.
+TWEAKS
+- Updater now cleans up updater files better.
+
+20/09/2023 - Update 120. (2.8.46)
+BUG FIXES
+- Prevented timed scripts from continuing after loading a save, erasing a save or restoring a save.
+- Fixed bug where script command 'modvalue' didn't function unless userandom was used as the value.
+- Fixed bug where script command 'ifvalue' wouldn't work with any value slots above 9.
+- Fixed stutter in walk cycle when starting a script that enables player controls.
+- Fixed bug where script diverts with 'ifvalue' command would fail after the first divert.
+TWEAKS
+- Scripts are no longer case sensitive and can function with capital letters.
+
+16/09/2023 - Update 119. (2.8.45)
+NEW FEATURES
+- New script commands 'shelllnx' and 'shellwin' for running shell commands for Linux and Windows hosts.
+- New script command 'allowcontrol' that allows the player to control the game whilst a script runs. This is intended for short scripts that change the status of checkpoints, triggers or pocket items. No other scripts can be executed and the pockets are still inaccessible.
+- New script commands 'makevalue', 'modvalue' and 'ifvalue' that can make and manipulate in game values generated by scripts and saved to both memory and save file.
+- New script command argument 'usevalue-' that can be used in place of any number in script commands.
+- New script command 'special666' that executes a custom special function. Currently set to looking up Spiderbro 1 saves for Spiderbro 2, saves mapno value to script value slot 1.
+- New post save erase script that runs after the user confirms they would like to erase their save.
+- New text banner variable value '[scriptvalue-(no)]' that injects script values.
+- Demo game now erases high scores of in-game arcade games when a save is erased.
+- Updater can now automatically erase incompatible saves.
+BUG FIXES
+- Fixed VaME Limit Converter bug where old values would not be read correctly.
+- Fixed VaME Limit Converter bug where new values would not be saved correctly.
+- Fixed bug where gametime was not being saved before loading a game.
+- Fixed bug where gametime was pointlessly being saved before erasing a save, spamming the console with error messages.
+TWEAKS
+- Added support for division by zero errors in error handler.
+- VaME Limit Converter now supports the script values.
+- Updater now uses wget if curl fails. (Linux only).
+
+12/09/2023 - Update 118. (2.8.44)
+BUG FIXES
+- Fixed bug where external applications would not be getting access to the correct file to read correct screen and audio settings.
+- Fixed bug where music of main game would continue playing whilst an external application was open.
+TWEAKS
+- Added updated polybius external app that accepts new data formats.
+
+11/09/2023 - Update 117. (2.8.43)
+BUG FIXES
+- Fixed flicker when holding a key whilst using in game terminals.
+- Fixed bug where attempting to merge a pocket item whilst only having one pocket item would bring up a blank text box.
+- Reduced fade flicker.
+TWEAKS
+- Changed workings of fadespeed value to reduce flicker.
+
+05/09/2023 - Update 116. (2.8.42)
+BUG FIXES
+- Fixed bug where pocket animations would be a pixel short of the true destination.
+
+28/08/2023 - Update 115. (2.8.41)
+NEW FEATURES
+- Time taken to play the game now included in save file.
+- Stage director scripts now have full RNG support.
+- New argument for prompt command 'display'.
+- New argument for prompt command 'whatis'.
+- New text banner variable value '[gametime]'.
+- New text banner variable value '[random]'.
+- New script command 'makerandom' that generates random values for use in scripts.
+- New script command 'ifrandom' that checks to see if value of random number is above, under or equal to another number.
+- New script command argument 'userandom' that can be used in place of any number in a script command except in 'ifrandom' and 'makerandom' commands.
+BUG FIXES
+- Fixed bug where fade in PC applications would fail after running an application from an in-game PC.
+TWEAKS
+- Tweaks to tech specs developer hud.
+- Prompt command 'say' now runs text through the variable value injector.
+- Console now displays an error when a full screen image isn't available.
+- Example game updated to use new RNG system for the maze.
+REMOVED FEATURES
+- Random maps via the 'map' script command has been removed. Random maps are now achieved with the 'makerandom' command.
+
+20/08/2023 - Update 114. (2.8.40)
+NEW FEATURES
+- New text banner variable value '[moddingname]'.
+BUG FIXES
+- Fixed bug where mainplayer model would not reload when a save was erased, resulting in the wrong mainplayer model being displayed at the start of a game.
+- Fixed bug where disabled controls would carry over to any restored saves.
+- Fixed bug that would mix up text banner variable values.
+- Fixed bug where repeated text banner variable values would not be translated.
+TWEAKS
+- Modding name value moved from code to metadata.
+
+19/08/2023 - Update 113. (2.8.39)
+NEW FEATURES
+- Game no longer restarts when a save is erased or restored.
+TWEAKS
+- Changed scaling of terminal loading animation.
+
+16/08/2023 - Update 112. (2.8.38)
+BUG FIXES
+- Fixed bug where engine would keep attempting to open up a terminal data file if none existed and spam the console with errors.
+- Fixed bug where the world would not fade in after exiting a terminal if you had run an app from the terminal.
+
+15/08/2023 - Update 111. (2.8.37)
+NEW FEATURES
+- Scripts can be skipped whilst a pocket item is being added or removed.
+- Scripts can be skipped whilst a terminal text file is being displayed.
+- Scripts can be skipped whilst a full screen image is being displayed.
+BUG FIXES
+- Fixed bug where timed scripts could interrupt script diverts.
+TWEAKS
+- Tweaks to wording of some errors to make the issue clearer to the user.
+
+10/08/2023 - Update 110. (2.8.36)
+NEW FEATURES
+- Scripts can be skipped whilst a 'move' or 'sprint' command is executing.
+- Scripts can be skipped whilst a textbanner is displayed.
+- Scripts can be skipped whilst an animation is playing.
+BUG FIXES
+- Fixed bug where prompt would display both success and error messages when using 'system mainplayer' command.
+- Fixed bug where skipping a script during the wait command would work even if the script was allowed to be skipped.
+
+01/08/2023 - Update 109. (2.8.35)
+NEW FEATURES
+- Skipping scripts now fades out and shows the loading logo.
+- You can now skip scripts whilst a 'wait' script command is executing, interrupting the command.
+BUG FIXES
+- Fixed flicker in pockets if player were to press and hold a key.
+TWEAKS
+- Overhaul of loading bar calculations (previous attempts just were not working).
+
+19/07/2023 - Update 108. (2.8.34)
+BUG FIXES
+- Fixed bug where animated objects in skipped scripts would vanish.
+- Fixed bug where game would fade out twice if you quit from the main menu after playing the game.
+
+18/07/2023 - Update 107. (2.8.33)
+BUG FIXES
+- Fixed bug where options wouldn't save unless the game was played.
+- Fixed bug where updater wouldn't pause at the end of displaying the readme file. (Windows only).
+- Fixed bug where skipping cutscenes would result in NPCs being warped to the wrong places.
+- Fixed bug where skip script value would not pass over to chained scripts.
+- Fixed bug where animated NPCs in skipped scripts would vanish.
+- Fixed bug where skipped scripts that had faded out would fail to fade back in.
+- Fixed bug where script command 'wait' wouldn't have the latest time and would often skip waits of a second or under.
+
+17/07/2023 - Update 106. (2.8.32)
+NEW FEATURES
+- Option values are now separated from the save file and into their own config file.
+- Scripts that run the 'allowskip' command can now be skipped if the player holds the 'back/pause' key.
+- New script command 'allowskip' that allows the player to skip the script if they'd like to.
+- Updater is now able to load a readme file after an update is completed if needed.
+BUG FIXES
+- Fixed bug where the script running eye would appear when interacting with menu items.
+TWEAKS
+- More legacy code removed.
+
+11/07/2023 - Update 105. (2.8.31)
+TWEAKS
+- Added scope of deleted updater files on startup.
+- Removed more code relating to recorded games.
+- Speedrun and demo files now no longer supported by the updater.
+
+10/07/2023 - Update 104. (2.8.30)
+BUG FIXES
+- Fixed bug where no NPC face sprites or names would appear correctly, instead showing glitch blocks.
+TWEAKS
+- Improved error reporting when attempting to run a game or mod that requires a different VaME version.
+- Small tweaks to wording of some error reports to make it more clear as to what the error is and what the solution should be.
+- Small tweaks to loading bar calculations (again again).
+
+08/07/2023 - Update 103. (2.8.29)
+NEW FEATURES
+- New text banner variable values. '[tos]', '[ros]', '[gametitle]', '[musicvol]','[sfxvol]' and '[proposedmod]'.
+- New argument for script command 'speaker' that allows for no speaker at all.
+- New arguments for prompt command 'whatis'.
+- Main menu text banners now removed from engine.ddf and converted to stage director scripts.
+- Selected object highlighter (beta).
+BUG FIXES
+- Fixed bug where missing scripts would cause a console loop and soft lock the game.
+- Fixed bug where system scripts were missing error reporting.
+TWEAKS
+- Pocket item now scrolls in with interface in animation when removing item from pockets.
+- First pocket item now scrolls in with the pocket interface.
+- Reduction of code in error handler.
+- Removal of redundant code.
+- Text banners now look up information faster and without accessing metadata files.
+- Small performance improvements.
+- More changes to loading bar calculation.
+
+04/07/2023 - Update 102. (2.8.28)
+NEW FEATURES
+- Spoof toggle support in menu generator.
+- Text banners now support three specific variable values. '[helditem1]', '[helditem2]' and '[selectobject]'.
+BUG FIXES
+- Fixed bug where menu generator would always place 6th menu item at the top of the screen.
+TWEAKS
+- CPU usage slightly reduced.
+- Reduction in unnecessary code and software bloat. (over 2000 lines cut!)
+- Changes to loading bar calculation.
+- Bad pocket on pocket mergers now divert to a script.
+- Bad pocket on object uses now divert to a script.
+- Empty pocket scenario now diverts to script.
+- Text and choice banners now use internal variable to keep track of the banner content instead of external files, increasing speed. (Due to this change, banners now have a limit of 100,000 characters).
+REMOVED FEATURES
+- Recording and playback of demo files removed.
+- Speedrun mode removed.
+- Script command 'complete speedrun' removed.
+- Prompt command 'system speedrun' removed.
+
+21/06/2023 - Update 101. (2.8.27)
+BUG FIXES
+- Fixed bug where new font spacing would throw off the centralised text values for choice banners.
+- Fixed bug where console reporting for trigger changes wouldn't function when a trigger was turned off.
+- Fixed bug where the VaME Limit Converter wouldn't function as it had not been updated since December 2022.
+- Fixed bug where the VaME Limit Converter would fail to write the mainplayer model to the new save file.
+
+16/06/2023 - Update 100. (2.8.26)
+BUG FIXES
+- Fixed bug where holding down a shift key at certain times whilst walking would lock the player into walking constantly. 
+
+30/05/2023 - Update 99. (2.8.25)
+NEW FEATURES
+- Font in text and choice banners can now have a custom pixel buffer to increase the space between letters. This does not apply to spaces.
+
+28/05/2023 - Update 98. (2.8.24)
+BUG FIXES
+- Fixed all of the mistakes made with update 97. Script diverting now operates as expected.
+TWEAKS
+- Speed of script diversions has been improved.
+
+27/05/2023 - Update 97. (2.8.23)
+TWEAKS
+- 'if' commands in scripts now divert to a name based on an incrementing number rather than an extension to the file name. This comes to all 'if' commands except ifchoice and iftimed.
+
+26/05/2023 - Update 96. (2.8.22)
+BUG FIXES
+- Fixed bug where playback of recorded demos or speedruns would crash upon loading claiming the engine version was incorrect.
+- Fixed bug where playback of recorded demos or speedruns would attempt to load data from a non-existent file resulting in the console being flooded with errors.
+
+25/05/2023 - Update 95. (2.8.21)
+BUG FIXES
+- Fixed bug where update 94 broke collision only objects.
+
+24/05/2023 - Update 94. (2.8.20)
+NEW FEATURES
+- Objects and players can now have their collisions deactivated.
+- New mod- Spider Edition! Replaces Shadowbro to speed engine development and testing. Demonstrates mods that build upon the base game rather than outright replacing it. Mod will turn your main character to Spiderbro and changes the in game font. Mods that replace the base game are still supported.
+BUG FIXES
+- Fixed bug where recorded demos wouldn't have current hidden pocket item data available.
+TWEAKS
+- Script commands 'show all' and 'hide all' now includes pocket items not in the player's possession.
+- Sound disabled by default because I am sick of hearing those tunes. Sorry :(
+
+16/05/2023 - Update 93. (2.8.19)
+NEW FEATURES
+- Object and player speed multipliers.
+
+17/04/2023 - Update 92. (2.8.18)
+NEW FEATURES
+- Closing with the window X button is now possible within the main menu.
+BUG FIXES
+- Fixed bug where y axis parallax scrolling would flicker.
+- Fixed bug in demo and speedrun playback where the map correction system was overcorrecting, causing endless loops during playback. (again!)
+- Fixed bug where NPCs would jump positions during the playback of a demo.
+- Fixed bug where playback of demos would not be able to save or load a game if needed.
+- Fixed bug where choice banners launched by looking at a pocket item would softlock the game whilst recording a demo or speedrun.
+TWEAKS
+- Tweaked wording of speedrun display when playing a speedrun file that uses an older game version to take up less screen space.
+- Frame counting value now uses 64bit integers.
+
+30/03/2023 - Update 91. (2.8.17)
+NEW FEATURES
+- Player routes now have the option to 'snap back' to either the original location or the destination location.
+BUG FIXES
+- Fixed bug where trigger calculator would overflow when a trigger was disabled, resulting in corrupted trigger positions.
+- Fixed bug where key presses would be stored throughout a script and processed after the script had finished.
+
+27/03/2023 - Update 90. (2.8.16)
+NEW FEATURES
+- Support for up to ten developer logos.
+- New script command 'trigger' that can turn triggers on and off.
+- New argument for prompt command 'change' that can turn triggers on or off.
+- Objects can now be forced onto a layer, overriding the automatic layering.
+BUG FIXES
+- Fixed bug where menu backdrops were slightly stretched.
+- Fixed bug with demo and speedrun playback where map checks were over correcting, sending playback into an endless map loading loop.
+TWEAKS
+- Improvements to techspecs developer hud.
+- Controls are now disabled whilst any triggers are activated.
+REMOVED FEATURES
+- Developer logos are no longer be slightly skipped.
+
+18/03/2023 - Update 89. (2.8.15)
+NEW FEATURES
+- New argument for script command 'checkpoint' that allows for selecting all checkpoints to be switched on or off.
+- New argument for script commands 'take' and 'give' that allows for selecting all pocket items to be taken or given.
+- New argument for script commands 'show' and 'hide' that allows for selecting all pocket items to be shown or hidden.
+- New demo recording and playback feature.
+- New launch parameter '-record' and '-playrecord' that handles demo recording and playback.
+- Speedrun mode now creates a demo file for playback instead of a results file at the end.
+- New menu command 'recorddemo' that enables and disables demo recording.
+- New menu command 'playdemo' that allows for playing of demo files.
+- New menu command 'playspeedrun' that allows for playing of speedrun files.
+BUG FIXES
+- Fixed bug where map effect would draw over speedrun display when an animation was playing.
+TWEAKS
+- Menu items rearranged in demo game.
+- Speed of textbanner letters tweaked.
+- Small performance improvements.
+- New update servers.
+- Updater now includes demo and speedrun files in backup and restore process.
+
+12/01/2023 - Update 88. (2.8.14)
+NEW FEATURES
+- Missing art assets on any maps are now replaced with a very noticeable error texture.
+- Improved error reporting for when assets are missing.
+- New script command 'remark' that acts as a way of commenting in Stage Director script files.
+BUG FIXES
+- Fixed mistake in developer console messaging when using script command 'show'.
+
+01/01/2023 - Update 87. (2.8.13)
+BUG FIXES
+- Fix to fade outs not being permanent in scripts once further script commands are being processed.
+TWEAKS
+- Improvements to fade in and fade out code.
+- Total of hidden pocket items is now taken from pocket item total to prevent bugs and potential soft locks.
+
+31/12/2022 - Update 86. (2.8.12)
+NEW FEATURES
+- VaME Limit Converter source supplied.
+BUG FIXES
+- VaME Limit Converter updated to work for newer engine versions.
+- Fix to bug where VaME Limit Converter would fail to copy mplayermodel$ to new save file.
+TWEAKS
+- macOS executables compiled by users no longer function.
+- VaME Limit Converter shows current limit values whilst asking for new ones.
+
+30/12/2022 - Update 85. (2.8.11)
+BUG FIXES
+- Fixed bug where prompt command 'display checkpoint' would often break, flooding the console with errors, displaying graphical glitches and displaying incorrect information.
+- Bug fixes to prompt command 'system' to provide more accurate console entries.
+- Demo game WASD controls now work whilst caps lock is on.
+TWEAKS
+- Each control now has 4 assignable inputs up from 2.
+- Removed legacy code.
+- Input code rewritten and optimised.
+
+26/12/2022 - Update 84. (2.8.10)
+NEW FEATURES
+- New command arguments for prompt command 'display'.
+- Pocket items can now be hidden from the pocket interface (requires the player to have the pocket item).
+- New prompt commands 'hideitem' and 'showitem' that can change visibility of pocket items in the pocket interface.
+- New script commands 'hide' and 'show' that can change visibility of pocket items in the pocket interface.
+- Collision of objects and players off of the screen are now no longer calculated.
+BUG FIXES
+- Updater now hides icons when an error occurs.
+- Fixed bug where merging pocket items interface would sometimes skip an item.
+TWEAKS
+- Console collision printer now displays objectno or playerno of collision if required.
+- Change to interface wording in updater.
+- Demo game now has WSAD support.
+- Tweaks to wording of some console printer entries.
+
+15/12/2022 - Update 83. (2.8.9)
+BUG FIXES
+- Fixed bug where 'whatis checkpoint' prompt command would display incorrect results.
+- Fixed bug where 'change checkpoint' prompt command would display incorrect results.
+TWEAKS
+- Added automatic slight fade in to end of pocket functions.
+
+10/12/2022 - Update 82. (2.8.8)
+NEW FEATURES
+- New argument to prompt commands 'whatis' and 'change' that allow displaying and manipulation of checkpoint values.
+- Automatic culling of objects and NPCs not on screen.
+BUG FIXES
+- Fixed bug where map boundary collision was a pixel off.
+TWEAKS
+- Change to interface wording in updater.
+
+06/12/2022 - Update 81. (2.8.7)
+NEW FEATURES
+- Menu text banners stripped from code and put in metadata file engine.ddf.
+BUG FIXES
+- Fixed bug where the empty pocket message would appear as a system text banner rather than a player text banner.
+- Fixed bug where objects couldn't be interacted with whilst facing left.
+- Fixed more instances of pixel stretch.
+- Fixed bug with script command 'backchoice' where it would sometimes fail to find previous script in chain.
+- Fixed bug where the text skip in choice banners was too slow.
+- Fixed bug where merging pocket items menu wouldn't display.
+TWEAKS
+- Demo game now uses different controls.
+- Loading icon now hides in updater once the updater has finished updating.
+- Tweaks to interface text in updater.
+- Script command 'backchoice' now used in demo game.
+- Small bug fixes to demo game content to keep it in line with new engine requirements.
+
+04/12/2022 - Update 80. (2.8.6)
+NEW FEATURES
+- New script command 'backchoice' that can call upon the script choices previous in the script chain.
+BUG FIXES
+- Fix to some errors in game metadata caused by updated code.
+- Fix to graphical glitch block occasionally seen at the end of scripts on maps with parallax backgrounds.
+
+30/11/2022 - Update 79. (2.8.5)
+BUG FIXES
+- Fix to occasional stretched pixels on some graphical assets.
+- Fix to occasional stutter of parallax layers whilst mainplayer is moving.
+- Fixed bug where developer prompt would endlessly interrupt a script if player launched a script from the developer prompt.
+- Fixed spelling mistakes to some developer prompt messages.
+- Fix to player name and sprites appearing in text banners from the main menu or when quitting game.
+- Fixed bug where NPC would moonwalk and the game would softlock if a script tells an NPC to go to a co-ordinate they're already at.
+- Fixed bug where NPC would overshoot target co-ordinate if sprinting.
+- Fixed oversight where an object or NPC would still be considered 'selected' if it moved away from the player meaning the player could still interact with them without being near them. 
+TWEAKS
+- Developer prompt can no longer be launched whilst a script is running.
+- Phrasing of exit game text banners changed.
+REMOVED FEATURES
+- Prompt command 'script stop' now no longer functional.
+
+21/11/2022 - Update 78. (2.8.4)
+NEW FEATURES
+- New updater that now supports updating mods. Will not work on VaME versions older than 2.8.3.
+BUG FIXES
+- Fix to occasional black glitch square that lasts a single frame in the upper left hand corner when a script ends.
+- Fix to some inconsistencies and mistakes in the demo game.
+- Fix to routine that centralises text, the sums were a little off.
+- Fix to text banner word length detection occasionally messing up and letting words overlap lines.
+- Fix to updater not correctly displaying version numbers and game titles at times.
+TWEAKS
+- End game prompt now shows when exiting via OS window controls.
+- End game prompt now warns the player that they could lose game progress if autosave is not active.
+- Updater now uses curl instead of wget. (Linux only).
+- Updater now uses both loading and downloading icons.
+
+23/10/2022 - Update 77. (2.8.3)
+NEW FEATURES
+- Save icon for use in scripts.
+- Download icon for when the update checker is running.
+- Player choice menus that allow the player the choose from up to 100 choices.
+- New script command 'saving' that displays a save icon.
+- New script command 'choice' that displays a player choice dialogue.
+- New script command 'halttimed' that cancels the active timed script.
+- New script command 'iftimed' that checks if a timed script is active and diverts to a new script if so.
+- Mod and restore save menus now have an image background.
+- Menu generator updated to use player choice dialogues.
+- New menu generator commands 'sfxvol' and 'musicvol' that change the sfx and music volume.
+- Added content to the demo game to demonstrate newer features.
+BUG FIXES
+- Fixed bug where animations would not take into account layers, always performing on the top layer regardless of main player location.
+- Fixes and improvement to error handling when scripts are missing.
+- Fixed bug where completing a speedrun would result in two files outputted with two different times.
+TWEAKS
+- Menu backgrounds now shown at all times during menu usage.
+- Legacy code removed.
+- Speedrun mode now notices when developer mode is active to prevent speedrun cheaters.
+- Laid groundwork for replacement updater (coming in 2.8.4).
+REMOVED FEATURES
+- Menu generator commands 'sfxup', 'sfxdown', 'musicup' and 'musicdown' removed in favour of new commands.
+- Some unused UI sprites removed.
+
+11/10/2022 - Update 76. (2.8.2)
+NEW FEATURES
+- New launch parameter '-windowed' that launches VaME in windowed mode.
+- New launch parameter '-fullscreen' that launches VaME in fullscreen mode.
+- Basic mod support that could be used for game mods, possible DLCs or extra game content.
+- New launch parameter '-mod=[modname]' that launches a mod instead of the main game. Mod cannot be called 'data' as this is the default game location.
+- Improved audio transcoding resulting in faster loading times.
+- New menu generator command 'launchspeedrun' that enables speedrun mode.
+- New menu generator command 'restoresave' that launches a restore old saves menu.
+- New menu generator command 'loadmod' that launches a mod selection menu.
+- New menu to restore previously erased saves.
+- New menu to browse and launch mods.
+- VaME now will automatically remove erased saves, keeping 9 of the most recent erased saves.
+- New arguments to prompt command 'system' that restart VaME.
+- Launching speedrun mode with the launch parameter now checks if the save is new and has not been tampered with.
+- Results of abandoned speedruns are now also saved to a text file in the game folder.
+- New script command 'timedscript' that allows a script to be run after a defined number of seconds.
+- Timed scripts that run automatically after a defined number of seconds provided no other script timers are running. Timed scripts do not activate during the use of other scripts, terminals or pockets and will activate after they're closed.
+- Example mod now included: Shadowbro Teaser.
+BUG FIXES
+- VaME limit converter now erases savedata.ddf (Windows only).
+- Fixed bug where speedrun completed speedrun results were not written to a text file (Windows only).
+- Fixed bug where eye logo when script was running would not be removed after script ended.
+TWEAKS
+- Menu generator code optimised.
+- Legacy code removed.
+- Asset locations files now merged into one file.
+- Speedrun mode now disables saving and all save controls.
+- Speedrun mode now disables update checking.
+- Speedrun results are now more detailed.
+- Time developer hud display now shows TIMER and frames values.
+REMOVED FEATURES
+- macOS is now no longer supported.
+
+19/09/2022 - Update 75. (2.8.1)
+NEW FEATURES
+- New arguments to prompt command 'display' for a mini developer console.
+TWEAKS
+- Text banners now use player name from metadata rather than internal short names.
+- Blank or invalid script lines no longer call for a screen clear.
+
+01/09/2022 - Update 74. (2.8)
+NEW FEATURES
+- Support for animated parallax background and foreground layers.
+- Controls are now customisable by developer.
+- Pressing the select key during a text banner now skips the text animation.
+- New script command 'terminaltext' that displays a terminal text file on screen.
+- New script command 'terminalnoboot' that launches a terminal without the launch animation.
+- Additional text banner dialogue now stripped from code and moved to metadata.
+- Random text banner dialogue when using incorrect pocket items with objects or merging pocket items.
+- Support for random map requests in scripts.
+- Automatic limit converter utility. Found in utility folder. Copy to game executable directory and run to automatically convert all engine limits on objects, players and more.
+BUG FIXES
+- Fixed bug where select sounds would overflow during the combine pocket items menu.
+- Fixed bug where text banner portrait would sometimes appear whilst pockets were open.
+- Fixed bug where pocket item names would vanish when scrolling to the end of the pocket items when combining pocket items.
+- Fixed bug where terminal loading face wouldn't appear every time.
+TWEAKS
+- Redesigned input routine.
+- Legacy code removed.
+- Text banner portraits now animate throughout text animation.
+- Metadata file colours.ddf removed. Data from colours.ddf is now part of engine.ddf.
+- Updates to demo game to demonstrate parallax scrolling.
+- Updates to demo game to demonstrate new terminal behaviours and features.
+- Rewrite to how scripts are launched from terminals, utilising the spoof trigger.
+- Small tweaks to terminal animation behaviours.
+- Terminal OS name now displayed from the start of the icons loading animation.
+- Improvements to separation of values for objects marked as collision only to accommodate for values of any size.
+- Three font availability stripped to one due to feature never being expanded upon.
+- Font based arguments for prompt commands 'whatis' and 'change' stripped down to 'fontname', 'fontsize' and 'fontstyle'.
+
+13/07/2022 - Update 73. (2.7.9)
+BUG FIXES
+- Fix to pocket banner sprite alignment.
+- Fix to bug where players would sometimes fail to start their walk routes on the first map loaded.
+- Fix to graphical bug where layering system would incorrectly put text dialogues names in front of the text banner.
+TWEAKS
+- Pocket menu no longer plays select sounds beyond menu boundaries.
+- Letter I in text dialogues now has an offset mode available.
+
+05/07/2022 - Update 72. (2.7.8)
+NEW FEATURES
+- VaME now no longer requires a manual relaunch after erasing the current save.
+TWEAKS
+- VaME now can launch without a save file and just automatically makes a copy from the default save.
+
+01/07/2022 - Update 71. (2.7.7)
+NEW FEATURES
+- VaME now checks if engine version is suitable for the game metadata and closes if a different version of VaME is required.
+BUG FIXES
+- Fixes to FPS counter.
+TWEAKS
+- Changes to how array values are reported to the engine console.
+- Engine and demo game array limits now set at 100 for each value by default.
+- Changes to formatting of metadata to improve ease of use.
+
+14/06/2022 - Update 70. (2.7.6)
+NEW FEATURES
+- New condition added to version number for blocking updates in builds intended for 3rd party stores and distribution systems that already have an update solution (such as Steam or Epic Games Store).
+
+25/05/2022 - Update 69 (eyyy) (2.7.5)
+NEW FEATURES
+- Updater now restores previous version automatically if the update fails.
+BUG FIXES
+- Fixed bug where manually triggering an update would fail to show text banners for user info.
+- Fixed bug where main player name would appear on some text banners intended for menus.
+- Fixed bug where checking for updates and updating would add 'wget-log' files to the game folder. (Linux only).
+TWEAKS
+- Updater now points user to Studio Pond support website if the update fails.
+- Small tweaks to the updater interface.
+
+21/05/2022 - Update 68. (2.7.4)
+NEW FEATURES
+- Engine can now check for updates upon startup.
+- New launch parameter '-noupdate' that skips startup update check.
+BUG FIXES
+- Fixed bug where some mainplayer sprites were not being unloaded from memory.
+- Fixed bug where loading a previous save during gameplay would be filled with errors and, wouldn't work properly and sometimes crash the game.
+- Prompt command 'system' now has less errors.
+- Fixed bug where game would automatically save before an update regardless of the exitsave value.
+- Fixed bug where speed run timer would display current time during main menu text banners.
+TWEAKS
+- Small performance improvements due to cleaner code.
+- Update checking code rewritten and streamlined.
+- Launch parameter '-update' removed as VaME now automatically checks for updates on launch.
+- Rewrite to error handler reducing code amount.
+
+02/05/2022 - Update 67. (2.7.3)
+NEW FEATURES
+- Speed run mode enabled with launch parameter -speedrun.
+- New arguments for prompt command 'system'.
+- New script command 'complete speedrun'.
+BUG FIXES
+- Fix to CPU spikes in main menu, terminals, pockets and full screen images.
+- Fix to fade flicker when exiting full screen images.
+
+06/03/2022 - Update 66. (2.7.2)
+BUG FIXES
+- Fixes to Updater (macOS and Linux only).
+TWEAKS
+- Changes to code to prevent select sound from playing when attempting to move past the first and last menu options in main menu and terminal.
+
+21/02/2022 - Update 65. (2.7.1)
+NEW FEATURES
+- Updater now supports platform specific updates.
+BUG FIXES
+- Fixed bug where mashing space during text dialogues would cause text to loop.
+
+13/02/2022 - Update 64. (2.7)
+NEW FEATURES
+- Complete rewrite of major parts of engine resulting in 70% less code, reduced executable size and performance improvements.
+- Number of objects, NPCs and triggers attachable to a map is now unlimited.
+- Number of animation frames in animation is now unlimited.
+- Number of pocket items available is now unlimited.
+- Number of music and sfx files is now unlimited.
+- Erasing more than one save per day no longer overwrites old save file.
+BUG FIXES
+- Fixed bug where music wouldn't stop when requested to by a script.
+- Fixed bug where not all NPC sprites would unload from memory.
+
+07/02/2022 - Update 63. (2.6.12)
+BUG FIXES
+- Fix to bug where game could be ended and saved during a cutscene, potentially allowing sequence breaking events in game.
+- Fix to animation system freezing due to a timer value wraparound.
+
+05/01/2022 - Update 62. (2.6.11)
+BUG FIXES
+- Fix to bug where map would fail to load if first map to be loaded is map 0.
+
+04/01/2022 - Update 61. (2.6.10)
+NEW FEATURES
+- Updates now able to support different games without changing any code.
+BUG FIXES
+- Fix to update system after update server change. (macOS only).
+
+24/12/2021 - Update 60. (2.6.9)
+TWEAKS
+- Games that start on map 0 now no longer divert automatically to map 1.
+- Text banner 'select' sound is now optional.
+- Improvements to error handler.
+
+13/12/2021 - Update 59. (2.6.8)
+TWEAKS
+- Developer logo tune can now be played during the logo fade in.
+
+08/12/2021 - Update 58. (2.6.7)
+NEW FEATURES
+- Support for Windows 11.
+BUG FIXES
+- Fix to audio. (macOS only).
+TWEAKS
+- Changes to devmode behaviour, mode no longer blocks console logging. New value consolelogging now attends to this.
+- Dialogue auto generated sound can now be disabled.
+- New parameters to prompt command 'change'.
+REMOVED FEATURES
+- Windows 7 is now no longer supported.
+- Windows 8 is now no longer supported.
+
+05/08/2021 - Update 57. (2.6.6)
+BUG FIXES
+- Update to engine input handler to prevent button mashing and the carrying over of player inputs to  parts of the engine they were unintended to be used.
+
+10/07/2021 - Update 56 (revision 1). (2.6.5REV1)
+BUG FIXES
+- Fix to collision turning off on map after pausing.
+
+08/07/2021 - Update 56. (2.6.5)
+NEW FEATURES
+- Menu generator now supports aligned text for menus.
+- New script command 'control' that allows for the enabling and disabling of player controls on the fly.
+TWEAKS
+- New metadata folder for menu generator data.
+
+06/06/2021 - Update 55. (2.6.4)
+BUG FIXES
+- Fix to bug where object sprite would still show whilst being animated.
+- Fix to bug where developer prompt font would turn invisible after executing certain commands.
+
+25/05/2021 - Update 54. (2.6.3)
+NEW FEATURES
+- New argument for prompt command 'whatis'.
+BUG FIXES
+- Fix to file permission assigning code when external application is run.
+- Fix to objects marked as collision only forgetting the object step resulting in faulty collision.
+- Fix to object collision converter that would tell console incorrect mapped co-ordinated.
+TWEAKS
+- Legacy code removed.
+- Tweaks to example game.
+
+23/05/2021 - Update 53. (2.6.2)
+NEW FEATURES
+- All animation offset types can now be enabled or disabled.
+- Map animation offsets.
+BUG FIXES
+- Fix to map music setter where missing code would result in failure to play music sometimes.
+- Fix to error message that would appear when marking a map object as collision only.
+- Fix to error message that would appear when attempting to unload an object marked as collision only.
+TWEAKS
+- Improvements to animation offset generator's randomness and efficiency.
+- Example game updated to use objects assigned as collision to save file count.
+
+13/05/2021 - Update 52. (2.6.1)
+NEW FEATURES
+- Text colours moved off the hexadecimal format to RGBA.
+- Text colours removed from source code to external metadata file colours.ddf.
+- Text colours now support backgrounds.
+- Text colours now support alpha transparency.
+- New arguments to prompt command 'system'.
+BUG FIXES
+- Fix to value clearing code in developer prompt sub.
+- Fix to wrong text colours being shown whilst the developer HUD is active.
+- Fix to console printer where some engine actions would not be saved to consolelog.txt.
+- Fix to permissions not being correct during running an external app. (macOS + Linux only).
+TWEAKS
+- Legacy code removed.
+
+11/05/2021 - Update 51. (2.6)
+NEW FEATURES
+- Objects can now be moved by the 'warp', 'move' and 'sprint' script commands.
+- Objects now support animations with script command 'animate'.
+- Map objects and NPCs have a random animation offset.
+- Map objects can now be set as collision zones by using '[COLLISIONONLY]' as the object name. Object metadata files are not needed.
+- Ten built in checkpoints to assist any story progression that is not able to be tracked with other value checking script commands.
+- New script command 'checkpoint' that toggles checkpoints on or off.
+- New script command 'ifcheckpoint' that checks if checkpoint is on and diverts to new script if so.
+BUG FIXES
+- Fix to animation file detection.
+- Errors are now more descriptive and offer potential solutions.
+
+16/04/2021 - Update 50. (2.5.50)
+NEW FEATURES
+- New script command 'carryvalues' that carries NPC location values to the next map loaded.
+- New map effect, pitch black.
+- New argument added to script command 'mapeffect'.
+- New script command 'loadgame' that loads a previous save file.
+- Support for macOS Big Sur.
+BUG FIXES
+- Fix to window scaling issue. (macOS only).
+- Fix to script command 'ifdirection' that would sometimes not function.
+- Fix to object collision to remove sub pixels.
+- Fix to fade flicker.
+- Fix to graphical ghosting that occurred on the right hand side of the side of the screen beyond the background map image whilst a dark map effect was applied. (Linux only).
+- Fix to terminal text not appearing sometimes.
+TWEAKS
+- Developer console can now be opened with both forward and back slash.
+- Display controls menu command now hides disabled controls from message.
+- Product information metadata added. (Windows only).
+- Saving game is now tied to the exitsave value when running an external app.
+REMOVED FEATURES
+- macOS Mojave is now no longer supported.
+KNOWN BUILD ISSUES
+- All audio is currently non-functional due to changing technologies. A fix is currently being sourced. Users should compile vame25soundless.bas to avoid immediate crashes. (macOS Big Sur only).
+
+9/11/2020 - Update 49. (2.5.49)
+NEW FEATURES
+- New script command 'ifdirection' that checks if mainplayer is facing a certain direction and diverts to new script if so.
+
+2/10/2020 - Update 48. (2.5.48)
+BUG FIXES
+- Fixed bug where script commands 'move', 'sprint' and 'warp' would treat any numbers below -99 as positive integers.
+
+24/09/2020 - Update 47. (2.5.47)
+NEW FEATURES
+- Custom engine animations can now handle 64 frames, up from 16.
+TWEAKS
+- Improved consistency amongst console message formatting.
+- Additional start up information displayed in console, enabled/disabled controls and save on exit.
+
+21/09/2020 - Update 46 (revision 1). (2.5.46REV1)
+TWEAKS
+- Changes to information displayed in techspecs prompt display.
+
+17/09/2020 - Update 46. (2.5.46)
+NEW FEATURES
+- Individual controls can now be enabled and disabled through a new set of values.
+
+11/09/2020 - Update 45. (2.5.45)
+TWEAKS
+- Amount of supported maps is now unlimited.
+- Reduced code and improved speed in map loading procedure.
+
+24/08/2020 - Update 44. (2.5.44)
+NEW FEATURES
+- New arguments to prompt command 'system'.
+- New arguments to prompt command 'whatis'.
+TWEAKS
+- Improvements to engine repairing.
+- Prompt command 'erase' removed in favour of 'system' command.
+- New value to choose if VaME saves game upon quitting.
+- Improvements to Script Utility to prevent confusion between some commands.
+
+01/08/2020 - Update 43. (2.5.43)
+TWEAKS
+- Improvements to error handler, missing filenames of scripts, terminals and animations now logged in the VaME Console.
+
+25/07/2020 - Update 42. (2.5.42)
+NEW FEATURES
+- New launch parameter '-fix' that forces an update to fix any damaged files.
+REMOVED FEATURES
+- Windows Vista is now no longer supported.
+
+18/07/2020 - Update 41. (2.5.41)
+NEW FEATURES
+- New arguments to prompt command 'whatis'.
+- Engine version number now has separate value to the game version number.
+BUG FIXES
+- Improvements to error handler that prevent further errors in instances that cause a sequence of errors.
+TWEAKS
+- Support for more error types.
+
+20/06/2020 - Update 40. (2.5.40)
+TWEAKS
+- Improvements to script command 'run' allowing integration of VaME settings into an external application.
+- ALT-ENTER can no longer change the screen mode. This can now only be done through the in game prompt or main menu.
+
+08/06/2020 - Update 39 (revision 2). (2.5.39REV2)
+BUG FIXES
+- Fixes to scripts during the demo game that would cause too many fade effects to be applied to the tutorials.
+
+21/05/2020 - Update 39 (revision 1). (2.5.39REV1)
+BUG FIXES
+- Fixes to script in map 15 of demo game that would cause the game to softlock.
+
+18/05/2020 - Update 39. (2.5.39)
+TWEAKS
+- Console window now displays game title in title bar (Windows only).
+- 'run' script command now hides main application window when external application is running.
+
+13/05/2020 - Update 38. (2.5.38)
+BUG FIXES
+- Fix to bug with 'run' script command on Windows clients that would result in the external application failing to launch.
+
+05/05/2020 - Update 37. (2.5.37)
+NEW FEATURES
+- New script command 'run' that allows for launching of external applications.
+
+01/05/2020 - Update 36. (2.5.36)
+NEW FEATURES
+- New script commands 'backmove' and 'backsprint' that allows player character and NPCs to walk and sprint backwards.
+- New tutorial for the test game.
+BUG FIXES
+- Fixed bug where scripts would fail to detect single digit co-ordinates, resulting in the  co-ordinate value defaulting to zero.
+- Fixed bug where animation for NPC would fail unless its name was exactly 9 characters long.
+TWEAKS
+- Improvements to scripting engine.
+
+14/04/2020 - Update 35. (2.5.35)
+TWEAKS
+- Added extra update files to clean up list after update.
+- Increased number of supported maps from 96 to 192.
+
+03/04/2020 - Update 34. (2.5.34)
+NEW FEATURES
+- Text banners now display the player's or NPC's name.
+TWEAKS
+- Added extra update files to clean up list after update.
+- Developer build flag can be added ('DEV') to version number to block updates.
+
+28/03/2020 - Update 33. (2.5.33)
+TWEAKS
+- Support for developer testing map slot (mapno = 0).
+
+27/03/2020 - Update 32. (2.5.32)
+BUG FIXES
+- Fixed bug where updater would delete entire game if the update download failed.
+TWEAKS
+- Increased number of supported maps from 48 to 96.
+- Improvements to updater.
+
+20/03/2020 - Update 31. (2.5.31)
+NEW FEATURES
+- Additional argument to 'direction' script command, 'faceplayer' that will automatically face the NPC towards the player character.
+BUG FIXES
+- Fixed bug where in-script script triggers would loop errors and flood the consolelog if script wasn't found.
+- Fixed bug where scripts run with [RUNSCRIPT] identifier in pocket item description would fail to divert if needed.
+TWEAKS
+- Tweaks to pockets UI when merging items together.
+- Game data updated to include new NPC direction feature.
+
+11/03/2020 - Update 30. (2.5.30)
+BUG FIXES
+- Fixed bug where inventory items 48 to 96 would fail to save.
+
+09/03/2020 - Update 29. (2.5.29)
+TWEAKS
+- Increased number of supported pocket items from 48 to 96.
+
+01/03/2020 - Update 28. (2.5.28)
+NEW FEATURES
+- New script commands 'silentgive' and 'silenttake' that give and take pocket items silently without displaying an animation.
+- New script commands 'silentgivecurrency' and 'silenttakecurrency' that give and take currency silently without displaying an animation.
+- New script command 'ifmapno' that checks if player is on a certain map. If so then the script diverts.
+- New script command 'ifmodel' that checks if player is using a certain character model. If so then the script diverts.
+- Support for more errors.
+BUG FIXES
+- Fix to text banners that would fail to load some NPC sprites when they were speaking.
+- Fix to text banner text box image alignment.
+- Fix to text banner character sprite alignment.
+TWEAKS
+- Corrections to spelling errors in some console entries.
+- Some player sprites cleaned up and improved.
+- Example game now takes away all pocket items off player when game is completed.
+
+22/02/2020 - Update 27. (2.5.27)
+NEW FEATURES
+- Sound Effect and Music volume can now be changed.
+- New arguments to prompt command 'whatis'
+- New arguments to prompt command 'change'
+TWEAKS
+- New main menu background image.
+
+11/02/2020 - Update 26. (2.5.26)
+NEW FEATURES
+- Slow fade out function.
+- New script command 'slowfade' that slowly fades out or in.
+- New arguments to prompt command 'system'
+TWEAKS
+- Improvements to load bar.
+- Improvements to update routine.
+- VaME now deletes any remaining updater files after an update.
+
+08/02/2020 - Update 25 (revision 1). (2.5.25REV1)
+BUG FIXES
+- Fixed bug with scripts launched by looking at pocket items where the pocketclose sound would still play after the script has run.
+TWEAKS
+- Improvements to erasing save routine.
+
+06/02/2020 - Update 25. (2.5.25)
+NEW FEATURES
+- New arguments to prompt command 'whatis'.
+- New arguments to prompt command 'script'.
+- Prompt can now be launched whilst a script is running.
+- New script command 'sprint' that adds sprinting functionality to mainplayer and NPCs.
+- New script command 'showimage' that displays a fullscreen image on screen.
+- Looking at pocket items can now also run scripts by putting '[RUNSCRIPT] (scriptname)' in the pocket item description string.
+
+27/01/2020 - Update 24 (revision 1).
+BUG FIXES
+- Fixed bug where using '-nofx' launch parameter would soft lock the game during gameplay.
+
+26/01/2020 - Update 24. (2.5.24)
+NEW FEATURES
+- Loading bar on launch.
+- Developer logo displayed on launch.
+- New executable launch parameters. See manual for details.
+BUG FIXES
+- Fixed bug where screen settings would fail to be applied on launch.
+TWEAKS
+- Tweaks to launch routine.
+- Tweaks to end game routine.
+
+21/01/2020 - Update 23. (2.5.23)
+NEW FEATURES
+- New arguments to prompt command 'whatis'.
+- New arguments to prompt command 'change'.
+BUG FIXES
+- Fixed bug where invisible triggers would occasionally fail to respond.
+- Fixed bug where NPC's set on move routes on map would stop moving.
+- Fixed issue where animations would fail to play.
+- Fixed issue where animations would fail to work on NPC7 and above.
+TWEAKS
+- Pocket now displays text for combining items.
+- Animation feature now used in demonstration game.
+- Animation feature code improved, overall code reduced.
+- Sound effect polish. Engine now detects when closepocket and terminaloff sounds are not needed to be played.
+- Pocket text location tweaks.
+
+17/01/2020 - Update 22. (2.5.22)
+NEW FEATURES
+- New map effects, sunset (up), (down), (left) and (right).
+- New arguments to script command 'mapeffect'.
+- Character text box voice noises!
+BUG FIXES
+- Fix to text banners that would fail to display NPCs portraits if they were after the 6th NPC loaded into the map.
+- Glitchy effects from rain beyond the map boarders diminished.
+
+09/01/2020 - Update 21. (2.5.21)
+NEW FEATURES
+- New arguments added to 'whatis' prompt command.
+- New arguments added to 'change' prompt command.
+- New update feature that checks the internet for an update. Test update provided for demonstration purposes until next true update rolls out.
+BUG FIXES
+- Fixed flicker of objects and map effects on slower machines.
+- Fixed full screen flicker on linux that would occur after every text dialogue box had finished.
+
+01/01/2020 - Update 20 (revision 1). (2.5.20REV1)
+BUG FIXES
+- Small bugfix to metadata that did not play friendly with case sensitive file systems.
+
+29/12/2019 - Update 20. (2.5.20)
+NEW FEATURES
+- New arguments added to prompt command 'system'.
+- New arguments added to prompt command 'whatis'.
+- Added more automatic sound effects.
+- New script command 'savegame' that saves the game on demand.
+- New script command 'ifgone' that checks to see if pocket item has been marked 'gone forever' or not. If so, the script will divert.
+- New built in game to demonstrate engine feature set.
+BUG FIXES
+- Prompt command 'system music' fixed.
+- Fixed issue where player would be able to combine pocket items when not enough are available, softlocking the engine.
+- Fixed issue where pockets would open when no pocket items were available.
+TWEAKS
+- Prompt improvements.
+- 'save', 'load' and 'refresh' arguments of 'system' prompt command now removed.
+- World object names now removed from pocket messages.
+- Currency item can be added or removed with 'give' and 'take' script commands and 'giveitem' and 'takeitem' prompt commands. This does not change currency amount, just the currency availability in the pockets.
+
+23/12/2019 - Update 19. (2.5.19)
+NEW FEATURES
+- New prompt command 'save' that can save game, erase the save and rewrite the default save.
+TWEAKS
+- Increased number of supported maps from 6 to 48.
+- Increased number of supported objects from 6 to 48.
+- Increased number of supported NPCs from 6 to 24.
+- Increased number of supported pocket items from 6 to 48.
+- Increased number of supported triggers from 6 to 24.
+- Increased number of supported music files from 6 to 24.
+- Increased number of supported sound effect files from 6 to 48.
+- Improvements to savegame routine.
+- 'save' argument of 'erase' prompt command removed in favour of new 'save' command.
+
+18/12/2019 - Update 18. (2.5.18)
+NEW FEATURES
+- Loading icon support.
+- New map effects, 'dark', 'rain', 'storm' and 'torch'.
+- Custom sprite animation support.
+- New script command 'loading' that will display load icon when script is set to load new data.
+- New script command 'mapeffect' that display map effects.
+- New script command 'animate' that executes animations.
+- New arguments to 'whatis' prompt command.
+- New arguments to 'change' prompt command.
+- Support for more errors.
+BUG FIXES
+- Bug fix to menu generator to improve speed on slower machines.
+TWEAKS
+- Tweaks to setup routine.
+- Deleting save data now moves the old save to a separate file for manual recovery.
+- Quitting game from main menu now has a fade out.
+- Tweaks to drawing routine that improve efficiency.
+
+03/12/2019 - Update 17. (2.5.17)
+NEW FEATURES
+- Pocket items can now be 'gone forever'.
+- Currency support.
+- New script command 'ifpocket' that can check for if mainplayer has a pocket item and divert a script accordingly.
+- New script command 'ifholding' that can check for if mainplayer is holding a pocket item in hand and divert a script accordingly.
+- New script commands 'givecurrency', 'takecurrency' and 'ifcurrency' that give, take and check currency respectively. 
+- New script command 'markgone' that marks pocket items as gone forever.
+- New terminal feature that allows player to use in-game terminals.
+- Support for currency.
+- New prompt commands 'givecurrency' and 'takecurrency'
+- New prompt commands 'markgone' and 'markback'
+- New arguments to 'whatis' prompt command.
+- New arguments to 'change' prompt command.
+BUG FIXES
+- Fix to sound effect unloading that would mix sound effect files with music files.
+- Fix to text banners unlocked framerate that would skyrocket framerate and frame count.
+- Fix to script that would use text from 'say' command as other commands.
+- Fix to prompt command 'script' that stops it from ignoring mapscript system.
+TWEAKS
+- Added more sample sound effects and places where they're triggered.
+- Added developer console message for if screen has been cleared.
+- Tweaks to endgame routine.
+- Tweaks to spoof trigger routine, reducing code and improving reliability.
+- 'system reset' prompt command removed.
+- Loose scripts feature now removed. All scripts must now be attached to a map or pocket combination.
+
+20/11/2019 - Update 16. (2.5.16)
+NEW FEATURES
+- New arguments to 'whatis' prompt command.
+- External console superseded by in built solution. Console is now scrollable and uses less system resources.
+- Support for more errors.
+- New script commands 'effects' and 'clear'.
+BUG FIXES
+- Error messages when scripts are missing now function.
+- Main menu text banner integration now standardised.
+- Bug fixed where several commands would ruin system font colours making text banners and menus unreadable.
+- Minor bug fixes to text banners.
+- Fixed bug that left Windows clients unable to delete files, breaking text banners and erase save features.
+- Fixed bug that broke the erase save feature.
+- Fixed bug that would cause music to restart when menu or map would change.
+TWEAKS
+- Scripts can now be assigned to specific maps or 'loose' for all maps to use.
+- Tweaks to map data loading made more efficient.
+- Console logging is disabled when devmode is switched off (except for errors).
+- Tweaks to setup routine made more efficient.
+- Erasing savedata now closes game instead of restarting.
+- Tweaks to prompt.
+- Text banner and inventory actions now has console support.
+- Missing scripts now use error handler to report missing scripts instead of text banner.
+- All settings in menu generator now have text banner support.
+
+22/09/2019 - Update 15. (2.5.15)
+NEW FEATURES
+- Redesigned main menu and menu system, menu values now dictated by metadata.
+- Object and Players in game world can now be interacted with SPACE.
+- Player portraits have been added to text banners.
+- New script command 'speaker' that sets a player portrait for text banners.
+- Text banner error messages when scripts are missing.
+BUG FIXES
+- Inventory now displays 'give' when next to a NPC instead of 'use'.
+- Console launching code streamlined and improved, now detects when console isn't available.
+- Erase save message now uses textbanner system.
+
+10/09/2019 - Update 14. (2.5.14)
+NEW FEATURES
+- New arguments to 'system' prompt command.
+- New arguments to 'whatis' prompt command.
+- New arguments to 'display' prompt command.
+- New prompt commands 'giveitem' and 'takeitem' that can give and take pocket items from main player.
+- New script commands 'give' and 'take' that can give and take pocket items from main player.
+- New animations when pocket items are given or taken away from player.
+- New pocket item name label when viewing pockets.
+- New prompt command 'say' which uses in-game text banner.
+- New script command 'say' which uses in-game text banner.
+- Text banner feature for dialogue and descriptions.
+BUG FIXES
+- Redesigned inventory, reducing code and increasing functionality.
+- Bug fixes to Scripting Engine.
+
+10/08/2019 - Update 13. (2.5.13)
+NEW FEATURES
+- Eye logo shows whilst scripts are being run.
+- New test map. The locked door on map 2 finally opens!
+- NPC's can now be controlled by the scripting engine for cutscenes (added arguments to many script commands).
+- Support for dimming and undimming game screen.
+- Colours on main menu that represent option status.
+- New script command 'dim' for dimming and undimming screen.
+- Basic inventory (to be fleshed out at later release).
+- Main Menu now uses fade transition.
+- New arguments to 'whatis' prompt command.
+- New arguments to 'change' prompt command.
+BUG FIXES
+- Tweaks to console.
+- Bug fixes to some prompt commands.
+- Bug fixes to prompt console logging.
+- Bug fixes to console.
+- Console can now clear consolelog.txt and quit with keys C and Q once again.
+- Engine recovers using defaultsave.ddf when savedata.ddf is missing or corrupt.
+- Bug fixes to save erase routine.
+
+27/07/2019 - Update 12. (2.5.12)
+NEW FEATURES
+- New arguments for prompt command 'display'.
+- Object selection foundation built (to be fleshed out in a later release).
+- New script command 'halt'.
+- Basic NPC Support with object collision and walk support.
+- Support for player 'idle' animations when players are stood still.
+- New prompt command 'erase' that wipes data files such as the console log and save data.
+- Support for macOS Mojave and Catalina.
+BUG FIXES
+- Fixed bug that would cause walking animation to freeze when more than one direction button is pressed by player instead of showing the main player stood still.
+- Fixed graphical glitches in console.
+- Change to key that accesses the in-game prompt (now '\') for easier access on smaller laptop keyboards.
+- Fixed bug where script would activate triggers whilst running, resulting in multiple scripts being queued up and run.
+- Fixed bug where running scripts from the prompt would fail to return to default text colours after script is done.
+- Fixed bug where prompt would attempt to run scripts that didn't exist if asked.
+
+03/04/2019 - Update 11. (2.5.11)
+NEW FEATURES
+- Pause music support.
+- New prompt command 'script' that executes scripts.
+- New arguments to prompt command 'display'.
+- Sound effects support.
+- New prompt command that plays sound effects on demand - 'sfx'.
+- New script command argument that plays sound effects.
+- Added main menu option to toggle sound effects.
+BUG FIXES
+- Fixed bug that would cause looping scripts to break.
+- Fixed bug to erase savedata feature that would fail to unload data from memory.
+- Fixed oversight to erase savedata feature that would fail to stop the music if playing.
+
+01/04/2019 - Update 10. (2.5.10)
+NEW FEATURES
+- Music support (ogg format). This feature allows for a music track to be looped at the main menu and each map.
+- Screen and music settings are now changeable in the main menu (along with a developer console if devmode = 1).
+- New arguments to 'whatis' prompt command.
+- New arguments to 'change' prompt command.
+- New arguments to 'system' prompt command.
+- Music support for scripts with 'music' command.
+- Pressing 'Q' in game now displays main menu instead of running endgame sequence.
+TWEAKS
+- Tweaks to end game routine.
+
+26/03/2019 - Update 9. (2.5.9)
+NEW FEATURES
+- Scripts can now run scripts (but will terminate current script) with 'script' command.
+- Scripts can now change player models with the 'model' command
+- Scripts can now turn object collision on or off with 'collision' command.
+BUG FIXES
+- Correction to exe icon path.
+- Added value to let engine know a player is walking is controlled by script 'move' command.
+
+20/03/2019 - Update 8. (2.5.8)
+NEW FEATURES
+- Stage Director Script Utility. A new simple to use scripting language that is able to command the engine from plain English stage directions. Current commands: fade in, fade out, map, direction, move. See test scripts in scriptloc$. This feature will slowly have commands added over time and will be useful for creating in-game cutscenes and custom object behaviour.
+- Co-ordinate based tiggers that execute scripts.
+- There is now a functional exit between maps, using the Script Utility.
+- Map 2 now has a few test triggers attached, showcasing some test scripts.
+BUG FIXES
+- Correction to object collision algorithm so player character model is taken into account.
+- Fonts now unload correctly when quitting.
+- Tweaks to quit process order.
+- Tweaks to error handling.
+- Tweaks to layer system to allow for objects with shallower depths.
+- Big fix that stops a rouge error 5 when performing prompt command 'system reset' from being caught by the error handler.
+- Bug fix to 'system refresh' prompt command that would fail to assign a current font.
+- Tweaks to save erasing.
+
+16/03/2019 - Update 7. (2.5.7)
+NEW FEATURES
+- Automatic object collision.
+- Icon support (Windows only).
+BUG FIXES
+- Console bug fixes.
+- Console colour support and other improvements.
+- Better memory management. Object sprites now unload correctly.
+- New arguments to 'whatis' command.
+- New arguments to 'display' command.
+- Fixes to collision printer that prevents duplicates being printed to consolelog.txt
+
+14/03/2019 - Update 6. (2.5.6)
+NEW FEATURES
+- Developer mode (that enables in-game prompt).
+- No clip mode (that disables all map collision).
+- Basic save system (to be fleshed out slowly as more features are introduced).
+- Fade in and out support.
+- New arguments to 'display' command.
+- New arguments to 'whatis' command.
+- New arguments to 'system' command.
+- New object system for support for map objects.
+- New layering/draw order system so mainplayer can walk behind object sprites when needed.
+
+25/02/2019 - Update 5. (2.5.5)
+NEW FEATURES
+- Scroll up and down support on console.
+- New arguments to 'change' prompt command.
+- New arguments to 'whatis' prompt command.
+- New argument to 'display' prompt command.
+- New arguments to 'system' prompt command.
+- New prompt command - 'shell'.
+- New test map: bigtestmap
+- Two new test main player sprites: bigivan and dotdude.
+- VaME now automatically keeps player sprite within the map sprite no matter what program resolution used or sprite resolution used.
+- Uses default QB64 font if engine fontfile isn't specified.
+- Support for BOLD ITALICS AND UNDERLINED fonts.
+- Support for three font types, header, default and small.
+BUG FIXES
+- Fixed flicker bug on console.
+- 'error' command now supports all errors.
+TWEAKS
+- Further tweaks to  command prompt.
+- Tweaks to collision algorithm, rendering map limit metadata values redundant.
+
+22/02/2019 - Update 4. (2.5.4)
+NEW FEATURES
+- New prompt command 'change' arguments, mapno, mainplayer and direction.
+- New prompt command 'display' arguments, time, frames and console (Windows and Linux only).
+- New prompt command 'whatis' arguments, frames and fps.
+- Frames and FPS counter.
+TWEAKS
+- Tweaks to console, error handling and command prompt.
+- 'error clear' command removed in favour if in-console clear command.
+- Tweaks to setup sub.
+
+21/02/2019 - Update 3. (2.5.3)
+NEW FEATURES
+- Error handler and error log.
+- Prompt improvements, new command to simulate in-engine errors and clear errorlog.txt, new command to change in-engine values on the fly.
+- New console log application/external console.
+
+20/02/2019 - Update 2. (2.5.2)
+NEW FEATURES
+- Prompt improvements including more accurate error messages, more arguments to the 'whatis' command and new 'display' command.
+- Player walking animation support improved and disconnected from map animation refresh.
+- Simple map border object collision implemented.
+
+16/02/2019 - Update 1. (2.5.1)
+NEW FEATURES
+- Main player sprite support.
+- Main player walking animation support.
+- Developer prompt updates (more whatis arguments and new system command)
+- Main player metadata added.
+- Screen drawing tweaks and improvements.
+
+01/11/2018 - Initial Build. (2.5)
+NEW FEATURES
+- Timer.
+- OS checker (for OS interaction differences).
+- Metadata added for engine, save and map values.
+- Window title support.
+- In game font support.
+- Fullscreen and Window modes.
+- Main menu support implemented.
+- Value based map function implemented.
+- Two frame animated maps.
+- Smooth map scrolling.
+- Loop limiter (for high spec hosts).
+- Developer command prompt (whatis command).
+- Keyboard input support.
+- Support for Windows Vista, 7, 8 and 10.
+- Support for Linux. (Ubuntu 18.04 suggested).

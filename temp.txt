@@ -1,0 +1,176 @@
+temp - prompt:
+temp1 - inputter:
+temp2 - footchanger:
+temp3 - mapload:
+temp4 - mapload:
+temp5 - prompt:
+temp6 - setup:
+temp7 - timeframecounter:
+temp8 - fontload:
+temp9 - fontload:
+temp10 - objectload:
+temp11 - objectload:
+temp12 - objectload:
+temp13 - objectdraw:
+temp14 - objectunload:
+temp15 - prompt:
+temp16 - hud:
+temp17 - object(no): / objectcollisionchanger:
+temp18 - objectcollision:
+temp19 - objectcollisionchanger:
+temp20 - objectcollsionchanger:
+temp21 - mapcollision:
+temp22 - mapcollision:
+temp23 - fontunload:
+temp24 - triggercollision:
+temp25 - trigger(no) / triggercollisionchanger:
+temp26 - script:
+temp27 - script:
+temp28 - musicload:
+temp29 - musicunload:
+temp30 - musicplay:
+temp31 - musicstop:
+temp32 - musicpause:
+temp33 - script: / triggerchecker:
+temp34 - erasesave:
+temp35 - sfxload:
+temp36 - sfxunload:
+temp37 - sfxplay:
+temp38 - sfxplay:
+temp39 - playerload:
+temp40 - playerload:
+temp41 - playerunload:
+temp42 - playerdraw:
+temp43 - prompt:
+temp44 - playercollision:
+temp45 - playercollision(no) / playercollisionchanger:
+temp46 - playercollisionchanger:
+temp47 - playercollisionchanger:
+temp48 - playermove:
+temp49 - footchanger:
+temp50 - footchanger:
+temp51 - footchanger;
+temp52 - footchanger:
+temp53 - footchanger:
+temp54 - footchanger:
+temp55 - footchanger:
+temp56 - script:
+temp57 - pocketload:
+temp58 - pocketunload:
+temp59 - pocketdraw: / pocketcalcup: / pocketcalcdown:
+temp60 - pocketdraw: / pocketcalcup: / pocketcalcdown:
+temp61 - pocketcalcup: / pocketdraw: / pocketcalcdown:
+temp62 - pocketcalcup: / pocketdraw: / pocketcalcdown:
+temp63 - giveitem:
+temp64 - script:
+temp65 - takeitem:
+temp66 - pocketdraw:
+temp67 - pocketdraw:
+temp68 - giveitem:
+temp69 - takeitem:
+temp70 - centretext:
+temp71 - textbannerdraw:
+temp72 - textbannercalc:
+temp73 - textbannercalc:
+temp74 - pocketext:
+temp75 - textbannercalc:
+temp76 - mainmenu:
+temp77 - mainmenu:
+temp78 - mainmenu:
+temp79 - mainmenu:
+temp80 - textbannerdraw:
+temp81 - pocketcombine:
+temp82 - erasesave: / savecheckerror: / gamereboots:
+temp83 - pocketcombine:
+temp84 - pocketcombine:
+temp85 - ifpocket:
+temp86 - script:
+temp87 - terminaldraw:
+temp88 - terminaldraw:
+temp89 - terminaldraw:
+temp90 - readtxt:
+temp91 - takecurrency:
+temp92 - takecurrency:
+temp93 - givecurrency:
+temp94 - givecurrency:
+temp95 - fullytake:
+temp96 - prompt:
+temp97 - effectdraw:
+temp98 - animation:
+temp99 - animation:
+temp100 - erasesave:
+temp101 - erasesave:
+temp102 - erasesave:
+temp103 - objecthide:
+temp104-temp121 - footchanger:
+temp122 - ifgone:
+temp123 - mapeffect:
+temp124 - talksfx:
+temp125-temp127 - loadbar:
+temp128 - devlogo:
+temp129 - devlogo:
+temp130 - parameterload:
+temp131 - script:
+temp132 - deleteupdaters:
+temp133 - musicvol:
+temp134 - sfxvol:
+temp135 - script: / coordinatefixer:
+temp136 - fixanimation:
+temp137 - fixanimation2:
+temp138 - footchanger:
+temp139 - inputload:
+temp140 - script:
+temp141 - collisionconverter:
+temp142 - collisionconverter:
+temp143 - collisionconverter:
+temp144 - collisionconverter:
+temp145 - collisionconverter:
+temp146 - collisionconverter:
+temp147 - terminaldraw:
+temp148 - controlgenerator: / findcontrol:
+temp149 - pocketcombine:
+temp150 - usepocketpocket:
+temp151 - script:
+temp152 - script:
+temp153 - script:
+temp154 - script:
+temp155 - script:
+temp156 - script:
+temp157 - script:
+temp158 - modload:
+temp159 - menugenerator: /endgame: / gamereboots:
+temp160 - prompt: / gamereboots:
+temp161 - saverestore: / erasesave: / gamereboots:
+temp162 - saverestore:
+temp163 - savecheckerror: / gamereboots:
+temp164 - modmenu: / gamereboots:
+temp165 - script:
+temp166 - playercollision: / playercollisionchanger:
+temp167 - objectcollision: / objectcollisionchanger:
+temp168 - objectcollisionchanger: / playercollisionchanger: / collisionprinter:
+temp169 - pocketcombine:
+temp170 - pocketdraw:
+temp171 - playdemomenu: / gamereboots:
+temp172 - playrecordedgame: / screendraw:
+temp173 - setuprecord: / displayspeedrun:
+temp174 - centretext:
+temp200 - script:
+temp201 - textbannercalc:
+temp202
+temp203
+temp204
+temp205
+temp206 - fadein /fadeout
+temp207 - scriptvaluefetcher
+temp208 - variablevalueinjector:
+temp209 - timeframecounter:
+temp210 - mapunload:
+temp211 - awardload:
+temp212 - awarddraw:
+temp213 - awarddraw:
+temp214 - awarddraw:
+temp215 - selectobjectbanner:
+temp216 - selectobjectbanner:
+temp217 - awarddraw:
+temp218 - mainplayerload:
+temp219 - prompt:

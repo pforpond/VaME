@@ -1,0 +1,11 @@
+UPDATE LIST
+
+data folder (data)
+mod folder (shadowbro)
+readme (readme.txt)
+linux exe (vame_linux)
+windows exe (vame_win.exe)
+source code (vame.bas)
+engine manual (vame.pdf)
+changelog (vamechangelog.txt)
+updater source (vameupdater.bas)

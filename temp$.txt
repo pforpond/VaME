@@ -1,0 +1,67 @@
+temp$ - mainplayerload:
+temp1$ - prompt:
+temp2$ - consolequit:
+temp3$ - setup:
+temp4$ - collision: / collisionprinter:
+temp5$ - collision: / collisionprinter:
+temp6$ - collision: / collisionprinter:
+temp7$ - fontload:
+temp8$ - fontload:
+temp9$ - mainmenu:
+temp10$ - objectload:
+temp11$ - objectunload:
+temp12$ - script:
+temp13$ - pocketdrawcalc:
+temp14$ - textbannercalc:
+temp15$ - menugenerator:
+temp16$ - menugenerator:
+temp17$ - menugenerator:
+temp18$ - useobject:
+temp19$ - pocketcombine:
+temp20$ - pocketcombine:
+temp21$ - pocketcombine:
+temp22$ - pocketdraw:
+temp23$ - script:
+temp24$ - prompt:
+temp25$ - erasesave:
+temp26$ - erasesave:
+temp27$ - erasesave:
+temp28$ - erasesave:
+temp29$ - menugenerator:
+temp30$ - pocketext:
+temp31$ - pocketext:
+temp32$ - updatechecker:
+temp33$ - coordinatefixer:
+temp34$ - fixanimation2:
+temp35$ - followerload:
+temp36$ - collisionconverter:
+temp37$ - collisionconverter:
+temp38$ - collisionconverter:
+temp39$ - collisionconverter:
+temp40$ - collisionconverter:
+temp41$ - collisionconverter:
+temp42$ - controlgenerator: / findcontrol:
+temp43$ - usepocketpocket:
+temp44$ - script:
+temp45$ - script:
+temp46$ - script:
+temp47$ - setup:
+temp48$ - saverestore: / modmenu:
+temp49$ - gamereboots:
+temp50$ - modmenu:
+temp51$ - modmenu:
+temp52$ - endgame: / script:
+temp53$ - endgame: / script:
+temp54$ - endgame: / script:
+temp55$ - script:
+temp56$ - script:
+temp57$ - script:
+temp58$ - setuprecord:
+temp59$ - setuprecord: / displayspeedrun:
+temp60$ - devlogo:
+temp61$ - script:
+temp62$ - scriptvaluefetcher:
+temp63$ - variablevalueinjector:
+temp64$ - awardunload:
+temp65$ - awardunload:
+temp66$ - loadbarsetup:

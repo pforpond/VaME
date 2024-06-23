@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>backingScale</key>
+	<real>1</real>
+	<key>mode</key>
+	<integer>0</integer>
+	<key>shapeSelectionFilename</key>
+	<string>shapeSelection</string>
+	<key>size</key>
+	<data>
+	NC10UHpTVFAQAAAAQFFAAAAAAABALgAAAAAAAA==
+	</data>
+	<key>softness</key>
+	<real>0.0</real>
+	<key>timestamp</key>
+	<real>631483424.47425604</real>
+	<key>transform</key>
+	<array>
+		<real>1.0144927536231878</real>
+		<real>0.0</real>
+		<real>0.0</real>
+		<real>1.1333333333333326</real>
+		<real>-0.46376811594202011</real>
+		<real>-2.0666666666666664</real>
+		<real>0.0</real>
+		<real>0.0</real>
+	</array>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>
