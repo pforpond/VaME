@@ -19,12 +19,7 @@ Linux (Ubuntu 20.04 and above suggested)
 HOW TO LAUNCH/(TROUBLESHOOTING)
 Windows - vame_win.exe (may need to run as administrator and disable smartscreen filter.)
 Linux - vame_linux (may need to mark as executable. may require additional dependencies.)
+macOS - You will have to compile your own
 
-ADDITIONAL DEPENDENCIES (LINUX ONLY)
-The following are the required dependencies. If VaME doesn't run, please ensure you have these installed. 
-
-freeglut3-dev
-mesa-utils
-libasound2
-g++
-build-essential
+COMPILING
+Use QB64 at https://qb64.com/
