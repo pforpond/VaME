@@ -1,6 +1,13 @@
 VAME CHANGELOG
 By Danielle Pond
 
+12/07/2024 - Update 153. (2.9)
+NEW FEATURES
+- Advanced point object collision. For those objects that are more complex than just boxes, collision only activates upon the pixels colour, ignoring transparent pixels of a sprite. Point collision data generation with pointgenerator.bas required. Only available for the first 64 objects loaded into a map. (Tree has been converted to showcase this).
+- macOS support added to updater. No binaries provided yet.
+TWEAKS
+- Changed update servers. Users on versions below 2.9 will have to manually upgrade this once.
+
 15/06/2024 - Update 152. (2.8.78)
 NEW FEATURES
 - macOS support reintroduced. (Excluding updater for now).

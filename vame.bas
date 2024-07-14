@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.8.78
+REM Build 2.9
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,8,78,2878
-$VERSIONINFO:PRODUCTVERSION#=2,8,78,2878
+$VERSIONINFO:FILEVERSION#=2,9,0,29
+$VERSIONINFO:PRODUCTVERSION#=2,9,0,29
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.8.78"
+LET hardbuild$ = "2.9"
 
 setup:
 REM initiates engine and assigns values
@@ -171,6 +171,130 @@ DIM objectcollision(totalobjects) AS INTEGER
 DIM findobject(totalobjects) AS INTEGER
 DIM autoobjectcull(totalobjects) AS INTEGER
 DIM objecthighlight(totalobjects) AS INTEGER
+DIM objectpoint1x(1000000) AS INTEGER
+DIM objectpoint1y(1000000) AS INTEGER
+DIM objectpoint2x(1000000) AS INTEGER
+DIM objectpoint2y(1000000) AS INTEGER
+DIM objectpoint3x(1000000) AS INTEGER
+DIM objectpoint3y(1000000) AS INTEGER
+DIM objectpoint4x(1000000) AS INTEGER
+DIM objectpoint4y(1000000) AS INTEGER
+DIM objectpoint5x(1000000) AS INTEGER
+DIM objectpoint5y(1000000) AS INTEGER
+DIM objectpoint6x(1000000) AS INTEGER
+DIM objectpoint6y(1000000) AS INTEGER
+DIM objectpoint7x(1000000) AS INTEGER
+DIM objectpoint7y(1000000) AS INTEGER
+DIM objectpoint8x(1000000) AS INTEGER
+DIM objectpoint8y(1000000) AS INTEGER
+DIM objectpoint9x(1000000) AS INTEGER
+DIM objectpoint9y(1000000) AS INTEGER
+DIM objectpoint10x(1000000) AS INTEGER
+DIM objectpoint10y(1000000) AS INTEGER
+DIM objectpoint11x(1000000) AS INTEGER
+DIM objectpoint11y(1000000) AS INTEGER
+DIM objectpoint12x(1000000) AS INTEGER
+DIM objectpoint12y(1000000) AS INTEGER
+DIM objectpoint13x(1000000) AS INTEGER
+DIM objectpoint13y(1000000) AS INTEGER
+DIM objectpoint14x(1000000) AS INTEGER
+DIM objectpoint14y(1000000) AS INTEGER
+DIM objectpoint15x(1000000) AS INTEGER
+DIM objectpoint15y(1000000) AS INTEGER
+DIM objectpoint16x(1000000) AS INTEGER
+DIM objectpoint16y(1000000) AS INTEGER
+DIM objectpoint17x(1000000) AS INTEGER
+DIM objectpoint17y(1000000) AS INTEGER
+DIM objectpoint18x(1000000) AS INTEGER
+DIM objectpoint18y(1000000) AS INTEGER
+DIM objectpoint19x(1000000) AS INTEGER
+DIM objectpoint19y(1000000) AS INTEGER
+DIM objectpoint20x(1000000) AS INTEGER
+DIM objectpoint20y(1000000) AS INTEGER
+DIM objectpoint21x(1000000) AS INTEGER
+DIM objectpoint21y(1000000) AS INTEGER
+DIM objectpoint22x(1000000) AS INTEGER
+DIM objectpoint22y(1000000) AS INTEGER
+DIM objectpoint23x(1000000) AS INTEGER
+DIM objectpoint23y(1000000) AS INTEGER
+DIM objectpoint24x(1000000) AS INTEGER
+DIM objectpoint24y(1000000) AS INTEGER
+DIM objectpoint25x(1000000) AS INTEGER
+DIM objectpoint25y(1000000) AS INTEGER
+DIM objectpoint26x(1000000) AS INTEGER
+DIM objectpoint26y(1000000) AS INTEGER
+DIM objectpoint27x(1000000) AS INTEGER
+DIM objectpoint27y(1000000) AS INTEGER
+DIM objectpoint28x(1000000) AS INTEGER
+DIM objectpoint28y(1000000) AS INTEGER
+DIM objectpoint29x(1000000) AS INTEGER
+DIM objectpoint29y(1000000) AS INTEGER
+DIM objectpoint30x(1000000) AS INTEGER
+DIM objectpoint30y(1000000) AS INTEGER
+DIM objectpoint31x(1000000) AS INTEGER
+DIM objectpoint31y(1000000) AS INTEGER
+DIM objectpoint32x(1000000) AS INTEGER
+DIM objectpoint32y(1000000) AS INTEGER
+DIM objectpoint33x(1000000) AS INTEGER
+DIM objectpoint33y(1000000) AS INTEGER
+DIM objectpoint34x(1000000) AS INTEGER
+DIM objectpoint34y(1000000) AS INTEGER
+DIM objectpoint35x(1000000) AS INTEGER
+DIM objectpoint35y(1000000) AS INTEGER
+DIM objectpoint36x(1000000) AS INTEGER
+DIM objectpoint36y(1000000) AS INTEGER
+DIM objectpoint37x(1000000) AS INTEGER
+DIM objectpoint37y(1000000) AS INTEGER
+DIM objectpoint38x(1000000) AS INTEGER
+DIM objectpoint38y(1000000) AS INTEGER
+DIM objectpoint39x(1000000) AS INTEGER
+DIM objectpoint39y(1000000) AS INTEGER
+DIM objectpoint40x(1000000) AS INTEGER
+DIM objectpoint40y(1000000) AS INTEGER
+DIM objectpoint41x(1000000) AS INTEGER
+DIM objectpoint41y(1000000) AS INTEGER
+DIM objectpoint42x(1000000) AS INTEGER
+DIM objectpoint42y(1000000) AS INTEGER
+DIM objectpoint43x(1000000) AS INTEGER
+DIM objectpoint43y(1000000) AS INTEGER
+DIM objectpoint44x(1000000) AS INTEGER
+DIM objectpoint44y(1000000) AS INTEGER
+DIM objectpoint45x(1000000) AS INTEGER
+DIM objectpoint45y(1000000) AS INTEGER
+DIM objectpoint46x(1000000) AS INTEGER
+DIM objectpoint46y(1000000) AS INTEGER
+DIM objectpoint47x(1000000) AS INTEGER
+DIM objectpoint47y(1000000) AS INTEGER
+DIM objectpoint48x(1000000) AS INTEGER
+DIM objectpoint48y(1000000) AS INTEGER
+DIM objectpoint49x(1000000) AS INTEGER
+DIM objectpoint49y(1000000) AS INTEGER
+DIM objectpoint50x(1000000) AS INTEGER
+DIM objectpoint50y(1000000) AS INTEGER
+DIM objectpoint51x(1000000) AS INTEGER
+DIM objectpoint51y(1000000) AS INTEGER
+DIM objectpoint52x(1000000) AS INTEGER
+DIM objectpoint52y(1000000) AS INTEGER
+DIM objectpoint53x(1000000) AS INTEGER
+DIM objectpoint53y(1000000) AS INTEGER
+DIM objectpoint54x(1000000) AS INTEGER
+DIM objectpoint54y(1000000) AS INTEGER
+DIM objectpoint55x(1000000) AS INTEGER
+DIM objectpoint55y(1000000) AS INTEGER
+DIM objectpoint56x(1000000) AS INTEGER
+DIM objectpoint56y(1000000) AS INTEGER
+DIM objectpoint57x(1000000) AS INTEGER
+DIM objectpoint57y(1000000) AS INTEGER
+DIM objectpoint58x(1000000) AS INTEGER
+DIM objectpoint58y(1000000) AS INTEGER
+DIM objectpoint59x(1000000) AS INTEGER
+DIM objectpoint59y(1000000) AS INTEGER
+DIM objectpoint60x(1000000) AS INTEGER
+DIM objectpoint60y(1000000) AS INTEGER
+DIM objectpoint61x(1000000) AS INTEGER
+DIM objectpoint61y(1000000) AS INTEGER
+DIM objectpoint62x(1000000) AS INTEGER
+DIM objectpoint62y(1000000) AS INTEGER
 REM map player values
 DIM playername(totalplayers) AS STRING
 DIM playerlongname(totalplayers) AS STRING
@@ -460,9 +584,9 @@ IF _FILEEXISTS(LCASE$(filename$) + "updater_linux") THEN
     LET temp132 = 1
 END IF
 IF _FILEEXISTS(LCASE$(filename$) + "updater_macos") THEN
-	REM macos updater
-	SHELL _HIDE "rm " + LCASE$(filename$) + "updater_macos"
-	LET temp132 = 1
+    REM macos updater
+    SHELL _HIDE "rm " + LCASE$(filename$) + "updater_macos"
+    LET temp132 = 1
 END IF
 IF _FILEEXISTS("windownloader.bat") THEN
     REM download batch file for windows
@@ -3516,41 +3640,179 @@ REM handles object collision and selection
 IF mapobjectno = 0 THEN RETURN: REM return if map has no objects attached
 DO
     LET temp18 = temp18 + 1
-    REM checks if object is on screen
+    REM checks of object is on screen
     LET colpass1 = 0: LET colpass2 = 0
     IF objectx(temp18) + objectresx(temp18) > ((resx / 2) - posx) - (resx / 2) AND objectx(temp18) < ((resx / 2) - posx) + (resx / 2) THEN LET colpass1 = 1
     IF objecty(temp18) + objectresy(temp18) > ((resy / 2) - posy) - (resy / 2) AND objecty(temp18) < ((resy / 2) - posy) + (resy / 2) THEN LET colpass2 = 1
     IF colpass1 = 1 AND colpass2 = 1 THEN
-        REM collision checks
-        IF (resx / 2) + ((mpx / 2) - objectstep) >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp17 = temp17 + 1
-        IF (resy / 2) - ((mpy / 2) - objects(temp18)) >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp17 = temp17 + 1
-        REM selectobject check
-        IF direction = 1 THEN
-            IF (resx / 2) + ((mpx / 2) - objectstep) >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp167 = temp167 + 1
-            IF (resy / 2) - ((mpy / 2) - objects(temp18)) - pace >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) - pace <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp167 = temp167 + 1
-        END IF
-        IF direction = 2 THEN
-            IF (resx / 2) + ((mpx / 2) - objectstep) >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp167 = temp167 + 1
-            IF (resy / 2) - ((mpy / 2) - objects(temp18)) + pace >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) + pace <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp167 = temp167 + 1
-        END IF
-        IF direction = 3 THEN
-            IF (resx / 2) + ((mpx / 2) - objectstep) + pace >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) + pace <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp167 = temp167 + 1
-            IF (resy / 2) - ((mpy / 2) - objects(temp18)) >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp167 = temp167 + 1
-        END IF
-        IF direction = 4 THEN
-            IF (resx / 2) + ((mpx / 2) - objectstep) - pace >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) - pace <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp167 = temp167 + 1
-            IF (resy / 2) - ((mpy / 2) - objects(temp18)) >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp167 = temp167 + 1
-        END IF
-        LET proposedobject$ = objectname(temp18)
         IF proposedobject$ = "[COLLISIONONLY]" THEN LET objectcollision(temp18) = 1
-        IF objectcollision(temp18) = 1 THEN
-            GOSUB objectcollisionchanger: REM changes collision if object collision is on
-        ELSE
-            LET temp17 = 0: LET temp168 = 0: LET temp167 = 0: REM scrubs temp values
-        END IF
+        IF objectcollision(temp18) = 1 THEN GOSUB boxobjectcollision
+        IF objectcollision(temp18) = 2 THEN GOSUB pointobjectcollision
     END IF
 LOOP UNTIL temp18 >= mapobjectno OR temp18 >= totalobjects
 LET temp18 = 0: REM scrub temp values
+RETURN
+
+pointobjectcollision:
+REM advanced collision based on point data
+REM check player location is within boundaries
+IF (resx / 2) + ((mpx / 2) - objectstep) >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp222 = temp222 + 1
+IF (resy / 2) - ((mpy / 2) - objects(temp18)) >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp222 = temp222 + 1
+GOSUB pointcollisionloop
+REM selectobject check
+IF direction = 1 THEN
+    IF (resx / 2) + ((mpx / 2) - objectstep) >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp167 = temp167 + 1
+    IF (resy / 2) - ((mpy / 2) - objects(temp18)) - pace >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) - pace <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp167 = temp167 + 1
+END IF
+IF direction = 2 THEN
+    IF (resx / 2) + ((mpx / 2) - objectstep) >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp167 = temp167 + 1
+    IF (resy / 2) - ((mpy / 2) - objects(temp18)) + pace >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) + pace <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp167 = temp167 + 1
+END IF
+IF direction = 3 THEN
+    IF (resx / 2) + ((mpx / 2) - objectstep) + pace >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) + pace <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp167 = temp167 + 1
+    IF (resy / 2) - ((mpy / 2) - objects(temp18)) >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp167 = temp167 + 1
+END IF
+IF direction = 4 THEN
+    IF (resx / 2) + ((mpx / 2) - objectstep) - pace >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) - pace <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp167 = temp167 + 1
+    IF (resy / 2) - ((mpy / 2) - objects(temp18)) >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp167 = temp167 + 1
+END IF
+GOSUB pointcollisionloop
+REM scrub temp values
+LET temp221 = 0: LET temp222 = 0: LET temp223 = 0: LET temp224 = 0: LET temp225 = 0: LET temp226 = 0: LET temp220 = 0: LET temp17 = 0: LET temp168 = 0: LET temp167 = 0
+RETURN
+
+pointcollisionloop:
+IF temp222 = 2 OR temp167 = 2 THEN
+    REM calculates exact pixel player is within object
+    IF temp222 = 2 THEN
+		REM sets values for collision
+		LET temp223 = ((resx / 2) - posx) - objectx(temp18)
+		LET temp224 = ((resy / 2) - posy) - objecty(temp18)
+	END IF
+	IF temp167 = 2 THEN
+		REM sets values for selectobject marker
+		IF direction = 1 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)): LET temp224 = (((resy / 2) - posy) - objecty(temp18)) - pace
+		IF direction = 2 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)): LET temp224 = (((resy / 2) - posy) - objecty(temp18)) + pace
+		IF direction = 3 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)) + pace: LET temp224 = (((resy / 2) - posy) - objecty(temp18))
+		IF direction = 4 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)) - pace: LET temp224 = (((resy / 2) - posy) - objecty(temp18))
+	END IF
+	'IF direction = 1 THEN LET temp224 = INT(temp224 + mpy / 2) - objectstep
+	'IF direction = 2 THEN LET temp224 = temp224 + (objectstep * 2)
+	IF direction = 3 THEN LET temp223 = INT(temp223 + mpx / 2) - objectstep
+	'IF direction = 4 THEN LET temp223 = temp223 - objectstep
+    REM scans object point values for pixel correct value
+    LET pointend = 0
+    DO
+        LET temp226 = temp226 + 1
+        IF temp18 = 1 THEN LET temp221 = objectpoint1x(temp226): LET temp225 = objectpoint1y(temp226)
+        IF temp18 = 2 THEN LET temp221 = objectpoint2x(temp226): LET temp225 = objectpoint2y(temp226)
+        IF temp18 = 3 THEN LET temp221 = objectpoint3x(temp226): LET temp225 = objectpoint3y(temp226)
+        IF temp18 = 4 THEN LET temp221 = objectpoint4x(temp226): LET temp225 = objectpoint4y(temp226)
+        IF temp18 = 5 THEN LET temp221 = objectpoint5x(temp226): LET temp225 = objectpoint5y(temp226)
+        IF temp18 = 6 THEN LET temp221 = objectpoint6x(temp226): LET temp225 = objectpoint6y(temp226)
+        IF temp18 = 7 THEN LET temp221 = objectpoint7x(temp226): LET temp225 = objectpoint7y(temp226)
+        IF temp18 = 8 THEN LET temp221 = objectpoint8x(temp226): LET temp225 = objectpoint8y(temp226)
+        IF temp18 = 9 THEN LET temp221 = objectpoint9x(temp226): LET temp225 = objectpoint9y(temp226)
+        IF temp18 = 10 THEN LET temp221 = objectpoint10x(temp226): LET temp225 = objectpoint10y(temp226)
+        IF temp18 = 11 THEN LET temp221 = objectpoint11x(temp226): LET temp225 = objectpoint11y(temp226)
+        IF temp18 = 12 THEN LET temp221 = objectpoint12x(temp226): LET temp225 = objectpoint12y(temp226)
+        IF temp18 = 13 THEN LET temp221 = objectpoint13x(temp226): LET temp225 = objectpoint13y(temp226)
+        IF temp18 = 14 THEN LET temp221 = objectpoint14x(temp226): LET temp225 = objectpoint14y(temp226)
+        IF temp18 = 15 THEN LET temp221 = objectpoint15x(temp226): LET temp225 = objectpoint15y(temp226)
+        IF temp18 = 16 THEN LET temp221 = objectpoint16x(temp226): LET temp225 = objectpoint16y(temp226)
+        IF temp18 = 17 THEN LET temp221 = objectpoint17x(temp226): LET temp225 = objectpoint17y(temp226)
+        IF temp18 = 18 THEN LET temp221 = objectpoint18x(temp226): LET temp225 = objectpoint18y(temp226)
+        IF temp18 = 19 THEN LET temp221 = objectpoint19x(temp226): LET temp225 = objectpoint19y(temp226)
+        IF temp18 = 20 THEN LET temp221 = objectpoint20x(temp226): LET temp225 = objectpoint20y(temp226)
+        IF temp18 = 21 THEN LET temp221 = objectpoint21x(temp226): LET temp225 = objectpoint21y(temp226)
+        IF temp18 = 22 THEN LET temp221 = objectpoint22x(temp226): LET temp225 = objectpoint22y(temp226)
+        IF temp18 = 23 THEN LET temp221 = objectpoint23x(temp226): LET temp225 = objectpoint23y(temp226)
+        IF temp18 = 24 THEN LET temp221 = objectpoint24x(temp226): LET temp225 = objectpoint24y(temp226)
+        IF temp18 = 25 THEN LET temp221 = objectpoint25x(temp226): LET temp225 = objectpoint25y(temp226)
+        IF temp18 = 26 THEN LET temp221 = objectpoint26x(temp226): LET temp225 = objectpoint26y(temp226)
+        IF temp18 = 27 THEN LET temp221 = objectpoint27x(temp226): LET temp225 = objectpoint27y(temp226)
+        IF temp18 = 28 THEN LET temp221 = objectpoint28x(temp226): LET temp225 = objectpoint28y(temp226)
+        IF temp18 = 29 THEN LET temp221 = objectpoint29x(temp226): LET temp225 = objectpoint29y(temp226)
+        IF temp18 = 30 THEN LET temp221 = objectpoint30x(temp226): LET temp225 = objectpoint30y(temp226)
+        IF temp18 = 31 THEN LET temp221 = objectpoint31x(temp226): LET temp225 = objectpoint31y(temp226)
+        IF temp18 = 32 THEN LET temp221 = objectpoint32x(temp226): LET temp225 = objectpoint32y(temp226)
+        IF temp18 = 33 THEN LET temp221 = objectpoint33x(temp226): LET temp225 = objectpoint33y(temp226)
+        IF temp18 = 34 THEN LET temp221 = objectpoint34x(temp226): LET temp225 = objectpoint34y(temp226)
+        IF temp18 = 35 THEN LET temp221 = objectpoint35x(temp226): LET temp225 = objectpoint35y(temp226)
+        IF temp18 = 36 THEN LET temp221 = objectpoint36x(temp226): LET temp225 = objectpoint36y(temp226)
+        IF temp18 = 37 THEN LET temp221 = objectpoint37x(temp226): LET temp225 = objectpoint37y(temp226)
+        IF temp18 = 38 THEN LET temp221 = objectpoint38x(temp226): LET temp225 = objectpoint38y(temp226)
+        IF temp18 = 39 THEN LET temp221 = objectpoint39x(temp226): LET temp225 = objectpoint39y(temp226)
+        IF temp18 = 40 THEN LET temp221 = objectpoint40x(temp226): LET temp225 = objectpoint40y(temp226)
+        IF temp18 = 41 THEN LET temp221 = objectpoint41x(temp226): LET temp225 = objectpoint41y(temp226)
+        IF temp18 = 42 THEN LET temp221 = objectpoint42x(temp226): LET temp225 = objectpoint42y(temp226)
+        IF temp18 = 43 THEN LET temp221 = objectpoint43x(temp226): LET temp225 = objectpoint43y(temp226)
+        IF temp18 = 44 THEN LET temp221 = objectpoint44x(temp226): LET temp225 = objectpoint44y(temp226)
+        IF temp18 = 45 THEN LET temp221 = objectpoint45x(temp226): LET temp225 = objectpoint45y(temp226)
+        IF temp18 = 46 THEN LET temp221 = objectpoint46x(temp226): LET temp225 = objectpoint46y(temp226)
+        IF temp18 = 47 THEN LET temp221 = objectpoint47x(temp226): LET temp225 = objectpoint47y(temp226)
+        IF temp18 = 48 THEN LET temp221 = objectpoint48x(temp226): LET temp225 = objectpoint48y(temp226)
+        IF temp18 = 49 THEN LET temp221 = objectpoint49x(temp226): LET temp225 = objectpoint49y(temp226)
+        IF temp18 = 50 THEN LET temp221 = objectpoint50x(temp226): LET temp225 = objectpoint50y(temp226)
+        IF temp18 = 51 THEN LET temp221 = objectpoint51x(temp226): LET temp225 = objectpoint51y(temp226)
+        IF temp18 = 52 THEN LET temp221 = objectpoint52x(temp226): LET temp225 = objectpoint52y(temp226)
+        IF temp18 = 53 THEN LET temp221 = objectpoint53x(temp226): LET temp225 = objectpoint53y(temp226)
+        IF temp18 = 54 THEN LET temp221 = objectpoint54x(temp226): LET temp225 = objectpoint54y(temp226)
+        IF temp18 = 55 THEN LET temp221 = objectpoint55x(temp226): LET temp225 = objectpoint55y(temp226)
+        IF temp18 = 56 THEN LET temp221 = objectpoint56x(temp226): LET temp225 = objectpoint56y(temp226)
+        IF temp18 = 57 THEN LET temp221 = objectpoint57x(temp226): LET temp225 = objectpoint57y(temp226)
+        IF temp18 = 58 THEN LET temp221 = objectpoint58x(temp226): LET temp225 = objectpoint58y(temp226)
+        IF temp18 = 59 THEN LET temp221 = objectpoint59x(temp226): LET temp225 = objectpoint59y(temp226)
+        IF temp18 = 60 THEN LET temp221 = objectpoint60x(temp226): LET temp225 = objectpoint60y(temp226)
+        IF temp18 = 61 THEN LET temp221 = objectpoint61x(temp226): LET temp225 = objectpoint61y(temp226)
+        IF temp18 = 62 THEN LET temp221 = objectpoint62x(temp226): LET temp225 = objectpoint62y(temp226)
+        IF temp18 = 63 THEN LET temp221 = objectpoint63x(temp226): LET temp225 = objectpoint63y(temp226)
+        IF temp18 = 64 THEN LET temp221 = objectpoint64x(temp226): LET temp225 = objectpoint64y(temp226)
+        IF temp221 = temp223 AND temp225 = temp224 THEN LET pointend = 2
+    LOOP UNTIL temp226 >= (objectresx(temp18) * objectresy(temp18)) OR pointend = 1 OR temp18 > 64
+    CLOSE #1
+    REM check if player is within a solid point
+    IF pointend = 2 THEN
+        IF temp222 = 2 THEN 
+			LET temp17 = 2
+			LET temp227 = 1
+			LET proposedobject$ = objectname(temp18)
+			GOSUB objectcollisionchanger
+		END IF
+		IF temp167 = 2 THEN
+			LET proposedobject$ = objectname(temp18)
+			GOSUB objectcollisionchanger2
+		END IF
+    END IF
+END IF
+REM scrub temp values
+LET temp221 = 0: LET temp222 = 0: LET temp223 = 0: LET temp224 = 0: LET temp225 = 0: LET temp226 = 0: LET temp220 = 0: LET temp17 = 0: LET temp168 = 0: LET temp167 = 0: LET temp227 = 0
+RETURN
+
+boxobjectcollision:
+REM simple object box collision
+IF (resx / 2) + ((mpx / 2) - objectstep) >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp17 = temp17 + 1
+IF (resy / 2) - ((mpy / 2) - objects(temp18)) >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp17 = temp17 + 1
+REM selectobject check
+IF direction = 1 THEN
+    IF (resx / 2) + ((mpx / 2) - objectstep) >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp167 = temp167 + 1
+    IF (resy / 2) - ((mpy / 2) - objects(temp18)) - pace >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) - pace <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp167 = temp167 + 1
+END IF
+IF direction = 2 THEN
+    IF (resx / 2) + ((mpx / 2) - objectstep) >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp167 = temp167 + 1
+    IF (resy / 2) - ((mpy / 2) - objects(temp18)) + pace >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) + pace <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp167 = temp167 + 1
+END IF
+IF direction = 3 THEN
+    IF (resx / 2) + ((mpx / 2) - objectstep) + pace >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) + pace <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp167 = temp167 + 1
+    IF (resy / 2) - ((mpy / 2) - objects(temp18)) >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp167 = temp167 + 1
+END IF
+IF direction = 4 THEN
+    IF (resx / 2) + ((mpx / 2) - objectstep) - pace >= objectx(temp18) + posx AND (resx / 2) - ((mpx / 2) - (objectstep * 2)) - pace <= (objectx(temp18) + objectresx(temp18)) + posx THEN LET temp167 = temp167 + 1
+    IF (resy / 2) - ((mpy / 2) - objects(temp18)) >= objecty(temp18) + posy AND (resy / 2) + (mpy / 2) <= (objecty(temp18) + objectresy(temp18)) + posy THEN LET temp167 = temp167 + 1
+END IF
+LET proposedobject$ = objectname(temp18)
+GOSUB objectcollisionchanger: REM changes collision if object collision is on
+LET temp17 = 0: LET temp168 = 0: LET temp167 = 0: REM scrubs temp values
 RETURN
 
 objectcollisionchanger:
@@ -3573,7 +3835,9 @@ IF temp17 = 2 THEN
     IF direction = 4 THEN LET posx = posx - pace
     REM scrubs temp values / assigns temp values
     LET temp4$ = "": LET temp5$ = "": LET temp19 = posx: LET temp20 = posy
+    IF temp227 = 1 THEN RETURN: REM return for if using point collision
 END IF
+objectcollisionchanger2:
 IF temp167 = 2 THEN
     REM tells engine what object has been collided
     LET objecthighlight(temp18) = 1
@@ -3583,7 +3847,6 @@ IF temp167 = 2 THEN
 ELSE
     LET objecthighlight(temp18) = 0
 END IF
-LET temp17 = 0: LET temp168 = 0: LET temp167 = 0: REM scrubs temp values
 RETURN
 
 mapcollision:
@@ -3716,7 +3979,7 @@ REM checks update file
 IF _FILEEXISTS("checkupdate.ddf") THEN
     REM file exists
     OPEN "checkupdate.ddf" FOR INPUT AS #1
-    INPUT #1, newversionno$, updaterlinklnx$, updaterlinkwin$, downloadlink$, windownload$, lnxdownload$, unziplink$, updatetype, updatefolder$, updatewinexe$, updatelinuxexe$, updatereadme$, updatechangelog$, updatemanual$, updatesource$, updateupdatersource$, updateupdaterzip2$, updateupdaterzip$
+    INPUT #1, newversionno$, updaterlinklnx$, updaterlinkmac$, updaterlinkwin$, downloadlink$, windownload$, lnxdownload$, macdownload$, unziplink$, updatetype, updatefolder$, updatewinexe$, updatelinuxexe$, updatemacexe$, updatereadme$, updatechangelog$, updatemanual$, updatesource$, updateupdatersource$, updateupdaterzip2$, updateupdaterzip$
     CLOSE #1
     IF fixvame = 1 THEN LET newversionno$ = "FIX VAME"
     IF newversionno$ <> versionno$ THEN
@@ -3753,8 +4016,8 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
         REM download updater
         _PUTIMAGE (1, 1)-(downloadiconresx, downloadiconresy), downloadicon
         IF ros$ = "mac" THEN
-			LET temp29$ = updateupdaterzip$ + "_macos"
-			SHELL _HIDE "curl -o " + temp29$ + " " + updaterlinkmac$
+            LET temp29$ = updateupdaterzip$ + "_macos"
+            SHELL _HIDE "curl -o " + temp29$ + " " + updaterlinkmac$
             IF _FILEEXISTS(temp29$) THEN
                 REM nothing
             ELSE
@@ -6051,6 +6314,73 @@ DO
     IF objectname(temp10) <> "[COLLISIONONLY]" THEN
         OPEN oloc$ + temp10$ + "/" + temp10$ + ".ddf" FOR INPUT AS #1
         INPUT #1, objectlongname$(temp10), objectresx(temp10), objectresy(temp10), objects(temp10), objectlayer(temp10), objectspeed(temp10), objectcollision(temp10): LET objecta(temp10) = _LOADIMAGE(oloc$ + temp10$ + "/" + temp10$ + "a.png"): LET objectb(temp10) = _LOADIMAGE(oloc$ + temp10$ + "/" + temp10$ + "b.png")
+        DO
+            LET pointload = pointload + 1
+            IF temp10 = 1 THEN INPUT #1, objectpoint1x(pointload), objectpoint1y(pointload)
+            IF temp10 = 2 THEN INPUT #1, objectpoint2x(pointload), objectpoint2y(pointload)
+            IF temp10 = 3 THEN INPUT #1, objectpoint3x(pointload), objectpoint3y(pointload)
+            IF temp10 = 4 THEN INPUT #1, objectpoint4x(pointload), objectpoint4y(pointload)
+            IF temp10 = 5 THEN INPUT #1, objectpoint5x(pointload), objectpoint5y(pointload)
+            IF temp10 = 6 THEN INPUT #1, objectpoint6x(pointload), objectpoint6y(pointload)
+            IF temp10 = 7 THEN INPUT #1, objectpoint7x(pointload), objectpoint7y(pointload)
+            IF temp10 = 8 THEN INPUT #1, objectpoint8x(pointload), objectpoint8y(pointload)
+            IF temp10 = 9 THEN INPUT #1, objectpoint9x(pointload), objectpoint9y(pointload)
+            IF temp10 = 10 THEN INPUT #1, objectpoint10x(pointload), objectpoint10y(pointload)
+            IF temp10 = 11 THEN INPUT #1, objectpoint11x(pointload), objectpoint11y(pointload)
+            IF temp10 = 12 THEN INPUT #1, objectpoint12x(pointload), objectpoint12y(pointload)
+            IF temp10 = 13 THEN INPUT #1, objectpoint13x(pointload), objectpoint13y(pointload)
+            IF temp10 = 14 THEN INPUT #1, objectpoint14x(pointload), objectpoint14y(pointload)
+            IF temp10 = 15 THEN INPUT #1, objectpoint15x(pointload), objectpoint15y(pointload)
+            IF temp10 = 16 THEN INPUT #1, objectpoint16x(pointload), objectpoint16y(pointload)
+            IF temp10 = 17 THEN INPUT #1, objectpoint17x(pointload), objectpoint17y(pointload)
+            IF temp10 = 18 THEN INPUT #1, objectpoint18x(pointload), objectpoint18y(pointload)
+            IF temp10 = 19 THEN INPUT #1, objectpoint19x(pointload), objectpoint19y(pointload)
+            IF temp10 = 20 THEN INPUT #1, objectpoint20x(pointload), objectpoint20y(pointload)
+            IF temp10 = 21 THEN INPUT #1, objectpoint21x(pointload), objectpoint21y(pointload)
+            IF temp10 = 22 THEN INPUT #1, objectpoint22x(pointload), objectpoint22y(pointload)
+            IF temp10 = 23 THEN INPUT #1, objectpoint23x(pointload), objectpoint23y(pointload)
+            IF temp10 = 24 THEN INPUT #1, objectpoint24x(pointload), objectpoint24y(pointload)
+            IF temp10 = 25 THEN INPUT #1, objectpoint25x(pointload), objectpoint25y(pointload)
+            IF temp10 = 26 THEN INPUT #1, objectpoint26x(pointload), objectpoint26y(pointload)
+            IF temp10 = 27 THEN INPUT #1, objectpoint27x(pointload), objectpoint27y(pointload)
+            IF temp10 = 28 THEN INPUT #1, objectpoint28x(pointload), objectpoint28y(pointload)
+            IF temp10 = 29 THEN INPUT #1, objectpoint29x(pointload), objectpoint29y(pointload)
+            IF temp10 = 30 THEN INPUT #1, objectpoint30x(pointload), objectpoint30y(pointload)
+            IF temp10 = 31 THEN INPUT #1, objectpoint31x(pointload), objectpoint31y(pointload)
+            IF temp10 = 32 THEN INPUT #1, objectpoint32x(pointload), objectpoint32y(pointload)
+            IF temp10 = 33 THEN INPUT #1, objectpoint33x(pointload), objectpoint33y(pointload)
+            IF temp10 = 34 THEN INPUT #1, objectpoint34x(pointload), objectpoint34y(pointload)
+            IF temp10 = 35 THEN INPUT #1, objectpoint35x(pointload), objectpoint35y(pointload)
+            IF temp10 = 36 THEN INPUT #1, objectpoint36x(pointload), objectpoint36y(pointload)
+            IF temp10 = 37 THEN INPUT #1, objectpoint37x(pointload), objectpoint37y(pointload)
+            IF temp10 = 38 THEN INPUT #1, objectpoint38x(pointload), objectpoint38y(pointload)
+            IF temp10 = 39 THEN INPUT #1, objectpoint39x(pointload), objectpoint39y(pointload)
+            IF temp10 = 40 THEN INPUT #1, objectpoint40x(pointload), objectpoint40y(pointload)
+            IF temp10 = 41 THEN INPUT #1, objectpoint41x(pointload), objectpoint41y(pointload)
+            IF temp10 = 42 THEN INPUT #1, objectpoint42x(pointload), objectpoint42y(pointload)
+            IF temp10 = 43 THEN INPUT #1, objectpoint43x(pointload), objectpoint43y(pointload)
+            IF temp10 = 44 THEN INPUT #1, objectpoint44x(pointload), objectpoint44y(pointload)
+            IF temp10 = 45 THEN INPUT #1, objectpoint45x(pointload), objectpoint45y(pointload)
+            IF temp10 = 46 THEN INPUT #1, objectpoint46x(pointload), objectpoint46y(pointload)
+            IF temp10 = 47 THEN INPUT #1, objectpoint47x(pointload), objectpoint47y(pointload)
+            IF temp10 = 48 THEN INPUT #1, objectpoint48x(pointload), objectpoint48y(pointload)
+            IF temp10 = 49 THEN INPUT #1, objectpoint49x(pointload), objectpoint49y(pointload)
+            IF temp10 = 50 THEN INPUT #1, objectpoint50x(pointload), objectpoint50y(pointload)
+            IF temp10 = 51 THEN INPUT #1, objectpoint51x(pointload), objectpoint51y(pointload)
+            IF temp10 = 52 THEN INPUT #1, objectpoint52x(pointload), objectpoint52y(pointload)
+            IF temp10 = 53 THEN INPUT #1, objectpoint53x(pointload), objectpoint53y(pointload)
+            IF temp10 = 54 THEN INPUT #1, objectpoint54x(pointload), objectpoint54y(pointload)
+            IF temp10 = 55 THEN INPUT #1, objectpoint55x(pointload), objectpoint55y(pointload)
+            IF temp10 = 56 THEN INPUT #1, objectpoint56x(pointload), objectpoint56y(pointload)
+            IF temp10 = 57 THEN INPUT #1, objectpoint57x(pointload), objectpoint57y(pointload)
+            IF temp10 = 58 THEN INPUT #1, objectpoint58x(pointload), objectpoint58y(pointload)
+            IF temp10 = 59 THEN INPUT #1, objectpoint59x(pointload), objectpoint59y(pointload)
+            IF temp10 = 60 THEN INPUT #1, objectpoint60x(pointload), objectpoint60y(pointload)
+            IF temp10 = 61 THEN INPUT #1, objectpoint61x(pointload), objectpoint61y(pointload)
+            IF temp10 = 62 THEN INPUT #1, objectpoint62x(pointload), objectpoint62y(pointload)
+            IF temp10 = 63 THEN INPUT #1, objectpoint63x(pointload), objectpoint63y(pointload)
+            IF temp10 = 64 THEN INPUT #1, objectpoint64x(pointload), objectpoint64y(pointload)
+        LOOP UNTIL EOF(1) OR temp10 > 64
         CLOSE #1
     ELSE
         GOSUB collisionconverter
@@ -6069,7 +6399,7 @@ DO
     LET eventnumber = temp10
     GOSUB consoleprinter
 LOOP UNTIL temp10 >= mapobjectno
-LET temp10 = 0: LET temp10$ = "": LET temp11 = 0: LET temp11$ = "": LET temp12 = 0: REM scrub temp values
+LET temp10 = 0: LET temp10$ = "": LET temp11 = 0: LET temp11$ = "": LET temp12 = 0: LET temp220 = 0: REM scrub temp values
 RETURN
 
 timeframecounter:
@@ -8382,26 +8712,26 @@ scriptmovecmd:
 REM moves a player or object
 REM sets move speed
 IF findmove% THEN
-	IF findmainplayer% THEN 
-		LET temp131 = (pace / playerwalkdivide)
-	ELSE
-		LET temp131 = (pace / playerwalkdivide)
-	END IF
+    IF findmainplayer% THEN
+        LET temp131 = (pace / playerwalkdivide)
+    ELSE
+        LET temp131 = (pace / playerwalkdivide)
+    END IF
 ELSE
-	IF findmainplayer% THEN
-		LET temp131 = pace
-	ELSE
-		LET temp131 = pace
-	END IF
+    IF findmainplayer% THEN
+        LET temp131 = pace
+    ELSE
+        LET temp131 = pace
+    END IF
 END IF
 IF findmainplayer% THEN
-	IF finduserandom% THEN LET tempn(4) = randomscriptvalue
-	IF findusevalue% THEN GOSUB scriptvaluefetcher: LET tempn(4) = fetchedvalue
-	IF findminus% AND tempn(4) >= 1000 THEN LET tempn(4) = (tempn(4) - tempn(4)) - tempn(4)
+    IF finduserandom% THEN LET tempn(4) = randomscriptvalue
+    IF findusevalue% THEN GOSUB scriptvaluefetcher: LET tempn(4) = fetchedvalue
+    IF findminus% AND tempn(4) >= 1000 THEN LET tempn(4) = (tempn(4) - tempn(4)) - tempn(4)
 ELSE
-	IF finduserandom% THEN LET tempn(5) = randomscriptvalue
-	IF findusevalue% THEN GOSUB scriptvaluefetcher: LET tempn(5) = fetchedvalue
-	IF findminus% AND tempn(5) >= 1000 THEN LET tempn(5) = (tempn(5) - tempn(5)) - tempn(5)
+    IF finduserandom% THEN LET tempn(5) = randomscriptvalue
+    IF findusevalue% THEN GOSUB scriptvaluefetcher: LET tempn(5) = fetchedvalue
+    IF findminus% AND tempn(5) >= 1000 THEN LET tempn(5) = (tempn(5) - tempn(5)) - tempn(5)
 END IF
 IF findobject% THEN
     REM object
@@ -8610,7 +8940,7 @@ RETURN
 scriptdirectioncmd:
 REM changes direction of player
 IF findmainplayer% THEN
-	REM main player
+    REM main player
     IF finduserandom% THEN LET tempn(3) = randomscriptvalue
     IF findusevalue% THEN GOSUB scriptvaluefetcher: LET tempn(3) = fetchedvalue
     LET direction = tempn(3)
@@ -8618,7 +8948,7 @@ IF findmainplayer% THEN
 END IF
 IF findplayer% THEN
     IF findfaceplayer% THEN
-		IF direction = 1 THEN LET tempn(4) = 2
+        IF direction = 1 THEN LET tempn(4) = 2
         IF direction = 2 THEN LET tempn(4) = 1
         IF direction = 3 THEN LET tempn(4) = 4
         IF direction = 4 THEN LET tempn(4) = 3
@@ -8628,7 +8958,7 @@ IF findplayer% THEN
     END IF
     LET x = 0
     DO
-		LET x = x + 1
+        LET x = x + 1
         IF findplayer(x) THEN LET playerd(x) = tempn(4): LET temp26 = 1
     LOOP UNTIL x >= mapplayerno
     LET x = 0
@@ -9172,15 +9502,15 @@ DO
         LET temp26 = 1
     END IF
     IF findresetsavetime% THEN
-		REM resets save timer back to 0
-		LET sitime = TIMER
-		LET igametime = 0
-		LET stime = 0
-		LET gametime = 0
-		LET erasesave = 0
-		GOSUB savetime
-		LET temp26 = 1
-		GOTO endscriptcmd
+        REM resets save timer back to 0
+        LET sitime = TIMER
+        LET igametime = 0
+        LET stime = 0
+        LET gametime = 0
+        LET erasesave = 0
+        GOSUB savetime
+        LET temp26 = 1
+        GOTO endscriptcmd
     END IF
     IF findspecial666% THEN
         REM special function (spiderbro 1 completion)
@@ -9748,8 +10078,8 @@ IF clearscreen = 1 THEN
 END IF
 REM calculates map location
 'IF mpwalking = 0 THEN
-	LET posx = INT(posx): REM remove decimals
-	LET posy = INT(posy): REM remove decimals
+LET posx = INT(posx): REM remove decimals
+LET posy = INT(posy): REM remove decimals
 'END IF
 LET maploc1x = 0 + posx
 LET maploc1y = 0 + posy

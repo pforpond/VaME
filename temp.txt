@@ -174,3 +174,11 @@ temp216 - selectobjectbanner:
 temp217 - awarddraw:
 temp218 - mainplayerload:
 temp219 - prompt:
+temp220 - objectload:
+temp221 - pointobjectcollision:
+temp222 - pointobjectcollision:
+temp223 - pointobjectcollision:
+temp224 - pointobjectcollision:
+temp225 - pointobjectcollision:
+temp226 - pointobjectcollision:
+temp227 - pointobjectcollision:
