@@ -1,9 +1,13 @@
 REM VaME point file generator - for VaME 2.9
 REM dp 2024
 
-_TITLE "VaME Point File Generator"
-LET arraylimit = 10000
+_TITLE "VaME Point Collision Generator"
+REM enable console
+$CONSOLE
+_CONSOLE ON
+LET arraylimit = 1000000
 _ALLOWFULLSCREEN _OFF: REM block alt-enter
+PRINT "OBJECT SPRITE VIEWER"
 REM check os
 IF INSTR(_OS$, "[WINDOWS]") THEN LET ros$ = "win"
 IF INSTR(_OS$, "[LINUX]") THEN LET ros$ = "lnx"
@@ -23,12 +27,12 @@ IF _FILEEXISTS(dloc$ + "engine.ddf") THEN
     ELSE
         BEEP
         PRINT "MISSING FILELOC.DDF"
-        END
+        SYSTEM
     END IF
 ELSE
 	BEEP
     PRINT "MISSING ENGINE.DDF"
-    END
+    SYSTEM
 END IF
 LET temp6 = 0
 DO
@@ -53,9 +57,11 @@ DO
     ELSE
         BEEP
         PRINT "MISSING ENGINE DIRECTORY - " + temp3$
-        END
+        SYSTEM
     END IF
 LOOP UNTIL temp6 = 14
+_DEST _CONSOLE
+REM screen text
 PRINT "VaME POINT FILE GENERATOR!"
 IF ros$ = "win" THEN PRINT "You are on Microsoft Windows"
 IF ros$ = "mac" THEN PRINT "You are on Apple macOS"
@@ -77,11 +83,11 @@ DIM objecta(arraylimit) AS INTEGER
 DIM objectb(arraylimit) AS INTEGER
 DIM objectcollision(arraylimit) AS INTEGER
 DIM objectpoint(arraylimit * 1000) AS _UNSIGNED LONG
+DIM pointoutput1(arraylimit * 1000) AS INTEGER
+DIM pointoutput2(arraylimit * 1000) AS _UNSIGNED LONG
 DIM pointx(arraylimit) AS INTEGER
 DIM pointy(arraylimit) AS INTEGER
-REM enable console
-$CONSOLE
-_CONSOLE ON
+'DIM currentpointcount AS _UNSIGNED LONG
 GOTO countfiles
 
 countfiles:
@@ -117,88 +123,182 @@ GOTO areyousure
 areyousure:
 REM asks for user confirmation
 PRINT "Would you like to add point collision to " + LTRIM$(STR$(numberofobjects)) + " objects?"
-PRINT "Y/N"
+PRINT "Y/N (S for slow mode, P for pause mode)"
 INPUT a$
 IF UCASE$(a$) = "N" THEN 
 	PRINT "Operation aborted by user."
 	IF ros$ = "win" THEN SHELL _HIDE "del " + dloc$ + "objectlist.tmp"
 	IF ros$ = "lnx" THEN SHELL _HIDE "rm " + dloc$ + "objectlist.tmp"
-	END
+	SYSTEM
 END IF
 IF UCASE$(a$) = "Y" THEN GOTO generatepoints
+IF UCASE$(a$) = "S" THEN LET slowmode = 1: GOTO generatepoints
+IF UCASE$(a$) = "P" THEN LET pausemode = 1: GOTO generatepoints
 GOTO areyousure
 
 generatepoints:
 REM generates point data for array
+_DEST 0
 FOR x = 1 TO numberofobjects
+	_DEST _CONSOLE
 	PRINT "Checking data for object: " + objectname$(x) + " (" + LTRIM$(STR$(x)) + "/" + LTRIM$(STR$(numberofobjects)) + ")"
-	_DELAY 1
+	_DEST 0
 	IF _FILEEXISTS(oloc$ + objectname$(x) + "/" + objectname$(x) + "a.png") THEN
 		REM import data
 		OPEN oloc$ + objectname$(x) + "/" + objectname$(x) + ".ddf" FOR INPUT AS #1
 		INPUT #1, objectlongname$(x), objectresx(x), objectresy(x), objects(x), objectlayer(x), objectspeed(x), objectcollision(x)
 		CLOSE #1
-		PRINT "Generating point data for object: " + objectname$(x) + " (" + LTRIM$(STR$(x)) + "/" + LTRIM$(STR$(numberofobjects)) + ")"
+		_DEST _CONSOLE
+		PRINT "Generating point data for object: " + objectname$(x)
+		_DEST 0
 		GOSUB pointingfordummies
-		PRINT "Point data generated for object: " + objectname$(x) + " (" + LTRIM$(STR$(x)) + "/" + LTRIM$(STR$(numberofobjects)) + ")"
-		_DELAY 1
+		_DEST _CONSOLE
+		PRINT "Point data generated for object: " + objectname$(x)
+		_DEST 0
+		GOSUB savedata
 	ELSE
 		REM skip item
 		BEEP
+		_DEST _CONSOLE
 		PRINT "Sprites for object " + objectname$(x) + " were not found! Skipping..."
-		_DELAY 1
+		_DEST 0
+		'_DELAY 1
 	END IF
 NEXT x
+_DEST _CONSOLE
 PRINT "Point generation complete!"
-GOTO savedata
+_DEST 0
+GOTO pointingcomplete
 
 pointingfordummies:
 REM probes sprites for point data
 SCREEN _NEWIMAGE(objectresx(x) + 1, objectresy(x) + 1, 32)
+REM $RESIZE:STRETCH
 LET spritefile = _LOADIMAGE(oloc$ + objectname$(x) + "/" + objectname$(x) + "a.png")
+LET dotdude = _LOADIMAGE(uiloc$ + "dotdude.png")
 _PUTIMAGE(1, 1), spritefile
 LET px = 0
-LET py = 0
+LET py = 1
 LET pointloop = 0
 LET endloop = 0
 DO
 	LET pointloop = pointloop + 1
+	LET px = px + 1
 	LET objectpoint(pointloop) = POINT(px, py)
 	LET pointx(pointloop) = px
 	LET pointy(pointloop) = py
-	_DEST _CONSOLE
-	PRINT LTRIM$(STR$(pointx(pointloop))) + "," + LTRIM$(STR$(pointy(pointloop))) + ": " + LTRIM$(STR$(objectpoint(pointloop)))
-	_DEST 0
-	LET px = px + 1
-	IF px => objectresx(x) + 1 AND py => objectresy(x) + 1 THEN LET endloop = 1
+	IF objectpoint(pointloop) > 0 THEN _PUTIMAGE (px, py), dotdude: IF slowmode = 1 THEN _DELAY 0.0001
+	IF px => objectresx(x) AND py => objectresy(x) THEN LET endloop = 1
 	IF px > objectresx(x) THEN LET px = 1: LET py = py + 1
-	_DELAY 0.001
 LOOP UNTIL endloop = 1
+IF pausemode = 1 THEN
+	_DEST _CONSOLE
+	PRINT "PRESS ENTER TO CONTINUE!"
+	INPUT a$
+	_DEST 0
+END IF
 SCREEN 0
+PRINT "OBJECT SPRITE VIEWER"
 _FREEIMAGE spritefile
+_FREEIMAGE dotdude
 RETURN
 
 savedata:
+REM compresses data for save file
+_DEST _CONSOLE
+PRINT "Compressing point data to object: " + objectname$(x)
+_DEST 0
+LET currentpointcount = 1
+IF objectpoint(1) > 0 THEN 
+	LET currentobjectpoint = 1
+	LET oldobjectpoint = 1
+ELSE
+	LET currentobjectpoint = 0
+	LET oldobjectpoint = 0
+END IF
+LET d = 1
+LET u = 1
+DO
+	LET d = d + 1
+	IF objectpoint(d) > 0 THEN
+		REM point is solid
+		LET currentobjectpoint = 1
+	ELSE
+		REM point is not solid
+		LET currentobjectpoint = 0
+	END IF
+	IF currentobjectpoint <> oldobjectpoint THEN
+		REM previous point not the same
+		LET pointoutput1(u) = oldobjectpoint
+		LET pointoutput2(u) = currentpointcount
+		LET u = u + 1
+		LET currentpointcount = 1
+	ELSE
+		REM previous point is the same
+		LET currentpointcount = currentpointcount + 1
+	END IF
+	LET oldobjectpoint = currentobjectpoint
+LOOP UNTIL d => (objectresx(x) * objectresy(x))
+LET pointoutput1(u) = oldobjectpoint
+LET pointoutput2(u) = currentpointcount
+LET u = u + 1
+'IF pointoutput1(1) = 0 AND pointoutput2(1) = 0 THEN
+'	LET pointoutput1(1) = currentobjectpoint
+'	LET pointoutput2(1) = currentpointcount
+'	LET u = u + 1
+'END IF
 REM saves the point data to file
+_DEST _CONSOLE
+PRINT "Saving point data to object: " + objectname$(x)
+OPEN oloc$ + objectname$(x) + "/" + objectname$(x) + ".ddf" FOR OUTPUT AS #1
+WRITE #1, objectlongname$(x), objectresx(x), objectresy(x), objects(x), objectlayer(x), objectspeed(x), objectcollision(x)
+FOR d = 1 TO u - 1
+	'IF objectpoint(d) <> 0 THEN WRITE #1, pointx(d), pointy(d)
+	WRITE #1, pointoutput1(d), pointoutput2(d)
+NEXT d
+CLOSE #1
+'_DELAY 0.1
+PRINT "Point data for object: " + objectname$(x) + " is saved!"
+FOR d = 1 TO objectresx(x) * objectresy(x)
+	LET objectpoint(d) = 0
+NEXT d
+FOR d = 1 TO u
+	LET pointoutput1(d) = 0
+	LET pointoutput2(d) = 0
+NEXT d
+_DEST 0
+REM check for if a collision backup file has been saved and revert back to that
+IF _FILEEXISTS(oloc$ + objectname$(x) + "/" + objectname$(x) + "[COLBACKUP].ddf") THEN
+	IF ros$ = "lnx" OR ros$ = "mac" THEN
+		REM linux 
+		SHELL _HIDE "rm " + oloc$ + objectname$(x) + "/" + objectname$(x) + ".ddf"
+		SHELL _HIDE "cp " + oloc$ + objectname$(x) + "/" + objectname$(x) + "[COLBACKUP].ddf " + oloc$ + objectname$(x) + "/" + objectname$(x) + ".ddf"
+		_DEST _CONSOLE
+		PRINT "Point data for object: " + objectname$(x) + " has been reverted to a backup!"
+		_DEST 0
+	END IF
+	IF ros$ = "win" THEN
+		REM windows
+		SHELL _HIDE "del " + oloc$ + objectname$(x) + "\" + objectname$(x) + ".ddf"
+		SHELL _HIDE "copy " + oloc$ + objectname$(x) + "\" + objectname$(x) + "[COLBACKUP].ddf " + oloc$ + objectname$(x) + "\" + objectname$(x) + ".ddf"
+		_DEST _CONSOLE
+		PRINT "Point data for object: " + objectname$(x) + " has been reverted to a backup!"
+		_DEST 0
+	END IF
+END IF
+_DEST _CONSOLE
 PRINT
-PRINT "Saving point data to object files..."
-FOR x = 1 TO numberofobjects
-	PRINT "Saving point data to object: " + objectname$(x) + " (" + LTRIM$(STR$(x)) + "/" + LTRIM$(STR$(numberofobjects)) + ")"
-	OPEN oloc$ + objectname$(x) + "/" + objectname$(x) + ".ddf" FOR OUTPUT AS #1
-	WRITE #1, objectlongname$(x), objectresx(x), objectresy(x), objects(x), objectlayer(x), objectspeed(x), objectcollision(x)
-	FOR d = 1 TO (objectresx(x) * objectresy(x))
-		IF objectpoint(d) <> 0 THEN WRITE #1, pointx(d), pointy(d)
-	NEXT d
-	CLOSE #1
-	_DELAY 0.1
-	PRINT "Point data for object: " + objectname$(x) + " is saved!"
-NEXT x
+_DEST 0
+RETURN
+
+pointingcomplete:
+_DEST _CONSOLE
 PRINT
-PRINT "Object point collision fully generated and saved!"
 PRINT "Have a nice day :)"
+_DEST 0
 IF ros$ = "win" THEN SHELL _HIDE "del " + dloc$ + "objectlist.tmp"
 IF ros$ = "lnx" THEN SHELL _HIDE "rm " + dloc$ + "objectlist.tmp"
-END
+SYSTEM
 
 
 

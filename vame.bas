@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9
+REM Build 2.9.3
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,0,29
-$VERSIONINFO:PRODUCTVERSION#=2,9,0,29
+$VERSIONINFO:FILEVERSION#=2,9,3,2903
+$VERSIONINFO:PRODUCTVERSION#=2,9,3,2903
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9"
+LET hardbuild$ = "2.9.3"
 
 setup:
 REM initiates engine and assigns values
@@ -138,6 +138,7 @@ IF erasesaveonly = 1 THEN GOTO erasesave
 REM directs to mainmenu
 LET menu$ = "mainmenu"
 GOSUB menugenerator
+_PUTIMAGE (1, 1)-(loadiconresx, loadiconresy), loadicon: REM displays load icon
 REM setup timer
 RANDOMIZE TIMER
 LET itime = TIMER: REM timer function
@@ -171,130 +172,70 @@ DIM objectcollision(totalobjects) AS INTEGER
 DIM findobject(totalobjects) AS INTEGER
 DIM autoobjectcull(totalobjects) AS INTEGER
 DIM objecthighlight(totalobjects) AS INTEGER
-DIM objectpoint1x(1000000) AS INTEGER
-DIM objectpoint1y(1000000) AS INTEGER
-DIM objectpoint2x(1000000) AS INTEGER
-DIM objectpoint2y(1000000) AS INTEGER
-DIM objectpoint3x(1000000) AS INTEGER
-DIM objectpoint3y(1000000) AS INTEGER
-DIM objectpoint4x(1000000) AS INTEGER
-DIM objectpoint4y(1000000) AS INTEGER
-DIM objectpoint5x(1000000) AS INTEGER
-DIM objectpoint5y(1000000) AS INTEGER
-DIM objectpoint6x(1000000) AS INTEGER
-DIM objectpoint6y(1000000) AS INTEGER
-DIM objectpoint7x(1000000) AS INTEGER
-DIM objectpoint7y(1000000) AS INTEGER
-DIM objectpoint8x(1000000) AS INTEGER
-DIM objectpoint8y(1000000) AS INTEGER
-DIM objectpoint9x(1000000) AS INTEGER
-DIM objectpoint9y(1000000) AS INTEGER
-DIM objectpoint10x(1000000) AS INTEGER
-DIM objectpoint10y(1000000) AS INTEGER
-DIM objectpoint11x(1000000) AS INTEGER
-DIM objectpoint11y(1000000) AS INTEGER
-DIM objectpoint12x(1000000) AS INTEGER
-DIM objectpoint12y(1000000) AS INTEGER
-DIM objectpoint13x(1000000) AS INTEGER
-DIM objectpoint13y(1000000) AS INTEGER
-DIM objectpoint14x(1000000) AS INTEGER
-DIM objectpoint14y(1000000) AS INTEGER
-DIM objectpoint15x(1000000) AS INTEGER
-DIM objectpoint15y(1000000) AS INTEGER
-DIM objectpoint16x(1000000) AS INTEGER
-DIM objectpoint16y(1000000) AS INTEGER
-DIM objectpoint17x(1000000) AS INTEGER
-DIM objectpoint17y(1000000) AS INTEGER
-DIM objectpoint18x(1000000) AS INTEGER
-DIM objectpoint18y(1000000) AS INTEGER
-DIM objectpoint19x(1000000) AS INTEGER
-DIM objectpoint19y(1000000) AS INTEGER
-DIM objectpoint20x(1000000) AS INTEGER
-DIM objectpoint20y(1000000) AS INTEGER
-DIM objectpoint21x(1000000) AS INTEGER
-DIM objectpoint21y(1000000) AS INTEGER
-DIM objectpoint22x(1000000) AS INTEGER
-DIM objectpoint22y(1000000) AS INTEGER
-DIM objectpoint23x(1000000) AS INTEGER
-DIM objectpoint23y(1000000) AS INTEGER
-DIM objectpoint24x(1000000) AS INTEGER
-DIM objectpoint24y(1000000) AS INTEGER
-DIM objectpoint25x(1000000) AS INTEGER
-DIM objectpoint25y(1000000) AS INTEGER
-DIM objectpoint26x(1000000) AS INTEGER
-DIM objectpoint26y(1000000) AS INTEGER
-DIM objectpoint27x(1000000) AS INTEGER
-DIM objectpoint27y(1000000) AS INTEGER
-DIM objectpoint28x(1000000) AS INTEGER
-DIM objectpoint28y(1000000) AS INTEGER
-DIM objectpoint29x(1000000) AS INTEGER
-DIM objectpoint29y(1000000) AS INTEGER
-DIM objectpoint30x(1000000) AS INTEGER
-DIM objectpoint30y(1000000) AS INTEGER
-DIM objectpoint31x(1000000) AS INTEGER
-DIM objectpoint31y(1000000) AS INTEGER
-DIM objectpoint32x(1000000) AS INTEGER
-DIM objectpoint32y(1000000) AS INTEGER
-DIM objectpoint33x(1000000) AS INTEGER
-DIM objectpoint33y(1000000) AS INTEGER
-DIM objectpoint34x(1000000) AS INTEGER
-DIM objectpoint34y(1000000) AS INTEGER
-DIM objectpoint35x(1000000) AS INTEGER
-DIM objectpoint35y(1000000) AS INTEGER
-DIM objectpoint36x(1000000) AS INTEGER
-DIM objectpoint36y(1000000) AS INTEGER
-DIM objectpoint37x(1000000) AS INTEGER
-DIM objectpoint37y(1000000) AS INTEGER
-DIM objectpoint38x(1000000) AS INTEGER
-DIM objectpoint38y(1000000) AS INTEGER
-DIM objectpoint39x(1000000) AS INTEGER
-DIM objectpoint39y(1000000) AS INTEGER
-DIM objectpoint40x(1000000) AS INTEGER
-DIM objectpoint40y(1000000) AS INTEGER
-DIM objectpoint41x(1000000) AS INTEGER
-DIM objectpoint41y(1000000) AS INTEGER
-DIM objectpoint42x(1000000) AS INTEGER
-DIM objectpoint42y(1000000) AS INTEGER
-DIM objectpoint43x(1000000) AS INTEGER
-DIM objectpoint43y(1000000) AS INTEGER
-DIM objectpoint44x(1000000) AS INTEGER
-DIM objectpoint44y(1000000) AS INTEGER
-DIM objectpoint45x(1000000) AS INTEGER
-DIM objectpoint45y(1000000) AS INTEGER
-DIM objectpoint46x(1000000) AS INTEGER
-DIM objectpoint46y(1000000) AS INTEGER
-DIM objectpoint47x(1000000) AS INTEGER
-DIM objectpoint47y(1000000) AS INTEGER
-DIM objectpoint48x(1000000) AS INTEGER
-DIM objectpoint48y(1000000) AS INTEGER
-DIM objectpoint49x(1000000) AS INTEGER
-DIM objectpoint49y(1000000) AS INTEGER
-DIM objectpoint50x(1000000) AS INTEGER
-DIM objectpoint50y(1000000) AS INTEGER
-DIM objectpoint51x(1000000) AS INTEGER
-DIM objectpoint51y(1000000) AS INTEGER
-DIM objectpoint52x(1000000) AS INTEGER
-DIM objectpoint52y(1000000) AS INTEGER
-DIM objectpoint53x(1000000) AS INTEGER
-DIM objectpoint53y(1000000) AS INTEGER
-DIM objectpoint54x(1000000) AS INTEGER
-DIM objectpoint54y(1000000) AS INTEGER
-DIM objectpoint55x(1000000) AS INTEGER
-DIM objectpoint55y(1000000) AS INTEGER
-DIM objectpoint56x(1000000) AS INTEGER
-DIM objectpoint56y(1000000) AS INTEGER
-DIM objectpoint57x(1000000) AS INTEGER
-DIM objectpoint57y(1000000) AS INTEGER
-DIM objectpoint58x(1000000) AS INTEGER
-DIM objectpoint58y(1000000) AS INTEGER
-DIM objectpoint59x(1000000) AS INTEGER
-DIM objectpoint59y(1000000) AS INTEGER
-DIM objectpoint60x(1000000) AS INTEGER
-DIM objectpoint60y(1000000) AS INTEGER
-DIM objectpoint61x(1000000) AS INTEGER
-DIM objectpoint61y(1000000) AS INTEGER
-DIM objectpoint62x(1000000) AS INTEGER
-DIM objectpoint62y(1000000) AS INTEGER
+DIM objectpoint1(1000000) AS INTEGER
+DIM objectpoint2(1000000) AS INTEGER
+DIM objectpoint3(1000000) AS INTEGER
+DIM objectpoint4(1000000) AS INTEGER
+DIM objectpoint5(1000000) AS INTEGER
+DIM objectpoint6(1000000) AS INTEGER
+DIM objectpoint7(1000000) AS INTEGER
+DIM objectpoint8(1000000) AS INTEGER
+DIM objectpoint9(1000000) AS INTEGER
+DIM objectpoint10(1000000) AS INTEGER
+DIM objectpoint11(1000000) AS INTEGER
+DIM objectpoint12(1000000) AS INTEGER
+DIM objectpoint13(1000000) AS INTEGER
+DIM objectpoint14(1000000) AS INTEGER
+DIM objectpoint15(1000000) AS INTEGER
+DIM objectpoint16(1000000) AS INTEGER
+DIM objectpoint17(1000000) AS INTEGER
+DIM objectpoint18(1000000) AS INTEGER
+DIM objectpoint19(1000000) AS INTEGER
+DIM objectpoint20(1000000) AS INTEGER
+DIM objectpoint21(1000000) AS INTEGER
+DIM objectpoint22(1000000) AS INTEGER
+DIM objectpoint23(1000000) AS INTEGER
+DIM objectpoint24(1000000) AS INTEGER
+DIM objectpoint25(1000000) AS INTEGER
+DIM objectpoint26(1000000) AS INTEGER
+DIM objectpoint27(1000000) AS INTEGER
+DIM objectpoint28(1000000) AS INTEGER
+DIM objectpoint29(1000000) AS INTEGER
+DIM objectpoint30(1000000) AS INTEGER
+DIM objectpoint31(1000000) AS INTEGER
+DIM objectpoint32(1000000) AS INTEGER
+DIM objectpoint33(1000000) AS INTEGER
+DIM objectpoint34(1000000) AS INTEGER
+DIM objectpoint35(1000000) AS INTEGER
+DIM objectpoint36(1000000) AS INTEGER
+DIM objectpoint37(1000000) AS INTEGER
+DIM objectpoint38(1000000) AS INTEGER
+DIM objectpoint39(1000000) AS INTEGER
+DIM objectpoint40(1000000) AS INTEGER
+DIM objectpoint41(1000000) AS INTEGER
+DIM objectpoint42(1000000) AS INTEGER
+DIM objectpoint43(1000000) AS INTEGER
+DIM objectpoint44(1000000) AS INTEGER
+DIM objectpoint45(1000000) AS INTEGER
+DIM objectpoint46(1000000) AS INTEGER
+DIM objectpoint47(1000000) AS INTEGER
+DIM objectpoint48(1000000) AS INTEGER
+DIM objectpoint49(1000000) AS INTEGER
+DIM objectpoint50(1000000) AS INTEGER
+DIM objectpoint51(1000000) AS INTEGER
+DIM objectpoint52(1000000) AS INTEGER
+DIM objectpoint53(1000000) AS INTEGER
+DIM objectpoint54(1000000) AS INTEGER
+DIM objectpoint55(1000000) AS INTEGER
+DIM objectpoint56(1000000) AS INTEGER
+DIM objectpoint57(1000000) AS INTEGER
+DIM objectpoint58(1000000) AS INTEGER
+DIM objectpoint59(1000000) AS INTEGER
+DIM objectpoint60(1000000) AS INTEGER
+DIM objectpoint61(1000000) AS INTEGER
+DIM objectpoint62(1000000) AS INTEGER
+DIM objectpoint63(1000000) AS INTEGER
+DIM objectpoint64(1000000) AS INTEGER
 REM map player values
 DIM playername(totalplayers) AS STRING
 DIM playerlongname(totalplayers) AS STRING
@@ -2049,6 +1990,7 @@ LET awardarrowr = _LOADIMAGE(uiloc$ + awardarrowright$ + ".png")
 LET awardarrowl = _LOADIMAGE(uiloc$ + awardarrowleft$ + ".png")
 LET awardarrowrs = _LOADIMAGE(uiloc$ + awardarrowselectright$ + ".png")
 LET awardarrowls = _LOADIMAGE(uiloc$ + awardarrowselectleft$ + ".png")
+LET dotdude = _LOADIMAGE(uiloc$ + "dotdude.png")
 FOR logoloop = 1 TO devlogono
     IF logoloop = 1 THEN LET devlogo1 = _LOADIMAGE(uiloc$ + devlogo$ + "1.png")
     IF logoloop = 2 THEN LET devlogo2 = _LOADIMAGE(uiloc$ + devlogo$ + "2.png")
@@ -2094,6 +2036,7 @@ _FREEIMAGE awardarrowl
 _FREEIMAGE awardarrowr
 _FREEIMAGE awardarrowls
 _FREEIMAGE awardarrowrs
+_FREEIMAGE dotdude
 FOR logoloop = 1 TO devlogono
     IF logoloop = 1 THEN _FREEIMAGE devlogo1
     IF logoloop = 2 THEN _FREEIMAGE devlogo2
@@ -3645,7 +3588,6 @@ DO
     IF objectx(temp18) + objectresx(temp18) > ((resx / 2) - posx) - (resx / 2) AND objectx(temp18) < ((resx / 2) - posx) + (resx / 2) THEN LET colpass1 = 1
     IF objecty(temp18) + objectresy(temp18) > ((resy / 2) - posy) - (resy / 2) AND objecty(temp18) < ((resy / 2) - posy) + (resy / 2) THEN LET colpass2 = 1
     IF colpass1 = 1 AND colpass2 = 1 THEN
-        IF proposedobject$ = "[COLLISIONONLY]" THEN LET objectcollision(temp18) = 1
         IF objectcollision(temp18) = 1 THEN GOSUB boxobjectcollision
         IF objectcollision(temp18) = 2 THEN GOSUB pointobjectcollision
     END IF
@@ -3685,106 +3627,113 @@ pointcollisionloop:
 IF temp222 = 2 OR temp167 = 2 THEN
     REM calculates exact pixel player is within object
     IF temp222 = 2 THEN
-		REM sets values for collision
-		LET temp223 = ((resx / 2) - posx) - objectx(temp18)
-		LET temp224 = ((resy / 2) - posy) - objecty(temp18)
-	END IF
-	IF temp167 = 2 THEN
-		REM sets values for selectobject marker
-		IF direction = 1 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)): LET temp224 = (((resy / 2) - posy) - objecty(temp18)) - pace
-		IF direction = 2 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)): LET temp224 = (((resy / 2) - posy) - objecty(temp18)) + pace
-		IF direction = 3 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)) + pace: LET temp224 = (((resy / 2) - posy) - objecty(temp18))
-		IF direction = 4 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)) - pace: LET temp224 = (((resy / 2) - posy) - objecty(temp18))
-	END IF
-	'IF direction = 1 THEN LET temp224 = INT(temp224 + mpy / 2) - objectstep
-	'IF direction = 2 THEN LET temp224 = temp224 + (objectstep * 2)
-	IF direction = 3 THEN LET temp223 = INT(temp223 + mpx / 2) - objectstep
-	'IF direction = 4 THEN LET temp223 = temp223 - objectstep
+        REM sets values for collision
+        LET temp223 = ((resx / 2) - posx) - objectx(temp18)
+        LET temp224 = ((resy / 2) - posy) - objecty(temp18)
+    END IF
+    IF temp167 = 2 THEN
+        REM sets values for selectobject marker
+        IF direction = 1 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)): LET temp224 = (((resy / 2) - posy) - objecty(temp18)) - pace
+        IF direction = 2 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)): LET temp224 = (((resy / 2) - posy) - objecty(temp18)) + pace
+        IF direction = 3 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)) + pace: LET temp224 = (((resy / 2) - posy) - objecty(temp18))
+        IF direction = 4 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)) - pace: LET temp224 = (((resy / 2) - posy) - objecty(temp18))
+    END IF
+    'IF direction = 1 THEN LET temp224 = INT(temp224 + mpy / 2) - objectstep
+    'IF direction = 2 THEN LET temp224 = temp224 + (objectstep * 2)
+    IF direction = 3 THEN LET temp223 = INT(temp223 + mpx / 2) - objectstep
+    'IF direction = 4 THEN LET temp223 = temp223 - objectstep
+    REM figures out which pixel player is on
+    IF temp224 > 1 THEN
+        LET temp226 = (temp224 * objectresx(temp18)) + temp223
+    ELSE
+        LET temp226 = temp223
+    END IF
+    IF temp223 < 2 OR temp224 < 1 THEN GOTO skippointloop: REM skips loop if out of image array
+    IF temp223 > objectresx(temp18) OR temp224 > objectresy(temp18) THEN GOTO skippointloop: REM skips loop if out of image array
+    '_DEST _CONSOLE
+    'PRINT LTRIM$(STR$(temp223)) + "," + LTRIM$(STR$(temp224)) + ": " + LTRIM$(STR$(temp226))
     REM scans object point values for pixel correct value
-    LET pointend = 0
-    DO
-        LET temp226 = temp226 + 1
-        IF temp18 = 1 THEN LET temp221 = objectpoint1x(temp226): LET temp225 = objectpoint1y(temp226)
-        IF temp18 = 2 THEN LET temp221 = objectpoint2x(temp226): LET temp225 = objectpoint2y(temp226)
-        IF temp18 = 3 THEN LET temp221 = objectpoint3x(temp226): LET temp225 = objectpoint3y(temp226)
-        IF temp18 = 4 THEN LET temp221 = objectpoint4x(temp226): LET temp225 = objectpoint4y(temp226)
-        IF temp18 = 5 THEN LET temp221 = objectpoint5x(temp226): LET temp225 = objectpoint5y(temp226)
-        IF temp18 = 6 THEN LET temp221 = objectpoint6x(temp226): LET temp225 = objectpoint6y(temp226)
-        IF temp18 = 7 THEN LET temp221 = objectpoint7x(temp226): LET temp225 = objectpoint7y(temp226)
-        IF temp18 = 8 THEN LET temp221 = objectpoint8x(temp226): LET temp225 = objectpoint8y(temp226)
-        IF temp18 = 9 THEN LET temp221 = objectpoint9x(temp226): LET temp225 = objectpoint9y(temp226)
-        IF temp18 = 10 THEN LET temp221 = objectpoint10x(temp226): LET temp225 = objectpoint10y(temp226)
-        IF temp18 = 11 THEN LET temp221 = objectpoint11x(temp226): LET temp225 = objectpoint11y(temp226)
-        IF temp18 = 12 THEN LET temp221 = objectpoint12x(temp226): LET temp225 = objectpoint12y(temp226)
-        IF temp18 = 13 THEN LET temp221 = objectpoint13x(temp226): LET temp225 = objectpoint13y(temp226)
-        IF temp18 = 14 THEN LET temp221 = objectpoint14x(temp226): LET temp225 = objectpoint14y(temp226)
-        IF temp18 = 15 THEN LET temp221 = objectpoint15x(temp226): LET temp225 = objectpoint15y(temp226)
-        IF temp18 = 16 THEN LET temp221 = objectpoint16x(temp226): LET temp225 = objectpoint16y(temp226)
-        IF temp18 = 17 THEN LET temp221 = objectpoint17x(temp226): LET temp225 = objectpoint17y(temp226)
-        IF temp18 = 18 THEN LET temp221 = objectpoint18x(temp226): LET temp225 = objectpoint18y(temp226)
-        IF temp18 = 19 THEN LET temp221 = objectpoint19x(temp226): LET temp225 = objectpoint19y(temp226)
-        IF temp18 = 20 THEN LET temp221 = objectpoint20x(temp226): LET temp225 = objectpoint20y(temp226)
-        IF temp18 = 21 THEN LET temp221 = objectpoint21x(temp226): LET temp225 = objectpoint21y(temp226)
-        IF temp18 = 22 THEN LET temp221 = objectpoint22x(temp226): LET temp225 = objectpoint22y(temp226)
-        IF temp18 = 23 THEN LET temp221 = objectpoint23x(temp226): LET temp225 = objectpoint23y(temp226)
-        IF temp18 = 24 THEN LET temp221 = objectpoint24x(temp226): LET temp225 = objectpoint24y(temp226)
-        IF temp18 = 25 THEN LET temp221 = objectpoint25x(temp226): LET temp225 = objectpoint25y(temp226)
-        IF temp18 = 26 THEN LET temp221 = objectpoint26x(temp226): LET temp225 = objectpoint26y(temp226)
-        IF temp18 = 27 THEN LET temp221 = objectpoint27x(temp226): LET temp225 = objectpoint27y(temp226)
-        IF temp18 = 28 THEN LET temp221 = objectpoint28x(temp226): LET temp225 = objectpoint28y(temp226)
-        IF temp18 = 29 THEN LET temp221 = objectpoint29x(temp226): LET temp225 = objectpoint29y(temp226)
-        IF temp18 = 30 THEN LET temp221 = objectpoint30x(temp226): LET temp225 = objectpoint30y(temp226)
-        IF temp18 = 31 THEN LET temp221 = objectpoint31x(temp226): LET temp225 = objectpoint31y(temp226)
-        IF temp18 = 32 THEN LET temp221 = objectpoint32x(temp226): LET temp225 = objectpoint32y(temp226)
-        IF temp18 = 33 THEN LET temp221 = objectpoint33x(temp226): LET temp225 = objectpoint33y(temp226)
-        IF temp18 = 34 THEN LET temp221 = objectpoint34x(temp226): LET temp225 = objectpoint34y(temp226)
-        IF temp18 = 35 THEN LET temp221 = objectpoint35x(temp226): LET temp225 = objectpoint35y(temp226)
-        IF temp18 = 36 THEN LET temp221 = objectpoint36x(temp226): LET temp225 = objectpoint36y(temp226)
-        IF temp18 = 37 THEN LET temp221 = objectpoint37x(temp226): LET temp225 = objectpoint37y(temp226)
-        IF temp18 = 38 THEN LET temp221 = objectpoint38x(temp226): LET temp225 = objectpoint38y(temp226)
-        IF temp18 = 39 THEN LET temp221 = objectpoint39x(temp226): LET temp225 = objectpoint39y(temp226)
-        IF temp18 = 40 THEN LET temp221 = objectpoint40x(temp226): LET temp225 = objectpoint40y(temp226)
-        IF temp18 = 41 THEN LET temp221 = objectpoint41x(temp226): LET temp225 = objectpoint41y(temp226)
-        IF temp18 = 42 THEN LET temp221 = objectpoint42x(temp226): LET temp225 = objectpoint42y(temp226)
-        IF temp18 = 43 THEN LET temp221 = objectpoint43x(temp226): LET temp225 = objectpoint43y(temp226)
-        IF temp18 = 44 THEN LET temp221 = objectpoint44x(temp226): LET temp225 = objectpoint44y(temp226)
-        IF temp18 = 45 THEN LET temp221 = objectpoint45x(temp226): LET temp225 = objectpoint45y(temp226)
-        IF temp18 = 46 THEN LET temp221 = objectpoint46x(temp226): LET temp225 = objectpoint46y(temp226)
-        IF temp18 = 47 THEN LET temp221 = objectpoint47x(temp226): LET temp225 = objectpoint47y(temp226)
-        IF temp18 = 48 THEN LET temp221 = objectpoint48x(temp226): LET temp225 = objectpoint48y(temp226)
-        IF temp18 = 49 THEN LET temp221 = objectpoint49x(temp226): LET temp225 = objectpoint49y(temp226)
-        IF temp18 = 50 THEN LET temp221 = objectpoint50x(temp226): LET temp225 = objectpoint50y(temp226)
-        IF temp18 = 51 THEN LET temp221 = objectpoint51x(temp226): LET temp225 = objectpoint51y(temp226)
-        IF temp18 = 52 THEN LET temp221 = objectpoint52x(temp226): LET temp225 = objectpoint52y(temp226)
-        IF temp18 = 53 THEN LET temp221 = objectpoint53x(temp226): LET temp225 = objectpoint53y(temp226)
-        IF temp18 = 54 THEN LET temp221 = objectpoint54x(temp226): LET temp225 = objectpoint54y(temp226)
-        IF temp18 = 55 THEN LET temp221 = objectpoint55x(temp226): LET temp225 = objectpoint55y(temp226)
-        IF temp18 = 56 THEN LET temp221 = objectpoint56x(temp226): LET temp225 = objectpoint56y(temp226)
-        IF temp18 = 57 THEN LET temp221 = objectpoint57x(temp226): LET temp225 = objectpoint57y(temp226)
-        IF temp18 = 58 THEN LET temp221 = objectpoint58x(temp226): LET temp225 = objectpoint58y(temp226)
-        IF temp18 = 59 THEN LET temp221 = objectpoint59x(temp226): LET temp225 = objectpoint59y(temp226)
-        IF temp18 = 60 THEN LET temp221 = objectpoint60x(temp226): LET temp225 = objectpoint60y(temp226)
-        IF temp18 = 61 THEN LET temp221 = objectpoint61x(temp226): LET temp225 = objectpoint61y(temp226)
-        IF temp18 = 62 THEN LET temp221 = objectpoint62x(temp226): LET temp225 = objectpoint62y(temp226)
-        IF temp18 = 63 THEN LET temp221 = objectpoint63x(temp226): LET temp225 = objectpoint63y(temp226)
-        IF temp18 = 64 THEN LET temp221 = objectpoint64x(temp226): LET temp225 = objectpoint64y(temp226)
-        IF temp221 = temp223 AND temp225 = temp224 THEN LET pointend = 2
-    LOOP UNTIL temp226 >= (objectresx(temp18) * objectresy(temp18)) OR pointend = 1 OR temp18 > 64
-    CLOSE #1
+    IF temp18 = 1 THEN LET temp221 = objectpoint1(temp226)
+    IF temp18 = 2 THEN LET temp221 = objectpoint2(temp226)
+    IF temp18 = 3 THEN LET temp221 = objectpoint3(temp226)
+    IF temp18 = 4 THEN LET temp221 = objectpoint4(temp226)
+    IF temp18 = 5 THEN LET temp221 = objectpoint5(temp226)
+    IF temp18 = 6 THEN LET temp221 = objectpoint6(temp226)
+    IF temp18 = 7 THEN LET temp221 = objectpoint7(temp226)
+    IF temp18 = 8 THEN LET temp221 = objectpoint8(temp226)
+    IF temp18 = 9 THEN LET temp221 = objectpoint9(temp226)
+    IF temp18 = 10 THEN LET temp221 = objectpoint10(temp226)
+    IF temp18 = 11 THEN LET temp221 = objectpoint11(temp226)
+    IF temp18 = 12 THEN LET temp221 = objectpoint12(temp226)
+    IF temp18 = 13 THEN LET temp221 = objectpoint13(temp226)
+    IF temp18 = 14 THEN LET temp221 = objectpoint14(temp226)
+    IF temp18 = 15 THEN LET temp221 = objectpoint15(temp226)
+    IF temp18 = 16 THEN LET temp221 = objectpoint16(temp226)
+    IF temp18 = 17 THEN LET temp221 = objectpoint17(temp226)
+    IF temp18 = 18 THEN LET temp221 = objectpoint18(temp226)
+    IF temp18 = 19 THEN LET temp221 = objectpoint19(temp226)
+    IF temp18 = 20 THEN LET temp221 = objectpoint20(temp226)
+    IF temp18 = 21 THEN LET temp221 = objectpoint21(temp226)
+    IF temp18 = 22 THEN LET temp221 = objectpoint22(temp226)
+    IF temp18 = 23 THEN LET temp221 = objectpoint23(temp226)
+    IF temp18 = 24 THEN LET temp221 = objectpoint24(temp226)
+    IF temp18 = 25 THEN LET temp221 = objectpoint25(temp226)
+    IF temp18 = 26 THEN LET temp221 = objectpoint26(temp226)
+    IF temp18 = 27 THEN LET temp221 = objectpoint27(temp226)
+    IF temp18 = 28 THEN LET temp221 = objectpoint28(temp226)
+    IF temp18 = 29 THEN LET temp221 = objectpoint29(temp226)
+    IF temp18 = 30 THEN LET temp221 = objectpoint30(temp226)
+    IF temp18 = 31 THEN LET temp221 = objectpoint31(temp226)
+    IF temp18 = 32 THEN LET temp221 = objectpoint32(temp226)
+    IF temp18 = 33 THEN LET temp221 = objectpoint33(temp226)
+    IF temp18 = 34 THEN LET temp221 = objectpoint34(temp226)
+    IF temp18 = 35 THEN LET temp221 = objectpoint35(temp226)
+    IF temp18 = 36 THEN LET temp221 = objectpoint36(temp226)
+    IF temp18 = 37 THEN LET temp221 = objectpoint37(temp226)
+    IF temp18 = 38 THEN LET temp221 = objectpoint38(temp226)
+    IF temp18 = 39 THEN LET temp221 = objectpoint39(temp226)
+    IF temp18 = 40 THEN LET temp221 = objectpoint40(temp226)
+    IF temp18 = 41 THEN LET temp221 = objectpoint41(temp226)
+    IF temp18 = 42 THEN LET temp221 = objectpoint42(temp226)
+    IF temp18 = 43 THEN LET temp221 = objectpoint43(temp226)
+    IF temp18 = 44 THEN LET temp221 = objectpoint44(temp226)
+    IF temp18 = 45 THEN LET temp221 = objectpoint45(temp226)
+    IF temp18 = 46 THEN LET temp221 = objectpoint46(temp226)
+    IF temp18 = 47 THEN LET temp221 = objectpoint47(temp226)
+    IF temp18 = 48 THEN LET temp221 = objectpoint48(temp226)
+    IF temp18 = 49 THEN LET temp221 = objectpoint49(temp226)
+    IF temp18 = 50 THEN LET temp221 = objectpoint50(temp226)
+    IF temp18 = 51 THEN LET temp221 = objectpoint51(temp226)
+    IF temp18 = 52 THEN LET temp221 = objectpoint52(temp226)
+    IF temp18 = 53 THEN LET temp221 = objectpoint53(temp226)
+    IF temp18 = 54 THEN LET temp221 = objectpoint54(temp226)
+    IF temp18 = 55 THEN LET temp221 = objectpoint55(temp226)
+    IF temp18 = 56 THEN LET temp221 = objectpoint56(temp226)
+    IF temp18 = 57 THEN LET temp221 = objectpoint57(temp226)
+    IF temp18 = 58 THEN LET temp221 = objectpoint58(temp226)
+    IF temp18 = 59 THEN LET temp221 = objectpoint59(temp226)
+    IF temp18 = 60 THEN LET temp221 = objectpoint60(temp226)
+    IF temp18 = 61 THEN LET temp221 = objectpoint61(temp226)
+    IF temp18 = 62 THEN LET temp221 = objectpoint62(temp226)
+    IF temp18 = 63 THEN LET temp221 = objectpoint63(temp226)
+    IF temp18 = 64 THEN LET temp221 = objectpoint64(temp226)
+    'PRINT temp221
+    '_DEST 0
     REM check if player is within a solid point
-    IF pointend = 2 THEN
-        IF temp222 = 2 THEN 
-			LET temp17 = 2
-			LET temp227 = 1
-			LET proposedobject$ = objectname(temp18)
-			GOSUB objectcollisionchanger
-		END IF
-		IF temp167 = 2 THEN
-			LET proposedobject$ = objectname(temp18)
-			GOSUB objectcollisionchanger2
-		END IF
+    IF temp221 <> 0 THEN
+        IF temp222 = 2 THEN
+            LET temp17 = 2
+            LET temp227 = 1
+            LET proposedobject$ = objectname(temp18)
+            GOSUB objectcollisionchanger
+        END IF
+        IF temp167 = 2 THEN
+            LET proposedobject$ = objectname(temp18)
+            GOSUB objectcollisionchanger2
+        END IF
     END IF
 END IF
+skippointloop:
 REM scrub temp values
 LET temp221 = 0: LET temp222 = 0: LET temp223 = 0: LET temp224 = 0: LET temp225 = 0: LET temp226 = 0: LET temp220 = 0: LET temp17 = 0: LET temp168 = 0: LET temp167 = 0: LET temp227 = 0
 RETURN
@@ -6303,6 +6252,7 @@ LET eventnumber = temp10
 GOSUB consoleprinter
 REM applies values
 LET objectx(temp10) = temp143: LET objecty(temp10) = temp144: LET objectresx(temp10) = temp145: LET objectresy(temp10) = temp146: LET objects(temp10) = collisionstep
+LET objectcollision(temp10) = 1
 LET temp141 = 0: LET temp142 = 0: LET temp143 = 0: LET temp144 = 0: LET temp145 = 0: LET temp146 = 0: LET temp36$ = "": LET temp37$ = "": LET temp38$ = "": LET temp39$ = "": LET temp40$ = "": LET temp41$ = "": REM scrub temp values
 RETURN
 
@@ -6314,73 +6264,82 @@ DO
     IF objectname(temp10) <> "[COLLISIONONLY]" THEN
         OPEN oloc$ + temp10$ + "/" + temp10$ + ".ddf" FOR INPUT AS #1
         INPUT #1, objectlongname$(temp10), objectresx(temp10), objectresy(temp10), objects(temp10), objectlayer(temp10), objectspeed(temp10), objectcollision(temp10): LET objecta(temp10) = _LOADIMAGE(oloc$ + temp10$ + "/" + temp10$ + "a.png"): LET objectb(temp10) = _LOADIMAGE(oloc$ + temp10$ + "/" + temp10$ + "b.png")
-        DO
-            LET pointload = pointload + 1
-            IF temp10 = 1 THEN INPUT #1, objectpoint1x(pointload), objectpoint1y(pointload)
-            IF temp10 = 2 THEN INPUT #1, objectpoint2x(pointload), objectpoint2y(pointload)
-            IF temp10 = 3 THEN INPUT #1, objectpoint3x(pointload), objectpoint3y(pointload)
-            IF temp10 = 4 THEN INPUT #1, objectpoint4x(pointload), objectpoint4y(pointload)
-            IF temp10 = 5 THEN INPUT #1, objectpoint5x(pointload), objectpoint5y(pointload)
-            IF temp10 = 6 THEN INPUT #1, objectpoint6x(pointload), objectpoint6y(pointload)
-            IF temp10 = 7 THEN INPUT #1, objectpoint7x(pointload), objectpoint7y(pointload)
-            IF temp10 = 8 THEN INPUT #1, objectpoint8x(pointload), objectpoint8y(pointload)
-            IF temp10 = 9 THEN INPUT #1, objectpoint9x(pointload), objectpoint9y(pointload)
-            IF temp10 = 10 THEN INPUT #1, objectpoint10x(pointload), objectpoint10y(pointload)
-            IF temp10 = 11 THEN INPUT #1, objectpoint11x(pointload), objectpoint11y(pointload)
-            IF temp10 = 12 THEN INPUT #1, objectpoint12x(pointload), objectpoint12y(pointload)
-            IF temp10 = 13 THEN INPUT #1, objectpoint13x(pointload), objectpoint13y(pointload)
-            IF temp10 = 14 THEN INPUT #1, objectpoint14x(pointload), objectpoint14y(pointload)
-            IF temp10 = 15 THEN INPUT #1, objectpoint15x(pointload), objectpoint15y(pointload)
-            IF temp10 = 16 THEN INPUT #1, objectpoint16x(pointload), objectpoint16y(pointload)
-            IF temp10 = 17 THEN INPUT #1, objectpoint17x(pointload), objectpoint17y(pointload)
-            IF temp10 = 18 THEN INPUT #1, objectpoint18x(pointload), objectpoint18y(pointload)
-            IF temp10 = 19 THEN INPUT #1, objectpoint19x(pointload), objectpoint19y(pointload)
-            IF temp10 = 20 THEN INPUT #1, objectpoint20x(pointload), objectpoint20y(pointload)
-            IF temp10 = 21 THEN INPUT #1, objectpoint21x(pointload), objectpoint21y(pointload)
-            IF temp10 = 22 THEN INPUT #1, objectpoint22x(pointload), objectpoint22y(pointload)
-            IF temp10 = 23 THEN INPUT #1, objectpoint23x(pointload), objectpoint23y(pointload)
-            IF temp10 = 24 THEN INPUT #1, objectpoint24x(pointload), objectpoint24y(pointload)
-            IF temp10 = 25 THEN INPUT #1, objectpoint25x(pointload), objectpoint25y(pointload)
-            IF temp10 = 26 THEN INPUT #1, objectpoint26x(pointload), objectpoint26y(pointload)
-            IF temp10 = 27 THEN INPUT #1, objectpoint27x(pointload), objectpoint27y(pointload)
-            IF temp10 = 28 THEN INPUT #1, objectpoint28x(pointload), objectpoint28y(pointload)
-            IF temp10 = 29 THEN INPUT #1, objectpoint29x(pointload), objectpoint29y(pointload)
-            IF temp10 = 30 THEN INPUT #1, objectpoint30x(pointload), objectpoint30y(pointload)
-            IF temp10 = 31 THEN INPUT #1, objectpoint31x(pointload), objectpoint31y(pointload)
-            IF temp10 = 32 THEN INPUT #1, objectpoint32x(pointload), objectpoint32y(pointload)
-            IF temp10 = 33 THEN INPUT #1, objectpoint33x(pointload), objectpoint33y(pointload)
-            IF temp10 = 34 THEN INPUT #1, objectpoint34x(pointload), objectpoint34y(pointload)
-            IF temp10 = 35 THEN INPUT #1, objectpoint35x(pointload), objectpoint35y(pointload)
-            IF temp10 = 36 THEN INPUT #1, objectpoint36x(pointload), objectpoint36y(pointload)
-            IF temp10 = 37 THEN INPUT #1, objectpoint37x(pointload), objectpoint37y(pointload)
-            IF temp10 = 38 THEN INPUT #1, objectpoint38x(pointload), objectpoint38y(pointload)
-            IF temp10 = 39 THEN INPUT #1, objectpoint39x(pointload), objectpoint39y(pointload)
-            IF temp10 = 40 THEN INPUT #1, objectpoint40x(pointload), objectpoint40y(pointload)
-            IF temp10 = 41 THEN INPUT #1, objectpoint41x(pointload), objectpoint41y(pointload)
-            IF temp10 = 42 THEN INPUT #1, objectpoint42x(pointload), objectpoint42y(pointload)
-            IF temp10 = 43 THEN INPUT #1, objectpoint43x(pointload), objectpoint43y(pointload)
-            IF temp10 = 44 THEN INPUT #1, objectpoint44x(pointload), objectpoint44y(pointload)
-            IF temp10 = 45 THEN INPUT #1, objectpoint45x(pointload), objectpoint45y(pointload)
-            IF temp10 = 46 THEN INPUT #1, objectpoint46x(pointload), objectpoint46y(pointload)
-            IF temp10 = 47 THEN INPUT #1, objectpoint47x(pointload), objectpoint47y(pointload)
-            IF temp10 = 48 THEN INPUT #1, objectpoint48x(pointload), objectpoint48y(pointload)
-            IF temp10 = 49 THEN INPUT #1, objectpoint49x(pointload), objectpoint49y(pointload)
-            IF temp10 = 50 THEN INPUT #1, objectpoint50x(pointload), objectpoint50y(pointload)
-            IF temp10 = 51 THEN INPUT #1, objectpoint51x(pointload), objectpoint51y(pointload)
-            IF temp10 = 52 THEN INPUT #1, objectpoint52x(pointload), objectpoint52y(pointload)
-            IF temp10 = 53 THEN INPUT #1, objectpoint53x(pointload), objectpoint53y(pointload)
-            IF temp10 = 54 THEN INPUT #1, objectpoint54x(pointload), objectpoint54y(pointload)
-            IF temp10 = 55 THEN INPUT #1, objectpoint55x(pointload), objectpoint55y(pointload)
-            IF temp10 = 56 THEN INPUT #1, objectpoint56x(pointload), objectpoint56y(pointload)
-            IF temp10 = 57 THEN INPUT #1, objectpoint57x(pointload), objectpoint57y(pointload)
-            IF temp10 = 58 THEN INPUT #1, objectpoint58x(pointload), objectpoint58y(pointload)
-            IF temp10 = 59 THEN INPUT #1, objectpoint59x(pointload), objectpoint59y(pointload)
-            IF temp10 = 60 THEN INPUT #1, objectpoint60x(pointload), objectpoint60y(pointload)
-            IF temp10 = 61 THEN INPUT #1, objectpoint61x(pointload), objectpoint61y(pointload)
-            IF temp10 = 62 THEN INPUT #1, objectpoint62x(pointload), objectpoint62y(pointload)
-            IF temp10 = 63 THEN INPUT #1, objectpoint63x(pointload), objectpoint63y(pointload)
-            IF temp10 = 64 THEN INPUT #1, objectpoint64x(pointload), objectpoint64y(pointload)
-        LOOP UNTIL EOF(1) OR temp10 > 64
+        IF temp10 =< 64 AND objectcollision(temp10) = 2 THEN
+			DO
+				INPUT #1, pointload1, pointload2
+				FOR d = 1 TO pointload2
+					LET pointload3 = pointload3 + 1
+					IF temp10 = 1 THEN LET objectpoint1(pointload3) = pointload1
+					IF temp10 = 2 THEN LET objectpoint2(pointload3) = pointload1
+					IF temp10 = 3 THEN LET objectpoint3(pointload3) = pointload1
+					IF temp10 = 4 THEN LET objectpoint4(pointload3) = pointload1
+					IF temp10 = 5 THEN LET objectpoint5(pointload3) = pointload1
+					IF temp10 = 6 THEN LET objectpoint6(pointload3) = pointload1
+					IF temp10 = 7 THEN LET objectpoint7(pointload3) = pointload1
+					IF temp10 = 8 THEN LET objectpoint8(pointload3) = pointload1
+					IF temp10 = 9 THEN LET objectpoint9(pointload3) = pointload1
+					IF temp10 = 10 THEN LET objectpoint10(pointload3) = pointload1
+					IF temp10 = 11 THEN LET objectpoint11(pointload3) = pointload1
+					IF temp10 = 12 THEN LET objectpoint12(pointload3) = pointload1
+					IF temp10 = 13 THEN LET objectpoint13(pointload3) = pointload1
+					IF temp10 = 14 THEN LET objectpoint14(pointload3) = pointload1
+					IF temp10 = 15 THEN LET objectpoint15(pointload3) = pointload1
+					IF temp10 = 16 THEN LET objectpoint16(pointload3) = pointload1
+					IF temp10 = 17 THEN LET objectpoint17(pointload3) = pointload1
+					IF temp10 = 18 THEN LET objectpoint18(pointload3) = pointload1
+					IF temp10 = 19 THEN LET objectpoint19(pointload3) = pointload1
+					IF temp10 = 20 THEN LET objectpoint20(pointload3) = pointload1
+					IF temp10 = 21 THEN LET objectpoint21(pointload3) = pointload1
+					IF temp10 = 22 THEN LET objectpoint22(pointload3) = pointload1
+					IF temp10 = 23 THEN LET objectpoint23(pointload3) = pointload1
+					IF temp10 = 24 THEN LET objectpoint24(pointload3) = pointload1
+					IF temp10 = 25 THEN LET objectpoint25(pointload3) = pointload1
+					IF temp10 = 26 THEN LET objectpoint26(pointload3) = pointload1
+					IF temp10 = 27 THEN LET objectpoint27(pointload3) = pointload1
+					IF temp10 = 28 THEN LET objectpoint28(pointload3) = pointload1
+					IF temp10 = 29 THEN LET objectpoint29(pointload3) = pointload1
+					IF temp10 = 30 THEN LET objectpoint30(pointload3) = pointload1
+					IF temp10 = 31 THEN LET objectpoint31(pointload3) = pointload1
+					IF temp10 = 32 THEN LET objectpoint32(pointload3) = pointload1
+					IF temp10 = 33 THEN LET objectpoint33(pointload3) = pointload1
+					IF temp10 = 34 THEN LET objectpoint34(pointload3) = pointload1
+					IF temp10 = 35 THEN LET objectpoint35(pointload3) = pointload1
+					IF temp10 = 36 THEN LET objectpoint36(pointload3) = pointload1
+					IF temp10 = 37 THEN LET objectpoint37(pointload3) = pointload1
+					IF temp10 = 38 THEN LET objectpoint38(pointload3) = pointload1
+					IF temp10 = 39 THEN LET objectpoint39(pointload3) = pointload1
+					IF temp10 = 40 THEN LET objectpoint40(pointload3) = pointload1
+					IF temp10 = 41 THEN LET objectpoint41(pointload3) = pointload1
+					IF temp10 = 42 THEN LET objectpoint42(pointload3) = pointload1
+					IF temp10 = 43 THEN LET objectpoint43(pointload3) = pointload1
+					IF temp10 = 44 THEN LET objectpoint44(pointload3) = pointload1
+					IF temp10 = 45 THEN LET objectpoint45(pointload3) = pointload1
+					IF temp10 = 46 THEN LET objectpoint46(pointload3) = pointload1
+					IF temp10 = 47 THEN LET objectpoint47(pointload3) = pointload1
+					IF temp10 = 48 THEN LET objectpoint48(pointload3) = pointload1
+					IF temp10 = 49 THEN LET objectpoint49(pointload3) = pointload1
+					IF temp10 = 50 THEN LET objectpoint50(pointload3) = pointload1
+					IF temp10 = 51 THEN LET objectpoint51(pointload3) = pointload1
+					IF temp10 = 52 THEN LET objectpoint52(pointload3) = pointload1
+					IF temp10 = 53 THEN LET objectpoint53(pointload3) = pointload1
+					IF temp10 = 54 THEN LET objectpoint54(pointload3) = pointload1
+					IF temp10 = 55 THEN LET objectpoint55(pointload3) = pointload1
+					IF temp10 = 56 THEN LET objectpoint56(pointload3) = pointload1
+					IF temp10 = 57 THEN LET objectpoint57(pointload3) = pointload1
+					IF temp10 = 58 THEN LET objectpoint58(pointload3) = pointload1
+					IF temp10 = 59 THEN LET objectpoint59(pointload3) = pointload1
+					IF temp10 = 60 THEN LET objectpoint60(pointload3) = pointload1
+					IF temp10 = 61 THEN LET objectpoint61(pointload3) = pointload1
+					IF temp10 = 62 THEN LET objectpoint62(pointload3) = pointload1
+					IF temp10 = 63 THEN LET objectpoint63(pointload3) = pointload1
+					IF temp10 = 64 THEN LET objectpoint64(pointload3) = pointload1
+				NEXT d
+			LOOP UNTIL EOF(1)
+			_DEST _CONSOLE
+			PRINT pointload3
+			_DEST 0
+			LET pointload1 = 0: LET pointload2 = 0: LET pointload3 = 0
+        END IF
         CLOSE #1
     ELSE
         GOSUB collisionconverter
@@ -10455,6 +10414,7 @@ DO
         IF value$ = "musicvol" THEN INPUT "INSERT VALUE> "; temp5: LET musicvol = temp5: GOSUB musicvol: LET temp = 1
         IF value$ = "sfxvol" THEN INPUT "INSERT VALUE> "; temp5: LET sfxvol = temp5: GOSUB sfxvol: LET temp = 1
         IF value$ = "displayconsole" THEN INPUT "INSERT VALUE> "; temp5: LET displayconsole = temp5: LET temp = 1
+        IF value$ = "hertz" THEN INPUT "INSERT VALUE> "; temp5: LET hertz = temp5: LET temp = 1
         IF value$ = "checkpoint" THEN
             INPUT "INSERT VALUE> "; temp5
             IF checkpoint(temp5) = 0 THEN
@@ -10688,6 +10648,7 @@ DO
         IF value$ = "miniconsole" THEN LET hud = 12: LET temp = 1
         IF value$ = "checkpoint" THEN LET hud = 13: LET temp = 1
         IF value$ = "gametime" THEN LET hud = 14: LET temp = 1
+        IF value$ = "pointcollision" THEN LET hud = 15: LET temp = 1
         IF temp = 0 THEN LET temp = 2: REM sets invalid argument error
     END IF
     REM write console activity to consolelog.txt and display console command results on screen
@@ -10893,6 +10854,95 @@ REM gametime
 IF hud = 14 THEN
     LOCATE 1, 1: PRINT gametime
     LOCATE 2, 1: PRINT LTRIM$(STR$(savetimehour)) + " : " + LTRIM$(STR$(savetimemin)) + " : " + LTRIM$(STR$(savetimesec))
+END IF
+REM point collision
+IF hud = 15 THEN
+    DO
+		LET xxyy = xxyy + 1
+        IF objectcollision(xxyy) = 2 THEN
+            LET tx = objectx(xxyy) + posx
+            LET ty = objecty(xxyy) + posy
+            DO
+                LET xxxyyy = xxxyyy + 1
+                    IF xxyy = 1 AND objectpoint1(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 2 AND objectpoint2(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 3 AND objectpoint3(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 4 AND objectpoint4(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 5 AND objectpoint5(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 6 AND objectpoint6(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 7 AND objectpoint7(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 8 AND objectpoint8(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 9 AND objectpoint9(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 10 AND objectpoint10(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 11 AND objectpoint11(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 12 AND objectpoint12(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 13 AND objectpoint13(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 14 AND objectpoint14(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 15 AND objectpoint15(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 16 AND objectpoint16(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 17 AND objectpoint17(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 18 AND objectpoint18(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 19 AND objectpoint19(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 20 AND objectpoint20(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 21 AND objectpoint21(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 22 AND objectpoint22(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 23 AND objectpoint23(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 24 AND objectpoint24(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 25 AND objectpoint25(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 26 AND objectpoint26(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 27 AND objectpoint27(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 28 AND objectpoint28(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 29 AND objectpoint29(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 30 AND objectpoint30(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 31 AND objectpoint31(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 32 AND objectpoint32(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 33 AND objectpoint33(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 34 AND objectpoint34(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 35 AND objectpoint35(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 36 AND objectpoint36(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 37 AND objectpoint37(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 38 AND objectpoint38(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 39 AND objectpoint39(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 40 AND objectpoint40(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 41 AND objectpoint41(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 42 AND objectpoint42(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 43 AND objectpoint43(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 44 AND objectpoint44(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 45 AND objectpoint45(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 46 AND objectpoint46(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 47 AND objectpoint47(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 48 AND objectpoint48(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 49 AND objectpoint49(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 50 AND objectpoint50(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 51 AND objectpoint51(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 52 AND objectpoint52(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 53 AND objectpoint53(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 54 AND objectpoint54(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 55 AND objectpoint55(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 56 AND objectpoint56(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 57 AND objectpoint57(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 58 AND objectpoint58(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 59 AND objectpoint59(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 60 AND objectpoint60(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 61 AND objectpoint61(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 62 AND objectpoint62(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 63 AND objectpoint63(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                    IF xxyy = 64 AND objectpoint64(xxxyyy) > 0 THEN _PUTIMAGE (tx, ty), dotdude
+                LET tx = tx + 1
+                IF tx >= objectresx(xxyy) + (objectx(xxyy) + posx) THEN LET tx = objectx(xxyy) + posx: LET ty = ty + 1
+            LOOP UNTIL xxxyyy >= (objectresx(xxyy) * objectresy(xxyy))
+            LET tx = 0
+            LET ty = 0
+            LET xxxyyy = 0
+        END IF
+    LOOP UNTIL xxyy >= 64 OR xxyy >= mapobjectno
+    _DEST _CONSOLE
+    PRINT "PRESS ENTER TO CONTINUE"
+    INPUT temp2988$
+    _DEST 0
+    LET hud = 0
+    LET xxyy = 0
+    LET xxxyyy = 0
 END IF
 COLOR 0, 0
 RETURN

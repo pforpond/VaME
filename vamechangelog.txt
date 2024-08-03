@@ -1,12 +1,35 @@
 VAME CHANGELOG
 By Danielle Pond
 
+24/07/2024 - Update 156. (2.9.3)
+BUG FIXES
+- Fixed issue where point collision would wraparound large values during compression and decompression.
+- Fixed prompt command 'display pointcollision' from crashing VaME. Point collision hud display can no longer run at real time and will pause VaME.
+
+23/07/2024 - Update 155. (2.9.2)
+TWEAKS
+- Added compression to point collision data format to decrease load times and memory usage.
+
+22/07/2024 - Update 154. (2.9.1)
+NEW FEATURES
+- New argument 'pointcollision' for prompt command 'display' that shows where point collision is active on screen.
+- New argument 'hertz' for prompt command 'change' that allows changing of fps.
+- Point collision generator now has a slow mode.
+BUG FIXES
+- Fixed issue where point collision would be broken any object except the first to use point collision loaded onto the map.
+- Fixed issue where point collision would have a vertical strip of unneeded collision along the left side of the object.
+TWEAKS
+- Improved point collision data format and optimised point collision code.
+- Point collision generator now much quicker.
+- Added load icon for when first loading a map into the game.
+- Point collision generator now uses console for confirmation and results.
+- Point collision is only loaded into map if it is being used.
+
+
 12/07/2024 - Update 153. (2.9)
 NEW FEATURES
 - Advanced point object collision. For those objects that are more complex than just boxes, collision only activates upon the pixels colour, ignoring transparent pixels of a sprite. Point collision data generation with pointgenerator.bas required. Only available for the first 64 objects loaded into a map. (Tree has been converted to showcase this).
 - macOS support added to updater. No binaries provided yet.
-TWEAKS
-- Changed update servers. Users on versions below 2.9 will have to manually upgrade this once.
 
 15/06/2024 - Update 152. (2.8.78)
 NEW FEATURES
