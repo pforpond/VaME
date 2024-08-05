@@ -1,6 +1,14 @@
 VAME CHANGELOG
 By Danielle Pond
 
+05/08/2024 - Update 167. (2.9.4)
+BUG FIXES
+- Fixed automatic updater issues. The manual upgrades are over.
+TWEAKS
+- Removed developer data entry to console when loading objects with point collision.
+- Windows updater now relies on curl rather than a questionable batch script.
+- Updater uses different servers.
+
 24/07/2024 - Update 156. (2.9.3)
 BUG FIXES
 - Fixed issue where point collision would wraparound large values during compression and decompression.
@@ -24,7 +32,6 @@ TWEAKS
 - Added load icon for when first loading a map into the game.
 - Point collision generator now uses console for confirmation and results.
 - Point collision is only loaded into map if it is being used.
-
 
 12/07/2024 - Update 153. (2.9)
 NEW FEATURES

@@ -312,9 +312,8 @@ GOSUB checker
 GOSUB nextstep
 REM download new update files
 GOSUB displaystep
-SHELL _HIDE "copy " + datafolder$ + "\utility\windownloader.bat"
-SHELL _HIDE "windownloader.bat " + downloadlink$ + " " + temp666$ + ".zip"
-SHELL _HIDE "windownloader.bat " + unziplink$ + " unzip.exe"
+SHELL _HIDE "curl -L -o " + temp666$ + ".zip" + " " +  downloadlink$
+SHELL _HIDE "curl -L -o unzip.exe " + unziplink$
 GOSUB checker
 GOSUB nextstep
 REM delete current version
@@ -392,7 +391,6 @@ GOSUB displaystep
 SHELL _HIDE "del " + temp666$ + ".zip"
 SHELL _HIDE "del checkupdate.ddf"
 SHELL _HIDE "del unzip.exe"
-SHELL _HIDE "del windownloader.bat"
 SHELL _HIDE "rmdir /Q /S vamebackup"
 SHELL _HIDE "del modlist.tmp"
 GOSUB nextstep
@@ -434,7 +432,7 @@ GOSUB checker
 GOSUB nextstep
 REM download new update files
 GOSUB displaystep
-SHELL _HIDE "curl -o " + temp666$ + ".zip " + downloadlink$
+SHELL _HIDE "curl -L -o " + temp666$ + ".zip " + downloadlink$
 IF _FILEEXISTS(temp666$ + ".zip") THEN
 	REM nothing
 ELSE
@@ -557,7 +555,7 @@ GOSUB checker
 GOSUB nextstep
 REM download new update files
 GOSUB displaystep
-SHELL _HIDE "curl -o " + temp666$ + ".zip " + downloadlink$
+SHELL _HIDE "curl -L -o " + temp666$ + ".zip " + downloadlink$
 IF _FILEEXISTS(temp666$ + ".zip") THEN
 	REM nothing
 ELSE

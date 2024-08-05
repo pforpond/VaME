@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.3
+REM Build 2.9.4
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,3,2903
-$VERSIONINFO:PRODUCTVERSION#=2,9,3,2903
+$VERSIONINFO:FILEVERSION#=2,9,4,2904
+$VERSIONINFO:PRODUCTVERSION#=2,9,4,2904
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.3"
+LET hardbuild$ = "2.9.4"
 
 setup:
 REM initiates engine and assigns values
@@ -527,11 +527,6 @@ END IF
 IF _FILEEXISTS(LCASE$(filename$) + "updater_macos") THEN
     REM macos updater
     SHELL _HIDE "rm " + LCASE$(filename$) + "updater_macos"
-    LET temp132 = 1
-END IF
-IF _FILEEXISTS("windownloader.bat") THEN
-    REM download batch file for windows
-    SHELL _HIDE "del windownloader.bat"
     LET temp132 = 1
 END IF
 IF _FILEEXISTS("checkupdate.ddf") THEN
@@ -3913,7 +3908,7 @@ LET eventnumber = 0
 GOSUB consoleprinter
 REM downloads update info file
 IF ros$ = "lnx" OR ros$ = "mac" THEN
-    SHELL _HIDE "curl -o checkupdate.ddf " + updatelink$
+    SHELL _HIDE "curl -L -o checkupdate.ddf " + updatelink$
     IF _FILEEXISTS("checkupdate.ddf") THEN
         REM nothing
     ELSE
@@ -3921,8 +3916,7 @@ IF ros$ = "lnx" OR ros$ = "mac" THEN
     END IF
 END IF
 IF ros$ = "win" THEN
-    SHELL _HIDE "copy data\utility\windownloader.bat windownloader.bat"
-    SHELL _HIDE "windownloader.bat " + updatelink$ + " checkupdate.ddf"
+    SHELL _HIDE "curl -L -o checkupdate.ddf " + updatelink$
 END IF
 REM checks update file
 IF _FILEEXISTS("checkupdate.ddf") THEN
@@ -3966,7 +3960,7 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
         _PUTIMAGE (1, 1)-(downloadiconresx, downloadiconresy), downloadicon
         IF ros$ = "mac" THEN
             LET temp29$ = updateupdaterzip$ + "_macos"
-            SHELL _HIDE "curl -o " + temp29$ + " " + updaterlinkmac$
+            SHELL _HIDE "curl -L -o " + temp29$ + " " + updaterlinkmac$
             IF _FILEEXISTS(temp29$) THEN
                 REM nothing
             ELSE
@@ -3975,7 +3969,7 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
         END IF
         IF ros$ = "lnx" THEN
             LET temp29$ = updateupdaterzip$ + "_linux"
-            SHELL _HIDE "curl -o " + temp29$ + " " + updaterlinklnx$
+            SHELL _HIDE "curl -L -o " + temp29$ + " " + updaterlinklnx$
             IF _FILEEXISTS(temp29$) THEN
                 REM nothing
             ELSE
@@ -3984,7 +3978,7 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
         END IF
         IF ros$ = "win" THEN
             LET temp29$ = updateupdaterzip$ + "_win.exe"
-            SHELL _HIDE "windownloader.bat " + updaterlinkwin$ + " " + temp29$
+            SHELL _HIDE "curl -L -o " + temp29$ + " " + updaterlinkwin$
         END IF
         CLS
         IF _FILEEXISTS(temp29$) THEN
@@ -4026,7 +4020,7 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
             GOSUB consoleprinter
             IF mainmenu = 1 THEN GOSUB script
             IF ros$ = "lnx" OR ros$ = "mac" THEN SHELL _HIDE "rm checkupdate.ddf"
-            IF ros$ = "win" THEN SHELL _HIDE "del checkupdate.ddf": SHELL _HIDE "del windownloader.bat"
+            IF ros$ = "win" THEN SHELL _HIDE "del checkupdate.ddf"
         END IF
     ELSE
         REM up to date
@@ -4040,7 +4034,7 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
             GOSUB script
         END IF
         IF ros$ = "lnx" OR ros$ = "mac" THEN SHELL _HIDE "rm checkupdate.ddf"
-        IF ros$ = "win" THEN SHELL _HIDE "del checkupdate.ddf": SHELL _HIDE "del windownloader.bat"
+        IF ros$ = "win" THEN SHELL _HIDE "del checkupdate.ddf":
     END IF
 ELSE
     REM cannot download update file
@@ -4053,7 +4047,6 @@ ELSE
         LET mapscript = 5
         GOSUB script
     END IF
-    IF ros$ = "win" THEN SHELL _HIDE "del windownloader.bat"
 END IF
 RETURN
 
@@ -6335,9 +6328,6 @@ DO
 					IF temp10 = 64 THEN LET objectpoint64(pointload3) = pointload1
 				NEXT d
 			LOOP UNTIL EOF(1)
-			_DEST _CONSOLE
-			PRINT pointload3
-			_DEST 0
 			LET pointload1 = 0: LET pointload2 = 0: LET pointload3 = 0
         END IF
         CLOSE #1
