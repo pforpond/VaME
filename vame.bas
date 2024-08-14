@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.4
+REM Build 2.9.5
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,4,2904
-$VERSIONINFO:PRODUCTVERSION#=2,9,4,2904
+$VERSIONINFO:FILEVERSION#=2,9,5,2905
+$VERSIONINFO:PRODUCTVERSION#=2,9,5,2905
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.4"
+LET hardbuild$ = "2.9.5"
 
 setup:
 REM initiates engine and assigns values
@@ -27,7 +27,7 @@ GOSUB modload: REM checks to see if any mods are requested instead of main game
 REM check metadata exists, checks developer console settings and load engine values
 IF _FILEEXISTS(dloc$ + "engine.ddf") THEN
     OPEN dloc$ + "engine.ddf" FOR INPUT AS #1
-    INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowunavailableright$, pocketarrowunavailableleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, tos$, tdelay, stposx, stposy, tanidelay, terminalcol1, terminalcol2, terminalcol3, terminalrow1, terminalrow2, terminalfacex, terminalfacey, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$
+    INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowunavailableright$, pocketarrowunavailableleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$
     CLOSE #1
     REM finds metadata directory paths
     IF _FILEEXISTS(dloc$ + "fileloc.ddf") THEN
@@ -2539,7 +2539,7 @@ DO
 LOOP UNTIL x >= totalawards
 REM loads main player
 LET x = 0
-INPUT #1, tempmplayermodel$
+INPUT #1, tempmplayermodel$, temptosfile$
 CLOSE #1
 REM saves time to file
 OPEN sloc$ + "savedata.ddf" FOR OUTPUT AS #1
@@ -2580,7 +2580,7 @@ DO
 LOOP UNTIL x >= totalawards
 REM writes main player
 LET x = 0
-WRITE #1, tempmplayermodel$
+WRITE #1, tempmplayermodel$, temptosfile$
 CLOSE #1
 REM erases temp values
 FOR x = 1 TO totalpockets
@@ -2595,7 +2595,7 @@ NEXT x
 FOR x = 1 TO totalawards
     LET tempawardvalue(x) = 0
 NEXT x
-LET tempmplayermodel$ = ""
+LET tempmplayermodel$ = "": LET temptosfile$ = ""
 LET tempmapno = 0: LET tempposx = 0: LET tempposy = 0: LET tempcurrency = 0: LET tempdirection = 0: LET tempigametime = 0: LET temppocketcarry = 0
 REM prints to console
 LET eventtitle$ = "VALUE " + LTRIM$(STR$(valuesaveno)) + " DATA SAVED:"
@@ -2642,7 +2642,7 @@ DO
 LOOP UNTIL x >= totalawards
 REM loads main player
 LET x = 0
-INPUT #1, tempmplayermodel$
+INPUT #1, tempmplayermodel$, temptosfile$
 CLOSE #1
 REM saves time to file
 OPEN sloc$ + "savedata.ddf" FOR OUTPUT AS #1
@@ -2679,7 +2679,7 @@ DO
 LOOP UNTIL x >= totalawards
 REM writes main player
 LET x = 0
-WRITE #1, tempmplayermodel$
+WRITE #1, tempmplayermodel$, temptosfile$
 CLOSE #1
 REM erases temp values
 FOR x = 1 TO totalpockets
@@ -2694,7 +2694,7 @@ NEXT x
 FOR x = 1 TO totalawards
     LET tempawardvalue(x) = 0
 NEXT x
-LET tempmplayermodel$ = ""
+LET tempmplayermodel$ = "": LET temptosfile$ = ""
 LET tempmapno = 0: LET tempposx = 0: LET tempposy = 0: LET tempcurrency = 0: LET tempdirection = 0: LET tempigametime = 0: LET temppocketcarry = 0
 REM prints to console
 LET eventtitle$ = "TIME AND AWARD DATA SAVED:"
@@ -2752,7 +2752,7 @@ IF _FILEEXISTS(sloc$ + "savedata.ddf") THEN
     LOOP UNTIL x >= totalawards
     REM loads main player
     LET x = 0
-    INPUT #1, mplayermodel$
+    INPUT #1, mplayermodel$, tosfile$
     CLOSE #1
     REM prints to console
     LET eventtitle$ = "SAVEDATA LOADED:"
@@ -2829,7 +2829,7 @@ DO
 LOOP UNTIL x >= totalawards
 REM writes main player
 LET x = 0
-WRITE #1, mplayermodel$
+WRITE #1, mplayermodel$, tosfile$
 CLOSE #1
 REM prints to console
 LET eventtitle$ = "DEFAULT SAVE OVERWRITTEN:"
@@ -2887,7 +2887,7 @@ DO
 LOOP UNTIL x >= totalawards
 REM writes main player
 LET x = 0
-WRITE #1, mplayermodel$
+WRITE #1, mplayermodel$, tosfile$
 CLOSE #1
 REM prints to console
 LET eventtitle$ = "SAVEDATA SAVED:"
@@ -6801,23 +6801,26 @@ RETURN
 
 terminalload:
 REM loads terminal data
-LET tani1 = _LOADIMAGE(tloc$ + "tani1.png")
-LET tani2 = _LOADIMAGE(tloc$ + "tani2.png")
-LET tani3 = _LOADIMAGE(tloc$ + "tani3.png")
-LET tani4 = _LOADIMAGE(tloc$ + "tani4.png")
-LET tfile = _LOADIMAGE(tloc$ + "file.png")
-LET tdir = _LOADIMAGE(tloc$ + "dir.png")
-LET tno = _LOADIMAGE(tloc$ + "nodata.png")
-LET tapp = _LOADIMAGE(tloc$ + "app.png")
-LET tselectn = _LOADIMAGE(tloc$ + "selectn.png")
-LET tselectd = _LOADIMAGE(tloc$ + "selectd.png")
-LET tselectf = _LOADIMAGE(tloc$ + "selectf.png")
-LET sysok = _LOADIMAGE(tloc$ + "sysok.png")
-LET sysbusy = _LOADIMAGE(tloc$ + "sysbusy.png")
-LET syserr = _LOADIMAGE(tloc$ + "syserr.png")
+OPEN tloc$ + "os/" + tosfile$ + "/" + tosfile$ + ".ddf" FOR INPUT AS #1
+INPUT #1, tos$, tdelay, stposx, stposy, tanidelay, terminalcol1, terminalcol2, terminalcol3, terminalrow1, terminalrow2, terminalfacex, terminalfacey
+CLOSE #1
+LET tani1 = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/tani1.png")
+LET tani2 = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/tani2.png")
+LET tani3 = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/tani3.png")
+LET tani4 = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/tani4.png")
+LET tfile = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/file.png")
+LET tdir = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/dir.png")
+LET tno = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/nodata.png")
+LET tapp = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/app.png")
+LET tselectn = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/selectn.png")
+LET tselectd = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/selectd.png")
+LET tselectf = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/selectf.png")
+LET sysok = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/sysok.png")
+LET sysbusy = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/sysbusy.png")
+LET syserr = _LOADIMAGE(tloc$ + "os/" + tosfile$ + "/syserr.png")
 REM prints to terminal
-LET eventtitle$ = "TERMINAL ITEMS LOADED"
-LET eventdata$ = ""
+LET eventtitle$ = "TERMINAL OS ITEMS LOADED:"
+LET eventdata$ = tosfile$
 LET eventnumber = 0
 GOSUB consoleprinter
 IF setupboot = 1 THEN
@@ -6843,8 +6846,8 @@ _FREEIMAGE sysok
 _FREEIMAGE sysbusy
 _FREEIMAGE syserr
 REM prints to terminal
-LET eventtitle$ = "TERMINAL ITEMS UNLOADED"
-LET eventdata$ = ""
+LET eventtitle$ = "TERMINAL OS ITEMS UNLOADED: "
+LET eventdata$ = tosfile$
 LET eventnumber = 0
 GOSUB consoleprinter
 RETURN
@@ -6853,7 +6856,7 @@ terminaldraw:
 REM displays terminal
 IF runterminal = 0 THEN RETURN
 REM checks if terminal file exists
-IF _FILEEXISTS(tloc$ + runterminal$ + "\" + runterminal$ + ".ddf") THEN
+IF _FILEEXISTS(tloc$ + "terminaldata\" + runterminal$ + "\" + runterminal$ + ".ddf") THEN
     REM nothing
 ELSE
     ERROR 425
@@ -6868,7 +6871,7 @@ LET temp87 = tdelay
 LET temp88 = stposx
 LET temp89 = stposy
 REM loads terminal data
-OPEN tloc$ + runterminal$ + "\" + runterminal$ + ".ddf" FOR INPUT AS #1
+OPEN tloc$ + "terminaldata\" + runterminal$ + "\" + runterminal$ + ".ddf" FOR INPUT AS #1
 INPUT #1, ct1, cn1$, ct2, cn2$, ct3, cn3$, ct4, cn4$, ct5, cn5$, ct6, cn6$, parentdir$
 CLOSE #1
 REM tells console
@@ -7073,7 +7076,7 @@ COLOR _RGBA(letterminalcolourr, letterminalcolourg, letterminalcolourb, lettermi
 LET temp90 = tdelay
 _PUTIMAGE (terminalfacex, terminalfacey), sysbusy
 IF scriptrun <> 1 THEN
-    OPEN tloc$ + runterminal$ + "\" + tselect$ + ".ddf" FOR INPUT AS #1
+    OPEN tloc$ + "terminaldata\" + runterminal$ + "\" + tselect$ + ".ddf" FOR INPUT AS #1
     INPUT #1, txtfile1$, txtfile2$, txtfile3$, txtfile4$, txtfile5$, txtfile6$, sysstat
     CLOSE #1
 END IF
@@ -9090,6 +9093,7 @@ DO
     LET findsfxstop% = INSTR(findsfxstop% + 1, scriptline$, "sfxstop")
     LET findcut% = INSTR(findcut% + 1, scriptline$, " cut ")
     LET findresetsavetime% = INSTR(findresetsavetime% + 1, scriptline$, "resetsavetime")
+    LET findterminalos% = INSTR(findterminalos% + 1, scriptline$, "terminalos")
     LET findspecial666% = INSTR(findspecial666% + 1, scriptline$, "special666")
     LET findspecial667% = INSTR(findspecial667% + 1, scriptline$, "special667")
     LET findspecial668% = INSTR(findspecial668% + 1, scriptline$, "special668")
@@ -9416,6 +9420,16 @@ DO
         GOSUB scriptscriptcmd
         GOTO endscriptcmd
     END IF
+    IF findterminalos% THEN
+		REM changes terminal os
+		IF tosfile$ <> temps$(2) THEN
+			GOSUB terminalunload
+			LET tosfile$ = temps$(2)
+			GOSUB terminalload
+			LET temp26 = 1
+		END IF
+		GOTO endscriptcmd
+    END IF
     IF findterminal% THEN
         REM launches terminal file
         LET runterminal$ = temps$(2)
@@ -9536,7 +9550,7 @@ DO
         LET temps$(x) = ""
         LET x = x + 1
     LOOP UNTIL temps$(x) = ""
-    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholding% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findwhitefade% = 0: LET findsfxloop% = 0: LET findsfxstop% = 0: LET findcut% = 0: LET findresetsavetime% = 0: LET findspecial666% = 0: LET findspecial667% = 0: LET findspecial668% = 0
+    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholding% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findwhitefade% = 0: LET findsfxloop% = 0: LET findsfxstop% = 0: LET findcut% = 0: LET findresetsavetime% = 0: LET findterminalos% = 0: LET findspecial666% = 0: LET findspecial667% = 0: LET findspecial668% = 0
     LET x = 0
     DO
         LET x = x + 1
@@ -10405,6 +10419,7 @@ DO
         IF value$ = "sfxvol" THEN INPUT "INSERT VALUE> "; temp5: LET sfxvol = temp5: GOSUB sfxvol: LET temp = 1
         IF value$ = "displayconsole" THEN INPUT "INSERT VALUE> "; temp5: LET displayconsole = temp5: LET temp = 1
         IF value$ = "hertz" THEN INPUT "INSERT VALUE> "; temp5: LET hertz = temp5: LET temp = 1
+        IF value$ = "tosfile" THEN INPUT "INSERT VALUE> "; temp1$: LET tosfile$ = temp1$: LET temp = 1
         IF value$ = "checkpoint" THEN
             INPUT "INSERT VALUE> "; temp5
             IF checkpoint(temp5) = 0 THEN
@@ -10520,6 +10535,7 @@ DO
         IF value$ = "random" THEN PRINT randomscriptvalue: LET temp = 1
         IF value$ = "tempmusiccut" THEN PRINT tempmusiccut: LET temp = 1
         IF value$ = "tempmusicfade" THEN PRINT tempmusicfade: LET temp = 1
+        IF value$ = "tosfile" THEN PRINT tosfile$: LET temp = 1
         IF value$ = "checkpoint" THEN
             LET temp = 1
             LET x = 0

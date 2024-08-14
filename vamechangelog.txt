@@ -1,6 +1,16 @@
 VAME CHANGELOG
 By Danielle Pond
 
+14/08/2024 - Update 168. (2.9.5)
+NEW FEATURES
+- Support for multiple terminal OS names, bootscreens and icon themes.
+- New argument for prompt command 'change' that allows changing of terminal OS.
+- New argument for prompt command 'whatis' that displays name of terminal boot screen and icon theme.
+- New script command 'terminalos' that allows switching of terminal OS.
+TWEAKS
+- Terminal specific data moved from engine.ddf to specific terminal file in tloc$/os
+- Example game and mod updated to take advantage of multiple terminal OS files.
+
 05/08/2024 - Update 167. (2.9.4)
 BUG FIXES
 - Fixed automatic updater issues. The manual upgrades are over.
