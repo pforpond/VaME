@@ -1,6 +1,12 @@
 VAME CHANGELOG
 By Danielle Pond
 
+16/08/2024 - Update 169. (2.9.6)
+NEW FEATURES
+- Custom LOOK word alternative for pocket items that require it.
+TWEAKS
+- Small tweaks to example game and mod.
+
 14/08/2024 - Update 168. (2.9.5)
 NEW FEATURES
 - Support for multiple terminal OS names, bootscreens and icon themes.

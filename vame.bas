@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.5
+REM Build 2.9.6
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,5,2905
-$VERSIONINFO:PRODUCTVERSION#=2,9,5,2905
+$VERSIONINFO:FILEVERSION#=2,9,6,2906
+$VERSIONINFO:PRODUCTVERSION#=2,9,6,2906
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.5"
+LET hardbuild$ = "2.9.6"
 
 setup:
 REM initiates engine and assigns values
@@ -313,6 +313,7 @@ REM pocket values
 DIM pocketname(totalpockets) AS STRING
 DIM pocketshort(totalpockets) AS STRING
 DIM pocketdescription(totalpockets) AS STRING
+DIM pocketword(totalpockets) AS STRING
 DIM pocketitem(totalpockets) AS INTEGER
 DIM temppocketitem(totalpockets) AS INTEGER
 DIM pocketsprite(totalpockets) AS INTEGER
@@ -794,7 +795,7 @@ DO
     INPUT #1, pocketfile$: REM reads name of pocket file to be loaded
     OPEN pocketloc$ + pocketfile$ + "/" + pocketfile$ + ".ddf" FOR INPUT AS #666
     REM loads pocket files and assigns them a slot
-    INPUT #666, pocketname(temp57), pocketdescription(temp57): LET pocketsprite(temp57) = _LOADIMAGE(pocketloc$ + pocketfile$ + "/" + pocketfile$ + ".png"): LET pocketshort(temp57) = pocketfile$
+    INPUT #666, pocketname(temp57), pocketdescription(temp57), pocketword(temp57): LET pocketsprite(temp57) = _LOADIMAGE(pocketloc$ + pocketfile$ + "/" + pocketfile$ + ".png"): LET pocketshort(temp57) = pocketfile$
     CLOSE #666
     REM prints load to console
     LET eventtitle$ = "POCKET ITEM LOADED:"
@@ -991,7 +992,11 @@ DO
     LET c = _KEYHIT: REM inputter
     IF temp74 = 1 THEN COLOR _RGBA(letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura), _RGBA(bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura)
     IF temp74 = 2 THEN COLOR _RGBA(letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura), _RGBA(bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura)
-    _PRINTSTRING ((lookx), (pockethudresy)), lookaction$
+    IF pocketword$(pocketdisplay) = "" THEN
+		_PRINTSTRING ((lookx), (pockethudresy)), lookaction$
+	ELSE
+		_PRINTSTRING ((lookx), (pockethudresy)), pocketword$(pocketdisplay)
+	END IF
     IF temp74 = 2 THEN COLOR _RGBA(letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura), _RGBA(bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura)
     IF temp74 = 1 THEN COLOR _RGBA(letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura), _RGBA(bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura)
     IF objecttype$ = "OBJ" THEN
@@ -1029,11 +1034,19 @@ IF c = scontrolcode1 OR c = scontrolcode2 OR c = scontrolcode3 OR c = scontrolco
     IF temp74 = 1 THEN
         REM Look at item
         COLOR _RGBA(letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura), _RGBA(bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura)
-        _PRINTSTRING ((lookx), (pockethudresy)), lookaction$
-        _DELAY 0.1
+		IF pocketword$(pocketdisplay) = "" THEN
+			_PRINTSTRING ((lookx), (pockethudresy)), lookaction$
+		ELSE
+			_PRINTSTRING ((lookx), (pockethudresy)), pocketword$(pocketdisplay)
+		END IF        
+		_DELAY 0.1
         COLOR _RGBA(letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura), _RGBA(bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura)
-        _PRINTSTRING ((lookx), (pockethudresy)), lookaction$
-        REM checks to see if item needs a script running
+		IF pocketword$(pocketdisplay) = "" THEN
+			_PRINTSTRING ((lookx), (pockethudresy)), lookaction$
+		ELSE
+			_PRINTSTRING ((lookx), (pockethudresy)), pocketword$(pocketdisplay)
+		END IF        
+		REM checks to see if item needs a script running
         LET lookscript% = INSTR(lookscript% + 1, pocketdisplaydescription$, "[RUNSCRIPT]")
         IF lookscript% THEN
             LET temp30$ = LEFT$(pocketdisplaydescription$, INSTR(pocketdisplaydescription$, " ") - 1)
