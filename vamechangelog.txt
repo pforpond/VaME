@@ -1,6 +1,14 @@
 VAME CHANGELOG
 By Danielle Pond
 
+27/08/2024 - Update 170. (2.9.7)
+NEW FEATURES
+- Support for Flatpak packaging.
+- New launch parameter '-flatpak' to launch in Flatpak mode.
+- Updater for Flatpak user files.
+REMOVED FEATURES
+- 'Platform Specific' install setting depreciated as it is pointless, replaced with Flatpak install.
+
 16/08/2024 - Update 169. (2.9.6)
 NEW FEATURES
 - Custom LOOK word alternative for pocket items that require it.

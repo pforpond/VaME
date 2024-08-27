@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.6
+REM Build 2.9.7
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,6,2906
-$VERSIONINFO:PRODUCTVERSION#=2,9,6,2906
+$VERSIONINFO:FILEVERSION#=2,9,7,2907
+$VERSIONINFO:PRODUCTVERSION#=2,9,7,2907
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.6"
+LET hardbuild$ = "2.9.7"
 
 setup:
 REM initiates engine and assigns values
@@ -64,7 +64,16 @@ IF _FILEEXISTS(dloc$ + "engine.ddf") THEN
     LET eventnumber = 0
     GOSUB consoleprinter
 ELSE
-    ERROR 420: REM error if directory unavailable
+	IF installtype = 2 THEN
+		IF usersetup = 0 THEN
+			GOSUB flatpaksetup
+			GOTO setup 
+		ELSE
+			ERROR 437: REM flatpak error
+		END IF
+	ELSE
+		ERROR 420: REM error if directory unavailable
+	END IF
 END IF
 IF title$ = "" THEN LET title$ = "VaME": REM sets program name if none exists
 REM report game title and engine info to console...
@@ -86,6 +95,11 @@ REM checks build versions match, checks for developer build
 LET finddev% = INSTR(finddev% + 1, engineversionno$, "DEV")
 IF finddev% THEN LET hardbuild$ = hardbuild$ + "DEV": LET finddev% = 0
 IF engineversionno$ <> hardbuild$ THEN ERROR 427
+REM check if flatpak user files need updating
+IF installtype = 2 THEN 
+	GOSUB checkflatpakupdate
+	IF flatpakversionno$ <> versionno$ THEN GOTO setup
+END IF
 REM check if remaining metadata directories exist
 LET temp6 = 0
 DO
@@ -384,6 +398,79 @@ LET eventnumber = 0
 GOSUB consoleprinter
 RETURN
 
+flatpaksetup:
+PRINT "SETTING UP FLATPAK FILES..."
+SHELL _HIDE "cp -R data $XDG_DATA_HOME"
+SHELL _HIDE "ls -d data/utility/*/ > $XDG_DATA_HOME/utilitylist.tmp"
+LET eventtitle$ = "COPIED FLATPAK FOLDER:"
+LET eventdata$ = "data"
+LET eventnumber = 0
+GOSUB consoleprinter
+OPEN dloc$ + "utilitylist.tmp" FOR INPUT AS #42
+DO
+	INPUT #42, temp$
+	SHELL _HIDE "cp -R " + temp$ + " $XDG_DATA_HOME"
+	LET eventtitle$ = "COPIED FLATPAK FOLDER:"
+	LET eventdata$ = temp$
+	LET eventnumber = 0
+	GOSUB consoleprinter
+LOOP UNTIL EOF(42)
+CLOSE #42
+SHELL _HIDE "rm $XDG_DATA_HOME/utilitylist.tmp"
+LET usersetup = 1
+CLS
+RETURN
+
+checkflatpakupdate:
+REM check for flatpak updates
+OPEN "data/engine.ddf" FOR INPUT AS #42
+INPUT #42, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp$, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp, temp$, temp, temp, temp, temp, temp$, temp, temp, temp$, temp, temp, temp$, temp$, temp$, temp$, temp$, temp$, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp, temp, temp, temp$, temp$, temp, temp, temp$, temp, temp, temp, temp, temp$, temp, temp$, temp$, temp$, temp, temp, temp, temp, temp, temp, temp$, temp, temp, temp$, temp$, temp, temp, temp$, temp, temp, temp$, temp, temp, temp$, temp$, temp$, temp, temp$, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp$, temp, temp$, temp$, temp$, temp$, temp$, flatpakversionno$, temp$, temp$, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp$, temp$, temp$, temp$, temp$
+CLOSE #42
+IF flatpakversionno$ <> versionno$ THEN
+	REM version mismatch! begin upgrade!
+	LET eventtitle$ = "FLATPAK VERSION CHECK:"
+	LET eventdata$ = flatpakversionno$ + " is available!"
+	LET eventnumber = 0
+	GOSUB consoleprinter
+	GOSUB flatpakupdate
+ELSE
+	REM no update to flatpak user files needed
+	LET eventtitle$ = "FLATPAK VERSION CHECK:"
+	LET eventdata$ = versionno$ + " is the latest version!"
+	LET eventnumber = 0
+	GOSUB consoleprinter
+END IF
+RETURN
+
+flatpakupdate:
+REM update flatpak
+PRINT "UPDATING FLATPAK FILES..."
+REM backup saves
+SHELL _HIDE "mkdir $XDG_DATA_HOME/savebk"
+SHELL _HIDE "cp $XDG_DATA_HOME/data/saves/*.* $XDG_DATA_HOME/savebk/"
+REM remove current files
+SHELL _HIDE "ls -d $XDG_DATA_HOME/*/ > $XDG_DATA_HOME/utilitylist.tmp"
+OPEN dloc$ + "utilitylist.tmp" FOR INPUT AS #42
+DO
+	INPUT #42, temp$
+	SHELL _HIDE "rm -R " + temp$
+LOOP UNTIL EOF(42)
+SHELL _HIDE "rm $XDG_DATA_HOME/utilitylist.tmp"
+SHELL _HIDE "rm $XDG_DATA_HOME/savebk/defaultsave.ddf"
+SHELL _HIDE "rm $XDG_DATA_HOME/savebk/defaultoptions.ddf"
+REM copy over new files
+GOSUB flatpaksetup
+REM copy over saves and options
+SHELL _HIDE "cp $XDG_DATA_HOME/savebk/*.* $XDG_DATA_HOME/data/saves/"
+REM remove backup files
+SHELL _HIDE "rm -R $XDG_DATA_HOME/savebk"
+LET eventtitle$ = "FLATPAK USER FILES UPDATED:"
+LET eventdata$ = flatpakversionno$
+LET eventnumber = 0
+GOSUB consoleprinter
+CLS
+RETURN
+
 generateoffsets:
 REM generates random map animation offsets
 REM objects
@@ -573,16 +660,17 @@ LET temp132 = 0
 RETURN
 
 modload:
-REM loads mods
+REM loads mods (and checks for a flatpak launch)
 IF _COMMANDCOUNT = 0 THEN
-    IF ros$ = "win" THEN LET dloc$ = "data\": LET consolelog$ = "data\consolelog.txt"
-    IF ros$ = "lnx" OR ros$ = "mac" THEN LET dloc$ = "data/": LET consolelog$ = "data/consolelog.txt"
+	IF ros$ = "win" THEN LET dloc$ = "data\": LET consolelog$ = "data\consolelog.txt"
+	IF ros$ = "lnx" OR ros$ = "mac" THEN LET dloc$ = "data/": LET consolelog$ = "data/consolelog.txt"
     RETURN
 END IF
 DO
     LET temp158 = temp158 + 1
     LET parameter$ = COMMAND$(temp158)
     LET findmod% = INSTR(findmod% + 1, UCASE$(parameter$), "-MOD=")
+    LET findflatpak% = INSTR(findflatpak% +1, UCASE$(parameter$), "-FLATPAK")
 LOOP UNTIL temp158 >= _COMMANDCOUNT
 IF findmod% > 1 THEN ERROR 431: REM errors out if more than one mod is loaded
 REM sets mod folder to use if mod is requested
@@ -605,8 +693,13 @@ IF findmod% THEN
     END IF
 ELSE
     REM no mod parameter found
-    IF ros$ = "win" THEN LET dloc$ = "data\": LET consolelog$ = "data\consolelog.txt"
-    IF ros$ = "lnx" OR ros$ = "mac" THEN LET dloc$ = "data/": LET consolelog$ = "data/consolelog.txt"
+    IF findflatpak% THEN LET installtype = 2: LET findflatpak% = 0
+    IF installtype = 1 THEN
+		IF ros$ = "win" THEN LET dloc$ = "data\": LET consolelog$ = "data\consolelog.txt"
+		IF ros$ = "lnx" OR ros$ = "mac" THEN LET dloc$ = "data/": LET consolelog$ = "data/consolelog.txt"
+	ELSE
+		LET dloc$ = "/var/data/data/"
+	END IF
 END IF
 LET temp158 = 0: REM scrub temp values
 RETURN
@@ -3117,6 +3210,7 @@ IF ERR = 432 THEN
 END IF
 IF ERR = 433 THEN LET errdescription$ = "CONFLICTING LAUNCH PARAMETERS - CANNOT USE -WINDOWED AND -FULLSCREEN AT THE SAME TIME"
 IF ERR = 434 THEN LET errdescription$ = "MISSING DEFAULT OPTIONS FILE - TRY REINSTALL"
+IF ERR = 437 THEN LET errdescription$ = "FLATPAK SETUP ERROR - CONTACT SUPPORT"
 IF ERR = 666 THEN LET errdescription$ = "DEMONIC ERROR - CONTACT LOCAL UAC REP"
 LET errorcrash = 1: REM sets error crash value to 1
 BEEP
@@ -10970,48 +11064,24 @@ gamereboots:
 REM reboots the game under certain curcumstances
 REM request to reboot
 IF temp160 = 1 THEN
-    IF installtype = 1 THEN
-        REM cross platform
-        IF modrunning = 0 THEN
-            REM no mod running
-            IF ros$ = "win" THEN SHELL _DONTWAIT filename$ + "_win.exe"
-            IF ros$ = "lnx" THEN SHELL _DONTWAIT "./" + filename$ + "_linux"
-            IF ros$ = "mac" THEN SHELL _DONTWAIT "./" + filename$ + "_macos"
-        ELSE
-            REM mod running
-            IF ros$ = "win" THEN SHELL _DONTWAIT filename$ + "_win.exe -mod=" + modname$
-            IF ros$ = "lnx" THEN SHELL _DONTWAIT "./" + filename$ + "_linux -mod=" + modname$
-            IF ros$ = "mac" THEN SHELL _DONTWAIT "./" + filename$ + "_macos -mod=" + modname$
-        END IF
+	IF modrunning = 0 THEN
+		REM no mod running
+        IF ros$ = "win" THEN SHELL _DONTWAIT filename$ + "_win.exe"
+        IF ros$ = "lnx" THEN SHELL _DONTWAIT "./" + filename$ + "_linux"
+        IF ros$ = "mac" THEN SHELL _DONTWAIT "./" + filename$ + "_macos"
     ELSE
-        REM platform specific
-        IF modrunning = 0 THEN
-            REM no mod running
-            IF ros$ = "win" THEN SHELL _DONTWAIT filename$ + ".exe"
-            IF ros$ = "lnx" THEN SHELL _DONTWAIT "./" + filename$
-            IF ros$ = "mac" THEN SHELL _DONTWAIT "./" + filename$
-        ELSE
-            REM mod running
-            IF ros$ = "win" THEN SHELL _DONTWAIT filename$ + ".exe -mod=" + modname$
-            IF ros$ = "lnx" THEN SHELL _DONTWAIT "./" + filename$ + " -mod=" + modname$
-            IF ros$ = "mac" THEN SHELL _DONTWAIT "./" + filename$ + " -mod=" + modname$
-        END IF
+        REM mod running
+        IF ros$ = "win" THEN SHELL _DONTWAIT filename$ + "_win.exe -mod=" + modname$
+        IF ros$ = "lnx" THEN SHELL _DONTWAIT "./" + filename$ + "_linux -mod=" + modname$
+        IF ros$ = "mac" THEN SHELL _DONTWAIT "./" + filename$ + "_macos -mod=" + modname$
     END IF
 END IF
 REM loads mod
 IF temp164 = 1 THEN
     LET modname$ = requestedmod$
-    IF installtype = 1 THEN
-        REM cross platform
-        IF ros$ = "win" THEN SHELL _DONTWAIT filename$ + "_win.exe -mod=" + modname$
-        IF ros$ = "lnx" THEN SHELL _DONTWAIT "./" + filename$ + "_linux -mod=" + modname$
-        IF ros$ = "mac" THEN SHELL _DONTWAIT "./" + filename$ + "_macos -mod=" + modname$
-    ELSE
-        REM platform specific
-        IF ros$ = "win" THEN SHELL _DONTWAIT filename$ + ".exe -mod=" + modname$
-        IF ros$ = "lnx" THEN SHELL _DONTWAIT "./" + filename$ + " -mod=" + modname$
-        IF ros$ = "mac" THEN SHELL _DONTWAIT "./" + filename$ + " -mod=" + modname$
-    END IF
+    IF ros$ = "win" THEN SHELL _DONTWAIT filename$ + "_win.exe -mod=" + modname$
+    IF ros$ = "lnx" THEN SHELL _DONTWAIT "./" + filename$ + "_linux -mod=" + modname$
+    IF ros$ = "mac" THEN SHELL _DONTWAIT "./" + filename$ + "_macos -mod=" + modname$
 END IF
 RETURN
 
