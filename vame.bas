@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.7
+REM Build 2.9.8
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,7,2907
-$VERSIONINFO:PRODUCTVERSION#=2,9,7,2907
+$VERSIONINFO:FILEVERSION#=2,9,8,2908
+$VERSIONINFO:PRODUCTVERSION#=2,9,8,2908
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.7"
+LET hardbuild$ = "2.9.8"
 
 setup:
 REM initiates engine and assigns values
@@ -27,7 +27,7 @@ GOSUB modload: REM checks to see if any mods are requested instead of main game
 REM check metadata exists, checks developer console settings and load engine values
 IF _FILEEXISTS(dloc$ + "engine.ddf") THEN
     OPEN dloc$ + "engine.ddf" FOR INPUT AS #1
-    INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowunavailableright$, pocketarrowunavailableleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$
+    INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowunavailableright$, pocketarrowunavailableleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$
     CLOSE #1
     REM finds metadata directory paths
     IF _FILEEXISTS(dloc$ + "fileloc.ddf") THEN
@@ -424,7 +424,7 @@ RETURN
 checkflatpakupdate:
 REM check for flatpak updates
 OPEN "data/engine.ddf" FOR INPUT AS #42
-INPUT #42, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp$, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp, temp$, temp, temp, temp, temp, temp$, temp, temp, temp$, temp, temp, temp$, temp$, temp$, temp$, temp$, temp$, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp, temp, temp, temp$, temp$, temp, temp, temp$, temp, temp, temp, temp, temp$, temp, temp$, temp$, temp$, temp, temp, temp, temp, temp, temp, temp$, temp, temp, temp$, temp$, temp, temp, temp$, temp, temp, temp$, temp, temp, temp$, temp$, temp$, temp, temp$, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp$, temp, temp$, temp$, temp$, temp$, temp$, flatpakversionno$, temp$, temp$, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp$, temp$, temp$, temp$, temp$
+INPUT #42, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp$, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp, temp$, temp, temp, temp, temp, temp$, temp, temp, temp$, temp, temp, temp$, temp$, temp$, temp$, temp$, temp$, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp, temp, temp, temp$, temp$, temp, temp, temp$, temp, temp, temp, temp, temp$, temp, temp$, temp$, temp$, temp, temp, temp, temp, temp, temp, temp$, temp, temp, temp$, temp$, temp, temp, temp$, temp, temp, temp$, temp, temp, temp$, temp$, temp$, temp, temp$, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp$, temp, temp$, temp$, temp$, temp$, temp$, flatpakversionno$, temp$, temp$, temp$, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp, temp$, temp$, temp$, temp$, temp$, temp$
 CLOSE #42
 IF flatpakversionno$ <> versionno$ THEN
 	REM version mismatch! begin upgrade!
@@ -693,12 +693,15 @@ IF findmod% THEN
     END IF
 ELSE
     REM no mod parameter found
-    IF findflatpak% THEN LET installtype = 2: LET findflatpak% = 0
-    IF installtype = 1 THEN
+    IF findflatpak% THEN 
+		LET installtype = 2
+		LET findflatpak% = 0
+		LET dloc$ = "/var/data/data/"
+		LET consolelog$ = "/var/data/data/consolelog.txt"
+	ELSE
+		LET installtype = 1
 		IF ros$ = "win" THEN LET dloc$ = "data\": LET consolelog$ = "data\consolelog.txt"
 		IF ros$ = "lnx" OR ros$ = "mac" THEN LET dloc$ = "data/": LET consolelog$ = "data/consolelog.txt"
-	ELSE
-		LET dloc$ = "/var/data/data/"
 	END IF
 END IF
 LET temp158 = 0: REM scrub temp values
@@ -3957,7 +3960,6 @@ RETURN
 
 updatechecker:
 REM automatically checks for updates
-IF ros$ = "mac" THEN RETURN: REM updating is not quite ready for macos yet. coming soon!
 IF exitsave = 1 AND setupboot = 0 THEN GOSUB savesave: REM saves game if needed
 CLS
 REM checks to see if engine is in developer mode
@@ -3979,7 +3981,7 @@ IF finddev% THEN
     IF mainmenu = 1 THEN GOSUB script
     RETURN
 END IF
-IF find3rdparty% THEN
+IF find3rdparty% OR installtype = 2 THEN
     REM disables update for versions on 3rd party stores such as steam
     LET find3rdparty% = 0
     LET eventtitle$ = "UPDATE CHECK:"
@@ -4014,19 +4016,11 @@ LET eventdata$ = "Initialised!"
 LET eventnumber = 0
 GOSUB consoleprinter
 REM downloads update info file
-IF ros$ = "lnx" OR ros$ = "mac" THEN
-    SHELL _HIDE "curl -L -o checkupdate.ddf " + updatelink$
-    IF _FILEEXISTS("checkupdate.ddf") THEN
-        REM nothing
-    ELSE
-        SHELL _HIDE "wget -q -O checkupdate.ddf " + updatelink$
-    END IF
-END IF
-IF ros$ = "win" THEN
-    SHELL _HIDE "curl -L -o checkupdate.ddf " + updatelink$
-END IF
+LET downloadfilelink$ = updatelink$
+LET downloadfilename$ = "checkupdate.ddf"
+GOSUB filedownloader
 REM checks update file
-IF _FILEEXISTS("checkupdate.ddf") THEN
+IF downloadresult = 1 THEN
     REM file exists
     OPEN "checkupdate.ddf" FOR INPUT AS #1
     INPUT #1, newversionno$, updaterlinklnx$, updaterlinkmac$, updaterlinkwin$, downloadlink$, windownload$, lnxdownload$, macdownload$, unziplink$, updatetype, updatefolder$, updatewinexe$, updatelinuxexe$, updatemacexe$, updatereadme$, updatechangelog$, updatemanual$, updatesource$, updateupdatersource$, updateupdaterzip2$, updateupdaterzip$
@@ -4066,29 +4060,21 @@ IF _FILEEXISTS("checkupdate.ddf") THEN
         REM download updater
         _PUTIMAGE (1, 1)-(downloadiconresx, downloadiconresy), downloadicon
         IF ros$ = "mac" THEN
-            LET temp29$ = updateupdaterzip$ + "_macos"
-            SHELL _HIDE "curl -L -o " + temp29$ + " " + updaterlinkmac$
-            IF _FILEEXISTS(temp29$) THEN
-                REM nothing
-            ELSE
-                SHELL _HIDE "wget -q -O " + temp29$ + " " + updaterlinkmac$
-            END IF
+            LET downloadfilename$ = updateupdaterzip$ + "_macos"
+            LET downloadfilelink$ = updaterlinkmac$
         END IF
         IF ros$ = "lnx" THEN
-            LET temp29$ = updateupdaterzip$ + "_linux"
-            SHELL _HIDE "curl -L -o " + temp29$ + " " + updaterlinklnx$
-            IF _FILEEXISTS(temp29$) THEN
-                REM nothing
-            ELSE
-                SHELL _HIDE "wget -q -O " + temp29$ + " " + updaterlinklnx$
-            END IF
+            LET downloadfilename$ = updateupdaterzip$ + "_linux"
+            LET downloadfilelink$ = updaterlinklnx$
         END IF
         IF ros$ = "win" THEN
-            LET temp29$ = updateupdaterzip$ + "_win.exe"
-            SHELL _HIDE "curl -L -o " + temp29$ + " " + updaterlinkwin$
+            LET downloadfilename$ = updateupdaterzip$ + "_win.exe"
+            LET downloadfilelink$ = updaterlinkwin$
         END IF
+        LET temp29$ = downloadfilename$
+        GOSUB filedownloader
         CLS
-        IF _FILEEXISTS(temp29$) THEN
+        IF downloadresult = 1 THEN
             REM close engine... mark system as being updated
             LET runupdate = 1
             REM writes updater file
@@ -4155,6 +4141,44 @@ ELSE
         GOSUB script
     END IF
 END IF
+RETURN
+
+filedownloader:
+REM downloads a requested file
+LET downloadresult = 0
+LET eventtitle$ = "DOWNLOAD REQUEST:"
+LET eventdata$ = downloadfilename$
+LET eventnumber = autoupdate
+GOSUB consoleprinter
+IF autoupdate = 1 OR autoupdate = 2 THEN
+	REM normal download
+	SHELL _HIDE "curl -L -o " + downloadfilename$ + " " + downloadfilelink$
+END IF
+IF autoupdate = 3 THEN
+	REM dev download
+	IF ros$ = "mac" OR ros$ = "lnx" THEN SHELL _HIDE "curl -H 'Authorization: token " + updatekey$ + "' \-H 'Accept: application/vnd.github.v3.raw' \-O \-L " + downloadfilelink$
+	IF ros$ = "win" THEN 
+		OPEN "vamedl.bat" FOR OUTPUT AS #99
+		PRINT #99, "curl -H " + CHR$(34) + "Authorization: token " + updatekey$ + CHR$(34) + " ^-H " + CHR$(34) + "Accept: application/vnd.github.v3.raw" + CHR$(34) + " ^-O ^-L " + downloadfilelink$
+		CLOSE #99
+		SHELL _HIDE "vamedl.bat"
+		SHELL _HIDE "del vamedl.bat"
+	END IF
+END IF
+REM checks if download worked
+IF _FILEEXISTS(downloadfilename$) THEN LET downloadresult = 1
+REM tells console
+IF downloadresult = 1 THEN
+	LET eventtitle$ = "DOWNLOAD COMPLETE:"
+ELSE
+	LET eventtitle$ = "DOWNLOAD FAILED:"
+END IF
+LET eventdata$ = downloadfilename$
+LET eventnumber = downloadresult
+GOSUB consoleprinter
+REM clears temp values
+LET downloadfilename$ = ""
+LET downloadfilelink$ = ""
 RETURN
 
 mainplayerload:

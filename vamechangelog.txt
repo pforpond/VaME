@@ -1,6 +1,17 @@
 VAME CHANGELOG
 By Danielle Pond
 
+31/08/2024 - Update 171. (2.9.8)
+NEW FEATURES
+- Updater now has a development mode supporting API access keys.
+BUG FIXES
+- Fixed issue where launching with a command parameter would make the engine launch in Flatpak mode.
+TWEAKS
+- Downloading files now done through a separate sub, simplifying and reducing code.
+- Removed code that prevents macOS versions from updating.
+REMOVED FEATURES
+- Support for downloading with wget is discontinued. VaME requires curl to download updates for all platforms.
+
 27/08/2024 - Update 170. (2.9.7)
 NEW FEATURES
 - Support for Flatpak packaging.

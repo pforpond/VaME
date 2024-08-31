@@ -46,6 +46,7 @@ REM checks VaME game metadata for title and version numbers
 OPEN "updatevals.ddf" FOR INPUT AS #1
     INPUT #1, oldversionno$, engineversionno$, installtype, title$, filename$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, downloadicon$, downloadiconresx, downloadiconresy, readmecheck
 CLOSE #1
+LET autoupdate = readmecheck
 REM sets title
 IF title$ = "" THEN LET title$ = "VaME"
 _TITLE title$ + " Updater!"
@@ -165,6 +166,31 @@ ELSE
 	SYSTEM
 END IF
 SYSTEM
+
+filedownloader:
+REM downloads a requested file
+LET downloadresult = 0
+IF autoupdate = 0 OR autoupdate = 1 OR autoupdate = 2 THEN
+	REM normal download
+	SHELL _HIDE "curl -L -o " + downloadfilename$ + " " + downloadfilelink$
+END IF
+IF autoupdate = 3 THEN
+	REM dev download
+	IF ros$ = "mac" OR ros$ = "lnx" THEN SHELL _HIDE "curl -H 'Authorization: token " + updatekey$ + "' \-H 'Accept: application/vnd.github.v3.raw' \-O \-L " + downloadfilelink$
+	IF ros$ = "win" THEN 
+		OPEN "vamedl.bat" FOR OUTPUT AS #99
+		PRINT #99, "curl -H " + CHR$(34) + "Authorization: token " + updatekey$ + CHR$(34) + " ^-H " + CHR$(34) + "Accept: application/vnd.github.v3.raw" + CHR$(34) + " ^-O ^-L " + downloadfilelink$
+		CLOSE #99
+		SHELL _HIDE "vamedl.bat"
+		SHELL _HIDE "del vamedl.bat"
+	END IF
+END IF
+REM checks if download worked
+IF _FILEEXISTS(downloadfilename$) THEN LET downloadresult = 1
+REM clears temp values
+LET downloadfilename$ = ""
+LET downloadfilelink$ = ""
+RETURN
 
 repairbrokenupdate:
 REM repairs a broken update
@@ -312,8 +338,12 @@ GOSUB checker
 GOSUB nextstep
 REM download new update files
 GOSUB displaystep
-SHELL _HIDE "curl -L -o " + temp666$ + ".zip" + " " +  downloadlink$
-SHELL _HIDE "curl -L -o unzip.exe " + unziplink$
+LET downloadfilelink$ = downloadlink$
+LET downloadfilename$ = temp666$
+GOSUB filedownloader
+LET downloadfilelink$ = unziplink$
+LET downloadfilename$ = "unzip.exe"
+GOSUB filedownloader
 GOSUB checker
 GOSUB nextstep
 REM delete current version
@@ -396,7 +426,7 @@ SHELL _HIDE "del modlist.tmp"
 GOSUB nextstep
 GOSUB displaystep
 _DELAY 10
-IF readmecheck = 2 THEN SHELL "type " + readme$ + " | more && pause"
+IF readmecheck = 2 OR readmecheck = 3 THEN SHELL "type " + readme$ + " | more && pause"
 SHELL _DONTWAIT winexe$ + " -noupdate"
 _SCREENHIDE
 SYSTEM
@@ -432,12 +462,9 @@ GOSUB checker
 GOSUB nextstep
 REM download new update files
 GOSUB displaystep
-SHELL _HIDE "curl -L -o " + temp666$ + ".zip " + downloadlink$
-IF _FILEEXISTS(temp666$ + ".zip") THEN
-	REM nothing
-ELSE
-	SHELL _HIDE "wget -q -O " + temp666$ + ".zip " + downloadlink$
-END IF
+LET downloadfilelink$ = downloadlink$
+LET downloadfilename$ = temp666$
+GOSUB filedownloader
 GOSUB checker
 GOSUB nextstep
 REM delete current version
