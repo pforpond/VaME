@@ -339,7 +339,7 @@ GOSUB nextstep
 REM download new update files
 GOSUB displaystep
 LET downloadfilelink$ = downloadlink$
-LET downloadfilename$ = temp666$
+LET downloadfilename$ = temp666$ + ".zip"
 GOSUB filedownloader
 LET downloadfilelink$ = unziplink$
 LET downloadfilename$ = "unzip.exe"
@@ -463,7 +463,7 @@ GOSUB nextstep
 REM download new update files
 GOSUB displaystep
 LET downloadfilelink$ = downloadlink$
-LET downloadfilename$ = temp666$
+LET downloadfilename$ = temp666$ + ".zip"
 GOSUB filedownloader
 GOSUB checker
 GOSUB nextstep
