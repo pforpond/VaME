@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.8
+REM Build 2.9.9
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,8,2908
-$VERSIONINFO:PRODUCTVERSION#=2,9,8,2908
+$VERSIONINFO:FILEVERSION#=2,9,9,2909
+$VERSIONINFO:PRODUCTVERSION#=2,9,9,2909
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.8"
+LET hardbuild$ = "2.9.9"
 
 setup:
 REM initiates engine and assigns values
@@ -145,7 +145,7 @@ GOSUB sfxload: REM loads sound effect files into memory for quick access later
 GOSUB pocketload: REM loads pocket files into memory for quick access later
 GOSUB awardload: REM loads game award files into memory
 GOSUB terminalload: REM loads terminal files into memory for quick access later
-IF noupdate = 0 AND erasesaveonly = 0 AND savedisplay = 0 THEN GOSUB updatechecker: REM checks the internet for updates
+IF noupdate = 0 AND erasesaveonly = 0 THEN GOSUB updatechecker: REM checks the internet for updates
 REM displays developer logo
 GOSUB devlogo
 IF erasesaveonly = 1 THEN GOTO erasesave
@@ -725,6 +725,7 @@ DO
     IF UCASE$(parameter$) = "-FIX" THEN LET fixvame = 1: LET temp130 = 1
     IF UCASE$(parameter$) = "-WINDOWED" THEN LET forcewindowed = 1: LET temp130 = 1
     IF UCASE$(parameter$) = "-FULLSCREEN" THEN LET forcefullscreen = 1: LET temp130 = 1
+    IF UCASE$(parameter$) = "-FLATPAK" THEN LET temp130 = 1
     IF findmod% THEN LET temp130 = 1
     IF temp130 = 1 THEN
         LET eventtitle$ = "PARAMETER LOADED:"
@@ -4079,7 +4080,7 @@ IF downloadresult = 1 THEN
             LET runupdate = 1
             REM writes updater file
             OPEN "updatevals.ddf" FOR OUTPUT AS #1
-            WRITE #1, versionno$, engineversionno$, installtype, title$, filename$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, downloadicon$, downloadiconresx, downloadiconresy, autoupdate
+            WRITE #1, versionno$, engineversionno$, installtype, title$, filename$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, downloadicon$, downloadiconresx, downloadiconresy, autoupdate, updatekey$
             CLOSE #1
             GOSUB endgame
             REM run updater

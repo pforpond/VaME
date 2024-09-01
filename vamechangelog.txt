@@ -1,6 +1,12 @@
 VAME CHANGELOG
 By Danielle Pond
 
+01/09/2024 - Update 172. (2.9.9)
+BUG FIXES
+- Fix to development mode updater that would fail to use API key.
+- Fix to limit converter and point collision generator for the new engine.ddf file format.
+- Fixed the Invalid Parameter console log entry when launching with -flatpak parameter.
+
 31/08/2024 - Update 171. (2.9.8)
 NEW FEATURES
 - Updater now has a development mode supporting API access keys.
