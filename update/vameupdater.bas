@@ -47,6 +47,7 @@ OPEN "updatevals.ddf" FOR INPUT AS #1
     INPUT #1, oldversionno$, engineversionno$, installtype, title$, filename$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, downloadicon$, downloadiconresx, downloadiconresy, readmecheck, updatekey$
 CLOSE #1
 LET autoupdate = readmecheck
+IF autoupdate = 666 THEN LET autoupdate = 2
 REM sets title
 IF title$ = "" THEN LET title$ = "VaME"
 _TITLE title$ + " Updater!"
@@ -296,6 +297,7 @@ IF updatestep = 4 THEN
 	END IF
 END IF
 REM check save data
+IF readmecheck = 666 THEN RETURN
 IF updatestep = 5 THEN
 	IF erasesave = 0 THEN
 		IF _FILEEXISTS("data/saves/savedata.ddf") THEN
@@ -426,7 +428,7 @@ SHELL _HIDE "del modlist.tmp"
 GOSUB nextstep
 GOSUB displaystep
 _DELAY 10
-IF readmecheck = 2 OR readmecheck = 3 THEN SHELL "type " + readme$ + " | more && pause"
+IF readmecheck = 2 OR readmecheck = 3 OR readmecheck = 666 THEN SHELL "type " + readme$ + " | more && pause"
 SHELL _DONTWAIT winexe$ + " -noupdate"
 _SCREENHIDE
 SYSTEM
