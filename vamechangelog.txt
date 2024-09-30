@@ -1,6 +1,16 @@
 VAME CHANGELOG
 By Danielle Pond
 
+30/09/2024 - Update 173. (2.9.10)
+NEW FEATURES
+- Objects called [COLLISIONONLY] as their long name now act as collision.
+- Can now open main menu whilst using an in-game terminal.
+BUG FIXES
+- Fix to graphical glitches that would occur when the player attempts to quit using the window close button then selects No whilst the pockets are open.
+- Fix to graphical glitches that would occur when the player attempts to quit using the window close button then selects No whilst a terminal is open.
+TWEAKS
+- New Studio Pond branding added.
+
 01/09/2024 - Update 172. (2.9.9)
 BUG FIXES
 - Fix to development mode updater that would fail to use API key.

@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.9
+REM Build 2.9.10
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,9,2909
-$VERSIONINFO:PRODUCTVERSION#=2,9,9,2909
+$VERSIONINFO:FILEVERSION#=2,9,10,2910
+$VERSIONINFO:PRODUCTVERSION#=2,9,10,2910
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.9"
+LET hardbuild$ = "2.9.10"
 
 setup:
 REM initiates engine and assigns values
@@ -3744,10 +3744,7 @@ IF temp222 = 2 OR temp167 = 2 THEN
         IF direction = 3 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)) + pace: LET temp224 = (((resy / 2) - posy) - objecty(temp18))
         IF direction = 4 THEN LET temp223 = (((resx / 2) - posx) - objectx(temp18)) - pace: LET temp224 = (((resy / 2) - posy) - objecty(temp18))
     END IF
-    'IF direction = 1 THEN LET temp224 = INT(temp224 + mpy / 2) - objectstep
-    'IF direction = 2 THEN LET temp224 = temp224 + (objectstep * 2)
     IF direction = 3 THEN LET temp223 = INT(temp223 + mpx / 2) - objectstep
-    'IF direction = 4 THEN LET temp223 = temp223 - objectstep
     REM figures out which pixel player is on
     IF temp224 > 1 THEN
         LET temp226 = (temp224 * objectresx(temp18)) + temp223
@@ -3756,8 +3753,6 @@ IF temp222 = 2 OR temp167 = 2 THEN
     END IF
     IF temp223 < 2 OR temp224 < 1 THEN GOTO skippointloop: REM skips loop if out of image array
     IF temp223 > objectresx(temp18) OR temp224 > objectresy(temp18) THEN GOTO skippointloop: REM skips loop if out of image array
-    '_DEST _CONSOLE
-    'PRINT LTRIM$(STR$(temp223)) + "," + LTRIM$(STR$(temp224)) + ": " + LTRIM$(STR$(temp226))
     REM scans object point values for pixel correct value
     IF temp18 = 1 THEN LET temp221 = objectpoint1(temp226)
     IF temp18 = 2 THEN LET temp221 = objectpoint2(temp226)
@@ -3823,8 +3818,6 @@ IF temp222 = 2 OR temp167 = 2 THEN
     IF temp18 = 62 THEN LET temp221 = objectpoint62(temp226)
     IF temp18 = 63 THEN LET temp221 = objectpoint63(temp226)
     IF temp18 = 64 THEN LET temp221 = objectpoint64(temp226)
-    'PRINT temp221
-    '_DEST 0
     REM check if player is within a solid point
     IF temp221 <> 0 THEN
         IF temp222 = 2 THEN
@@ -3899,6 +3892,7 @@ IF temp167 = 2 THEN
     LET selectobject$ = proposedobject$
     LET selectobjectlong$ = objectlongname$(temp18)
     IF selectobject$ <> "[COLLISIONONLY]" THEN LET objecttype$ = "OBJ"
+    IF selectobjectlong$ = "[COLLISIONONLY]" THEN LET objecttype$ = "NON"
 ELSE
     LET objecthighlight(temp18) = 0
 END IF
@@ -6485,7 +6479,20 @@ RETURN
 
 timeframecounter:
 REM time + frame counter
-IF scriptrun = 0 THEN IF _EXIT THEN GOSUB endgamemenu: REM ends game on window
+IF scriptrun = 0 THEN IF _EXIT THEN 
+		GOSUB endgamemenu: REM ends game on window
+		IF pocketon = 1 THEN
+			LET b = bcontrolcode1
+			LET c = bcontrolcode1
+			LET d = bcontrolcode1
+		END IF
+		IF runterminal = 1 THEN
+			LET t = scontrolcode1
+			LET ttype = 3
+            LET tselect$ = "exit"
+		END IF
+	END IF
+END IF
 LET missingasset = 0: LET asset$ = "": REM scrubs missing asset error reporting values
 IF TIMER < 0 OR ctime < 0 THEN
     REM resets timer when value wraparound occurs
@@ -7122,6 +7129,15 @@ DO
         IF temp88 = terminalcol1 THEN LET temp88 = terminalcol2: CLS: GOTO termloop
         IF temp88 = terminalcol2 THEN LET temp88 = terminalcol3: CLS: GOTO termloop
         IF temp88 = terminalcol3 THEN LET temp88 = terminalcol3: CLS: GOTO termloop
+    END IF
+    IF t = bcontrolcode1 OR t = bcontrolcode2 OR t = bcontrolcode3 OR t = bcontrolcode4 THEN
+		REM quit to main menu 
+		_KEYCLEAR
+		LET menu$ = "mainmenu"
+		GOSUB menugenerator
+		GOSUB mapmusicsetter
+		GOSUB musicplay
+		GOTO termloop
     END IF
     IF t = scontrolcode1 OR t = scontrolcode2 OR t = scontrolcode3 OR t = scontrolcode4 THEN
         _KEYCLEAR
@@ -10236,8 +10252,10 @@ COLOR 0, 0
 RETURN
 
 selectobjectbanner:
-REM displays name of selected world object (beta)
+REM displays name of selected world object
 IF scriptrun = 1 THEN RETURN: REM return for if script is running
+IF selectobjectlong$ = "" THEN RETURN: REM return for if there is no nearby object
+IF selectobjectlong$ = "[COLLISIONONLY]" THEN RETURN: REM return for if the object is marked as collision only
 DO
     LET temp215 = temp215 + 1
     LET temp216 = temp216 + objecthighlight(temp215)
@@ -10249,7 +10267,6 @@ DO
 LOOP UNTIL temp215 >= mapplayerno
 LET temp215 = 0
 IF temp216 = 0 THEN RETURN: REM return for if no object is set to be highlighted.
-IF selectobjectlong$ = "" THEN RETURN: REM return for if there is no nearby object
 COLOR _RGBA(letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura), _RGBA(bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura)
 LET centretext$ = selectobjectlong$
 GOSUB centretext
@@ -10352,6 +10369,7 @@ RETURN
 useobject:
 REM interacts with real world object or player
 IF selectobject$ = "" THEN RETURN: REM return if mainplayer not around any object or player
+IF selectobjectlong$ = "[COLLISIONONLY]" THEN RETURN: REM return if object is marked as collision only
 LET scriptname$ = LCASE$(selectobject$)
 IF selectobject$ <> "[COLLISIONONLY]" THEN
     LET mapscript = 1
