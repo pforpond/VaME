@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.10
+REM Build 2.9.11
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,10,2910
-$VERSIONINFO:PRODUCTVERSION#=2,9,10,2910
+$VERSIONINFO:FILEVERSION#=2,9,11,2911
+$VERSIONINFO:PRODUCTVERSION#=2,9,11,2911
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.10"
+LET hardbuild$ = "2.9.11"
 
 setup:
 REM initiates engine and assigns values
@@ -3027,7 +3027,6 @@ RETURN
 animation:
 REM animation
 REM checks if animation file exists
-REM check if filename needs fixing
 IF _FILEEXISTS(aloc$ + anifile$ + "/" + anifile$ + ".ddf") THEN
     REM nothing
 ELSE
@@ -9977,19 +9976,26 @@ IF playerjourney(temp48) = 1 THEN
             RETURN
         END IF
         IF playerx(temp48) = mplayerx(temp48) AND playery(temp48) = mplayery(temp48) THEN
-            IF playergrace(temp48) <> -1 THEN
+            IF playergrace(temp48) <> -1 OR playergrace(temp48) <> -3 THEN
                 REM back and fourth movement
                 LET playerjourney(temp48) = 2
                 LET playerperiod(temp48) = playergrace(temp48) + INT(ctime)
                 LET playerd(temp48) = playerdefault(temp48)
                 LET playerwalking(temp48) = 0
-            ELSE
+            END IF
+            IF playergrace(temp48) = -1 THEN
                 REM snap back to original place
                 LET playerjourney(temp48) = 1
                 LET playerx(temp48) = dplayerx(temp48)
                 LET playery(temp48) = dplayery(temp48)
                 LET playerd(temp48) = playerdefault(temp48)
                 LET playerwalking(temp48) = 0
+            END IF
+            IF playergrace(temp48) = -3 THEN
+				REM stay at destination
+				LET playerjourney(temp48) = 0
+				LET playerd(temp48) = playerdefault(temp48)
+				LET playerwalking(temp48) = 0
             END IF
         END IF
     END IF
@@ -10023,13 +10029,14 @@ IF playerjourney(temp48) = 2 THEN
             RETURN
         END IF
         IF playerx(temp48) = dplayerx(temp48) AND playery(temp48) = dplayery(temp48) THEN
-            IF playergrace(temp48) <> -2 THEN
+            IF playergrace(temp48) > 0 THEN
                 REM back and fourth movement
                 LET playerjourney(temp48) = 1
                 LET playerperiod(temp48) = playergrace(temp48) + INT(ctime)
                 LET playerd(temp48) = playerdefault(temp48)
                 LET playerwalking(temp48) = 0
-            ELSE
+            END IF
+            IF playergrace(temp48) = -2 THEN
                 REM snap back to destination co-ordinates
                 LET playerjourney(temp48) = 2
                 LET playerx(temp48) = mplayerx(temp48)

@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+01/10/2024 - Update 174. (2.9.11)
+NEW FEATURES
+- Players now have an automatic route mode that allows the player to stay at their destination co-ordinates.
+
 30/09/2024 - Update 173. (2.9.10)
 NEW FEATURES
 - Objects called [COLLISIONONLY] as their long name now act as collision.
