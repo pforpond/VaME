@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.11
+REM Build 2.9.12
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,11,2911
-$VERSIONINFO:PRODUCTVERSION#=2,9,11,2911
+$VERSIONINFO:FILEVERSION#=2,9,12,2912
+$VERSIONINFO:PRODUCTVERSION#=2,9,12,2912
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.11"
+LET hardbuild$ = "2.9.12"
 
 setup:
 REM initiates engine and assigns values
@@ -6029,13 +6029,14 @@ IF temp201 = 1 THEN LET scriptnametrim = 14: REM ifcheckpoint
 IF temp201 = 2 THEN LET scriptnametrim = 12: REM ifcurrency
 IF temp201 = 3 THEN LET scriptnametrim = 13: REM ifdirection
 IF temp201 = 4 THEN LET scriptnametrim = 10: REM ifpocket
-IF temp201 = 5 THEN LET scriptnametrim = 11: REM ifholding
+IF temp201 = 5 THEN LET scriptnametrim = 11: REM ifholdinga
 IF temp201 = 6 THEN LET scriptnametrim = 9: REM ifmodel
 IF temp201 = 7 THEN LET scriptnametrim = 9: REM ifmapno
 IF temp201 = 8 THEN LET scriptnametrim = 8: REM ifgone
 IF temp201 = 9 THEN LET scriptnametrim = 10: REM ifrandom
 IF temp201 = 10 THEN LET scriptnametrim = 9: REM ifvalue
 IF temp201 = 11 THEN LET scriptnametrim = 9: REM ifaward
+IF temp201 = 12 THEN LET scriptnametrim = 11: REM ifholdingb
 RETURN
 
 erasesave:
@@ -6841,15 +6842,20 @@ GOSUB consoleprinter
 LET temp95 = 0: REM scrubs temp values
 RETURN
 
-ifholding:
+ifholdinga:
 REM checks players hand for item
 IF runterminal = 1 THEN
     REM if terminal is running
-    IF ifholding$ = terminalhold$ THEN LET ifholding = 1
+    IF ifholdinga$ = terminalhold$ THEN LET ifholdinga = 1
 ELSE
     REM if terminal isnt running
-    IF ifholding$ = currentpocketshort$ THEN LET ifholding = 1
+    IF ifholdinga$ = currentpocketshort$ THEN LET ifholdinga = 1
 END IF
+RETURN
+
+ifholdingb:
+REM checks players hand for item
+IF ifholdingb$ = temp21$ THEN LET ifholdingb = 1
 RETURN
 
 ifmodel:
@@ -7353,8 +7359,8 @@ variablevalueinjector:
 REM injects variable values into scripts
 DO
     LET temp204 = 0
-    LET findhelditem1% = INSTR(findhelditem1% + 1, textspeech$, "[helditem1]")
-    LET findhelditem2% = INSTR(findhelditem2% + 1, textspeech$, "[helditem2]")
+    LET findhelditema% = INSTR(findhelditema% + 1, textspeech$, "[helditema]")
+    LET findhelditemb% = INSTR(findhelditemb% + 1, textspeech$, "[helditemb]")
     LET findselectobject% = INSTR(findselectobject% + 1, textspeech$, "[selectobject]")
     LET findros% = INSTR(findros% + 1, textspeech$, "[ros]")
     LET findtos% = INSTR(findtos% + 1, textspeech$, "[tos]")
@@ -7366,8 +7372,8 @@ DO
     LET findgametime% = INSTR(findgametime% + 1, textspeech$, "[gametime]")
     LET findrandom% = INSTR(findrandom% + 1, textspeech$, "[random]")
     LET findscriptvalue% = INSTR(findscriptvalue% + 1, textspeech$, "[value]-")
-    IF temp204 = 0 THEN IF findhelditem1% THEN LET variablevalue$ = "[helditem1]": LET temp204 = 1
-    IF temp204 = 0 THEN IF findhelditem2% THEN LET variablevalue$ = "[helditem2]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findhelditema% THEN LET variablevalue$ = "[helditema]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findhelditemb% THEN LET variablevalue$ = "[helditemb]": LET temp204 = 1
     IF temp204 = 0 THEN IF findselectobject% THEN LET variablevalue$ = "[selectobject]": LET temp204 = 1
     IF temp204 = 0 THEN IF findros% THEN LET variablevalue$ = "[ros]": LET temp204 = 1
     IF temp204 = 0 THEN IF findtos% THEN LET variablevalue$ = "[tos]": LET temp204 = 1
@@ -7395,8 +7401,8 @@ DO
                     REM found variable command! inject value!
                     LET texttemp1$ = LEFT$(textspeech$, (temp202 - variablelength))
                     LET texttemp2$ = MID$(textspeech$, temp202 + 1, (LEN(textspeech$) - (LEN(texttemp1$) + variablelength)))
-                    IF variablevalue$ = "[helditem1]" THEN LET textspeech$ = texttemp1$ + pocketdisplayname$ + texttemp2$
-                    IF variablevalue$ = "[helditem2]" THEN LET textspeech$ = texttemp1$ + temp19$ + texttemp2$
+                    IF variablevalue$ = "[helditema]" THEN LET textspeech$ = texttemp1$ + pocketdisplayname$ + texttemp2$
+                    IF variablevalue$ = "[helditemb]" THEN LET textspeech$ = texttemp1$ + temp19$ + texttemp2$
                     IF variablevalue$ = "[selectobject]" THEN
                         IF selectobject$ = "mainplayer" THEN
                             LET textspeech$ = texttemp1$ + temp61$ + texttemp2$
@@ -7434,8 +7440,8 @@ DO
                     LET texttemp1$ = ""
                     LET texttemp2$ = ""
                     LET varworkingtemp$ = ""
-                    LET findhelditem1% = 0
-                    LET findhelditem2% = 0
+                    LET findhelditema% = 0
+                    LET findhelditemb% = 0
                     LET findselectobject% = 0
                     LET findros% = 0
                     LET findtos% = 0
@@ -8406,13 +8412,13 @@ IF ifpocket = 1 OR ifpocket = 2 THEN
 END IF
 RETURN
 
-scriptifholdingcmd:
-REM checks players hand for item
-LET ifholding$ = temps$(2)
-LET ifholding = 0
-GOSUB ifholding
+scriptifholdingacmd:
+REM checks players hand for item 1
+LET ifholdinga$ = temps$(2)
+LET ifholdinga = 0
+GOSUB ifholdinga
 LET temp26 = 1
-IF ifholding = 1 THEN
+IF ifholdinga = 1 THEN
     REM diverts script if item is in hand
     LET temp26 = 2
     REM enables a spoof trigger to run a script
@@ -8426,16 +8432,50 @@ IF ifholding = 1 THEN
         LET scriptnametrim = 1
     END IF
     REM checks how many times ifholding has been run
-    IF temp200 <> 5 THEN LET ifholdingno = ifholdingno + 1
-    IF ifholdingno > 1 THEN
+    IF temp200 <> 5 THEN LET ifholdingnoa = ifholdingnoa + 1
+    IF ifholdingnoa > 1 THEN
         IF temp201 = 5 THEN
-            IF ifholdingno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifholdingno > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifholdingnoa <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
+            IF ifholdingnoa > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
         END IF
     END IF
-    LET triggerspoofname$ = scriptname$ + "-ifholding" + LTRIM$(STR$(ifholdingno))
+    LET triggerspoofname$ = scriptname$ + "-ifholdinga" + LTRIM$(STR$(ifholdingnoa))
     LET temp33 = 2
     LET temp200 = 5
+    LET temp201 = temp200
+END IF
+RETURN
+
+scriptifholdingbcmd:
+REM checks players hand for item 2
+LET ifholdingb$ = temps$(2)
+LET ifholdingb = 0
+GOSUB ifholdingb
+LET temp26 = 1
+IF ifholdingb = 1 THEN
+    REM diverts script if item is in hand
+    LET temp26 = 2
+    REM enables a spoof trigger to run a script
+    LET triggerspoofa = 1
+    LET nextmapscript = mapscript
+    LET nodraw = 1
+    REM calculates how many values to take from the script filename
+    IF temp201 <> 0 THEN
+        GOSUB scriptnametrim
+    ELSE
+        LET scriptnametrim = 1
+    END IF
+    REM checks how many times ifholding has been run
+    IF temp200 <> 12 THEN LET ifholdingnob = ifholdingnob + 1
+    IF ifholdingnob > 1 THEN
+        IF temp201 = 12 THEN
+            IF ifholdingnob <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
+            IF ifholdingnob > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+        END IF
+    END IF
+    LET triggerspoofname$ = scriptname$ + "-ifholdingb" + LTRIM$(STR$(ifholdingnob))
+    LET temp33 = 2
+    LET temp200 = 12
     LET temp201 = temp200
 END IF
 RETURN
@@ -9153,7 +9193,8 @@ DO
     LET findterminal% = INSTR(findterminal% + 1, scriptline$, "terminal ")
     LET findgivecurrency% = INSTR(findgivecurrency% + 1, scriptline$, "givecurrency ")
     LET findtakecurrency% = INSTR(findtakecurrency% + 1, scriptline$, "takecurrency ")
-    LET findifholding% = INSTR(findifholding% + 1, scriptline$, "ifholding ")
+    LET findifholdinga% = INSTR(findifholdinga% + 1, scriptline$, "ifholdinga ")
+    LET findifholdingb% = INSTR(findifholdingb% + 1, scriptline$, "ifholdingb ")
     LET findifcurrency% = INSTR(findifcurrency% + 1, scriptline$, "ifcurrency ")
     LET findmarkgone% = INSTR(findmarkgone% + 1, scriptline$, "markgone ")
     LET findloading% = INSTR(findloading% + 1, scriptline$, "loading")
@@ -9452,9 +9493,13 @@ DO
         GOSUB scriptifpocketcmd
         GOTO endscriptcmd
     END IF
-    IF findifholding% THEN
-        GOSUB scriptifholdingcmd
+    IF findifholdinga% THEN
+        GOSUB scriptifholdingacmd
         GOTO endscriptcmd
+    END IF
+    IF findifholdingb% THEN
+		GOSUB scriptifholdingbcmd
+		GOTO endscriptcmd
     END IF
     IF findifmodel% THEN
         GOSUB scriptifmodelcmd
@@ -9697,7 +9742,7 @@ DO
         LET temps$(x) = ""
         LET x = x + 1
     LOOP UNTIL temps$(x) = ""
-    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholding% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findwhitefade% = 0: LET findsfxloop% = 0: LET findsfxstop% = 0: LET findcut% = 0: LET findresetsavetime% = 0: LET findterminalos% = 0: LET findspecial666% = 0: LET findspecial667% = 0: LET findspecial668% = 0
+    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholdinga% = 0: LET findifholdingb% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findwhitefade% = 0: LET findsfxloop% = 0: LET findsfxstop% = 0: LET findcut% = 0: LET findresetsavetime% = 0: LET findterminalos% = 0: LET findspecial666% = 0: LET findspecial667% = 0: LET findspecial668% = 0
     LET x = 0
     DO
         LET x = x + 1
@@ -9731,7 +9776,8 @@ IF temp200 = 0 AND temp200 <> 999 THEN
     LET ifcurrencyno = 0
     LET ifdirectionno = 0
     LET ifpocketno = 0
-    LET ifholdingno = 0
+    LET ifholdingano = 0
+    LET ifholdingbno = 0
     LET ifmodelno = 0
     LET ifmapnono = 0
     LET ifgoneno = 0
@@ -9747,7 +9793,8 @@ IF temp200 = 999 THEN
     LET ifcurrencyno = 0
     LET ifdirectionno = 0
     LET ifpocketno = 0
-    LET ifholdingno = 0
+    LET ifholdingano = 0
+    LET ifholdingbno = 0
     LET ifmodelno = 0
     LET ifmapnono = 0
     LET ifgoneno = 0

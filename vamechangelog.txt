@@ -1,6 +1,14 @@
 VAME CHANGELOG
 By Danielle Pond
 
+08/10/2024 - Update 175. (2.9.12)
+NEW FEATURES
+- New script commands ifholdinga and ifholdingb that allows scripts to question which pocket items are being held, allowing for more script choices when merging pocket items together.
+TWEAKS
+- [helditem1] and [helditem2] script values now changed to [helditema] and [helditemb].
+REMOVED FEATURES
+- Script command ifholding has been removed in favour of ifholdinga and ifholdingb.
+
 01/10/2024 - Update 174. (2.9.11)
 NEW FEATURES
 - Players now have an automatic route mode that allows the player to stay at their destination co-ordinates.
