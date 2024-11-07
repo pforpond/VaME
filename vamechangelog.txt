@@ -1,6 +1,31 @@
 VAME CHANGELOG
 By Danielle Pond
 
+07/11/2024 - Update 176. (2.9.13)
+NEW FEATURES
+- Hunter Players! New player type that can hunt down the mainplayer across many maps and execute a script when the hunt is complete. Will be useful for horror games. (BETA)
+- New script command 'huntercontrol' that can enable and disable hunter players.
+- New mod in the example game that shows off the Hunter feature.
+- Pocket slots! An easier way of having multiple inventories. Pocket items are now assigned a slot which can be switched. An unlimited amount is supported.
+- New script command 'pocketslot' that allows for changing a pocket item's slot.
+- New script command 'changeslot' that changes the current pocket slot.
+- New prompt command 'sd' that allows for script commands to be executed from the prompt.
+- New arguments for prompt command 'display' that allows the displaying of Hunter Player information.
+- New arguments for prompt command 'change' that allows the changing of the hunter player status number.
+BUG FIXES
+- Fixed an issue where using the 'system pockets' prompt command would cause the game to lose track of how many pocket items the player has, resulting in the mainplayer claiming that their pockets are empty.
+- Fixed bug where ifholdinga and ifholdingb script commands would fail to reset their internal script choice counter, breaking both commands after one use.
+- Fixed a few scripting errors in the example game that would fail to correctly set the speaking player.
+TWEAKS
+- Improvements in code efficiency.
+- Updated some scripts in the example game to reflect changes made in 2.9.12.
+- Pockets now gather data from an array loaded into memory rather than reading data from storage.
+- VaME Limit Converter updated for use with 2.9.13 and now supports awards.
+REMOVED FEATURES
+- Special script commands for Spiderbro 2 specific functions removed.
+OTHER
+- We have forked the compiler we use (QB64) with the intent of updating it over time to better suit our needs. Say hello to pBASIC!
+
 08/10/2024 - Update 175. (2.9.12)
 NEW FEATURES
 - New script commands ifholdinga and ifholdingb that allows scripts to question which pocket items are being held, allowing for more script choices when merging pocket items together.

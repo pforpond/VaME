@@ -7,8 +7,6 @@ REM check os
 IF INSTR(_OS$, "[WINDOWS]") THEN LET ros$ = "win"
 IF INSTR(_OS$, "[LINUX]") THEN LET ros$ = "lnx"
 IF INSTR(_OS$, "[MACOSX]") THEN LET ros$ = "mac"
-IF ros$ = "mac" THEN ERROR 423
-IF ros$ <> "win" AND ros$ <> "lnx" THEN ERROR 423
 REM setup for converter
 CLS
 COLOR 15
@@ -29,9 +27,20 @@ INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devl
 CLOSE #1
 REM opens and reads engine paths
 OPEN "data/fileloc.ddf" FOR INPUT AS #1
-IF ros$ = "win" THEN INPUT #1, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$
-IF ros$ = "lnx" THEN INPUT #1, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$: LET temp47$ = ""
+IF ros$ = "win" THEN INPUT #1, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, awardloc$
+IF ros$ = "lnx" OR ros$ = "mac" THEN INPUT #1, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, temp47$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, awardloc$: LET temp47$ = ""
 CLOSE #1
+REM converts engine limit values
+LET oldobjectlimit = totalobjects
+LET oldplayerlimit = totalplayers
+LET oldtriggerlimit = totaltriggers
+LET oldpocketlimit = totalpockets
+LET oldcheckpointlimit = totalcheckpoints
+LET oldframelimit = totalframes
+LET oldsfxlimit = totalsfxs
+LET oldmusiclimit = totalmusics
+LET oldscriptvaluelimit = totalscriptvalues
+LET oldawardlimit = totalawards
 REM checks save data
 IF _FILEEXISTS(sloc$ + "defaultsave.ddf") THEN
 	REM nothing
@@ -45,6 +54,10 @@ ELSE
 	LET wtitle$ = title$ + " Limit Converter"
 END IF
 _TITLE wtitle$
+PRINT "GAME FOUND: " + title$
+PRINT "Version: " + versionno$
+PRINT "Engine: " + engineversionno$
+PRINT
 REM asks user for values
 PRINT "INSERT NEW MAP OBJECT LIMIT (current =" + STR$(oldobjectlimit) + ") >"
 INPUT newobjectlimit
@@ -64,6 +77,8 @@ PRINT "INSERT NEW GAME MUSIC TRACK LIMIT (current =" + STR$(oldmusiclimit) + ") 
 INPUT newmusiclimit
 PRINT "INSERT NEW SCRIPT VALUE LIMIT (current =" + STR$(oldscriptvaluelimit) + ") >"
 INPUT newscriptvaluelimit
+PRINT "INSERT NEW AWARD VALUE LIMIT (current =" + STR$(oldawardlimit) + ") >"
+INPUT newawardlimit
 PRINT "ARE THESE FIGURES CORRECT?"
 10 INPUT "Y/N"; a$
 IF UCASE$(a$) = "Y" THEN GOTO dimmer
@@ -111,12 +126,14 @@ DIM oldtriggerx1(newtriggerlimit) AS INTEGER
 DIM oldtriggery1(newtriggerlimit) AS INTEGER
 DIM oldtriggerx2(newtriggerlimit) AS INTEGER
 DIM oldtriggery2(newtriggerlimit) AS INTEGER
+DIM oldtriggerexit(newtriggerlimit) AS INTEGER
 REM new trigger values
 DIM newtriggername(newtriggerlimit) AS STRING
 DIM newtriggerx1(newtriggerlimit) AS INTEGER
 DIM newtriggery1(newtriggerlimit) AS INTEGER
 DIM newtriggerx2(newtriggerlimit) AS INTEGER
 DIM newtriggery2(newtriggerlimit) AS INTEGER
+DIM newtriggerexit(newtriggerlimit) AS INTEGER
 REM old checkpoint values
 DIM oldcheckpoint(newcheckpointlimit) AS INTEGER
 REM new checkpoint values
@@ -128,12 +145,21 @@ DIM newframe(newframelimit) AS INTEGER
 REM old pocket values
 DIM oldpocketitem(newpocketlimit) AS INTEGER
 DIM oldpocketvisible(newpocketlimit) AS INTEGER
+DIM oldpocketslot(newpocketlimit) AS INTEGER
 REM new pocket values
 DIM newpocketitem(newpocketlimit) AS INTEGER
 DIM newpocketvisible(newpocketlimit) AS INTEGER
+DIM newpocketslot(newpocketlimit) AS INTEGER
 REM new extra values
-DIM oldscriptvalue(oldscriptvaluelimit) AS INTEGER
+DIM oldscriptvalue(newscriptvaluelimit) AS INTEGER
 DIM newscriptvalue(newscriptvaluelimit) AS INTEGER
+REM new award values
+DIM oldawardvalue(newawardlimit) AS INTEGER
+DIM newawardvalue(newawardlimit) AS INTEGER
+DIM oldawardname(newawardlimit) AS STRING
+DIM newawardname(newawardlimit) AS STRING
+DIM oldawarddesc(newawardlimit) AS STRING
+DIM newawarddesc(newawardlimit) AS STRING
 GOTO gatherfiles
 
 gatherfiles:
@@ -167,6 +193,7 @@ IF newpocketlimit > 0 AND newpocketlimit <> oldpocketlimit AND savechange = 0 TH
 IF newcheckpointlimit > 0 AND newcheckpointlimit <> oldcheckpointlimit AND savechange = 0 THEN LET filecount = filecount + 1: LET savechange = 1
 IF newframelimit > 0 AND newframelimit <> oldframelimit AND framechange = 0 THEN LET filecount = filecount + framecount: LET framechange = 1
 IF newscriptvaluelimit > 0 AND newscriptvaluelimit <> oldscriptvaluelimit AND savechange = 0 THEN LET filecount = filecount + 1: LET savechange = 1
+IF newawardlimit > 0 AND newawardlimit <> oldawardlimit AND awardchange = 0 THEN LET filecount = filecount + 1: LET awardchange = 1
 IF filecount > 0 THEN
 	LET filecount = filecount + 1: LET enginechange = 1
 ELSE
@@ -190,7 +217,8 @@ IF newcheckpointlimit > 0 AND newcheckpointlimit <> oldcheckpointlimit THEN PRIN
 IF newframelimit > 0 AND newframelimit <> oldframelimit THEN PRINT "* OLD ANIMATION FRAME LIMIT: " + STR$(oldframelimit) + " NEW ANIMATION FRAME LIMIT: " + STR$(newframelimit)
 IF newsfxlimit > 0 AND newsfxlimit <> oldsfxlimit THEN PRINT "* OLD GAME SOUND EFFECT LIMIT: " + STR$(oldsfxlimit) + " NEW GAME SOUND EFFECT LIMIT: " + STR$(newsfxlimit)
 IF newmusiclimit > 0 AND newmusiclimit <> oldmusiclimit THEN PRINT "* OLD GAME MUSIC TRACK LIMIT: " + STR$(oldmusiclimit) + " NEW GAME MUSIC TRACK LIMIT: " + STR$(newmusiclimit)
-IF newscriptvaluelimit >0 AND newscriptvaluelimit <> oldscriptvaluelimit THEN PRINT "* OLD SCRIPT VALUE LIMIT: " + STR$(oldscriptvaluelimit) + " NEW SCRIPT VALUE LIMIT: " + STR$(newscriptvaluelimit)
+IF newscriptvaluelimit > 0 AND newscriptvaluelimit <> oldscriptvaluelimit THEN PRINT "* OLD SCRIPT VALUE LIMIT: " + STR$(oldscriptvaluelimit) + " NEW SCRIPT VALUE LIMIT: " + STR$(newscriptvaluelimit)
+IF newawardlimit > 0 AND newawardlimit <> oldawardlimit THEN PRINT "* OLD AWARD LIMIT: " + STR$(oldawardlimit) + " NEW AWARD LIMIT: " + STR$(newawardlimit)
 PRINT
 IF filecount = 0 THEN
 	REM if no changes are needed
@@ -211,17 +239,42 @@ IF enginechange = 1 THEN PRINT "* CONVERTING ENGINE FILE...": GOSUB engineconver
 IF mapchange = 1 THEN PRINT "* CONVERTING MAP FILES...": GOSUB mapconvert
 IF framechange = 1 THEN PRINT "* CONVERTING FRAME FILES...": GOSUB frameconvert
 IF savechange = 1 THEN PRINT "* CONVERTING DEFAULT SAVE DATA...": GOSUB saveconvert
+IF awardchange = 1 THEN PRINT "* CONVERTING AWARD DATA...": GOSUB awardconvert
 PRINT "...CONVERT COMPLETE!"
 IF ros$ = "lnx" THEN SHELL _HIDE "rm maplist.ddf": SHELL _HIDE "rm framelist.ddf"
 IF ros$ = "win" THEN SHELL _HIDE "del maplist.ddf": SHELL _HIDE "del framelist.ddf"
 END
 
+awardconvert:
+REM converts awards.ddf to new requirements
+REM loads award data
+OPEN awardloc$ + "awards.ddf" FOR INPUT AS #1
+FOR x = 1 TO oldawardlimit
+	INPUT #1, oldawardname$(x)
+    INPUT #1, oldawarddesc$(x)
+NEXT x
+CLOSE #1
+REM converts award values
+FOR x = 1 TO newawardlimit
+	LET newawardname$(x) = oldawardname$(x)
+	LET newawarddesc$(x) = oldawarddesc$(x)
+NEXT x
+REM saves to file 
+OPEN awardloc$ + "awards.ddf" FOR OUTPUT AS #1
+FOR x = 1 TO newawardlimit
+	WRITE #1, newawardname$(x)
+	WRITE #1, newawarddesc$(x)
+NEXT x
+CLOSE #1
+RETURN
+
 saveconvert:
 REM converts defaultsave.ddf to new requirements
 IF newpocketlimit = 0 THEN LET newpocketlimit = oldpocketlimit
 IF newcheckpointlimit = 0 THEN LET newcheckpointlimit = oldcheckpointlimit
+IF newawardlimit = 0 THEN LET newawardlimit = oldawardlimit
 OPEN sloc$ + "defaultsave.ddf" FOR INPUT AS #1
-INPUT #1, mapno, currency, screenmode, posx, posy, direction, soundmode, musicvol, sfxvol, pocketcarry
+INPUT #1, mapno, currency, posx, posy, direction, igametime, pocketcarry, pocketslot, huntmode, huntmap
 REM loads pocket items
 FOR x = 1 TO oldpocketlimit
     INPUT #1, oldpocketitem(x)
@@ -230,6 +283,10 @@ REM loads visible pocket data
 FOR x = 1 TO oldpocketlimit
 	INPUT #1, oldpocketvisible(x)
 NEXT x
+REM loads pocket slot data
+FOR x = 1 TO oldpocketlimit
+	INPUT #1, oldpocketslot(x)
+NEXT x
 REM loads checkpoints
 FOR x = 1 TO oldcheckpointlimit
 	INPUT #1, oldcheckpoint(x)
@@ -237,6 +294,10 @@ NEXT x
 REM loads script values
 FOR x = 1 TO oldscriptvaluelimit
 	INPUT #1, oldscriptvalue(x)
+NEXT x
+REM loads award values
+FOR x = 1 TO oldawardlimit
+	INPUT #1, oldawardvalue(x)
 NEXT x
 REM loads main player and terminal os
 DO
@@ -249,6 +310,7 @@ FOR x = 1 TO newpocketlimit
 NEXT x
 FOR x = 1 TO newpocketlimit
 	LET newpocketvisible(x) = oldpocketvisible(x)
+	LET newpocketslot(x) = oldpocketslot(x)
 NEXT x
 FOR x = 1 TO newcheckpointlimit
 	LET newcheckpoint(x) = oldcheckpoint(x)
@@ -256,9 +318,12 @@ NEXT x
 FOR x = 1 TO newscriptvaluelimit
 	LET newscriptvalue(x) = oldscriptvalue(x)
 NEXT x
+FOR x = 1 TO newawardlimit
+	LET newawardvalue(x) = oldawardvalue(x)
+NEXT x 
 REM writes converted data
 OPEN sloc$ + "defaultsave.ddf" FOR OUTPUT AS #1
-WRITE #1, mapno, currency, screenmode, posx, posy, direction, soundmode, musicvol, sfxvol, pocketcarry
+WRITE #1, mapno, currency, posx, posy, direction, igametime, pocketcarry, pocketslot, huntmode, huntmap
 REM writes pocket items
 FOR x = 1 TO newpocketlimit
     WRITE #1, newpocketitem(x)
@@ -267,6 +332,9 @@ REM writes extra pocket data
 FOR x = 1 TO newpocketlimit
 	WRITE #1, newpocketvisible(x)
 NEXT x
+FOR x = 1 TO newpocketlimit
+	WRITE #1, newpocketslot(x)
+NEXT x
 REM writes checkpoints
 FOR x = 1 TO newcheckpointlimit
     WRITE #1, newcheckpoint(x)
@@ -274,6 +342,10 @@ NEXT x
 REM writes script values
 FOR x = 1 TO newscriptvaluelimit
 	WRITE #1, newscriptvalue(x)
+NEXT x
+REM writes award values
+FOR x = 1 TO newawardlimit
+	WRITE #1, newawardvalue(x)
 NEXT x
 REM writes main player
 WRITE #1, mplayermodel$, tosfile$
@@ -339,6 +411,23 @@ IF newscriptvaluelimit > 0 AND newscriptvaluelimit <> oldscriptvaluelimit THEN
 ELSE
 	LET printscriptvaluelimit = oldscriptvaluelimit
 END IF
+REM chooses which award limit to use
+IF newawardlimit > 0 AND newawardlimit <> oldawardlimit THEN
+	LET printawardlimit = newawardlimit
+ELSE
+	LET printawardlimit = oldawardlimit
+END IF
+REM converts values
+LET totalobjects = printobjectlimit
+LET totalplayers = printplayerlimit
+LET totaltriggers = printtriggerlimit
+LET totalpockets = printpocketlimit
+LET totalcheckpoints = printcheckpointlimit
+LET totalframes = printframelimit
+LET totalsfxs = printsfxlimit
+LET totalmusics = printmusiclimit
+LET totalscriptvalues = printscriptvaluelimit
+LET totalawards = printawardlimit
 REM writes changes to engine file
 OPEN dloc$ + "engine.ddf" FOR OUTPUT AS #1
 WRITE #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowunavailableright$, pocketarrowunavailableleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$
@@ -412,7 +501,7 @@ DO
 		NEXT x
 		REM reads old trigger values
 		FOR x = 1 TO oldtriggerlimit
-			INPUT #2, oldtriggername(x), oldtriggerx1(x), oldtriggery1(x), oldtriggerx2(x), oldtriggery2(x)
+			INPUT #2, oldtriggername(x), oldtriggerx1(x), oldtriggery1(x), oldtriggerx2(x), oldtriggery2(x), oldtriggerexit(x)
 		NEXT x
 		CLOSE #2
 		REM converts object values
@@ -438,6 +527,7 @@ DO
 			LET newtriggery1(x) = oldtriggery1(x)
 			LET newtriggerx2(x) = oldtriggerx2(x)
 			LET newtriggery2(x) = oldtriggery2(x)
+			LET newtriggerexit(x) = oldtriggerexit(x)
 		NEXT x
 		OPEN mloc$ + x$ + "/map" + LTRIM$(STR$(mapno)) + ".ddf" FOR OUTPUT AS #3: REM opens map file to write
 		WRITE #3, mapname$, playmusic$, mapeffect, parallaxmode, mapx, mapy, mapobjectno, mapplayerno, maptriggerno: REM saves converted map values
@@ -451,7 +541,7 @@ DO
 		NEXT x
 		REM saves converted trigger values
 		FOR x = 1 TO newtriggerlimit
-			WRITE #3, newtriggername(x), newtriggerx1(x), newtriggery1(x), newtriggerx2(x), newtriggery2(x)
+			WRITE #3, newtriggername(x), newtriggerx1(x), newtriggery1(x), newtriggerx2(x), newtriggery2(x), newtriggerexit(x)
 		NEXT x
 		CLOSE #3
 		REM wipes values

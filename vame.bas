@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.12
+REM Build 2.9.13
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,12,2912
-$VERSIONINFO:PRODUCTVERSION#=2,9,12,2912
+$VERSIONINFO:FILEVERSION#=2,9,13,2913
+$VERSIONINFO:PRODUCTVERSION#=2,9,13,2913
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.12"
+LET hardbuild$ = "2.9.13"
 
 setup:
 REM initiates engine and assigns values
@@ -131,6 +131,7 @@ LOOP UNTIL temp6 = 14
 LET fadestatus = -1: REM resets fade tracking value for first time use
 GOSUB parameterload: REM loads any launch parameters
 GOSUB dimmer: REM assigns array values
+GOSUB pocketvisiblecalc: REM sets all pocket items as visible
 GOSUB deleteupdaters: REM deletes any left over updater files
 GOSUB inputload: REM checks and informs console of enabled game controls
 GOSUB optionload: REM loads options values
@@ -260,6 +261,7 @@ DIM mplayery(totalplayers) AS INTEGER
 DIM playergrace(totalplayers) AS INTEGER
 DIM playerdefault(totalplayers) AS INTEGER
 DIM playerspeed(totalplayers) AS INTEGER
+DIM playermode(totalplayers) AS INTEGER
 DIM playerresx(totalplayers) AS INTEGER
 DIM playerresy(totalplayers) AS INTEGER
 DIM players(totalplayers) AS INTEGER
@@ -309,6 +311,10 @@ DIM playerlayer(totalplayers) AS INTEGER
 DIM playerlayer2(totalplayers) AS INTEGER
 DIM autoplayercull(totalplayers) AS INTEGER
 DIM playerhighlight(totalplayers) AS INTEGER
+REM hunter values
+DIM hunttempn(totaltriggers) AS INTEGER
+DIM hunttemps(totaltriggers) AS STRING
+DIM hunttriggerexit(totaltriggers) AS INTEGER
 REM sfx values
 DIM sfx(totalsfxs) AS STRING
 DIM sfxdata(totalsfxs) AS INTEGER
@@ -323,6 +329,7 @@ DIM triggerx2(totaltriggers) AS INTEGER
 DIM triggery2(totaltriggers) AS INTEGER
 DIM triggera(totaltriggers) AS INTEGER
 DIM triggerd(totaltriggers) AS INTEGER
+DIM triggerexit(totaltriggers) AS INTEGER
 REM pocket values
 DIM pocketname(totalpockets) AS STRING
 DIM pocketshort(totalpockets) AS STRING
@@ -333,9 +340,8 @@ DIM temppocketitem(totalpockets) AS INTEGER
 DIM pocketsprite(totalpockets) AS INTEGER
 DIM pocketvisible(totalpockets) AS INTEGER
 DIM temppocketvisible(totalpockets) AS INTEGER
-FOR x = 1 TO totalpockets
-    LET pocketvisible(x) = 1
-NEXT x
+DIM pocketitemslot(totalpockets) AS INTEGER
+DIM temppocketitemslot(totalpockets) AS INTEGER
 REM checkpoint values
 DIM checkpoint(totalcheckpoints) AS INTEGER
 DIM tempcheckpoint(totalcheckpoints) AS INTEGER
@@ -357,6 +363,7 @@ DIM tempscriptvalue(totalscriptvalues) AS INTEGER
 DIM frames AS _INTEGER64
 DIM temps(100000) AS STRING
 DIM tempn(100000) AS DOUBLE
+DIM promptsd(100) AS STRING
 CONST RSHIFT& = 100303
 CONST LSHIFT& = 100304
 REM print to console
@@ -910,6 +917,13 @@ CLOSE #1
 LET temp57 = 0: REM scrubs temp values
 RETURN
 
+pocketvisiblecalc:
+REM calculates how manyu pocket items are visible
+FOR x = 1 TO totalpockets
+    LET pocketvisible(x) = 1
+NEXT x
+RETURN
+
 awardunload:
 REM unloads all awards from memeory
 OPEN awardloc$ + "awards.ddf" FOR INPUT AS #1
@@ -954,7 +968,9 @@ REM return for if no items in pocket
 LET temp170 = 0: LET temp171 = 0
 DO
     LET temp170 = temp170 + 1
-    IF pocketvisible(temp170) = 0 THEN IF pocketitem(temp170) = 1 THEN LET temp171 = temp171 + 1
+    IF pocketvisible(temp170) = 0 OR pocketitemslot(temp170) <> pocketslot THEN 
+		IF pocketitem(temp170) = 1 THEN LET temp171 = temp171 + 1
+	END IF
 LOOP UNTIL temp170 >= totalpockets
 IF pocketcarry - temp171 <= 0 THEN
     LET scriptname$ = "nopocket"
@@ -1519,32 +1535,23 @@ LET temp61 = pocketdisplay
 LET temp62 = pocketline
 LET oldpocketdisplay = pocketdisplay
 LET pocketdisplay = 0
-REM goes back a line and checks if pocket item is available
 DO
-    OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
-    LET temp60 = 0
-    LET pocketline = pocketline - 1
-    DO
-        LET temp60 = temp60 + 1
-        INPUT #1, pocketfile$
-        IF EOF(1) THEN
-            REM if file ends
-            LET pocketdisplay = temp61
-            LET pocketline = temp62
-            LET temp60 = 0
-            LET temp61 = 0
-            LET temp62 = 0
-            CLOSE #1
-            IF pocketdisplay <> oldpocketdisplay THEN LET pocketredraw = 1:
-            RETURN
-        END IF
-    LOOP UNTIL temp60 = pocketline
-    IF pocketitem(temp60) = 1 AND pocketvisible(temp60) = 1 THEN LET pocketdisplay = temp60
-    CLOSE #1
+	LET temp60 = temp60 + 1
+	IF pocketline - temp60 =< 0 THEN
+		REM return for if no pocket item exists after current item
+		LET pocketdisplay = temp61
+		LET pocketline = temp62
+		LET temp61 = 0
+		LET temp62 = 0 
+		LET temp60 = 0
+		IF pocketdisplay <> oldpocketdisplay THEN LET pocketredraw = 1
+		RETURN
+	END IF
+	IF pocketitem(pocketline - temp60) = 1 AND pocketvisible(pocketline - temp60) = 1 AND pocketitemslot(pocketline - temp60) = pocketslot THEN LET pocketdisplay = pocketline - temp60
 LOOP UNTIL pocketdisplay > 0
-LET pocketline = temp60
+LET pocketline = pocketline - temp60
 IF pocketdisplay <> oldpocketdisplay THEN LET pocketredraw = 1
-LET temp60 = 0: LET temp61 = 0: LET temp62 = 0: REM scrubs temp values
+LET temp60 = 0: LET temp61 = 0: LET temp62 = 0: REM scrub temp values
 RETURN
 
 pocketcalcup:
@@ -1554,46 +1561,23 @@ LET temp61 = pocketdisplay
 LET temp62 = pocketline
 LET oldpocketdisplay = pocketdisplay
 LET pocketdisplay = 0
-REM gets to current line
-OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
-IF pocketline > 0 THEN
-    DO
-        LET temp60 = temp60 + 1
-        INPUT #1, pocketfile$
-        IF EOF(1) THEN
-            REM if file ends
-            LET temp60 = 0
-            LET pocketdisplay = temp61
-            LET pocketline = temp62
-            LET temp61 = 0
-            LET temp62 = 0
-            CLOSE #1
-            IF pocketdisplay <> oldpocketdisplay THEN LET pocketredraw = 1
-            RETURN
-        END IF
-    LOOP UNTIL temp60 >= pocketline
-END IF
 DO
-    LET temp60 = temp60 + 1
-    INPUT #1, pocketfile$
-    IF pocketitem(temp60) = 1 AND pocketvisible(temp60) = 1 THEN LET pocketdisplay = temp60
-    IF pocketdisplay > 0 THEN CLOSE #1: LET pocketline = temp60: IF pocketdisplay <> oldpocketdisplay THEN LET pocketredraw = 1: LET temp60 = 0: RETURN
-    IF EOF(1) THEN
-        REM if file ends
-        LET temp60 = 0
-        LET pocketdisplay = temp61
-        LET pocketline = temp62
-        LET temp61 = 0
-        LET temp62 = 0
-        CLOSE #1
-        COLOR 0, 0
-        RETURN
-    END IF
-LOOP
-CLOSE #1
-COLOR 0, 0
+	LET temp60 = temp60 + 1
+	IF pocketshort$(pocketline + temp60) = "" THEN
+		REM return for if no pocket item exists after current item
+		LET pocketdisplay = temp61
+		LET pocketline = temp62
+		LET temp61 = 0
+		LET temp62 = 0 
+		LET temp60 = 0
+		IF pocketdisplay <> oldpocketdisplay THEN LET pocketredraw = 1
+		RETURN
+	END IF
+	IF pocketitem(pocketline + temp60) = 1 AND pocketvisible(pocketline + temp60) = 1 AND pocketitemslot(pocketline + temp60) = pocketslot THEN LET pocketdisplay = pocketline + temp60
+LOOP UNTIL pocketdisplay > 0
+LET pocketline = pocketline + temp60
 IF pocketdisplay <> oldpocketdisplay THEN LET pocketredraw = 1
-LET pocketline = temp60: LET temp60 = 0: LET temp61 = 0: LET temp62 = 0 REM clear temp values
+LET temp60 = 0: LET temp61 = 0: LET temp62 = 0: REM scrub temp values
 RETURN
 
 choicebannerdraw:
@@ -2616,7 +2600,7 @@ savevalue:
 REM saves a specific value to save file
 REM loads savedata, stores temp values
 OPEN sloc$ + "savedata.ddf" FOR INPUT AS #1
-INPUT #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, tempigametime, temppocketcarry
+INPUT #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, tempigametime, temppocketcarry, temppocketslot, temphuntmode, temphuntmap
 REM loads pocket items
 LET x = 0
 DO
@@ -2628,6 +2612,11 @@ LET x = 0
 DO
     LET x = x + 1
     INPUT #1, temppocketvisible(x)
+LOOP UNTIL x >= totalpockets
+LET x = 0
+DO
+	LET x = x + 1
+	INPUT #1, temppocketitemslot(x)
 LOOP UNTIL x >= totalpockets
 REM loads checkpoints
 LET x = 0
@@ -2653,7 +2642,7 @@ INPUT #1, tempmplayermodel$, temptosfile$
 CLOSE #1
 REM saves time to file
 OPEN sloc$ + "savedata.ddf" FOR OUTPUT AS #1
-WRITE #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, gametime, temppocketcarry
+WRITE #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, gametime, temppocketcarry, temppocketslot, temphuntmode, temphuntmap
 REM writes pocket items
 LET x = 0
 DO
@@ -2665,6 +2654,11 @@ LET x = 0
 DO
     LET x = x + 1
     WRITE #1, temppocketvisible(x)
+LOOP UNTIL x >= totalpockets
+LET x = 0
+DO
+	LET x = x + 1
+	WRITE #1, temppocketitemslot(x)
 LOOP UNTIL x >= totalpockets
 REM writes checkpoints
 LET x = 0
@@ -2695,9 +2689,8 @@ CLOSE #1
 REM erases temp values
 FOR x = 1 TO totalpockets
     LET temppocketitem(x) = 0
-NEXT x
-FOR x = 1 TO totalpockets
     LET temppocketvisible(x) = 0
+    LET temppocketitemslot(x) = 0
 NEXT x
 FOR x = 1 TO totalcheckpoints
     LET tempcheckpoint(x) = 0
@@ -2706,7 +2699,7 @@ FOR x = 1 TO totalawards
     LET tempawardvalue(x) = 0
 NEXT x
 LET tempmplayermodel$ = "": LET temptosfile$ = ""
-LET tempmapno = 0: LET tempposx = 0: LET tempposy = 0: LET tempcurrency = 0: LET tempdirection = 0: LET tempigametime = 0: LET temppocketcarry = 0
+LET tempmapno = 0: LET tempposx = 0: LET tempposy = 0: LET tempcurrency = 0: LET tempdirection = 0: LET tempigametime = 0: LET temppocketcarry = 0: LET temppocketslot = 0
 REM prints to console
 LET eventtitle$ = "VALUE " + LTRIM$(STR$(valuesaveno)) + " DATA SAVED:"
 LET eventdata$ = sloc$ + "savedata.ddf"
@@ -2719,7 +2712,7 @@ REM saves time and award data to save file
 REM loads and stores temp values
 REM loads savedata
 OPEN sloc$ + "savedata.ddf" FOR INPUT AS #1
-INPUT #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, tempigametime, temppocketcarry
+INPUT #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, tempigametime, temppocketcarry, temppocketslot, temphuntmode, temphuntmap
 REM loads pocket items
 LET x = 0
 DO
@@ -2731,6 +2724,11 @@ LET x = 0
 DO
     LET x = x + 1
     INPUT #1, temppocketvisible(x)
+LOOP UNTIL x >= totalpockets
+LET x = 0
+DO
+	LET x = x + 1
+	INPUT #1, temppocketitemslot(x)
 LOOP UNTIL x >= totalpockets
 REM loads checkpoints
 LET x = 0
@@ -2756,7 +2754,7 @@ INPUT #1, tempmplayermodel$, temptosfile$
 CLOSE #1
 REM saves time to file
 OPEN sloc$ + "savedata.ddf" FOR OUTPUT AS #1
-WRITE #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, gametime, temppocketcarry
+WRITE #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, gametime, temppocketcarry, temppocketslot, temphuntmode, temphuntmap
 REM writes pocket items
 LET x = 0
 DO
@@ -2768,6 +2766,11 @@ LET x = 0
 DO
     LET x = x + 1
     WRITE #1, temppocketvisible(x)
+LOOP UNTIL x >= totalpockets
+LET x = 0
+DO
+	LET x = x + 1
+	WRITE #1, temppocketitemslot(x)
 LOOP UNTIL x >= totalpockets
 REM writes checkpoints
 LET x = 0
@@ -2794,9 +2797,8 @@ CLOSE #1
 REM erases temp values
 FOR x = 1 TO totalpockets
     LET temppocketitem(x) = 0
-NEXT x
-FOR x = 1 TO totalpockets
     LET temppocketvisible(x) = 0
+    LET temppocketitemslot(x) = 0
 NEXT x
 FOR x = 1 TO totalcheckpoints
     LET tempcheckpoint(x) = 0
@@ -2805,7 +2807,7 @@ FOR x = 1 TO totalawards
     LET tempawardvalue(x) = 0
 NEXT x
 LET tempmplayermodel$ = "": LET temptosfile$ = ""
-LET tempmapno = 0: LET tempposx = 0: LET tempposy = 0: LET tempcurrency = 0: LET tempdirection = 0: LET tempigametime = 0: LET temppocketcarry = 0
+LET tempmapno = 0: LET tempposx = 0: LET tempposy = 0: LET tempcurrency = 0: LET tempdirection = 0: LET tempigametime = 0: LET temppocketcarry = 0: LET temppocketslot = 0
 REM prints to console
 LET eventtitle$ = "TIME AND AWARD DATA SAVED:"
 LET eventdata$ = sloc$ + "savedata.ddf"
@@ -2826,9 +2828,9 @@ IF _FILEEXISTS(sloc$ + "savedata.ddf") THEN
     REM loads savedata
     OPEN sloc$ + "savedata.ddf" FOR INPUT AS #1
     IF setupboot = 1 THEN
-        INPUT #1, mapno, currency, posx, posy, direction, igametime, pocketcarry
+        INPUT #1, mapno, currency, posx, posy, direction, igametime, pocketcarry, pocketslot, huntmode, huntmap
     ELSE
-        INPUT #1, mapno, currency, posx, posy, direction, gametime, pocketcarry
+        INPUT #1, mapno, currency, posx, posy, direction, gametime, pocketcarry, pocketslot, huntmode, huntmap
     END IF
     REM loads pocket items
     LET x = 0
@@ -2842,6 +2844,11 @@ IF _FILEEXISTS(sloc$ + "savedata.ddf") THEN
         LET x = x + 1
         INPUT #1, pocketvisible(x)
     LOOP UNTIL x >= totalpockets
+    LET x = 0
+	DO
+		LET x = x + 1
+		INPUT #1, pocketitemslot(x)
+	LOOP UNTIL x >= totalpockets
     REM loads checkpoints
     LET x = 0
     DO
@@ -2905,7 +2912,7 @@ savedefault:
 REM overwrites default save
 LET x = 0
 OPEN sloc$ + "defaultsave.ddf" FOR OUTPUT AS #1
-WRITE #1, mapno, currency, posx, posy, direction, x, pocketcarry
+WRITE #1, mapno, currency, posx, posy, direction, x, pocketcarry, pocketslot, huntmode, huntmap
 REM writes pocket items
 LET x = 0
 DO
@@ -2918,6 +2925,11 @@ LET x = 0
 DO
     LET x = x + 1
     WRITE #1, pocketvisible(x)
+LOOP UNTIL x >= totalpockets
+LET x = 0
+DO
+	LET x = x + 1
+	WRITE #1, pocketitemslot(x)
 LOOP UNTIL x >= totalpockets
 REM writes checkpoints
 LET x = 0
@@ -2964,7 +2976,7 @@ savesave:
 REM saves save data x
 IF nosave = 1 THEN RETURN: REM return for if nosave flag is used.
 OPEN sloc$ + "savedata.ddf" FOR OUTPUT AS #1
-WRITE #1, mapno, currency, posx, posy, direction, gametime, pocketcarry
+WRITE #1, mapno, currency, posx, posy, direction, gametime, pocketcarry, pocketslot, huntmode, huntmap
 REM writes pocket items
 LET x = 0
 DO
@@ -2976,6 +2988,11 @@ LET x = 0
 DO
     LET x = x + 1
     WRITE #1, pocketvisible(x)
+LOOP UNTIL x >= totalpockets
+LET x = 0
+DO
+	LET x = x + 1
+	WRITE #1, pocketitemslot(x)
 LOOP UNTIL x >= totalpockets
 REM writes checkpoints
 LET x = 0
@@ -4182,7 +4199,7 @@ IF setupboot = 0 THEN IF mplayermodel$ <> oldmplayermodel$ THEN GOSUB mainplayer
 IF oldmplayermodel$ = mplayermodel$ THEN RETURN: REM divert for if playermodel hasn't actually changed
 REM load data and sprites
 OPEN ploc$ + mplayermodel$ + "/" + mplayermodel$ + ".ddf" FOR INPUT AS #1
-INPUT #1, mainplayerlongname$, mpx, mpy, mps, mpnote1, mpnote2, temp, temp, temp
+INPUT #1, mainplayerlongname$, mpx, mpy, mps, mpnote1, mpnote2, temp, temp, temp, temp
 CLOSE #1
 LET mpf = _LOADIMAGE(ploc$ + mplayermodel$ + "/" + mplayermodel$ + "-f.png")
 LET mpfl = _LOADIMAGE(ploc$ + mplayermodel$ + "/" + mplayermodel$ + "-fl.png")
@@ -6157,7 +6174,7 @@ REM loads triggers
 LET x = 0
 DO
     LET x = x + 1
-    INPUT #1, triggername(x), triggerx1(x), triggery1(x), triggerx2(x), triggery2(x)
+    INPUT #1, triggername(x), triggerx1(x), triggery1(x), triggerx2(x), triggery2(x), triggerexit(x)
 LOOP UNTIL x >= totaltriggers
 LET x = 0
 CLOSE #1
@@ -6251,7 +6268,7 @@ DO
     LET temp39 = temp39 + 1
     LET temp13$ = playername(temp39): LET temp40 = playerx(temp39): LET temp41 = playery(temp39)
     OPEN ploc$ + temp13$ + "/" + temp13$ + ".ddf" FOR INPUT AS #1
-    INPUT #1, playerlongname$(temp39), playerresx(temp39), playerresy(temp39), players(temp39), playernote1(temp39), playernote2(temp39), playerlayer2(temp39), playerspeed(temp39), playercollision(temp39)
+    INPUT #1, playerlongname$(temp39), playerresx(temp39), playerresy(temp39), players(temp39), playernote1(temp39), playernote2(temp39), playerlayer2(temp39), playerspeed(temp39), playercollision(temp39), playermode(temp39)
     LET playerf(temp39) = _LOADIMAGE(ploc$ + "/" + temp13$ + "/" + temp13$ + "-f.png")
     LET playerb(temp39) = _LOADIMAGE(ploc$ + "/" + temp13$ + "/" + temp13$ + "-b.png")
     LET playerl(temp39) = _LOADIMAGE(ploc$ + "/" + temp13$ + "/" + temp13$ + "-l.png")
@@ -6284,6 +6301,8 @@ DO
     LET playerjourney(temp39) = 1
     LET pfoot(temp39) = 1
     LET playerscript(temp39) = 0
+    IF playermode(temp39) = 0 THEN LET playermode(temp39) = 1
+    IF playermode(temp39) = 2 AND huntmap = mapno THEN LET temp48 = temp39: GOSUB huntermapspawn: LET temp48 = 0
     REM checks for culling options
     LET findculling% = 0
     LET findculling% = INSTR(findculling% + 1, playername$(temp39), "(nocull)")
@@ -6603,13 +6622,10 @@ RETURN
 
 hideitem:
 REM hides item from pockets
-OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
-REM seaches for item in pocketfiles
 DO
     LET temp63 = temp63 + 1
-    INPUT #1, pocketfile$
-LOOP UNTIL pocketfile$ = hideitem$ OR EOF(1)
-CLOSE #1
+    LET pocketfile$ = pocketshort$(temp63)
+LOOP UNTIL pocketfile$ = hideitem$ OR pocketfile$ = ""
 IF pocketfile$ <> hideitem$ THEN
     REM if search finds nothing or currency is attempted to be removed
     REM prints to console
@@ -6621,12 +6637,7 @@ IF pocketfile$ <> hideitem$ THEN
     RETURN
 END IF
 REM hides item
-LET x = 0
-DO
-    LET x = x + 1
-    IF temp63 = x THEN LET pocketvisible(x) = 0
-LOOP UNTIL x >= pocketnos
-LET x = 0
+LET pocketvisible(temp63) = 0
 REM prints to console
 LET eventtitle$ = "POCKET ITEM HIDDEN:"
 LET eventdata$ = hideitem$
@@ -6637,13 +6648,10 @@ RETURN
 
 showitem:
 REM shows item from pockets
-OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
-REM seaches for item in pocketfiles
 DO
     LET temp63 = temp63 + 1
-    INPUT #1, pocketfile$
-LOOP UNTIL pocketfile$ = showitem$ OR EOF(1)
-CLOSE #1
+	LET pocketfile$ = pocketshort$(temp63)
+LOOP UNTIL pocketfile$ = showitem$ OR pocketfile$ = ""
 IF pocketfile$ <> showitem$ THEN
     REM if search finds nothing or currency is attempted to be removed
     REM prints to console
@@ -6655,12 +6663,7 @@ IF pocketfile$ <> showitem$ THEN
     RETURN
 END IF
 REM shows item
-LET x = 0
-DO
-    LET x = x + 1
-    IF temp63 = x THEN LET pocketvisible(x) = 1
-LOOP UNTIL x >= pocketnos
-LET x = 0
+LET pocketvisible(temp63) = 1
 REM prints to console
 LET eventtitle$ = "POCKET ITEM VISIBLE:"
 LET eventdata$ = showitem$
@@ -6671,13 +6674,10 @@ RETURN
 
 giveitem:
 REM gives item to mainplayer
-OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
-REM seaches for item in pocketfiles
 DO
     LET temp63 = temp63 + 1
-    INPUT #1, pocketfile$
-LOOP UNTIL pocketfile$ = giveitem$ OR EOF(1)
-CLOSE #1
+    LET pocketfile$ = pocketshort$(temp63)
+LOOP UNTIL pocketfile$ = giveitem$ OR pocketfile$ = ""
 IF pocketfile$ <> giveitem$ THEN
     REM if search finds nothing or currency is attempted to be removed
     REM prints to console
@@ -6688,24 +6688,14 @@ IF pocketfile$ <> giveitem$ THEN
     LET temp63 = 0
     RETURN
 END IF
-REM assigns item
-LET x = 0
-DO
-    LET x = x + 1
-    IF temp63 = x THEN LET pocketitem(x) = 1
-LOOP UNTIL x >= pocketnos
-LET x = 0
+REM changes item
+LET pocketitem(temp63) = 1
 REM prints to console
 LET eventtitle$ = "POCKET ITEM GIVEN:"
 LET eventdata$ = giveitem$
 LET eventnumber = temp63
 GOSUB consoleprinter
-REM recounts total number of pocket items
-LET pocketcarry = 0: LET x = 0
-DO
-    LET x = x + 1
-    IF pocketitem(x) = 1 THEN LET pocketcarry = pocketcarry + 1
-LOOP UNTIL x >= pocketnos
+GOSUB pocketitemcalc
 IF silentgive = 0 THEN
     REM displays animation
     GOSUB slightfadeout
@@ -6736,13 +6726,10 @@ RETURN
 
 takeitem:
 REM takes item from mainplayer
-OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
-REM seaches for item in pocketfiles
 DO
     LET temp65 = temp65 + 1
-    INPUT #1, pocketfile$
-LOOP UNTIL pocketfile$ = takeitem$ OR EOF(1)
-CLOSE #1
+    LET pocketfile$ = pocketshort$(temp65)
+LOOP UNTIL pocketfile$ = takeitem$ OR pocketfile$ = ""
 IF pocketfile$ <> takeitem$ THEN
     REM if search finds nothing or currency is attempted to be removed
     REM prints to console
@@ -6753,24 +6740,14 @@ IF pocketfile$ <> takeitem$ THEN
     LET temp65 = 0
     RETURN
 END IF
-REM assigns item
-LET x = 0
-DO
-    LET x = x + 1
-    IF temp65 = x THEN LET pocketitem(x) = 0
-LOOP UNTIL x >= pocketnos
-LET x = 0
+REM changes item
+LET pocketitem(temp65) = 0
 REM prints to console
 LET eventtitle$ = "POCKET ITEM TAKEN:"
 LET eventdata$ = takeitem$
 LET eventnumber = temp65
 GOSUB consoleprinter
-REM recounts total number of pocket items
-LET pocketcarry = 0: LET x = 0
-DO
-    LET x = x + 1
-    IF pocketitem(x) = 1 THEN LET pocketcarry = pocketcarry + 1
-LOOP UNTIL x >= pocketnos
+GOSUB pocketitemcalc
 IF silenttake = 0 THEN
     REM displays animation
     GOSUB slightfadeout
@@ -6802,6 +6779,15 @@ END IF
 LET temp65 = 0: LET temp69 = 0: LET temp205 = 0: LET silenttake = 0: REM scrub temp values
 RETURN
 
+pocketitemcalc:
+REM recounts total number of pocket items
+LET pocketcarry = 0: LET x = 0
+DO
+    LET x = x + 1
+    IF pocketitem(x) = 1 THEN LET pocketcarry = pocketcarry + 1
+LOOP UNTIL x >= pocketnos
+RETURN
+
 markgone:
 REM marks pocket item as "gone forever"
 OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
@@ -6827,12 +6813,7 @@ DO
     LET x = x + 1
     IF temp95 = x THEN LET pocketitem(x) = 2
 LOOP UNTIL x >= pocketnos
-REM recounts total number of pocket items
-LET pocketcarry = 0: LET x = 0
-DO
-    LET x = x + 1
-    IF pocketitem(x) = 1 THEN LET pocketcarry = pocketcarry + 1
-LOOP UNTIL x >= pocketnos
+GOSUB pocketitemcalc
 LET x = 0
 REM prints to console
 LET eventtitle$ = "POCKET ITEM FULLY TAKEN:"
@@ -6916,14 +6897,11 @@ RETURN
 
 ifpocket:
 REM checks for if pocket item has been marked "gone forever"
-OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
 REM seaches for item in pocketfiles
 DO
     LET temp85 = temp85 + 1
-    INPUT #1, pocketfile$
-LOOP UNTIL pocketfile$ = ifpocket$ OR EOF(1)
-CLOSE #1
-IF pocketfile$ <> ifpocket$ THEN
+LOOP UNTIL pocketshort$(temp85) = ifpocket$ OR temp85 > totalpockets
+IF pocketshort$(temp85) <> ifpocket$ THEN
     REM if search finds nothing
     REM prints to console
     LET eventtitle$ = "INVALID POCKET ITEM:"
@@ -6934,12 +6912,7 @@ IF pocketfile$ <> ifpocket$ THEN
     RETURN
 END IF
 REM assigns item
-LET x = 0
-DO
-    LET x = x + 1
-    IF temp85 = x THEN LET ifpocket = pocketitem(x)
-LOOP UNTIL x >= pocketnos
-LET x = 0
+LET ifpocket = pocketitem(temp85)
 LET temp85 = 0: REM scrub temp values
 RETURN
 
@@ -8432,14 +8405,14 @@ IF ifholdinga = 1 THEN
         LET scriptnametrim = 1
     END IF
     REM checks how many times ifholding has been run
-    IF temp200 <> 5 THEN LET ifholdingnoa = ifholdingnoa + 1
-    IF ifholdingnoa > 1 THEN
+    IF temp200 <> 5 THEN LET ifholdingano = ifholdingano + 1
+    IF ifholdingano > 1 THEN
         IF temp201 = 5 THEN
-            IF ifholdingnoa <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifholdingnoa > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifholdingano <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
+            IF ifholdingano > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
         END IF
     END IF
-    LET triggerspoofname$ = scriptname$ + "-ifholdinga" + LTRIM$(STR$(ifholdingnoa))
+    LET triggerspoofname$ = scriptname$ + "-ifholdinga" + LTRIM$(STR$(ifholdingano))
     LET temp33 = 2
     LET temp200 = 5
     LET temp201 = temp200
@@ -8466,14 +8439,14 @@ IF ifholdingb = 1 THEN
         LET scriptnametrim = 1
     END IF
     REM checks how many times ifholding has been run
-    IF temp200 <> 12 THEN LET ifholdingnob = ifholdingnob + 1
-    IF ifholdingnob > 1 THEN
+    IF temp200 <> 12 THEN LET ifholdingbno = ifholdingbno + 1
+    IF ifholdingbno > 1 THEN
         IF temp201 = 12 THEN
-            IF ifholdingnob <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifholdingnob > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifholdingbno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
+            IF ifholdingbno > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
         END IF
     END IF
-    LET triggerspoofname$ = scriptname$ + "-ifholdingb" + LTRIM$(STR$(ifholdingnob))
+    LET triggerspoofname$ = scriptname$ + "-ifholdingb" + LTRIM$(STR$(ifholdingbno))
     LET temp33 = 2
     LET temp200 = 12
     LET temp201 = temp200
@@ -9104,6 +9077,76 @@ IF findplayer% THEN
 END IF
 RETURN
 
+scriptchangeslotcmd:
+REM changes current pocket slot
+LET pocketslot = tempn(2)
+LET eventtitle$ = "POCKET SLOT CHANGED:"
+LET eventdata$ = ""
+LET eventnumber = pocketslot
+GOSUB consoleprinter
+LET temp26 = 1
+RETURN
+
+scriptpocketslotcmd:
+REM moves a pocket item to a specific slot
+DO
+    LET temp229 = temp229 + 1
+    LET pocketfile$ = pocketshort$(temp229)
+LOOP UNTIL pocketfile$ = temps$(2) OR pocketfile$ = ""
+IF pocketfile$ <> temps$(2) THEN
+    REM if search finds nothing or currency is attempted to be removed
+    REM prints to console
+    LET eventtitle$ = "INVALID POCKET ITEM:"
+    LET eventdata$ = temps$(2)
+    LET eventnumber = 0
+    GOSUB consoleprinter
+    LET temp229 = 0
+    RETURN
+END IF
+REM changes slot
+LET pocketitemslot(temp229) = tempn(3)
+REM prints to console
+LET eventtitle$ = "POCKET ITEM SLOT CHANGE:"
+LET eventdata$ = temps$(2)
+LET eventnumber = tempn(3)
+GOSUB consoleprinter
+LET temp26 = 1
+LET temp229 = 0
+RETURN
+
+scripthuntercontrolcmd:
+REM processes huntercontrol commands
+IF temps$(2) = "status" THEN
+	REM status!
+	IF temps$(3) = "on" THEN LET huntmode = 1
+	IF temps$(3) = "off" THEN LET huntmode = 0
+	IF temps$(3) = "on" OR temps$(3) = "off" THEN
+		LET temp26 = 1
+		LET eventtitle$ = "HUNTER STATUS:"
+		LET eventdata$ = temps$(3)
+		LET eventnumber = huntermode
+		GOSUB consoleprinter
+		REM displays hunter players to console 
+		IF temps$(3) = "on" THEN
+			LET eventtitle$ = "HUNTER PLAYERS:"
+			FOR x = 1 TO mapplayerno
+				IF playermode(x) = 2 THEN LET eventdata$ = eventdata$ + playername$(x) + " ": LET eventnumber = eventnumber + 1
+			NEXT x
+			GOSUB consoleprinter
+		END IF
+	END IF
+END IF
+IF temps$(2) = "location" THEN
+	REM change hunter map!
+	LET huntmap = tempn(3)
+	LET temp26 = 1
+	LET eventtitle$ = "HUNTER LOCATION:"
+	LET eventdata$ = "map"
+	LET eventnumber = huntmap
+	GOSUB consoleprinter
+END IF
+RETURN
+
 script:
 REM VaME STAGE DIRECTOR SCRIPT UTILITY
 IF mapscript = 1 THEN LET mapscriptdir$ = mapdir$
@@ -9282,9 +9325,9 @@ DO
     LET findcut% = INSTR(findcut% + 1, scriptline$, " cut ")
     LET findresetsavetime% = INSTR(findresetsavetime% + 1, scriptline$, "resetsavetime")
     LET findterminalos% = INSTR(findterminalos% + 1, scriptline$, "terminalos")
-    LET findspecial666% = INSTR(findspecial666% + 1, scriptline$, "special666")
-    LET findspecial667% = INSTR(findspecial667% + 1, scriptline$, "special667")
-    LET findspecial668% = INSTR(findspecial668% + 1, scriptline$, "special668")
+    LET findchangeslot% = INSTR(findchangeslot% + 1, scriptline$, "changeslot ")
+    LET findpocketslot% = INSTR(findpocketslot% + 1, scriptline$, "pocketslot ")
+    LET findhuntercontrol% = INSTR(findhuntercontrol% + 1, scriptline$, "huntercontrol ")
     GOSUB seperatecommand
     IF _KEYDOWN(bcontrolcode1) OR _KEYDOWN(bcontrolcode2) OR _KEYDOWN(bcontrolcode3) OR _KEYDOWN(bcontrolcode4) THEN
         REM request that the script be skipped
@@ -9656,6 +9699,21 @@ DO
         LET skipallowed = 1
         LET temp26 = 1
     END IF
+    IF findchangeslot% THEN
+		REM changes current pocket slot
+		GOSUB scriptchangeslotcmd
+		GOTO endscriptcmd
+    END IF
+    IF findpocketslot% THEN
+		REM moves a pocket item to a specific slot
+		GOSUB scriptpocketslotcmd
+		GOTO endscriptcmd
+    END IF
+    IF findhuntercontrol% THEN
+		REM controls hunter NPC
+		GOSUB scripthuntercontrolcmd
+		GOTO endscriptcmd
+    END IF
     IF findresetsavetime% THEN
         REM resets save timer back to 0
         LET sitime = TIMER
@@ -9665,50 +9723,6 @@ DO
         LET erasesave = 0
         GOSUB savetime
         LET temp26 = 1
-        GOTO endscriptcmd
-    END IF
-    IF findspecial666% THEN
-        REM special function (spiderbro 1 completion)
-        IF _FILEEXISTS("data/utility/data/saves/savedata.ddf") THEN
-            OPEN "data/utility/data/saves/savedata.ddf" FOR INPUT AS #14
-            INPUT #14, scriptvalue(39)
-            CLOSE #14
-            IF scriptvalue(39) = 113 THEN
-                LET scriptvalue(39) = 1
-            ELSE
-                LET scriptvalue(39) = 0
-            END IF
-            LET temp26 = 1
-            REM tells console
-            LET eventtitle$ = "SPECIAL FUNCTION 666:"
-            LET eventdata$ = "SUCCESS!"
-            LET eventnumber = 0
-            GOSUB consoleprinter
-        END IF
-        GOTO endscriptcmd
-    END IF
-    IF findspecial667% THEN
-        REM special function (count number of deaths experienced)
-        LET scriptvalue(4) = scriptvalue(10) + scriptvalue(11) + scriptvalue(12) + scriptvalue(13) + scriptvalue(14) + scriptvalue(15) + scriptvalue(16) + scriptvalue(17) + scriptvalue(18) + scriptvalue(19) + scriptvalue(20) + scriptvalue(21) + scriptvalue(22) + scriptvalue(23) + scriptvalue(24) + scriptvalue(25) + scriptvalue(26) + scriptvalue(27) + scriptvalue(28) + scriptvalue(29) + scriptvalue(30) + scriptvalue(31) + scriptvalue(32) + scriptvalue(33) + scriptvalue(34) + scriptvalue(35) + scriptvalue(36) + scriptvalue(37) + scriptvalue(38)
-        LET temp26 = 1
-        REM tells console
-        LET eventtitle$ = "SPECIAL FUNCTION 667:"
-        LET eventdata$ = "SUCCESS!"
-        LET eventnumber = 0
-        GOSUB consoleprinter
-        GOTO endscriptcmd
-    END IF
-    IF findspecial668% THEN
-        REM special function (count time! if under 3 hrs)
-        IF gametime < 10800 THEN
-            LET scriptvalue(41) = 1
-            LET temp26 = 1
-            REM tells console
-            LET eventtitle$ = "SPECIAL FUNCTION 668:"
-            LET eventdata$ = "SUCCESS!"
-            LET eventnumber = 0
-            GOSUB consoleprinter
-        END IF
         GOTO endscriptcmd
     END IF
     endscriptcmd:
@@ -9742,7 +9756,7 @@ DO
         LET temps$(x) = ""
         LET x = x + 1
     LOOP UNTIL temps$(x) = ""
-    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholdinga% = 0: LET findifholdingb% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findwhitefade% = 0: LET findsfxloop% = 0: LET findsfxstop% = 0: LET findcut% = 0: LET findresetsavetime% = 0: LET findterminalos% = 0: LET findspecial666% = 0: LET findspecial667% = 0: LET findspecial668% = 0
+    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findclear% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholdinga% = 0: LET findifholdingb% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findwhitefade% = 0: LET findsfxloop% = 0: LET findsfxstop% = 0: LET findcut% = 0: LET findresetsavetime% = 0: LET findterminalos% = 0: LET findchangeslot% = 0: LET findpocketslot% = 0: LET findhuntercontrol% = 0
     LET x = 0
     DO
         LET x = x + 1
@@ -9986,13 +10000,306 @@ REM calculates NPC movement
 IF mapplayerno = 0 THEN RETURN: REM return for no npcs attached to map
 DO
     LET temp48 = temp48 + 1
-    IF mplayerx(temp48) <> 0 AND mplayery(temp48) <> 0 THEN GOSUB playermover
+    IF mplayerx(temp48) <> 0 AND mplayery(temp48) <> 0 AND playermode(temp48) = 1 THEN GOSUB playermover
+    IF playermode(temp48) = 2 AND huntmode = 1 THEN GOSUB huntermover
 LOOP UNTIL temp48 >= mapplayerno OR temp48 >= totalplayers
 LET temp48 = 0: REM scrubs temp values
 RETURN
 
+huntermapspawn:
+REM decides where on map the hunter is when player enters
+IF mapno <> huntmap THEN RETURN
+DO
+	LET hunterspawncol = 1
+	LET playerd(temp48) = INT(RND * 4) + 1
+	LET playerx(temp48) = INT(RND * (mapx - playerresx(temp48)))
+	LET playery(temp48) = INT(RND * (mapy - playerresy(temp48)))
+	LET hunterd = playerd(temp48)
+	LET hunterx = playerx(temp48)
+	LET huntery = playery(temp48)
+	LET huntmap2 = huntmap
+	GOSUB huntermovercollision
+LOOP UNTIL hunterspawncol = 1
+LET hunterspawncol = 0
+LET huntstatus = 0
+LET eventtitle$ = "HUNTER SPAWN:"
+LET eventdata$ = "X: " + LTRIM$(STR$(hunterx)) + " Y: " + LTRIM$(STR$(huntery))
+LET eventnumber = 0
+GOSUB consoleprinter
+RETURN
+
+huntermover:
+REM moves hunter NPC
+IF huntmap = 0 THEN RETURN: REM return for if hunter has yet to be placed on a map
+IF huntmap <> huntmap2 THEN GOSUB huntermapspawn
+IF mapno = huntmap THEN
+	REM hunter is on current map
+	IF huntstatus = 0 THEN GOSUB huntermoverchoosermap
+	IF huntstatus = 1 THEN GOSUB huntermoverstand
+	IF huntstatus = 2 OR huntstatus = 3 THEN GOSUB huntermoverwalk: GOSUB huntermovercollision
+	GOSUB hunterplayerdetect
+ELSE
+	REM hunter is not on the current map
+	IF huntstatus = 0 THEN GOSUB huntermoverchooserhidden
+	IF huntstatus = 1 THEN GOSUB hunterchangemap
+	IF huntstatus = 2 THEN GOSUB huntermoverstand
+END IF
+RETURN
+
+hunterplayerdetect:
+REM detects main player
+LET playerdetect1 = 0: LET playerdetect2 = 0
+IF playerd(temp48) = 1 THEN
+	REM hunter is looking UP
+	FOR temp234 = playerx(temp48) - playerresx(temp48) TO (playerx(temp48) + (playerresx(temp48) * 2))
+		FOR temp235 = (playery(temp48) - (resy / 2)) TO playery(temp48)
+			IF temp234 + posx = resx / 2 THEN LET playerdetect1 = 1
+			IF temp235 + posy = resy / 2 THEN LET playerdetect2 = 1
+			'_PUTIMAGE (temp234 + posx, temp235 + posy), dotdude
+		NEXT temp235
+	NEXT temp234
+END IF
+IF playerd(temp48) = 2 THEN
+	REM hunter is looking DOWN
+	FOR temp234 = playerx(temp48) - playerresx(temp48) TO (playerx(temp48) + (playerresx(temp48) * 2))
+		FOR temp235 = playery(temp48) TO (playery(temp48) + (resy / 2))
+			IF temp234 + posx = resx / 2 THEN LET playerdetect1 = 1
+			IF temp235 + posy = resy / 2 THEN LET playerdetect2 = 1
+		NEXT temp235
+	NEXT temp234
+END IF
+IF playerd(temp48) = 3 THEN
+	REM hunter is looking RIGHT
+	FOR temp234 = playerx(temp48) TO (playerx(temp48) + (resx / 2))
+		FOR temp235 = playery(temp48) - playerresy(temp48) TO (playery(temp48) + (playerresy(temp48) * 2))
+			IF temp234 + posx = resx / 2 THEN LET playerdetect1 = 1
+			IF temp235 + posy = resy / 2 THEN LET playerdetect2 = 1
+		NEXT temp235
+	NEXT temp234
+END IF
+IF playerd(temp48) = 4 THEN
+	REM hunter is looking RIGHT
+	FOR temp234 = (playerx(temp48) - resx / 2) TO playerx(temp48)
+		FOR temp235 = playery(temp48) - playerresy(temp48) TO (playery(temp48) + (playerresy(temp48) * 2))
+			IF temp234 + posx = resx / 2 THEN LET playerdetect1 = 1
+			IF temp235 + posy = resy / 2 THEN LET playerdetect2 = 1
+		NEXT temp235
+	NEXT temp234
+END IF
+IF playerdetect1 = 1 AND playerdetect2 = 1 THEN
+	REM hunter has seen you, run payload script!
+	IF scriptrun = 1 THEN
+		REM stand still if script is already running
+		LET huntstatus = 1
+		RETURN
+	END IF
+	LET eventitle$ = "HUNTER MOVEMENT:"
+	LET eventdata$ = "hunter has noticed you!"
+	LET eventnumber = 0
+	GOSUB consoleprinter
+	LET scriptname$ = "hunterpayload"
+	LET mapscript = 4
+	GOSUB script
+END IF
+RETURN
+
+hunterchangemap:
+REM changes hunter to a new map
+OPEN mloc$ + "/m" + LTRIM$(STR$(huntmap)) + "/map" + LTRIM$(STR$(huntmap)) + ".ddf" FOR INPUT AS #78
+INPUT #78, temp$, temp$, temp, temp, temp, temp, temp, temp, hunttriggerno
+REM loads objects
+LET temp234 = 0
+DO
+    LET temp234 = temp234 + 1
+    INPUT #78, hunttemps$(temp234), hunttempn(temp234), hunttempn(temp234)
+LOOP UNTIL temp234 >= totalobjects
+REM loads NPCs
+LET temp234 = 0
+DO
+    LET temp234 = temp234 + 1
+    INPUT #78, hunttemps$(temp234), hunttempn(temp234), hunttempn(temp234), hunttempn(temp234), hunttempn(temp234), hunttempn(temp234), hunttempn(temp234)
+LOOP UNTIL temp234 >= totalplayers
+REM loads triggers
+LET temp234 = 0
+DO
+    LET temp234 = temp234 + 1
+    INPUT #78, hunttemps$(temp234), hunttempn(temp234), hunttempn(temp234), hunttempn(temp234), hunttempn(temp234), hunttriggerexit(temp234)
+LOOP UNTIL temp234 >= totaltriggers
+LET temp234 = 0
+CLOSE #78 
+hunterchangemap2:
+IF hunttriggerno > 1 THEN LET temp231 = INT(RND * hunttriggerno) + 1
+IF hunttriggerno = 0 THEN LET huntmap = 0: RETURN
+IF hunttriggerno = 1 THEN LET temp231 = 1
+IF hunttriggerexit(temp231) = 0 THEN GOTO hunterchangemap2
+LET huntmap = hunttriggerexit(temp231)
+LET eventtitle$ = "HUNTER MOVEMENT:"
+LET eventdata$ = "changed to map"
+LET eventnumber = huntmap
+GOSUB consoleprinter
+LET huntstatus = 0
+RETURN
+
+huntermoverchooserhidden:
+REM chooses what the hunter player will do (whilst off map)
+LET huntroll = INT(RND * 100) + 1
+IF huntroll > 91 THEN 
+	LET huntstatus = 1
+ELSE
+	LET huntstatus = 2
+END IF
+RETURN
+
+huntermoverchoosermap:
+REM chooses what the hunter player will do (whilst on map)
+LET huntroll = INT(RND * 100) + 1
+IF huntroll < 26 THEN LET huntstatus = 1
+IF huntroll >= 26 AND huntroll < 76 THEN LET huntstatus = 2
+IF huntroll >= 76 AND huntroll < 101 THEN LET huntstatus = 3
+RETURN
+
+huntermoverstand:
+REM hunter is standing still
+IF huntstatus2 <> huntstatus THEN
+	REM decide direction, decide time to stand
+	LET temp231 = INT(RND * 10) + 1
+	LET standtime = ctime + temp231
+	LET eventtitle$ = "HUNTER MOVEMENT:"
+	LET eventdata$ = "wait for"
+	LET eventnumber = temp231
+	GOSUB consoleprinter
+	LET playerd(temp48) = INT(RND * 4) + 1
+	'LET playerd(temp48) = 1
+	LET hunterd = playerd(temp48)
+	LET huntstatus2 = huntstatus
+ELSE
+	REM stand for time then change behaviour
+	IF ctime => standtime THEN LET huntstatus = 0: LET huntstatus2 = -1
+END IF
+RETURN
+
+huntermoverwalk:
+REM hunter is walking or sprinting
+IF huntstatus2 <> huntstatus THEN
+	REM decide direction and walk amount
+	LET playerd(temp48) = INT(RND * 4) + 1
+	IF playerd(temp48) =< 2 THEN LET temp231 = INT(RND * mapy) + 1
+	IF playerd(temp48) >= 3 THEN LET temp231 = INT(RND * mapx) + 1
+	REM check if decided walk action isnt outside of the map or in the same direction as before
+	IF ohunterd = playerd(temp48) THEN GOTO huntermoverwalk
+	IF playerd(temp48) = 1 THEN IF playery(temp48) - temp231 <= 0 THEN GOTO huntermoverwalk
+	IF playerd(temp48) = 2 THEN IF playery(temp48) + temp231 >= mapy THEN GOTO huntermoverwalk
+	IF playerd(temp48) = 4 THEN IF playerx(temp48) - temp231 <= 0 THEN GOTO huntermoverwalk
+	IF playerd(temp48) = 3 THEN IF playerx(temp48) + temp231 >= mapx THEN GOTO huntermoverwalk
+	REM tells console
+	LET eventtitle$ = "HUNTER MOVEMENT:"
+	IF huntstatus = 2 THEN LET eventdata$ = "move to "
+	IF huntstatus = 3 THEN LET eventdata$ = "sprint to "
+	IF playerd(temp48) = 1 THEN LET temp231 = playery(temp48) - temp231: LET eventdata$ = eventdata$ + "Y:"
+	IF playerd(temp48) = 2 THEN LET temp231 = playery(temp48) + temp231: LET eventdata$ = eventdata$ + "Y:"
+	IF playerd(temp48) = 3 THEN LET temp231 = playerx(temp48) + temp231: LET eventdata$ = eventdata$ + "X:"
+	IF playerd(temp48) = 4 THEN LET temp231 = playerx(temp48) - temp231: LET eventdata$ = eventdata$ + "X:"
+	LET eventnumber = temp231
+	GOSUB consoleprinter
+	LET huntstatus2 = huntstatus
+	LET hunterd = playerd(temp48)
+ELSE
+	REM move to location
+	LET playerwalking(temp48) = 1
+	IF huntstatus = 3 THEN LET pace = pace * 2
+	IF playerd(temp48) = 1 THEN 
+		LET playery(temp48) = playery(temp48) - ((pace / playerwalkdivide) * playerspeed(temp48))
+		IF playery(temp48) <= temp231 THEN LET temp232 = 1
+	END IF
+	IF playerd(temp48) = 2 THEN 
+		LET playery(temp48) = playery(temp48) + ((pace / playerwalkdivide) * playerspeed(temp48))
+		IF playery(temp48) >= temp231 THEN LET temp232 = 1
+	END IF
+	IF playerd(temp48) = 3 THEN 
+		LET playerx(temp48) = playerx(temp48) + ((pace / playerwalkdivide) * playerspeed(temp48))
+		IF playerx(temp48) >= temp231 THEN LET temp232 = 1
+	END IF
+	IF playerd(temp48) = 4 THEN 
+		LET playerx(temp48) = playerx(temp48) - ((pace / playerwalkdivide) * playerspeed(temp48))
+		IF playerx(temp48) <= temp231 THEN LET temp232 = 1
+	END IF
+	IF huntstatus = 3 THEN LET pace = pace / 2
+	LET ohunterd = playerd(temp48)
+END IF
+RETURN
+
+huntermovercollision:
+REM hunter collision 
+REM map boundaries
+IF playerx(temp48) =< 0 THEN LET playerx(temp48) = playerx(temp48) + pace: LET temp232 = 1
+IF playerx(temp48) + playerresx(temp48) >= mapx THEN LET playerx(temp48) = playerx(temp48) - pace: LET temp232 = 1
+IF playery(temp48) =< 0 THEN LET playery(temp48) = playery(temp48) + pace: LET temp232 = 1
+IF playery(temp48) + playerresy(temp48) >= mapy THEN LET playery(temp48) = playery(temp48) - pace: LET temp232 = 1
+REM object collsion
+FOR temp233 = 1 TO mapobjectno
+	LET temp234 = 0
+	IF playerx(temp48) + playerresx(temp48) => objectx(temp233) AND playerx(temp48) =< objectx(temp233) + objectresx(temp233) THEN LET temp234 = temp234 + 1
+	IF playery(temp48) + playerresy(temp48) => objecty(temp233) AND playery(temp48) + (playerresy(temp48) - players(temp48)) =< objecty(temp233) + objectresy(temp233) THEN LET temp234 = temp234 + 1
+	IF temp234 => 2 THEN
+		LET temp232 = 1
+		IF playerd(temp48) = 1 THEN LET playery(temp48) = playery(temp48) + pace
+		IF playerd(temp48) = 2 THEN LET playery(temp48) = playery(temp48) - pace
+		IF playerd(temp48) = 3 THEN LET playerx(temp48) = playerx(temp48) - pace
+		IF playerd(temp48) = 4 THEN LET playerx(temp48) = playerx(temp48) + pace
+		IF hunterspawncol > 0 THEN LET hunterspawncol = hunterspawncol + 1
+	END IF
+NEXT temp233
+REM player collision
+FOR temp233 = 1 TO mapplayerno
+	LET temp234 = 0
+	IF temp233 = temp48 THEN LET temp233 = temp233 + 1
+	IF playerx(temp48) + playerresx(temp48) => playerx(temp233) AND playerx(temp48) =< playerx(temp233) + playerresx(temp233) THEN LET temp234 = temp234 + 1
+	IF playery(temp48) + playerresy(temp48) => playery(temp233) AND playery(temp48) + (playerresy(temp48) - players(temp48)) =< playery(temp233) + playerresy(temp233) THEN LET temp234 = temp234 + 1
+	IF temp234 => 2 THEN
+		LET temp232 = 1
+		IF playerd(temp48) = 1 THEN LET playery(temp48) = playery(temp48) + pace
+		IF playerd(temp48) = 2 THEN LET playery(temp48) = playery(temp48) - pace
+		IF playerd(temp48) = 3 THEN LET playerx(temp48) = playerx(temp48) - pace
+		IF playerd(temp48) = 4 THEN LET playerx(temp48) = playerx(temp48) + pace
+		IF hunterspawncol > 0 THEN LET hunterspawncol = hunterspawncol + 1
+	END IF
+NEXT temp233
+REM trigger collision (map exits only)
+FOR temp233 = 1 TO maptriggerno
+	LET temp234 = 0
+	IF playerx(temp48) + playerresx(temp48) => triggerx1(temp233) AND playerx(temp48) =< triggerx2(temp233) THEN LET temp234 = temp234 + 1
+	IF playery(temp48) + playerresy(temp48) => triggery1(temp233) AND playery(temp48) + (playerresy(temp48) - players(temp48)) =< triggery2(temp233) THEN LET temp234 = temp234 + 1
+	IF triggerexit(temp233) = 0 THEN LET temp234 = 0
+	IF temp234 => 2 THEN
+		LET temp232 = 1
+		LET huntmap = triggerexit(temp233)
+		LET huntmap2 = huntmap
+		IF hunterspawncol > 0 THEN LET hunterspawncol = hunterspawncol + 1
+		LET playerx(temp48) = -10000
+		LET playery(temp48) = -10000
+		LET eventtitle$ = "HUNTER MOVEMENT:"
+		LET eventdata$ = "changed to map"
+		LET eventnumber = huntmap
+		GOSUB consoleprinter
+	END IF
+NEXT temp233
+REM update hunter values
+LET hunterx = playerx(temp48)
+LET huntery = playery(temp48)
+IF temp232 = 1 THEN
+	REM location reached, change behaviour
+	LET temp232 = 0
+	LET huntstatus = 0
+	LET playerwalking(temp48) = 0
+	LET hunterx = INT(hunterx)
+	LET huntery = INT(huntery)
+	LET playerx(temp48) = INT(playerx(temp48))
+	LET playery(temp48) = INT(playery(temp48))
+END IF
+RETURN
+
 playermover:
-REM moves NPC
+REM moves NPC along walk route
 REM Walk away
 IF playerscript(temp48) = 1 THEN RETURN
 IF playerjourney(temp48) = 1 THEN
@@ -10242,10 +10549,8 @@ IF clearscreen = 1 THEN
     GOSUB consoleprinter
 END IF
 REM calculates map location
-'IF mpwalking = 0 THEN
 LET posx = INT(posx): REM remove decimals
 LET posy = INT(posy): REM remove decimals
-'END IF
 LET maploc1x = 0 + posx
 LET maploc1y = 0 + posy
 LET maploc2x = mapx + posx
@@ -10472,6 +10777,37 @@ DO
     LET value$ = LTRIM$(value$)
     LET action$ = LCASE$(action$)
     LET value$ = LCASE$(value$)
+    REM script command 
+    IF prompt$ = "sd" THEN
+		REM collects commands
+		LET temp230 = 0
+		DO
+			LET temp230 = temp230 + 1
+			PRINT "SDC" + LTRIM$(STR$(temp230)) + ">"
+			INPUT promptsd$(temp230)
+		LOOP UNTIL promptsd$(temp230) = ""
+		IF temp230 > 1 THEN
+			REM writes commands to script
+			OPEN scriptloc$ + "system/promptscript.vsf" FOR OUTPUT AS #333
+			FOR x = 1 TO (temp230 - 1)
+				WRITE #333, promptsd$(x)
+				LET promptsd$(x) = ""
+			NEXT x
+			CLOSE #333
+			REM executes script 
+			LET temp230 = 0
+			LET mapscript = 5
+			LET scriptname$ = "promptscript"
+			GOSUB script
+			REM removes script 
+			IF ros$ = "win" THEN SHELL _HIDE "del " + scriptloc$ + "system/promptscript.vsf"
+			IF ros$ = "lnx" OR ros$ = "mac" THEN SHELL _HIDE "rm " + scriptloc$ + "system/promptscript.vsf"
+			PRINT "SCRIPT COMPLETE!"
+		ELSE
+			PRINT "SCRIPT CANNOT BE EMPTY!"
+		END IF
+		LET temp = 1
+    END IF
     REM say
     IF action$ = "save" THEN
         IF value$ = "erase" THEN GOSUB erasesave: PRINT "SAVE ERASED!": LET temp = 1
@@ -10504,13 +10840,11 @@ DO
     END IF
     REM recover item
     IF action$ = "markback" THEN
-        OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
         REM seaches for item in pocketfiles
         DO
             LET temp96 = temp96 + 1
-            INPUT #1, pocketfile$
-        LOOP UNTIL pocketfile$ = value$ OR EOF(1)
-        CLOSE #1
+            LET pocketfile$ = pocketshort$(temp96)
+        LOOP UNTIL pocketfile$ = value$ OR pocketfile$ = ""
         IF pocketfile$ <> value$ OR pocketfile$ = "currency" THEN
             REM if search finds nothing or currency is attempted to be removed
             REM prints to console
@@ -10524,7 +10858,7 @@ DO
             REM prints to console
             LET eventtitle$ = "ITEM RECOVERED:"
             LET eventdata$ = value$
-            LET eventnumber = temp65
+            LET eventnumber = temp96
             GOSUB consoleprinter
         END IF
         LET temp = 1
@@ -10584,10 +10918,11 @@ DO
         ELSE
             REM combination script
             IF _FILEEXISTS(scriptloc$ + "combine/" + value$ + ".vsf") THEN
-                LET scriptname$ = value$: LET mapscript = 2: GOSUB script: LET temp = 1
+                LET scriptname$ = value$: LET mapscript = 2: GOSUB script
             ELSE
-                PRINT "SCRIPT NOT FOUND": LET action$ = "ilovexander": LET temp = 1
+                PRINT "SCRIPT NOT FOUND": LET action$ = "ilovexander"
             END IF
+            LET temp = 1
         END IF
     END IF
     REM simulate errors
@@ -10624,6 +10959,7 @@ DO
         IF value$ = "displayconsole" THEN INPUT "INSERT VALUE> "; temp5: LET displayconsole = temp5: LET temp = 1
         IF value$ = "hertz" THEN INPUT "INSERT VALUE> "; temp5: LET hertz = temp5: LET temp = 1
         IF value$ = "tosfile" THEN INPUT "INSERT VALUE> "; temp1$: LET tosfile$ = temp1$: LET temp = 1
+        IF value$ = "huntstatus" THEN INPUT "INSERT VALUE> "; temp5: LET huntstatus = temp5: LET temp = 1
         IF value$ = "checkpoint" THEN
             INPUT "INSERT VALUE> "; temp5
             IF checkpoint(temp5) = 0 THEN
@@ -10811,7 +11147,21 @@ DO
         IF value$ = "font" THEN LET temp = 1: GOSUB fontunload: GOSUB fontload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "FONT DATA RELOADED!"
         IF value$ = "quit" THEN LET temp = 1: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SYSTEM QUIT!": GOSUB consolequit: GOTO endgame
         IF value$ = "ui" THEN LET temp = 1: GOSUB uiunload: GOSUB uiload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "UI DATA RELOADED!"
-        IF value$ = "pockets" THEN LET temp = 1: GOSUB pocketunload: GOSUB pocketload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "POCKET DATA RELOADED!"
+        IF value$ = "pockets" THEN
+			REM reloads pockets 
+			LET temp = 1
+			FOR temp228 = 1 TO totalpockets
+				LET temppocketvisible(temp228) = pocketvisible(temp228)
+			NEXT temp228
+			GOSUB pocketunload
+			GOSUB pocketload
+			FOR temp228 = 1 TO totalpockets
+				LET pocketvisible(temp228) = temppocketvisible(temp228)
+			NEXT temp228
+			GOSUB pocketitemcalc
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			PRINT "POCKET DATA RELOADED!"
+		END IF
         IF value$ = "music" THEN LET temp = 1: GOSUB musicunload: GOSUB musicload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "MUSIC DATA RELOADED!"
         IF value$ = "sfx" THEN LET temp = 1: GOSUB sfxunload: GOSUB sfxload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SOUND EFFECT DATA RELOADED!"
         IF value$ = "terminal" THEN LET temp = 1: GOSUB terminalunload: GOSUB terminalload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "TERMINAL DATA RELOADED!"
@@ -10859,6 +11209,7 @@ DO
         IF value$ = "checkpoint" THEN LET hud = 13: LET temp = 1
         IF value$ = "gametime" THEN LET hud = 14: LET temp = 1
         IF value$ = "pointcollision" THEN LET hud = 15: LET temp = 1
+        IF value$ = "hunter" THEN LET hud = 16: LET temp = 1
         IF temp = 0 THEN LET temp = 2: REM sets invalid argument error
     END IF
     REM write console activity to consolelog.txt and display console command results on screen
@@ -11154,12 +11505,17 @@ IF hud = 15 THEN
     LET xxyy = 0
     LET xxxyyy = 0
 END IF
+REM hunter values
+IF hud = 16 THEN
+	LOCATE 1, 1: PRINT LTRIM$(STR$(huntmode)) + " " + LTRIM$(STR$(huntmap)) + " " + LTRIM$(STR$(huntstatus))
+	LOCATE 2, 1: PRINT "X: " + LTRIM$(STR$(hunterx)) + " Y: " + LTRIM$(STR$(huntery)) + " D: " + LTRIM$(STR$(hunterd))
+END IF
 COLOR 0, 0
 RETURN
 
 gamereboots:
 REM reboots the game under certain curcumstances
-REM request to reboot
+IF temp164 = 1 THEN LET modname$ = requestedmod$: LET temp160 = 1: LET modrunning = 1
 IF temp160 = 1 THEN
 	IF modrunning = 0 THEN
 		REM no mod running
@@ -11172,13 +11528,6 @@ IF temp160 = 1 THEN
         IF ros$ = "lnx" THEN SHELL _DONTWAIT "./" + filename$ + "_linux -mod=" + modname$
         IF ros$ = "mac" THEN SHELL _DONTWAIT "./" + filename$ + "_macos -mod=" + modname$
     END IF
-END IF
-REM loads mod
-IF temp164 = 1 THEN
-    LET modname$ = requestedmod$
-    IF ros$ = "win" THEN SHELL _DONTWAIT filename$ + "_win.exe -mod=" + modname$
-    IF ros$ = "lnx" THEN SHELL _DONTWAIT "./" + filename$ + "_linux -mod=" + modname$
-    IF ros$ = "mac" THEN SHELL _DONTWAIT "./" + filename$ + "_macos -mod=" + modname$
 END IF
 RETURN
 
