@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.13
+REM Build 2.9.14
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,13,2913
-$VERSIONINFO:PRODUCTVERSION#=2,9,13,2913
+$VERSIONINFO:FILEVERSION#=2,9,14,2914
+$VERSIONINFO:PRODUCTVERSION#=2,9,14,2914
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.13"
+LET hardbuild$ = "2.9.14"
 
 setup:
 REM initiates engine and assigns values
@@ -6690,6 +6690,7 @@ IF pocketfile$ <> giveitem$ THEN
 END IF
 REM changes item
 LET pocketitem(temp63) = 1
+LET pocketitemslot(temp63) = pocketslot
 REM prints to console
 LET eventtitle$ = "POCKET ITEM GIVEN:"
 LET eventdata$ = giveitem$
@@ -6742,6 +6743,7 @@ IF pocketfile$ <> takeitem$ THEN
 END IF
 REM changes item
 LET pocketitem(temp65) = 0
+LET pocketitemslot(temp65) = 1
 REM prints to console
 LET eventtitle$ = "POCKET ITEM TAKEN:"
 LET eventdata$ = takeitem$

@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+11/11/2024 - Update 177. (2.9.14)
+BUG FIXES
+- Fixed an issue where pocket items would always default to the first pocket slot and not the currently active pocket slot.
+
 07/11/2024 - Update 176. (2.9.13)
 NEW FEATURES
 - Hunter Players! New player type that can hunt down the mainplayer across many maps and execute a script when the hunt is complete. Will be useful for horror games. (BETA)
