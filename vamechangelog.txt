@@ -1,6 +1,19 @@
 VAME CHANGELOG
 By Danielle Pond
 
+13/11/2024 - Update 178. (2.9.15)
+NEW FEATURES
+- Ability to toggle between keyboard and gamepad controls.
+- Player controls can now be called via new script values, [selectbutton], [moveupbutton], [movedownbutton], [moveleftbutton], [moverightbutton], [pocketbutton] and [backbutton].
+- New menu command 'switchcontrols' that allows the player to switch between keyboard and gamepad controls.
+- Menu command 'displaycontrols' now displays gamepad controls if control mode is set to gamepad.
+- New script command 'ifcontrol' that checks the status on playercontrolmode value and diverts scripts accordingly.
+BUG FIXES
+- Fix to Flatpak version checking.
+TWEAKS
+- Updates to example game and mods to take advantage of the new controls based features.
+- Small changes to loading order in setup.
+
 11/11/2024 - Update 177. (2.9.14)
 BUG FIXES
 - Fixed an issue where pocket items would always default to the first pocket slot and not the currently active pocket slot.
