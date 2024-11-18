@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+18/11/2024 - Update 179. (2.9.16)
+TWEAKS
+- All alternative player controls can now be called via new script values, [selectbutton(1-4)], [moveupbutton(1-4)], [movedownbutton(1-4)], [moveleftbutton(1-4)], [moverightbutton(1-4)], [pocketbutton(1-4)] and [backbutton(1-4)].
+
 13/11/2024 - Update 178. (2.9.15)
 NEW FEATURES
 - Ability to toggle between keyboard and gamepad controls.

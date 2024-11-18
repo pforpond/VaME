@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.15
+REM Build 2.9.16
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,15,2915
-$VERSIONINFO:PRODUCTVERSION#=2,9,15,2915
+$VERSIONINFO:FILEVERSION#=2,9,16,2916
+$VERSIONINFO:PRODUCTVERSION#=2,9,16,2916
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.15"
+LET hardbuild$ = "2.9.16"
 
 setup:
 REM initiates engine and assigns values
@@ -27,7 +27,7 @@ GOSUB modload: REM checks to see if any mods are requested instead of main game
 REM check metadata exists, checks developer console settings and load engine values
 IF _FILEEXISTS(dloc$ + "engine.ddf") THEN
     OPEN dloc$ + "engine.ddf" FOR INPUT AS #1
-    INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, moveupgamepad$, movedowngamepad$, moveleftgamepad$, moverightgamepad$, selectgamepad$, pocketgamepad$, backgamepad$, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowunavailableright$, pocketarrowunavailableleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$
+    INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, moveupgamepad1$, movedowngamepad1$, moveleftgamepad1$, moverightgamepad1$, selectgamepad1$, pocketgamepad1$, backgamepad1$, moveupgamepad2$, movedowngamepad2$, moveleftgamepad2$, moverightgamepad2$, selectgamepad2$, pocketgamepad2$, backgamepad2$, moveupgamepad3$, movedowngamepad3$, moveleftgamepad3$, moverightgamepad3$, selectgamepad3$, pocketgamepad3$, backgamepad3$, moveupgamepad4$, movedowngamepad4$, moveleftgamepad4$, moverightgamepad4$, selectgamepad4$, pocketgamepad4$, backgamepad4$, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowunavailableright$, pocketarrowunavailableleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$
     CLOSE #1
     REM finds metadata directory paths
     IF _FILEEXISTS(dloc$ + "fileloc.ddf") THEN
@@ -431,7 +431,7 @@ RETURN
 checkflatpakupdate:
 REM check for flatpak updates
 OPEN "data/engine.ddf" FOR INPUT AS #42
-INPUT #42, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, moveupgamepad$, movedowngamepad$, moveleftgamepad$, moverightgamepad$, selectgamepad$, pocketgamepad$, backgamepad$, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowunavailableright$, pocketarrowunavailableleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, flatpakversionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$
+INPUT #42, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, moveupgamepad1$, movedowngamepad1$, moveleftgamepad1$, moverightgamepad1$, selectgamepad1$, pocketgamepad1$, backgamepad1$, moveupgamepad2$, movedowngamepad2$, moveleftgamepad2$, moverightgamepad2$, selectgamepad2$, pocketgamepad2$, backgamepad2$, moveupgamepad3$, movedowngamepad3$, moveleftgamepad3$, moverightgamepad3$, selectgamepad3$, pocketgamepad3$, backgamepad3$, moveupgamepad4$, movedowngamepad4$, moveleftgamepad4$, moverightgamepad4$, selectgamepad4$, pocketgamepad4$, backgamepad4$, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowunavailableright$, pocketarrowunavailableleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, flatpakversionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$
 CLOSE #42
 IF flatpakversionno$ <> versionno$ THEN
 	REM version mismatch! begin upgrade!
@@ -4246,13 +4246,13 @@ RETURN
 padcontrolgenerator:
 REM generates control text for gamepad users
 LET textspeech$ = "": REM wipes text speech
-IF ucontrol = 1 THEN LET textspeech$ = textspeech$ + moveupgamepad$ + " - MOVE UP. "
-IF dcontrol = 1 THEN LET textspeech$ = textspeech$ + movedowngamepad$ + " - MOVE DOWN. "
-IF lcontrol = 1 THEN LET textspeech$ = textspeech$ + moveleftgamepad$ + " - MOVE LEFT. "
-IF rcontrol = 1 THEN LET textspeech$ = textspeech$ + moverightgamepad$ + " - MOVE RIGHT. "
-IF scontrol = 1 THEN LET textspeech$ = textspeech$ + selectgamepad$ + " - SELECT. "
-IF pcontrol = 1 THEN LET textspeech$ = textspeech$ + pocketgamepad$ + " - POCKETS. "
-IF bcontrol = 1 THEN LET textspeech$ = textspeech$ + backgamepad$ + " - BACK/PAUSE. "
+IF ucontrol = 1 THEN LET textspeech$ = textspeech$ + moveupgamepad1$ + " - MOVE UP. "
+IF dcontrol = 1 THEN LET textspeech$ = textspeech$ + movedowngamepad1$ + " - MOVE DOWN. "
+IF lcontrol = 1 THEN LET textspeech$ = textspeech$ + moveleftgamepad1$ + " - MOVE LEFT. "
+IF rcontrol = 1 THEN LET textspeech$ = textspeech$ + moverightgamepad1$ + " - MOVE RIGHT. "
+IF scontrol = 1 THEN LET textspeech$ = textspeech$ + selectgamepad1$ + " - SELECT. "
+IF pcontrol = 1 THEN LET textspeech$ = textspeech$ + pocketgamepad1$ + " - POCKETS. "
+IF bcontrol = 1 THEN LET textspeech$ = textspeech$ + backgamepad1$ + " - BACK/PAUSE. "
 RETURN
 
 keycontrolgenerator:
@@ -7442,13 +7442,34 @@ DO
     LET findgametime% = INSTR(findgametime% + 1, textspeech$, "[gametime]")
     LET findrandom% = INSTR(findrandom% + 1, textspeech$, "[random]")
     LET findscriptvalue% = INSTR(findscriptvalue% + 1, textspeech$, "[value]-")
-    LET findselectbutton% = INSTR(findselectbutton% + 1, textspeech$, "[selectbutton]")
-    LET findupbutton% = INSTR(findupbutton% + 1, textspeech$, "[moveupbutton]")
-    LET finddownbutton% = INSTR(finddownbutton% + 1, textspeech$, "[movedownbutton]")
-    LET findleftbutton% = INSTR(findleftbutton% + 1, textspeech$, "[moveleftbutton]")
-    LET findrightbutton% = INSTR(findrightbutton% + 1, textspeech$, "[moverightbutton]")
-    LET findpocketbutton% = INSTR(findpocketbutton% + 1, textspeech$, "[pocketbutton]")
-    LET findbackbutton% = INSTR(findbackbutton% + 1, textspeech$, "[backbutton]")
+    LET findselectbutton1% = INSTR(findselectbutton1% + 1, textspeech$, "[selectbutton1]")
+    LET findupbutton1% = INSTR(findupbutton1% + 1, textspeech$, "[moveupbutton1]")
+    LET finddownbutton1% = INSTR(finddownbutton1% + 1, textspeech$, "[movedownbutton1]")
+    LET findleftbutton1% = INSTR(findleftbutton1% + 1, textspeech$, "[moveleftbutton1]")
+    LET findrightbutton1% = INSTR(findrightbutton1% + 1, textspeech$, "[moverightbutton1]")
+    LET findpocketbutton1% = INSTR(findpocketbutton1% + 1, textspeech$, "[pocketbutton1]")
+    LET findbackbutton1% = INSTR(findbackbutton1% + 1, textspeech$, "[backbutton1]")
+    LET findselectbutton2% = INSTR(findselectbutton2% + 1, textspeech$, "[selectbutton2]")
+    LET findupbutton2% = INSTR(findupbutton2% + 1, textspeech$, "[moveupbutton2]")
+    LET finddownbutton2% = INSTR(finddownbutton2% + 1, textspeech$, "[movedownbutton2]")
+    LET findleftbutton2% = INSTR(findleftbutton2% + 1, textspeech$, "[moveleftbutton2]")
+    LET findrightbutton2% = INSTR(findrightbutton2% + 1, textspeech$, "[moverightbutton2]")
+    LET findpocketbutton2% = INSTR(findpocketbutton2% + 1, textspeech$, "[pocketbutton2]")
+    LET findbackbutton2% = INSTR(findbackbutton2% + 1, textspeech$, "[backbutton2]")
+    LET findselectbutton3% = INSTR(findselectbutton3% + 1, textspeech$, "[selectbutton3]")
+    LET findupbutton3% = INSTR(findupbutton3% + 1, textspeech$, "[moveupbutton3]")
+    LET finddownbutton3% = INSTR(finddownbutton3% + 1, textspeech$, "[movedownbutton3]")
+    LET findleftbutton3% = INSTR(findleftbutton3% + 1, textspeech$, "[moveleftbutton3]")
+    LET findrightbutton3% = INSTR(findrightbutton3% + 1, textspeech$, "[moverightbutton3]")
+    LET findpocketbutton3% = INSTR(findpocketbutton3% + 1, textspeech$, "[pocketbutton3]")
+    LET findbackbutton3% = INSTR(findbackbutton3% + 1, textspeech$, "[backbutton3]")
+    LET findselectbutton4% = INSTR(findselectbutton4% + 1, textspeech$, "[selectbutton1]")
+    LET findupbutton4% = INSTR(findupbutton4% + 1, textspeech$, "[moveupbutton4]")
+    LET finddownbutton4% = INSTR(finddownbutton4% + 1, textspeech$, "[movedownbutton4]")
+    LET findleftbutton4% = INSTR(findleftbutton4% + 1, textspeech$, "[moveleftbutton4]")
+    LET findrightbutton4% = INSTR(findrightbutton4% + 1, textspeech$, "[moverightbutton4]")
+    LET findpocketbutton4% = INSTR(findpocketbutton4% + 1, textspeech$, "[pocketbutton4]")
+    LET findbackbutton4% = INSTR(findbackbutton4% + 1, textspeech$, "[backbutton4]")
     IF temp204 = 0 THEN IF findhelditema% THEN LET variablevalue$ = "[helditema]": LET temp204 = 1
     IF temp204 = 0 THEN IF findhelditemb% THEN LET variablevalue$ = "[helditemb]": LET temp204 = 1
     IF temp204 = 0 THEN IF findselectobject% THEN LET variablevalue$ = "[selectobject]": LET temp204 = 1
@@ -7462,13 +7483,34 @@ DO
     IF temp204 = 0 THEN IF findgametime% THEN LET variablevalue$ = "[gametime]": LET temp204 = 1
     IF temp204 = 0 THEN IF findrandom% THEN LET variablevalue$ = "[random]": LET temp204 = 1
     IF temp204 = 0 THEN IF findscriptvalue% THEN LET variablevalue$ = "[value]-": LET temp204 = 1
-    IF temp204 = 0 THEN IF findselectbutton% THEN LET variablevalue$ = "[selectbutton]": LET temp204 = 1
-    IF temp204 = 0 THEN IF findupbutton% THEN LET variablevalue$ = "[moveupbutton]": LET temp204 = 1
-    IF temp204 = 0 THEN IF finddownbutton% THEN LET variablevalue$ = "[movedownbutton]": LET temp204 = 1
-    IF temp204 = 0 THEN IF findleftbutton% THEN LET variablevalue$ = "[moveleftbutton]": LET temp204 = 1
-    IF temp204 = 0 THEN IF findrightbutton% THEN LET variablevalue$ = "[moverightbutton]": LET temp204 = 1
-    IF temp204 = 0 THEN IF findpocketbutton% THEN LET variablevalue$ = "[pocketbutton]": LET temp204 = 1
-    IF temp204 = 0 THEN IF findbackbutton% THEN LET variablevalue$ = "[backbutton]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findselectbutton1% THEN LET variablevalue$ = "[selectbutton1]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findupbutton1% THEN LET variablevalue$ = "[moveupbutton1]": LET temp204 = 1
+    IF temp204 = 0 THEN IF finddownbutton1% THEN LET variablevalue$ = "[movedownbutton1]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findleftbutton1% THEN LET variablevalue$ = "[moveleftbutton1]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findrightbutton1% THEN LET variablevalue$ = "[moverightbutton1]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findpocketbutton1% THEN LET variablevalue$ = "[pocketbutton1]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findbackbutton1% THEN LET variablevalue$ = "[backbutton1]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findselectbutton2% THEN LET variablevalue$ = "[selectbutton2]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findupbutton2% THEN LET variablevalue$ = "[moveupbutton2]": LET temp204 = 1
+    IF temp204 = 0 THEN IF finddownbutton2% THEN LET variablevalue$ = "[movedownbutton2]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findleftbutton2% THEN LET variablevalue$ = "[moveleftbutton2]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findrightbutton2% THEN LET variablevalue$ = "[moverightbutton2]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findpocketbutton2% THEN LET variablevalue$ = "[pocketbutton2]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findbackbutton2% THEN LET variablevalue$ = "[backbutton2]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findselectbutton3% THEN LET variablevalue$ = "[selectbutton3]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findupbutton3% THEN LET variablevalue$ = "[moveupbutton3]": LET temp204 = 1
+    IF temp204 = 0 THEN IF finddownbutton3% THEN LET variablevalue$ = "[movedownbutton3]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findleftbutton3% THEN LET variablevalue$ = "[moveleftbutton3]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findrightbutton3% THEN LET variablevalue$ = "[moverightbutton3]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findpocketbutton3% THEN LET variablevalue$ = "[pocketbutton3]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findbackbutton3% THEN LET variablevalue$ = "[backbutton3]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findselectbutton4% THEN LET variablevalue$ = "[selectbutton4]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findupbutton4% THEN LET variablevalue$ = "[moveupbutton4]": LET temp204 = 1
+    IF temp204 = 0 THEN IF finddownbutton4% THEN LET variablevalue$ = "[movedownbutton4]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findleftbutton4% THEN LET variablevalue$ = "[moveleftbutton4]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findrightbutton4% THEN LET variablevalue$ = "[moverightbutton4]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findpocketbutton4% THEN LET variablevalue$ = "[pocketbutton4]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findbackbutton4% THEN LET variablevalue$ = "[backbutton4]": LET temp204 = 1
     IF temp204 = 1 THEN
         REM value marker found! finds and replaces!
         LET variablelength = LEN(variablevalue$)
@@ -7520,74 +7562,284 @@ DO
                         LET temp63$ = ""
                         LET temp208 = 0
                     END IF
-                    IF variablevalue$ = "[selectbutton]" THEN
+                    IF variablevalue$ = "[selectbutton1]" THEN
 						IF playercontrolmode = 1 THEN
 							LET temp148 = scontrolcode1
 							GOSUB findcontrol
 							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
 							LET temp42$ = ""
 						ELSE
-							LET textspeech$ = texttemp1$ + selectgamepad$ + texttemp2$
+							LET textspeech$ = texttemp1$ + selectgamepad1$ + texttemp2$
 						END IF
                     END IF
-                    IF variablevalue$ = "[moveupbutton]" THEN
+                    IF variablevalue$ = "[moveupbutton1]" THEN
 						IF playercontrolmode = 1 THEN
 							LET temp148 = ucontrolcode1
 							GOSUB findcontrol
 							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
 							LET temp42$ = ""
 						ELSE
-							LET textspeech$ = texttemp1$ + moveupgamepad$ + texttemp2$
+							LET textspeech$ = texttemp1$ + moveupgamepad1$ + texttemp2$
 						END IF
                     END IF
-                    IF variablevalue$ = "[movedownbutton]" THEN
+                    IF variablevalue$ = "[movedownbutton1]" THEN
 						IF playercontrolmode = 1 THEN
 							LET temp148 = dcontrolcode1
 							GOSUB findcontrol
 							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
 							LET temp42$ = ""
 						ELSE
-							LET textspeech$ = texttemp1$ + movedowngamepad$ + texttemp2$
+							LET textspeech$ = texttemp1$ + movedowngamepad1$ + texttemp2$
 						END IF
                     END IF
-                    IF variablevalue$ = "[moveleftbutton]" THEN
+                    IF variablevalue$ = "[moveleftbutton1]" THEN
 						IF playercontrolmode = 1 THEN
 							LET temp148 = lcontrolcode1
 							GOSUB findcontrol
 							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
 							LET temp42$ = ""
 						ELSE
-							LET textspeech$ = texttemp1$ + moveleftgamepad$ + texttemp2$
+							LET textspeech$ = texttemp1$ + moveleftgamepad1$ + texttemp2$
 						END IF
                     END IF
-                    IF variablevalue$ = "[moverightbutton]" THEN
+                    IF variablevalue$ = "[moverightbutton1]" THEN
 						IF playercontrolmode = 1 THEN
 							LET temp148 = rcontrolcode1
 							GOSUB findcontrol
 							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
 							LET temp42$ = ""
 						ELSE
-							LET textspeech$ = texttemp1$ + moverightgamepad$ + texttemp2$
+							LET textspeech$ = texttemp1$ + moverightgamepad1$ + texttemp2$
 						END IF
                     END IF
-                    IF variablevalue$ = "[pocketbutton]" THEN
+                    IF variablevalue$ = "[pocketbutton1]" THEN
 						IF playercontrolmode = 1 THEN
 							LET temp148 = pcontrolcode1
 							GOSUB findcontrol
 							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
 							LET temp42$ = ""
 						ELSE
-							LET textspeech$ = texttemp1$ + pocketgamepad$ + texttemp2$
+							LET textspeech$ = texttemp1$ + pocketgamepad1$ + texttemp2$
 						END IF
                     END IF
-                    IF variablevalue$ = "[backbutton]" THEN
+                    IF variablevalue$ = "[backbutton1]" THEN
 						IF playercontrolmode = 1 THEN
 							LET temp148 = bcontrolcode1
 							GOSUB findcontrol
 							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
 							LET temp42$ = ""
 						ELSE
-							LET textspeech$ = texttemp1$ + backgamepad$ + texttemp2$
+							LET textspeech$ = texttemp1$ + backgamepad1$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[selectbutton2]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = scontrolcode2
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + selectgamepad2$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[moveupbutton2]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = ucontrolcode2
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + moveupgamepad2$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[movedownbutton2]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = dcontrolcode2
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + movedowngamepad2$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[moveleftbutton2]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = lcontrolcode2
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + moveleftgamepad2$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[moverightbutton2]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = rcontrolcode2
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + moverightgamepad2$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[pocketbutton2]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = pcontrolcode2
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + pocketgamepad2$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[backbutton2]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = bcontrolcode2
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + backgamepad2$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[selectbutton3]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = scontrolcode3
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + selectgamepad3$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[moveupbutton3]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = ucontrolcode3
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + moveupgamepad3$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[movedownbutton3]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = dcontrolcode3
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + movedowngamepad3$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[moveleftbutton3]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = lcontrolcode3
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + moveleftgamepad3$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[moverightbutton3]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = rcontrolcode3
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + moverightgamepad3$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[pocketbutton3]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = pcontrolcode3
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + pocketgamepad3$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[backbutton3]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = bcontrolcode3
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + backgamepad3$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[selectbutton4]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = scontrolcode4
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + selectgamepad4$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[moveupbutton4]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = ucontrolcode4
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + moveupgamepad4$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[movedownbutton4]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = dcontrolcode4
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + movedowngamepad4$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[moveleftbutton4]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = lcontrolcode4
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + moveleftgamepad4$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[moverightbutton4]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = rcontrolcode4
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + moverightgamepad4$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[pocketbutton4]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = pcontrolcode4
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + pocketgamepad4$ + texttemp2$
+						END IF
+                    END IF
+                    IF variablevalue$ = "[backbutton4]" THEN
+						IF playercontrolmode = 1 THEN
+							LET temp148 = bcontrolcode4
+							GOSUB findcontrol
+							LET textspeech$ = texttemp1$ + temp42$ + texttemp2$
+							LET temp42$ = ""
+						ELSE
+							LET textspeech$ = texttemp1$ + backgamepad4$ + texttemp2$
 						END IF
                     END IF
                     REM scrub values
@@ -7606,13 +7858,34 @@ DO
                     LET findgametime% = 0
                     LET findrandom% = 0
                     LET findscriptvalue% = 0
-                    LET findselectbutton% = 0
-                    LET findupbutton% = 0
-                    LET finddownbutton% = 0
-                    LET findleftbutton% = 0
-                    LET findrightbutton% = 0
-                    LET findpocketbutton% = 0
-                    LET findbackbutton% = 0
+                    LET findselectbutton1% = 0
+                    LET findupbutton1% = 0
+                    LET finddownbutton1% = 0
+                    LET findleftbutton1% = 0
+                    LET findrightbutton1% = 0
+                    LET findpocketbutton1% = 0
+                    LET findbackbutton1% = 0
+                    LET findselectbutton2% = 0
+                    LET findupbutton2% = 0
+                    LET finddownbutton2% = 0
+                    LET findleftbutton2% = 0
+                    LET findrightbutton2% = 0
+                    LET findpocketbutton2% = 0
+                    LET findbackbutton2% = 0
+                    LET findselectbutton3% = 0
+                    LET findupbutton3% = 0
+                    LET finddownbutton3% = 0
+                    LET findleftbutton3% = 0
+                    LET findrightbutton3% = 0
+                    LET findpocketbutton3% = 0
+                    LET findbackbutton3% = 0
+                    LET findselectbutton4% = 0
+                    LET findupbutton4% = 0
+                    LET finddownbutton4% = 0
+                    LET findleftbutton4% = 0
+                    LET findrightbutton4% = 0
+                    LET findpocketbutton4% = 0
+                    LET findbackbutton4% = 0
                     LET temp203 = 0
                     ERASE bannertemp$
                 END IF
