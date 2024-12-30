@@ -44,12 +44,13 @@ ELSE
 END IF
 REM checks VaME game metadata for title and version numbers
 OPEN "updatevals.ddf" FOR INPUT AS #1
-    INPUT #1, oldversionno$, engineversionno$, installtype, title$, filename$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, downloadicon$, downloadiconresx, downloadiconresy, readmecheck, updatekey$
+INPUT #1, oldversionno$, engineversionno$, installtype, title$, filename$, dloc$, mloc$, ploc$, floc$, sloc$, oloc$, scriptloc$, museloc$, sfxloc$, pocketloc$, uiloc$, tloc$, aloc$, menuloc$, downloadicon$, downloadiconresx, downloadiconresy, readmecheck, updatekey$
 CLOSE #1
 LET autoupdate = readmecheck
 IF autoupdate = 666 THEN LET autoupdate = 2
 REM sets title
 IF title$ = "" THEN LET title$ = "VaME"
+IF title$ = "moonlight" THEN LET installtype = 999: REM for alive by moonlight
 _TITLE title$ + " Updater!"
 PRINT " " + title$ + " Updater!"
 PRINT " " + oldversionno$ + " -> " + versionno$
@@ -325,17 +326,19 @@ IF winexe$ <> "" THEN SHELL _HIDE "copy " + winexe$ + " vamebackup\"
 IF changelog$ <> "" THEN SHELL _HIDE "copy " + changelog$ + " vamebackup\"
 IF readme$ <> "" THEN SHELL _HIDE "copy " + readme$ + " vamebackup\"
 SHELL _HIDE "xcopy /E /I " + datafolder$ + " vamebackup\" + datafolder$
-REM detects mods and backs them up too
-SHELL _HIDE "dir /ad /b > modlist.tmp"
-OPEN "modlist.tmp" FOR INPUT AS #42
-DO
-	INPUT #42, modname$
-	IF _FILEEXISTS(modname$ + "\engine.ddf") AND modname$ <> "data" THEN
-		REM mod found - transfers folder to backup
-		SHELL _HIDE "xcopy /E /I " + modname$ + " vamebackup\" + modname$
-	END IF
-LOOP UNTIL EOF(42)
-CLOSE #42
+IF installtype <> 999 THEN
+	REM detects mods and backs them up too
+	SHELL _HIDE "dir /ad /b > modlist.tmp"
+	OPEN "modlist.tmp" FOR INPUT AS #42
+	DO
+		INPUT #42, modname$
+		IF _FILEEXISTS(modname$ + "\engine.ddf") AND modname$ <> "data" THEN
+			REM mod found - transfers folder to backup
+			SHELL _HIDE "xcopy /E /I " + modname$ + " vamebackup\" + modname$
+		END IF
+	LOOP UNTIL EOF(42)
+	CLOSE #42
+END IF
 GOSUB checker
 GOSUB nextstep
 REM download new update files
@@ -361,15 +364,17 @@ END IF
 IF winexe$ <> "" THEN SHELL _HIDE "del " + winexe$
 IF readme$ <> "" THEN SHELL _HIDE "del " + readme$
 SHELL _HIDE "rmdir /Q /S " + datafolder$
-OPEN "modlist.tmp" FOR INPUT AS #42
-DO
-	INPUT #42, modname$
-	IF _FILEEXISTS(modname$ + "\engine.ddf") AND modname$ <> "data" THEN
-		REM mod found - delete folder
-		SHELL _HIDE "rmdir /Q /S " + modname$
-	END IF
-LOOP UNTIL EOF(42)
-CLOSE #42
+IF installtype <> 999 THEN
+	OPEN "modlist.tmp" FOR INPUT AS #42
+	DO
+		INPUT #42, modname$
+		IF _FILEEXISTS(modname$ + "\engine.ddf") AND modname$ <> "data" THEN
+			REM mod found - delete folder
+			SHELL _HIDE "rmdir /Q /S " + modname$
+		END IF
+	LOOP UNTIL EOF(42)
+	CLOSE #42
+END IF
 GOSUB nextstep
 REM extract new version
 GOSUB displaystep
@@ -384,22 +389,24 @@ IF erasesave = 0 THEN
 	SHELL _HIDE "copy vamebackup\" + datafolder$ + "\saves\*.old  " + datafolder$ + "\saves\"
 	SHELL _HIDE "copy vamebackup\" + datafolder$ + "\saves\options.ddf " + datafolder$ + "\saves\"
 	SHELL _HIDE "copy vamebackup\" + datafolder$ + "\consolelog.txt  " + datafolder$ + "\"
-	OPEN "modlist.tmp" FOR INPUT AS #42
-	DO
-		INPUT #42, modname$
-		IF _FILEEXISTS("vamebackup\" + modname$ + "\engine.ddf") AND modname$ <> "data" THEN
-			REM new mod found - transfers saves to new folder
-			SHELL _HIDE "del " + modname$ + "\saves\savedata.ddf"
-			SHELL _HIDE "copy vamebackup\" + modname$ + "\saves\savedata.ddf  " + modname$ + "\saves\"
-			SHELL _HIDE "copy vamebackup\" + modname$ + "\saves\*.old  " + modname$ + "\saves\"
-			SHELL _HIDE "copy vamebackup\" + modname$ + "\saves\options.ddf " + modname$ + "\saves\"
-			SHELL _HIDE "copy vamebackup\" + modname$ + "\consolelog.txt  " + modname$ + "\"
-		ELSE
-			REM new mod not found! copy back the old one!
-			IF modname$ <> "data" THEN SHELL _HIDE "xcopy /E /I vamebackup\" + modname$ + " " + modname$ + "\"
-		END IF
-	LOOP UNTIL EOF(42)
-	CLOSE #42
+	IF installtype <> 999 THEN
+		OPEN "modlist.tmp" FOR INPUT AS #42
+		DO
+			INPUT #42, modname$
+			IF _FILEEXISTS("vamebackup\" + modname$ + "\engine.ddf") AND modname$ <> "data" THEN
+				REM new mod found - transfers saves to new folder
+				SHELL _HIDE "del " + modname$ + "\saves\savedata.ddf"
+				SHELL _HIDE "copy vamebackup\" + modname$ + "\saves\savedata.ddf  " + modname$ + "\saves\"
+				SHELL _HIDE "copy vamebackup\" + modname$ + "\saves\*.old  " + modname$ + "\saves\"
+				SHELL _HIDE "copy vamebackup\" + modname$ + "\saves\options.ddf " + modname$ + "\saves\"
+				SHELL _HIDE "copy vamebackup\" + modname$ + "\consolelog.txt  " + modname$ + "\"
+			ELSE
+				REM new mod not found! copy back the old one!
+				IF modname$ <> "data" THEN SHELL _HIDE "xcopy /E /I vamebackup\" + modname$ + " " + modname$ + "\"
+			END IF
+		LOOP UNTIL EOF(42)
+		CLOSE #42
+	END IF
 ELSE
 	REM restore options only!
 	SHELL _HIDE "copy vamebackup\" + datafolder$ + "\saves\options.ddf " + datafolder$ + "\saves\"
@@ -450,16 +457,18 @@ IF changelog$ <> "" THEN SHELL _HIDE "cp " + changelog$ + " vamebackup/"
 IF readme$ <> "" THEN SHELL _HIDE "cp " + readme$ + " vamebackup/"
 SHELL _HIDE "cp -R " + datafolder$ + " vamebackup/"
 REM detects mods and backs them up too
-SHELL _HIDE "ls -d */ > modlist.tmp"
-OPEN "modlist.tmp" FOR INPUT AS #42
-DO
-	INPUT #42, modname$
-	IF _FILEEXISTS(modname$ + "engine.ddf") AND modname$ <> "data" THEN
-		REM mod found - transfers folder to backup
-		SHELL _HIDE "cp -R " + modname$ + " vamebackup/"
-	END IF
-LOOP UNTIL EOF(42)
-CLOSE #42
+IF updatetype <> 999 THEN
+	SHELL _HIDE "ls -d */ > modlist.tmp"
+	OPEN "modlist.tmp" FOR INPUT AS #42
+	DO
+		INPUT #42, modname$
+		IF _FILEEXISTS(modname$ + "engine.ddf") AND modname$ <> "data" THEN
+			REM mod found - transfers folder to backup
+			SHELL _HIDE "cp -R " + modname$ + " vamebackup/"
+		END IF
+	LOOP UNTIL EOF(42)
+	CLOSE #42
+END IF
 GOSUB checker
 GOSUB nextstep
 REM download new update files
@@ -482,15 +491,17 @@ IF updatetype = 1 THEN
 END IF
 IF readme$ <> "" THEN SHELL _HIDE "rm " + readme$
 SHELL _HIDE "rm -R " + datafolder$
-OPEN "modlist.tmp" FOR INPUT AS #42
-DO
-	INPUT #42, modname$
-	IF _FILEEXISTS(modname$ + "engine.ddf") AND modname$ <> "data" THEN
-		REM mod found - transfers folder to backup
-		SHELL _HIDE "rm -R " + modname$
-	END IF
-LOOP UNTIL EOF(42)
-CLOSE #42
+IF updatetype <> 999 THEN
+	OPEN "modlist.tmp" FOR INPUT AS #42
+	DO
+		INPUT #42, modname$
+		IF _FILEEXISTS(modname$ + "engine.ddf") AND modname$ <> "data" THEN
+			REM mod found - transfers folder to backup
+			SHELL _HIDE "rm -R " + modname$
+		END IF
+	LOOP UNTIL EOF(42)
+	CLOSE #42
+END IF
 GOSUB nextstep
 REM extract new version
 GOSUB displaystep
@@ -505,22 +516,24 @@ IF erasesave = 0 THEN
 	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/*.old " + datafolder$ + "/saves/"
 	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/options.ddf " + datafolder$ + "/saves/"
 	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/consolelog.txt " + datafolder$ + "/"
-	OPEN "modlist.tmp" FOR INPUT AS #42
-	DO
-		INPUT #42, modname$
-		IF _FILEEXISTS("vamebackup/" + modname$ + "engine.ddf") AND modname$ <> "data" THEN
-			REM mod found - transfers saves to new folder
-			SHELL _HIDE "rm " + modname$ + "saves/savedata.ddf"
-			SHELL _HIDE "cp vamebackup/" + modname$ + "saves/savedata.ddf " + modname$ + "saves/"
-			SHELL _HIDE "cp vamebackup/" + modname$ + "saves/*.old " + modname$ + "saves/"
-			SHELL _HIDE "cp vamebackup/" + modname$ + "saves/options.ddf " + modname$ + "saves/"
-			SHELL _HIDE "cp vamebackup/" + modname$ + "consolelog.txt " + modname$
-		ELSE
-			REM new mod not found! copy back the old one!
-			IF modname$ <> "data" THEN SHELL _HIDE "cp -R vamebackup/" + modname$ + " ./"
-		END IF
+	IF installtype <> 999 THEN
+		OPEN "modlist.tmp" FOR INPUT AS #42
+		DO
+			INPUT #42, modname$
+			IF _FILEEXISTS("vamebackup/" + modname$ + "engine.ddf") AND modname$ <> "data" THEN
+				REM mod found - transfers saves to new folder
+				SHELL _HIDE "rm " + modname$ + "saves/savedata.ddf"
+				SHELL _HIDE "cp vamebackup/" + modname$ + "saves/savedata.ddf " + modname$ + "saves/"
+				SHELL _HIDE "cp vamebackup/" + modname$ + "saves/*.old " + modname$ + "saves/"
+				SHELL _HIDE "cp vamebackup/" + modname$ + "saves/options.ddf " + modname$ + "saves/"
+				SHELL _HIDE "cp vamebackup/" + modname$ + "consolelog.txt " + modname$
+			ELSE
+				REM new mod not found! copy back the old one!
+				IF modname$ <> "data" THEN SHELL _HIDE "cp -R vamebackup/" + modname$ + " ./"
+			END IF
 		LOOP UNTIL EOF(42)
-	CLOSE #42
+		CLOSE #42
+	END IF
 ELSE
 	REM restore options only!
 	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/options.ddf " + datafolder$ + "/saves/"

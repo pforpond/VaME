@@ -1,6 +1,15 @@
 VAME CHANGELOG
 By Danielle Pond
 
+30/12/2024 - Update 180. (2.9.17)
+TWEAKS
+- Text banner text now has a variable Y co-ordinate.
+- Choice banner text now has a variable Y co-ordinate.
+- Kernel in example game now uses the script variables when saying the player controls.
+- Removed 'unavailable' pocket arrow type. Pocket UI now redraws entirely when a pocket item is selected.
+- Tweak to updater to improve compatibility with none VaME titles.
+- Tweak to Limit Converter to ensure compatibility with new engine.ddf file format.
+
 18/11/2024 - Update 179. (2.9.16)
 TWEAKS
 - All alternative player controls can now be called via new script values, [selectbutton(1-4)], [moveupbutton(1-4)], [movedownbutton(1-4)], [moveleftbutton(1-4)], [moverightbutton(1-4)], [pocketbutton(1-4)] and [backbutton(1-4)].
