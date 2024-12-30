@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+30/12/2024 - Update 181. (2.9.18)
+BUG FIXES
+- Fixed an issue where pocket arrows would not vanish when at the end of the available items.
+
 30/12/2024 - Update 180. (2.9.17)
 TWEAKS
 - Text banner text now has a variable Y co-ordinate.

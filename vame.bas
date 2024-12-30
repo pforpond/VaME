@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.17
+REM Build 2.9.18
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,17,2917
-$VERSIONINFO:PRODUCTVERSION#=2,9,17,2917
+$VERSIONINFO:FILEVERSION#=2,9,18,2918
+$VERSIONINFO:PRODUCTVERSION#=2,9,18,2918
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.17"
+LET hardbuild$ = "2.9.18"
 
 setup:
 REM initiates engine and assigns values
@@ -1025,8 +1025,8 @@ DO
     REM draws pocket
     IF pocketredraw = 1 THEN
         _PUTIMAGE (0, 0)-(pockethudresx - 1, pockethudresy - 1), pockethud
-        _PUTIMAGE (pocketarrowrlocx, pocketarrowrlocy)-((pocketarrowrlocx + pocketarrowresx) - 1, (pocketarrowrlocy + pocketarrowresy) - 1), pocketarrowr
-        _PUTIMAGE (pocketarrowllocx, pocketarrowllocy)-((pocketarrowllocx + pocketarrowresx) - 1, (pocketarrowllocy + pocketarrowresy) - 1), pocketarrowl
+        IF pocketarrowar = 1 THEN _PUTIMAGE (pocketarrowrlocx, pocketarrowrlocy)-((pocketarrowrlocx + pocketarrowresx) - 1, (pocketarrowrlocy + pocketarrowresy) - 1), pocketarrowr
+        IF pocketarrowal = 1 THEN _PUTIMAGE (pocketarrowllocx, pocketarrowllocy)-((pocketarrowllocx + pocketarrowresx) - 1, (pocketarrowllocy + pocketarrowresy) - 1), pocketarrowl
         _PUTIMAGE (((resx / 2) - (pocketbannerresx / 2)), (pockethudresy))-(((resx / 2) + (pocketbannerresx / 2) - 1), (pocketbannerresy + pockethudresy - 1) - 1), pocketbanner
     END IF
     _KEYCLEAR
@@ -1053,28 +1053,24 @@ DO
     IF b = rcontrolcode1 OR b = rcontrolcode2 OR b = rcontrolcode3 OR b = rcontrolcode4 THEN
         REM right key
         _KEYCLEAR
-        LET pocketredraw = 0
-        LET temp6177 = pocketline
-        GOSUB pocketcalcup
-        IF temp6177 <> pocketline THEN
+        IF pocketarrowar = 1 THEN
             LET playsfx$ = "move"
             GOSUB sfxplay
             GOSUB pocketarrowright
+            LET pocketredraw = 0
+            GOSUB pocketcalcup
         END IF
-        LET temp6177 = 0
     END IF
     IF b = lcontrolcode1 OR b = lcontrolcode2 OR b = lcontrolcode3 OR b = lcontrolcode4 THEN
         REM left key
         _KEYCLEAR
-        LET pocketredraw = 0
-        LET temp6177 = pocketline
-        GOSUB pocketcalcdown
-        IF temp6177 <> pocketline THEN
+        IF pocketarrowal = 1 THEN
             LET playsfx$ = "move"
             GOSUB sfxplay
             GOSUB pocketarrowleft
+            LET pocketredraw = 0
+            GOSUB pocketcalcdown
         END IF
-        LET temp6177 = 0
     END IF
     IF b = scontrolcode1 OR b = scontrolcode2 OR b = scontrolcode3 OR b = scontrolcode4 THEN _KEYCLEAR: LET playsfx$ = "select": GOSUB sfxplay: GOSUB pocketext
 LOOP UNTIL b = bcontrolcode1 OR b = bcontrolcode2 OR b = bcontrolcode3 OR b = bcontrolcode4 OR b = pcontrolcode1 OR b = pcontrolcode2 OR b = pcontrolcode3 OR b = pcontrolcode4
@@ -1246,6 +1242,7 @@ LET currentpocketshort$ = ""
 LET pocketdisplay = 0
 LET pocketline = 0
 LET pocketredraw = 1
+LET pocketcombinemode = 1
 REM redraws pocket
 _PUTIMAGE (0, 0)-(pockethudresx - 1, pockethudresy - 1), pockethud
 REM displays pocket image
@@ -1277,8 +1274,8 @@ DO
     REM draws second pocket
     IF pocketredraw = 1 THEN
         _PUTIMAGE (0, pockethudresy)-(pockethudresx - 1, pockethudresy + pockethudresy - 1), pockethud
-        _PUTIMAGE (pocketarrowrlocx, pocketarrowrlocy + pockethudresy)-((pocketarrowrlocx + pocketarrowresx) - 1, (pocketarrowrlocy + pocketarrowresy + pockethudresy) - 1), pocketarrowr
-        _PUTIMAGE (pocketarrowllocx, pocketarrowllocy + pockethudresy)-((pocketarrowllocx + pocketarrowresx) - 1, (pocketarrowllocy + pocketarrowresy + pockethudresy) - 1), pocketarrowl
+        IF pocketarrowar = 1 THEN _PUTIMAGE (pocketarrowrlocx, pocketarrowrlocy + pockethudresy)-((pocketarrowrlocx + pocketarrowresx) - 1, (pocketarrowrlocy + pocketarrowresy + pockethudresy) - 1), pocketarrowr
+        IF pocketarrowal = 1 THEN _PUTIMAGE (pocketarrowllocx, pocketarrowllocy + pockethudresy)-((pocketarrowllocx + pocketarrowresx) - 1, (pocketarrowllocy + pocketarrowresy + pockethudresy) - 1), pocketarrowl
         _PUTIMAGE (((resx / 2) - (pocketbannerresx / 2)), (pockethudresy + pockethudresy))-(((resx / 2) + (pocketbannerresx / 2)) - 1, (pocketbannerresy + pockethudresy + pockethudresy) - 1), pocketbanner
     END IF
     _KEYCLEAR
@@ -1304,35 +1301,30 @@ DO
     IF d = rcontrolcode1 OR d = rcontrolcode2 OR d = rcontrolcode3 OR d = rcontrolcode4 THEN
         REM right key
         _KEYCLEAR
-        LET pocketredraw = 0
-        LET temp6177 = pocketline
-        GOSUB pocketcalcup
-        IF temp6177 <> pocketline THEN
+        IF pocketarrowar = 1 THEN
             LET playsfx$ = "move"
             GOSUB sfxplay
             GOSUB pocketarrowright
+            LET pocketredraw = 0
+            GOSUB pocketcalcup
         END IF
-        LET temp6177 = 0
     END IF
     IF d = lcontrolcode1 OR d = lcontrolcode2 OR d = lcontrolcode3 OR d = lcontrolcode4 THEN
         REM left key
         _KEYCLEAR
-        LET pocketredraw = 0
-        LET temp6177 = pocketline
-        GOSUB pocketcalcdown
-        IF temp149 = 1 AND temp6177 = 2 THEN LET temp6177 = pocketline: REM prevents sound bug if first inventory item is being merged
-        IF temp6177 <> pocketline THEN
+        IF pocketarrowal = 1 THEN
             LET playsfx$ = "move"
             GOSUB sfxplay
             GOSUB pocketarrowleft
+            LET pocketredraw = 0
+            GOSUB pocketcalcdown
         END IF
-        LET temp6177 = 0
     END IF
     IF d = scontrolcode1 OR d = scontrolcode2 OR d = scontrolcode3 OR d = scontrolcode4 THEN _KEYCLEAR: LET playsfx$ = "select": GOSUB sfxplay: GOSUB usepocketpocket
 LOOP UNTIL d = bcontrolcode1 OR d = bcontrolcode2 OR d = bcontrolcode3 OR d = bcontrolcode4 OR d = pcontrolcode1 OR d = pcontrolcode2 OR d = pcontrolcode3 OR d = pcontrolcode4
 _KEYCLEAR
 LET c = bcontrolcode1: LET b = bcontrolcode1: REM quits inventory
-LET pocketdisplay = temp81: LET temp149 = 0: LET temp81 = 0: LET temp83 = 0: LET temp19$ = "": LET temp20$ = "": LET temp21$ = "": REM scrubs temp values
+LET pocketdisplay = temp81: LET pocketcombinemode = 0: LET temp149 = 0: LET temp81 = 0: LET temp83 = 0: LET temp19$ = "": LET temp20$ = "": LET temp21$ = "": REM scrubs temp values
 RETURN
 
 usepocketpocket:
@@ -1542,6 +1534,10 @@ LET temp61 = pocketdisplay
 LET temp62 = pocketline
 LET oldpocketdisplay = pocketdisplay
 LET pocketdisplay = 0
+LET pocketarrowar = 0
+LET pocketarrowal = 0
+REM calculates down
+LET temp60 = 0
 DO
 	LET temp60 = temp60 + 1
 	IF pocketline - temp60 =< 0 THEN
@@ -1558,6 +1554,30 @@ DO
 LOOP UNTIL pocketdisplay > 0
 LET pocketline = pocketline - temp60
 IF pocketdisplay <> oldpocketdisplay THEN LET pocketredraw = 1
+REM check up for the arrow
+LET temp60 = pocketdisplay
+IF temp60 < pocketnos THEN
+	DO
+		LET temp60 = temp60 + 1
+		IF pocketcombinemode = 1 THEN
+			IF pocketitem(temp60) = 1 AND pocketvisible(temp60) = 1 AND pocketitemslot(temp60) = pocketslot AND temp60 <> temp81 THEN LET pocketarrowar = 1
+		ELSE
+			IF pocketitem(temp60) = 1 AND pocketvisible(temp60) = 1 AND pocketitemslot(temp60) = pocketslot THEN LET pocketarrowar = 1
+		END IF
+	LOOP UNTIL temp60 => pocketnos OR pocketarrowar = 1
+END IF
+LET temp60 = pocketdisplay
+REM check down for the arrow
+IF temp60 > 0 THEN
+	DO
+		LET temp60 = temp60 - 1
+		IF pocketcombinemode = 1 THEN
+			IF pocketitem(temp60) = 1 AND pocketvisible(temp60) = 1 AND pocketitemslot(temp60) = pocketslot AND temp60 <> temp81 THEN LET pocketarrowal = 1
+		ELSE
+			IF pocketitem(temp60) = 1 AND pocketvisible(temp60) = 1 AND pocketitemslot(temp60) = pocketslot THEN LET pocketarrowal = 1
+		END IF
+	LOOP UNTIL temp60 <= 0 OR pocketarrowal = 1
+END IF
 LET temp60 = 0: LET temp61 = 0: LET temp62 = 0: REM scrub temp values
 RETURN
 
@@ -1568,6 +1588,10 @@ LET temp61 = pocketdisplay
 LET temp62 = pocketline
 LET oldpocketdisplay = pocketdisplay
 LET pocketdisplay = 0
+LET pocketarrowar = 0
+LET pocketarrowal = 0
+REM calculates up
+LET temp60 = 0
 DO
 	LET temp60 = temp60 + 1
 	IF pocketshort$(pocketline + temp60) = "" THEN
@@ -1584,6 +1608,30 @@ DO
 LOOP UNTIL pocketdisplay > 0
 LET pocketline = pocketline + temp60
 IF pocketdisplay <> oldpocketdisplay THEN LET pocketredraw = 1
+REM checks up for arrow
+LET temp60 = pocketdisplay
+IF temp60 < pocketnos THEN
+	DO
+		LET temp60 = temp60 + 1
+		IF pocketcombinemode = 1 THEN
+			IF pocketitem(temp60) = 1 AND pocketvisible(temp60) = 1 AND pocketitemslot(temp60) = pocketslot AND temp60 <> temp81 THEN LET pocketarrowar = 1
+		ELSE
+			IF pocketitem(temp60) = 1 AND pocketvisible(temp60) = 1 AND pocketitemslot(temp60) = pocketslot THEN LET pocketarrowar = 1
+		END IF
+	LOOP UNTIL temp60 => pocketnos OR pocketarrowar = 1
+END IF
+LET temp60 = pocketdisplay
+REM checks down for the arrow
+IF temp60 > 0 THEN
+	DO
+		LET temp60 = temp60 - 1
+		IF pocketcombinemode = 1 THEN
+			IF pocketitem(temp60) = 1 AND pocketvisible(temp60) = 1 AND pocketitemslot(temp60) = pocketslot AND temp60 <> temp81 THEN LET pocketarrowal = 1
+		ELSE
+			IF pocketitem(temp60) = 1 AND pocketvisible(temp60) = 1 AND pocketitemslot(temp60) = pocketslot THEN LET pocketarrowal = 1
+		END IF
+	LOOP UNTIL temp60 <= 0 OR pocketarrowal = 1
+END IF
 LET temp60 = 0: LET temp61 = 0: LET temp62 = 0: REM scrub temp values
 RETURN
 
