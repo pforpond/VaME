@@ -1,6 +1,13 @@
 VAME CHANGELOG
 By Danielle Pond
 
+31/12/2024 - Update 182. (2.9.19)
+BUG FIXES
+- Fixed bug where pocket UI would flicker when an arrow key was held.
+TWEAKS
+- Pocket select sprite can now be displayed above or below the pocket item sprite.
+- Update to Limit Converter to ensure compatibility with new engine.ddf file format.
+
 30/12/2024 - Update 181. (2.9.18)
 BUG FIXES
 - Fixed an issue where pocket arrows would not vanish when at the end of the available items.
@@ -12,7 +19,7 @@ TWEAKS
 - Kernel in example game now uses the script variables when saying the player controls.
 - Removed 'unavailable' pocket arrow type. Pocket UI now redraws entirely when a pocket item is selected.
 - Tweak to updater to improve compatibility with none VaME titles.
-- Tweak to Limit Converter to ensure compatibility with new engine.ddf file format.
+- Update to Limit Converter to ensure compatibility with new engine.ddf file format.
 
 18/11/2024 - Update 179. (2.9.16)
 TWEAKS
