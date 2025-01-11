@@ -1,6 +1,14 @@
 VAME CHANGELOG
 By Danielle Pond
 
+11/01/2024 - Update 183. (2.9.20)
+NEW FEATURES
+- New script command 'gallery' that can make a fullscreen gallery of images stored in uiloc$.
+TWEAKS
+- Made select object banner a little wider than the text.
+- The chat up lines Book that Amy sells you can now be read in the example game.
+- Update to Limit Converter to ensure compatibility with new engine.ddf file format.
+
 31/12/2024 - Update 182. (2.9.19)
 BUG FIXES
 - Fixed bug where pocket UI would flicker when an arrow key was held.
