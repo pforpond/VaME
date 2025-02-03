@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.20
+REM Build 2.9.21
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,20,2920
-$VERSIONINFO:PRODUCTVERSION#=2,9,20,2920
+$VERSIONINFO:FILEVERSION#=2,9,21,2921
+$VERSIONINFO:PRODUCTVERSION#=2,9,21,2921
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.20"
+LET hardbuild$ = "2.9.21"
 
 setup:
 REM initiates engine and assigns values
@@ -354,6 +354,7 @@ DIM awarddescription(totalawards) AS STRING
 DIM awardvalue(totalawards) AS INTEGER
 DIM awardsprite(totalawards) AS INTEGER
 DIM tempawardvalue(totalawards) AS INTEGER
+DIM awardqueue(totalawards) AS INTEGER
 REM extra values
 DIM choicename(100) AS STRING
 DIM bannercharacter(100000) AS STRING
@@ -2011,7 +2012,7 @@ DO
     REM plays talking sounds
     IF temp76 = 1 THEN GOSUB talksfx
     LET temp72 = temp72 + (fontsize / 2) + 1
-    IF textline$ <> " " THEN LET temp72 = temp72 + fontbuffer
+    IF textline$ <> " " AND bannercharacter$(temp201 + 1) <> "" THEN LET temp72 = temp72 + fontbuffer
     IF temp76 = 1 THEN _DELAY 0.05: REM letter draw delay
     REM if space is pressed
     IF d = scontrolcode1 OR d = scontrolcode2 OR d = scontrolcode3 OR d = scontrolcode4 THEN _KEYCLEAR: LET temp76 = 2
@@ -8570,7 +8571,10 @@ REM gives out an award, sets award to display if new.
 IF awardvalue(tempn(2)) = 0 THEN
     REM grant award, set engine to display
     LET awardvalue(tempn(2)) = 1
-    LET awarddisplay = tempn(2)
+    DO
+		LET temp237 = temp237 + 1
+		IF awardqueue(temp237) = 0 THEN LET awardqueue(temp237) = tempn(2): LET temp238 = 1
+    LOOP UNTIL temp237 => totalawards OR temp238 = 1
     REM saves award change to file
     GOSUB savetime
     REM prints to console
@@ -8579,6 +8583,8 @@ IF awardvalue(tempn(2)) = 0 THEN
     LET eventnumber = tempn(2)
     GOSUB consoleprinter
     LET temp26 = 1
+    LET temp238 = 0
+    LET temp237 = 0
 END IF
 RETURN
 
@@ -9767,7 +9773,6 @@ ELSE
     RETURN
 END IF
 LET scriptrun = 1: REM sets script value to running
-LET awarddisplay = 0
 LET oldscript$ = scriptname$
 IF triggerspoofa = 1 THEN LET triggerspoofa = 0
 REM prints to console
@@ -11190,12 +11195,23 @@ IF mapeffect > 0 THEN GOSUB effectdraw: REM draws special map effects
 REM draws cutscene running image
 IF scriptrun = 1 AND mainmenu = 0 THEN _PUTIMAGE (1, 1)-(scriptimageresx, scriptimageresy), scriptimage
 IF selectobjecthighlight = 1 AND fading = 0 THEN GOSUB selectobjectbanner
-IF awarddisplay <> 0 AND fading = 0 THEN GOSUB awarddraw
+GOSUB awarddraw
 IF effectani = 0 THEN _DISPLAY
 RETURN
 
 awarddraw:
 REM draws any recieved awards to screen
+REM calculate list
+LET temp236 = 0
+LET awarddisplay = 0
+DO
+	LET awarddisplay = awarddisplay + 1
+	IF awardqueue(awarddisplay) > 0 THEN LET temp236 = temp236 + 1
+LOOP UNTIL awarddisplay => totalawards OR temp236 = 1
+IF awardqueue(awarddisplay) = 0 THEN RETURN
+REM returns
+IF awarddisplay = 0 THEN RETURN
+IF fading <> 0 THEN RETURN
 IF temp212 = 0 THEN LET temp213 = (awarditemlocy - awardbannerresy) - 1
 IF temp212 >= awardbannerresy THEN GOTO awarddraw2
 REM banner scrolls in
@@ -11218,7 +11234,7 @@ _PRINTSTRING (awardtextlocx, awardtextlocy), awardnotification$
 _PRINTSTRING (awardtextlocx, awardtextlocy + fontsize), awardname$(awarddisplay)
 IF temp214 <= ctime THEN
     REM end award display
-    LET awarddisplay = 0
+    LET awardqueue(awarddisplay) = 0
     LET temp212 = 0
     LET temp213 = 0
     LET temp214 = 0

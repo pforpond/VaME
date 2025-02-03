@@ -1,6 +1,12 @@
 VAME CHANGELOG
 By Danielle Pond
 
+03/02/2024 - Update 184. (2.9.21)
+NEW FEATURES
+- Award banners can now be queued meaning no script can interrupt an award banner.
+BUG FIXES
+- Fixed issue where text banner font buffer would add to the final character of the text banner, sometimes resulting in a blank text banner after the text was finished.
+
 11/01/2024 - Update 183. (2.9.20)
 NEW FEATURES
 - New script command 'gallery' that can make a fullscreen gallery of images stored in uiloc$.

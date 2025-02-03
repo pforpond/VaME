@@ -190,3 +190,5 @@ temp232 - huntermover:
 temp233 - huntermover:
 temp234 - hunterchangemap:
 temp235 - scriptgallerycmd:
+temp236 - awarddraw:
+temp237: - scriptgiveawardcmd:
