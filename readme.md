@@ -4,7 +4,7 @@ A 2D adventure puzzle game engine written in QBasic!
 
 ## How to Install
 ### Windows + Linux
-Download VaME.zip and extract to a place of your choosing Binaries for both platforms are included
+Download VaME.zip and extract to a place of your choosing Binaries for both platforms are included. Linux users may have to mark vame_linux as executable before it will run.
 
 ### macOS
 Download VaME.zip and extract into a place of your choosing. Use [QB64](https://github.com/QB64Official/qb64) to compile [vame.bas](https://github.com/pforpond/VaME/blob/main/vame.bas) and place alongside the data folder.
@@ -16,9 +16,9 @@ Download VaME.zip and extract into a place of your choosing. Use [QB64](https://
 Hardware requirements are dependant on game content. 32bit users must compile [vame.bas](https://github.com/pforpond/VaME/blob/main/vame.bas) with [QB64](https://github.com/QB64Official/qb64)
 
 ## Default Software Requirements
-* Windows 10 or 11  
-* Linux (usually works on Ubuntu 20.04 and above)  
-Other platforms must compile [vame.bas](https://github.com/pforpond/VaME/blob/main/vame.bas) with [QB64](https://github.com/QB64Official/qb64).
+* Windows 10 or 11 (64bit)  
+* Linux (64bit)  
+* Other platforms must compile [vame.bas](https://github.com/pforpond/VaME/blob/main/vame.bas) with [QB64](https://github.com/QB64Official/qb64)
 
 ## Default Controls
 * ARROW KEYS = move character  
@@ -34,7 +34,8 @@ Making games is hard enough without me pushing updates that make your work incom
 
 * Launch with parameter -noupdate  
 * Set the autoupdate value (found in engine.ddf) to 0  
-* Add DEV to the end of the game version number  
+* Set the updatelink$ string (found in engine.ddf) to be blank  
+* Add DEV to the end of the versionno$ string (found in engine.ddf)  
 
 ## Games powered by VaME
 * [Spiderbro](https://studiopond.co.uk/spiderbro)  
