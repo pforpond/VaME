@@ -1,13 +1,24 @@
 VAME CHANGELOG
 By Danielle Pond
 
-03/02/2024 - Update 184. (2.9.21)
+04/03/2025 - Update 185. (2.9.22)
+NEW FEATURES
+- Double buffering! (hooray finally!)
+BUG FIXES
+- Screen tearing fixed.
+- Fade flicker fixed.
+- Change to how point collision resets the mainplayer's position when triggered, fixing any instances of getting stuck or zipping through the collision to the other side.
+REMOVED FEATURES
+- Removed prompt command 'whatis clearscreen' as double buffering ensures a fresh start with every frame.
+- Removed script command 'clear' as it is now useless.
+
+03/02/2025 - Update 184. (2.9.21)
 NEW FEATURES
 - Award banners can now be queued meaning no script can interrupt an award banner.
 BUG FIXES
 - Fixed issue where text banner font buffer would add to the final character of the text banner, sometimes resulting in a blank text banner after the text was finished.
 
-11/01/2024 - Update 183. (2.9.20)
+11/01/2025 - Update 183. (2.9.20)
 NEW FEATURES
 - New script command 'gallery' that can make a fullscreen gallery of images stored in uiloc$.
 TWEAKS
