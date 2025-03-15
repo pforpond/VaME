@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.22
+REM Build 2.9.23
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,22,2922
-$VERSIONINFO:PRODUCTVERSION#=2,9,22,2922
+$VERSIONINFO:FILEVERSION#=2,9,23,2923
+$VERSIONINFO:PRODUCTVERSION#=2,9,23,2923
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.22"
+LET hardbuild$ = "2.9.23"
 
 setup:
 REM initiates engine and assigns values
@@ -512,6 +512,7 @@ REM map
 IF enablemapoffsets = 1 THEN
     LET mapanioffset = RND
     LET parallaxoffset = RND
+    LET lightanioffset = RND
     LET eventtitle$ = "OFFSET GENERATED:"
     LET eventdata$ = "map"
     LET eventnumber = mapno
@@ -3577,6 +3578,7 @@ mapunload:
 REM unloads map sprites from memory
 _FREEIMAGE mapa: _FREEIMAGE mapb
 IF parallaxmode > 0 THEN _FREEIMAGE mapp1: _FREEIMAGE mapp2
+IF mapeffect = 10 THEN _FREEIMAGE maplm1: _FREEIMAGE maplm2
 REM wipes vames if needed
 IF mapobjectno > 0 THEN
     LET temp110 = 0
@@ -6186,6 +6188,14 @@ IF mapeffect = 9 THEN
     REM pitch black
     LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, 255), BF
 END IF
+IF mapeffect = 10 THEN
+	REM light map
+	IF INT(ctime + lightanioffset) MOD 2 THEN
+		_PUTIMAGE (maploc1x, maploc1y)-(maploc2x - 1, maploc2y - 1), maplm1
+	ELSE
+		_PUTIMAGE (maploc1x, maploc1y)-(maploc2x - 1, maploc2y - 1), maplm2
+	END IF
+END IF
 RETURN
 
 scriptnametrim:
@@ -6307,6 +6317,7 @@ REM loads map bitmaps
 LET mapa = _LOADIMAGE(mloc$ + mapdir$ + mapfile$ + "a.png")
 LET mapb = _LOADIMAGE(mloc$ + mapdir$ + mapfile$ + "b.png")
 IF parallaxmode > 0 THEN LET mapp1 = _LOADIMAGE(mloc$ + mapdir$ + mapfile$ + "p1.png"): LET mapp2 = _LOADIMAGE(mloc$ + mapdir$ + mapfile$ + "p2.png"): REM loads optional parallax map
+IF mapeffect = 10 THEN LET maplm1 = _LOADIMAGE(mloc$ + mapdir$ + mapfile$ + "lighta.png"): LET maplm2 = _LOADIMAGE(mloc$ + mapdir$ + mapfile$ + "lightb.png"): REM loads optional light map
 REM loads objects
 LET x = 0
 DO
@@ -8545,6 +8556,15 @@ IF findpitchblack% THEN
     LET eventnumber = mapeffect
     GOSUB consoleprinter
 END IF
+IF findlightmap% THEN
+	REM enable light maps
+	LET mapeffect = 10
+	LET temp26 = 1
+	LET eventtitle$ = "MAP EFFECT:"
+	LET eventdata$ = "light map"
+	LET eventnumber = mapeffect
+	GOSUB consoleprinter
+END IF
 RETURN
 
 scriptgivecurrencycmd:
@@ -9953,6 +9973,7 @@ DO
     LET findhuntercontrol% = INSTR(findhuntercontrol% + 1, scriptline$, "huntercontrol ")
     LET findifcontrol% = INSTR(findifcontrol% + 1, scriptline$, "ifcontrol ")
     LET findgallery% = INSTR(findifgallery% + 1, scriptline$, "gallery ")
+    LET findlightmap% = INSTR(findlightmap% + 1, scriptline$, " lightmap")
     GOSUB seperatecommand
     IF _KEYDOWN(bcontrolcode1) OR _KEYDOWN(bcontrolcode2) OR _KEYDOWN(bcontrolcode3) OR _KEYDOWN(bcontrolcode4) THEN
         REM request that the script be skipped
@@ -10384,7 +10405,7 @@ DO
         LET temps$(x) = ""
         LET x = x + 1
     LOOP UNTIL temps$(x) = ""
-    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholdinga% = 0: LET findifholdingb% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findwhitefade% = 0: LET findsfxloop% = 0: LET findsfxstop% = 0: LET findcut% = 0: LET findresetsavetime% = 0: LET findterminalos% = 0: LET findchangeslot% = 0: LET findpocketslot% = 0: LET findhuntercontrol% = 0: LET findifcontrol% = 0: LET findgallery% = 0
+    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholdinga% = 0: LET findifholdingb% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findwhitefade% = 0: LET findsfxloop% = 0: LET findsfxstop% = 0: LET findcut% = 0: LET findresetsavetime% = 0: LET findterminalos% = 0: LET findchangeslot% = 0: LET findpocketslot% = 0: LET findhuntercontrol% = 0: LET findifcontrol% = 0: LET findgallery% = 0: LET findlightmap% = 0
     LET x = 0
     DO
         LET x = x + 1

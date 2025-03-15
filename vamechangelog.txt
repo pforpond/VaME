@@ -1,6 +1,13 @@
 VAME CHANGELOG
 By Danielle Pond
 
+15/03/2025 - Update 186. (2.9.23)
+NEW FEATURES
+- Lightmaps! (hooray finally!)
+- New argument to script command 'mapeffect' for turning on lightmaps.
+- The Maze Start map (map 18) of the example game now uses lightmaps.
+- Foundation for adding Steam Achievement support. This feature is incomplete and non functional currently.
+
 04/03/2025 - Update 185. (2.9.22)
 NEW FEATURES
 - Double buffering! (hooray finally!)
