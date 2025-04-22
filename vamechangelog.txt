@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+22/04/2025 - Update 187. (2.9.24)
+NEW FEATURES
+- New script command 'autosave' that allows the enabling and disabling of the autosave.
+
 15/03/2025 - Update 186. (2.9.23)
 NEW FEATURES
 - Lightmaps! (hooray finally!)
