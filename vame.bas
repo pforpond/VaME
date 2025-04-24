@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.24
+REM Build 2.9.25
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,24,2924
-$VERSIONINFO:PRODUCTVERSION#=2,9,24,2924
+$VERSIONINFO:FILEVERSION#=2,9,25,2925
+$VERSIONINFO:PRODUCTVERSION#=2,9,25,2925
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.24"
+LET hardbuild$ = "2.9.25"
 
 setup:
 REM initiates engine and assigns values
@@ -3961,6 +3961,9 @@ IF temp17 = 2 THEN
     REM scrubs temp values / assigns temp values
     LET temp4$ = "": LET temp5$ = "": LET temp19 = posx: LET temp20 = posy
     IF temp227 = 1 THEN RETURN: REM return for if using point collision
+ELSE
+	LET collisionfreeposx = posx
+	LET collisionfreeposy = posy
 END IF
 objectcollisionchanger2:
 IF temp167 = 2 THEN
@@ -8221,7 +8224,7 @@ LET txtfile5$ = LEFT$(seperate2$, INSTR(seperate2$, ",") - 1)
 LET seperate2$ = RIGHT$(seperate2$, LEN(seperate2$) - (LEN(txtfile5$) + 2))
 LET txtfile6$ = LEFT$(seperate2$, INSTR(seperate2$, ",") - 1)
 LET seperate2$ = RIGHT$(seperate2$, LEN(seperate2$) - (LEN(txtfile6$) + 2))
-LET sysstat = VAL(seperate2$)
+LET sysstat = VAL(RIGHT$(scriptline$, 1))
 IF scriptskip = 0 THEN GOSUB readtxt
 LET temp26 = 1
 RETURN

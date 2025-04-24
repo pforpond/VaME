@@ -1,6 +1,11 @@
 VAME CHANGELOG
 By Danielle Pond
 
+24/04/2025 - Update 188. (2.9.25)
+BUG FIXES
+- Fixed an issue with the script command 'terminaltext' that would fail to show the correct terminal status sprite.
+- Fixed an issue where point collision conflicts would occasionally place the mainplayer in the incorrect location, causing softlocks if the position was inside a point collision object.
+
 22/04/2025 - Update 187. (2.9.24)
 NEW FEATURES
 - New script command 'autosave' that allows the enabling and disabling of the autosave.
