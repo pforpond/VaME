@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+26/04/2025 - Update 189. (2.9.26)
+BUG FIXES
+- Turns out the fix to Point Collision in 2.9.25 was flawed and in some situations made things worse. That is fixed now!
+
 24/04/2025 - Update 188. (2.9.25)
 BUG FIXES
 - Fixed an issue with the script command 'terminaltext' that would fail to show the correct terminal status sprite.

@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.25
+REM Build 2.9.26
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,25,2925
-$VERSIONINFO:PRODUCTVERSION#=2,9,25,2925
+$VERSIONINFO:FILEVERSION#=2,9,26,2926
+$VERSIONINFO:PRODUCTVERSION#=2,9,26,2926
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.25"
+LET hardbuild$ = "2.9.26"
 
 setup:
 REM initiates engine and assigns values
@@ -3771,6 +3771,8 @@ DO
         IF objectcollision(temp18) = 2 THEN GOSUB pointobjectcollision
     END IF
 LOOP UNTIL temp18 >= mapobjectno OR temp18 >= totalobjects
+LET collisionfreeposx = posx
+LET collisionfreeposy = posy
 LET temp18 = 0: REM scrub temp values
 RETURN
 
@@ -3897,11 +3899,8 @@ IF temp222 = 2 OR temp167 = 2 THEN
             LET temp17 = 2
             LET temp227 = 1
             LET proposedobject$ = objectname(temp18)
-            IF direction = 3 OR direction = 4 THEN LET posx = collisionfreeposx
-            IF direction = 1 OR direction = 2 THEN LET posy = collisionfreeposy
-        ELSE
-			LET collisionfreeposx = posx
-			LET collisionfreeposy = posy
+            LET posx = collisionfreeposx
+            LET posy = collisionfreeposy
         END IF
         IF temp167 = 2 THEN
             LET proposedobject$ = objectname(temp18)
@@ -3961,9 +3960,6 @@ IF temp17 = 2 THEN
     REM scrubs temp values / assigns temp values
     LET temp4$ = "": LET temp5$ = "": LET temp19 = posx: LET temp20 = posy
     IF temp227 = 1 THEN RETURN: REM return for if using point collision
-ELSE
-	LET collisionfreeposx = posx
-	LET collisionfreeposy = posy
 END IF
 objectcollisionchanger2:
 IF temp167 = 2 THEN
