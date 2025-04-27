@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.26
+REM Build 2.9.27
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,26,2926
-$VERSIONINFO:PRODUCTVERSION#=2,9,26,2926
+$VERSIONINFO:FILEVERSION#=2,9,27,2927
+$VERSIONINFO:PRODUCTVERSION#=2,9,27,2927
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.26"
+LET hardbuild$ = "2.9.27"
 
 setup:
 REM initiates engine and assigns values
@@ -7537,6 +7537,7 @@ DO
     LET findrightbutton4% = INSTR(findrightbutton4% + 1, textspeech$, "[moverightbutton4]")
     LET findpocketbutton4% = INSTR(findpocketbutton4% + 1, textspeech$, "[pocketbutton4]")
     LET findbackbutton4% = INSTR(findbackbutton4% + 1, textspeech$, "[backbutton4]")
+    LET findcurrency% = INSTR(findcurrency% + 1, textspeech$, "[currency]")
     IF temp204 = 0 THEN IF findhelditema% THEN LET variablevalue$ = "[helditema]": LET temp204 = 1
     IF temp204 = 0 THEN IF findhelditemb% THEN LET variablevalue$ = "[helditemb]": LET temp204 = 1
     IF temp204 = 0 THEN IF findselectobject% THEN LET variablevalue$ = "[selectobject]": LET temp204 = 1
@@ -7578,6 +7579,7 @@ DO
     IF temp204 = 0 THEN IF findrightbutton4% THEN LET variablevalue$ = "[moverightbutton4]": LET temp204 = 1
     IF temp204 = 0 THEN IF findpocketbutton4% THEN LET variablevalue$ = "[pocketbutton4]": LET temp204 = 1
     IF temp204 = 0 THEN IF findbackbutton4% THEN LET variablevalue$ = "[backbutton4]": LET temp204 = 1
+    IF temp204 = 0 THEN IF findcurrency% THEN LET variablevalue$ = "[currency]": LET temp204 = 1
     IF temp204 = 1 THEN
         REM value marker found! finds and replaces!
         LET variablelength = LEN(variablevalue$)
@@ -7909,6 +7911,7 @@ DO
 							LET textspeech$ = texttemp1$ + backgamepad4$ + texttemp2$
 						END IF
                     END IF
+                    IF variablevalue$ = "[currency]" THEN LET textspeech$ = texttemp1$ + currencyname$ + texttemp2$
                     REM scrub values
                     LET texttemp1$ = ""
                     LET texttemp2$ = ""
@@ -7953,6 +7956,7 @@ DO
                     LET findrightbutton4% = 0
                     LET findpocketbutton4% = 0
                     LET findbackbutton4% = 0
+                    LET findcurrency% = 0
                     LET temp203 = 0
                     ERASE bannertemp$
                 END IF
@@ -8308,7 +8312,7 @@ ELSE
             LET findchoiceno% = INSTR(findchoiceno% + 1, scriptname$, "-ifchoice")
             IF findchoiceno% THEN LET x = x + 1
         LOOP UNTIL findchoiceno% = 0
-        LET i = 0: LET y = 0: LET z = 0: LET nn = 0
+        LET i = 0: LET y = 0: LET z = 0: LET nn = 0: LET temps$(1) = "": LET temps$(2) = ""
         DO
             REM seperates script letters
             LET i = i + 1
@@ -8325,7 +8329,7 @@ ELSE
             END IF
         LOOP UNTIL i >= LEN(scriptname$) OR y = 1
         LET x = 0: LET i = 0: LET y = 0: LET z = 0: LET findchoiceno% = 0: LET nn = 0
-        LET triggerspoofname$ = temp57$ + LTRIM$(STR$(choiceno))
+        LET triggerspoofname$ = temps$(2) + LTRIM$(STR$(choiceno))
         LET choicescriptloop = 1
     ELSE
         REM new script

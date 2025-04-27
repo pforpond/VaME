@@ -1,6 +1,12 @@
 VAME CHANGELOG
 By Danielle Pond
 
+27/04/2025 - Update 190. (2.9.27)
+NEW FEATURES
+- Added new text banner variable [currency] that displays the name of the in game currency.
+BUG FIXES
+- Fixed script command 'backchoice' that had been broken since 2.8.77 due to the script sub rewrite.
+
 26/04/2025 - Update 189. (2.9.26)
 BUG FIXES
 - Turns out the fix to Point Collision in 2.9.25 was flawed and in some situations made things worse. That is fixed now!
