@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+28/04/2025 - Update 191. (2.9.28)
+TWEAKS
+- Pocket merge text location is now variable dependant.
+
 27/04/2025 - Update 190. (2.9.27)
 NEW FEATURES
 - Added new text banner variable [currency] that displays the name of the in game currency.
