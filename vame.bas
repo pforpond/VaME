@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.28
+REM Build 2.9.29
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,28,2928
-$VERSIONINFO:PRODUCTVERSION#=2,9,28,2928
+$VERSIONINFO:FILEVERSION#=2,9,29,2929
+$VERSIONINFO:PRODUCTVERSION#=2,9,29,2929
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.28"
+LET hardbuild$ = "2.9.29"
 
 setup:
 REM initiates engine and assigns values
@@ -8274,8 +8274,14 @@ DO
     LET x = x + 1
     LET choicename$(x) = LEFT$(seperate2$, INSTR(seperate2$, ",") - 1)
     LET seperate2$ = RIGHT$(seperate2$, LEN(seperate2$) - (LEN(choicename$(x)) + 2))
+    LET textspeech$ = choicename$(x)
+    GOSUB variablevalueinjector
+    LET choicename$(x) = textspeech$
 LOOP UNTIL INSTR(seperate2$, ",") = 0
 LET choicename$(x + 1) = seperate2$
+LET textspeech$ = choicename$(x + 1)
+GOSUB variablevalueinjector
+LET choicename$(x + 1) = textspeech$
 LET choicetotal = x + 1
 LET x = 1
 REM if choices exist then go to choice drawing sub , if not then clear values and return

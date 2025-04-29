@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+29/04/2025 - Update 192. (2.9.29)
+TWEAKS
+- Choice banners now support text banner variables.
+
 28/04/2025 - Update 191. (2.9.28)
 TWEAKS
 - Pocket merge text location is now variable dependant.
