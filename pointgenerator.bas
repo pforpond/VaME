@@ -1,6 +1,7 @@
 REM VaME point file generator - for VaME 2.9
 REM dp 2024
 
+ON ERROR GOTO errorhandler
 _TITLE "VaME Point Collision Generator"
 REM enable console
 $CONSOLE
@@ -85,8 +86,8 @@ DIM objectcollision(arraylimit) AS INTEGER
 DIM objectpoint(arraylimit * 1000) AS _UNSIGNED LONG
 DIM pointoutput1(arraylimit * 1000) AS INTEGER
 DIM pointoutput2(arraylimit * 1000) AS _UNSIGNED LONG
-DIM pointx(arraylimit) AS INTEGER
-DIM pointy(arraylimit) AS INTEGER
+DIM pointx(arraylimit * 1000) AS INTEGER
+DIM pointy(arraylimit * 1000) AS INTEGER
 'DIM currentpointcount AS _UNSIGNED LONG
 GOTO countfiles
 
@@ -155,7 +156,7 @@ FOR x = 1 TO numberofobjects
 		_DEST _CONSOLE
 		PRINT "Point data generated for object: " + objectname$(x)
 		_DEST 0
-		GOSUB savedata
+		IF skipsave = 0 THEN GOSUB savedata
 	ELSE
 		REM skip item
 		BEEP
@@ -181,6 +182,7 @@ LET px = 0
 LET py = 1
 LET pointloop = 0
 LET endloop = 0
+LET skipsave = 0
 DO
 	LET pointloop = pointloop + 1
 	LET px = px + 1
@@ -190,12 +192,18 @@ DO
 	IF objectpoint(pointloop) > 0 THEN _PUTIMAGE (px, py), dotdude: IF slowmode = 1 THEN _DELAY 0.0001
 	IF px => objectresx(x) AND py => objectresy(x) THEN LET endloop = 1
 	IF px > objectresx(x) THEN LET px = 1: LET py = py + 1
-LOOP UNTIL endloop = 1
+LOOP UNTIL endloop = 1 OR pointloop > (arraylimit * 1000)
 IF pausemode = 1 THEN
 	_DEST _CONSOLE
 	PRINT "PRESS ENTER TO CONTINUE!"
 	INPUT a$
 	_DEST 0
+END IF
+IF pointloop > (arraylimit * 1000) THEN
+	_DEST _CONSOLE
+	PRINT "SPRITE TOO LARGE FOR POINT COLLISION - SKIPPING!"
+	_DEST 0
+	LET skipsave = 1
 END IF
 SCREEN 0
 PRINT "OBJECT SPRITE VIEWER"
@@ -290,6 +298,12 @@ _DEST _CONSOLE
 PRINT
 _DEST 0
 RETURN
+
+errorhandler:
+_DEST _CONSOLE
+PRINT ERR, _ERRORLINE
+_DEST 0
+RESUME NEXT
 
 pointingcomplete:
 _DEST _CONSOLE

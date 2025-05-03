@@ -191,4 +191,7 @@ temp233 - huntermover:
 temp234 - hunterchangemap:
 temp235 - scriptgallerycmd:
 temp236 - awarddraw:
-temp237: - scriptgiveawardcmd:
+temp237 - scriptgiveawardcmd:
+temp238 - scriptexclaimcmd:
+temp239 - scriptexclaimcmd:
+temp240 - scriptexclaimcmd:

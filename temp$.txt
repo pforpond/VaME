@@ -66,3 +66,4 @@ temp64$ - awardunload:
 temp65$ - awardunload:
 temp66$ - loadbarsetup:
 temp67$ - prompt:
+temp68$ - scriptexclaimcmd:

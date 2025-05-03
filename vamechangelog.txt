@@ -1,6 +1,14 @@
 VAME CHANGELOG
 By Danielle Pond
 
+03/05/2025 - Update 193. (2.9.30)
+NEW FEATURES
+- New script command 'exclaim' that can put a "exclaim bubble" by players and objects to show they are alarmed or excited, surprised or just want the player's attention.
+BUG FIXES
+- Fixed issue with 'iwanttobeaspider' example mod not loading correctly.
+- Fixed issue with 'hunter' example mod not loading correctly.
+- Fixed issue with Point Collision Generator crashing when given sprites bigger than the point collision array can handle.
+
 29/04/2025 - Update 192. (2.9.29)
 TWEAKS
 - Choice banners now support text banner variables.
