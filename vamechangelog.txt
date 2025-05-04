@@ -1,6 +1,13 @@
 VAME CHANGELOG
 By Danielle Pond
 
+04/05/2025 - Update 194. (2.9.31)
+BUG FIXES
+- Fixed issue where skipping a script with an 'exclaim' script command in it would still draw exclaim sprites on screen.
+- Fixed a bug where players would sometimes face the opposite direction after completing a scripted walk route.
+TWEAKS
+- Added ability to change amount 'exclaim' script command flashes the exclaim sprites.
+
 03/05/2025 - Update 193. (2.9.30)
 NEW FEATURES
 - New script command 'exclaim' that can put a "exclaim bubble" by players and objects to show they are alarmed or excited, surprised or just want the player's attention.
