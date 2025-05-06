@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+06/05/2025 - Update 195. (2.9.32)
+NEW FEATURES
+- New script command 'ifselectobject' that checks the currently selected object with a script defined value and diverts to a new script if they match.
+
 04/05/2025 - Update 194. (2.9.31)
 BUG FIXES
 - Fixed issue where skipping a script with an 'exclaim' script command in it would still draw exclaim sprites on screen.
