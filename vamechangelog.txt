@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+09/05/2025 - Update 196. (2.9.33)
+BUG FIXES
+- Fixed bug where 'ifholdinga' and 'ifholdingb' script commands wouldn't work and crash the script.
+
 06/05/2025 - Update 195. (2.9.32)
 NEW FEATURES
 - New script command 'ifselectobject' that checks the currently selected object with a script defined value and diverts to a new script if they match.

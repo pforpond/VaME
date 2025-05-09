@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.32
+REM Build 2.9.33
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,32,2932
-$VERSIONINFO:PRODUCTVERSION#=2,9,32,2932
+$VERSIONINFO:FILEVERSION#=2,9,33,2933
+$VERSIONINFO:PRODUCTVERSION#=2,9,33,2933
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.32"
+LET hardbuild$ = "2.9.33"
 
 setup:
 REM initiates engine and assigns values
@@ -6207,14 +6207,14 @@ IF temp201 = 1 THEN LET scriptnametrim = 14: REM ifcheckpoint
 IF temp201 = 2 THEN LET scriptnametrim = 12: REM ifcurrency
 IF temp201 = 3 THEN LET scriptnametrim = 13: REM ifdirection
 IF temp201 = 4 THEN LET scriptnametrim = 10: REM ifpocket
-IF temp201 = 5 THEN LET scriptnametrim = 11: REM ifholdinga
+IF temp201 = 5 THEN LET scriptnametrim = 12: REM ifholdinga
 IF temp201 = 6 THEN LET scriptnametrim = 9: REM ifmodel
 IF temp201 = 7 THEN LET scriptnametrim = 9: REM ifmapno
 IF temp201 = 8 THEN LET scriptnametrim = 8: REM ifgone
 IF temp201 = 9 THEN LET scriptnametrim = 10: REM ifrandom
 IF temp201 = 10 THEN LET scriptnametrim = 9: REM ifvalue
 IF temp201 = 11 THEN LET scriptnametrim = 9: REM ifaward
-IF temp201 = 12 THEN LET scriptnametrim = 11: REM ifholdingb
+IF temp201 = 12 THEN LET scriptnametrim = 12: REM ifholdingb
 IF temp201 = 13 THEN LET scriptnametrim = 10: REM ifcontrol
 IF temp201 = 14 THEN LET scriptnametrim = 16: REM ifselectobject
 RETURN
@@ -9038,8 +9038,8 @@ IF ifholdinga = 1 THEN
     IF temp200 <> 5 THEN LET ifholdingano = ifholdingano + 1
     IF ifholdingano > 1 THEN
         IF temp201 = 5 THEN
-            IF ifholdingano <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifholdingano > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifholdingano <= 12 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
+            IF ifholdingano > 12 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifholdinga" + LTRIM$(STR$(ifholdingano))
@@ -9072,8 +9072,8 @@ IF ifholdingb = 1 THEN
     IF temp200 <> 12 THEN LET ifholdingbno = ifholdingbno + 1
     IF ifholdingbno > 1 THEN
         IF temp201 = 12 THEN
-            IF ifholdingbno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifholdingbno > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifholdingbno <= 12 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
+            IF ifholdingbno > 12 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifholdingb" + LTRIM$(STR$(ifholdingbno))
