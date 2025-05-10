@@ -34,7 +34,7 @@ Making games is hard enough without me pushing updates that make your work incom
 
 * Launch with parameter -noupdate  
 * Set the autoupdate value (found in engine.ddf) to 0  
-* Set the updatelink$ string (found in engine.ddf) to be blank  
+* Set the updatelink$ string (found in engine.ddf) to be blank (or set it to your own update servers)  
 * Add DEV to the end of the versionno$ string (found in engine.ddf)  
 
 ## Games powered by VaME

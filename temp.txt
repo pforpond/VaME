@@ -196,3 +196,4 @@ temp238 - scriptexclaimcmd:
 temp239 - scriptexclaimcmd:
 temp240 - scriptexclaimcmd:
 temp241 - scriptmovecmd:
+temp242 - scriptgallerycmd:

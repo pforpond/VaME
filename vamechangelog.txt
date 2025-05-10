@@ -1,6 +1,11 @@
 VAME CHANGELOG
 By Danielle Pond
 
+10/05/2025 - Update 197. (2.9.34)
+BUG FIXES
+- Fixed bug where pockets wouldn't close whilst a pocket item was selected.
+- Fixed bug where arrows in gallery would pre-emptively switch places before next image had appeared.
+
 09/05/2025 - Update 196. (2.9.33)
 BUG FIXES
 - Fixed bug where 'ifholdinga' and 'ifholdingb' script commands wouldn't work and crash the script.

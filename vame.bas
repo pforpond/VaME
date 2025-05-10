@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.33
+REM Build 2.9.34
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,33,2933
-$VERSIONINFO:PRODUCTVERSION#=2,9,33,2933
+$VERSIONINFO:FILEVERSION#=2,9,34,2934
+$VERSIONINFO:PRODUCTVERSION#=2,9,34,2934
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.33"
+LET hardbuild$ = "2.9.34"
 
 setup:
 REM initiates engine and assigns values
@@ -1217,6 +1217,7 @@ IF c = scontrolcode1 OR c = scontrolcode2 OR c = scontrolcode3 OR c = scontrolco
     END IF
 END IF
 COLOR _RGBA(letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura), _RGBA(bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura)
+LET b = bcontrolcode1
 LET temp74 = 0: REM scrub temp values
 RETURN
 
@@ -9883,6 +9884,7 @@ DO
 		GOSUB timeframecounter
 		_LIMIT hertz
 	LOOP UNTIL ss = bcontrolcode1 OR ss = bcontrolcode2 OR ss = bcontrolcode3 OR ss = bcontrolcode4 OR ss = rcontrolcode1 OR ss = rcontrolcode2 OR ss = rcontrolcode3 OR ss = rcontrolcode4 OR ss = lcontrolcode1 OR ss = lcontrolcode2 OR ss = lcontrolcode3 OR ss = lcontrolcode4
+	LET temp242 = temp235
 	IF ss = rcontrolcode1 OR ss = rcontrolcode2 OR ss = rcontrolcode3 OR ss = rcontrolcode4 THEN LET temp235 = temp235 + 1
 	IF ss = lcontrolcode1 OR ss = lcontrolcode2 OR ss = lcontrolcode3 OR ss = lcontrolcode4 THEN LET temp235 = temp235 - 1
 	IF temp235 =< 1 THEN LET temp235 = 2: GOTO galleryinput
@@ -9903,8 +9905,8 @@ DO
 	FOR i% = 0 TO 255 STEP temp206
 		_LIMIT hertz: REM sets framerate
 		_PUTIMAGE (0, 0)-(resx - 1, resy - 1), fullscreenimage
-		IF temp235 - 1 > 1 THEN _PUTIMAGE (galleryarrowlx, galleryarrowly), pocketarrowl 
-		IF temps$(temp235 + 1) <> "" THEN _PUTIMAGE (galleryarrowrx, galleryarrowry), pocketarrowr
+		IF temp242 - 1 > 1 THEN _PUTIMAGE (galleryarrowlx, galleryarrowly), pocketarrowl 
+		IF temps$(temp242 + 1) <> "" THEN _PUTIMAGE (galleryarrowrx, galleryarrowry), pocketarrowr
 		LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF: REM slowly empties black box from screen
 		GOSUB timeframecounter
 		_DISPLAY
@@ -9912,7 +9914,7 @@ DO
 	_AUTODISPLAY
 LOOP UNTIL ss = bcontrolcode1 OR ss = bcontrolcode2 OR ss = bcontrolcode3 OR ss = bcontrolcode4
 GOSUB fadein
-LET temp235 = 0: LET temp206 = 0
+LET temp235 = 0: LET temp206 = 0: LET temp242 = 0
 RETURN
 
 script:
