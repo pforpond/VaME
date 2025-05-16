@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.34
+REM Build 2.9.35
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,34,2934
-$VERSIONINFO:PRODUCTVERSION#=2,9,34,2934
+$VERSIONINFO:FILEVERSION#=2,9,35,2935
+$VERSIONINFO:PRODUCTVERSION#=2,9,35,2935
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.34"
+LET hardbuild$ = "2.9.35"
 
 setup:
 REM initiates engine and assigns values
@@ -8724,7 +8724,8 @@ IF ifvalueresult = 1 THEN
     IF ifvalueno > 1 THEN
         IF temp201 = 10 THEN
             IF ifvalueno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifvalueno > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifvalueno > 10 AND ifvalueno <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifvalueno > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifvalue" + LTRIM$(STR$(ifvalueno))
@@ -8767,7 +8768,8 @@ IF ifrandomresult = 1 THEN
     IF ifrandomno > 1 THEN
         IF temp201 = 9 THEN
             IF ifrandomno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifrandomno > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifrandomno > 10 AND ifrandomno <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifrandomno > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifrandom" + LTRIM$(STR$(ifrandomno))
@@ -8801,7 +8803,8 @@ IF ifcontrolresult = 1 THEN
     IF ifcontrolno > 1 THEN
         IF temp201 = 13 THEN
             IF ifcontrolno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifcontrolno > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifcontrolno > 10 AND ifcontrolno <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifcontrolno > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifcontrol" + LTRIM$(STR$(ifcontrolno))
@@ -8835,7 +8838,8 @@ IF ifcheckpointresult = 1 THEN
     IF ifcheckpointno > 1 THEN
         IF temp201 = 1 THEN
             IF ifcheckpointno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifcheckpointno > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifcheckpointno > 10 AND ifcheckpointno <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifcheckpointno > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifcheckpoint" + LTRIM$(STR$(ifcheckpointno))
@@ -8871,7 +8875,8 @@ IF ifcurrencyresult = 1 THEN
     IF ifcurrencyno > 1 THEN
         IF temp201 = 2 THEN
             IF ifcurrencyno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifcurrencyno > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifcurrencyno > 10 AND ifcurrencyno <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifcurrencyno > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifcurrency" + LTRIM$(STR$(ifcurrencyno))
@@ -8905,7 +8910,8 @@ IF direction = tempn(2) THEN
     IF ifdirectionno > 1 THEN
         IF temp201 = 3 THEN
             IF ifdirectionno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifdirectionno > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifdirectionno > 10 AND ifdirectionno <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifdirectionno > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifdirection" + LTRIM$(STR$(ifdirectionno))
@@ -8937,8 +8943,9 @@ IF ifawardresult = 1 THEN
     IF temp200 <> 11 THEN LET ifawardno = ifawardno + 1
     IF ifawardno > 1 THEN
         IF temp201 = 11 THEN
-            IF ifawardno <= 9 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifawardno > 9 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifawardno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
+            IF ifawardno > 10 AND ifawardno <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifawardno > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifaward" + LTRIM$(STR$(ifawardno))
@@ -8972,7 +8979,8 @@ IF ifpocket = 1 OR ifpocket = 2 THEN
     IF ifpocketno > 1 THEN
         IF temp201 = 4 THEN
             IF ifpocketno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifpocketno > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifpocketno > 10 AND ifpocketno <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifpocketno > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifpocket" + LTRIM$(STR$(ifpocketno))
@@ -9005,8 +9013,9 @@ IF ifselectobject = 1 THEN
     IF temp200 <> 14 THEN LET ifselectobjectno = ifselectobjectno + 1
     IF ifselectobjectno > 1 THEN
         IF temp201 = 14 THEN
-            IF ifselectobjectno <= 14 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifselectobjectno > 14 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifselectobjectno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
+            IF ifselectobjectno > 10  AND ifselectobjectno <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifselectobjectno > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifselectobject" + LTRIM$(STR$(ifselectobjectno))
@@ -9039,8 +9048,9 @@ IF ifholdinga = 1 THEN
     IF temp200 <> 5 THEN LET ifholdingano = ifholdingano + 1
     IF ifholdingano > 1 THEN
         IF temp201 = 5 THEN
-            IF ifholdingano <= 12 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifholdingano > 12 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifholdingano <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
+            IF ifholdingano > 10 AND ifholdingano <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifholdingano > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifholdinga" + LTRIM$(STR$(ifholdingano))
@@ -9073,8 +9083,9 @@ IF ifholdingb = 1 THEN
     IF temp200 <> 12 THEN LET ifholdingbno = ifholdingbno + 1
     IF ifholdingbno > 1 THEN
         IF temp201 = 12 THEN
-            IF ifholdingbno <= 12 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifholdingbno > 12 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifholdingbno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
+            IF ifholdingbno > 10 AND ifholdingbno <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifholdingbno > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifholdingb" + LTRIM$(STR$(ifholdingbno))
@@ -9108,7 +9119,8 @@ IF ifmodel = 1 THEN
     IF ifmodelno > 1 THEN
         IF temp201 = 6 THEN
             IF ifmodelno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifmodelno > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifmodelno > 10 AND ifmodelno <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifmodelno > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifmodel" + LTRIM$(STR$(ifmodelno))
@@ -9144,7 +9156,8 @@ IF ifmapnoresult = 1 THEN
     IF ifmapnono > 1 THEN
         IF temp201 = 7 THEN
             IF ifmapnono <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifmapnono > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifmapnono > 10 AND ifmapnono <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifmapnono > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifmapno" + LTRIM$(STR$(ifmapnono))
@@ -9178,7 +9191,8 @@ IF ifgone = 2 THEN
     IF ifgoneno > 1 THEN
         IF temp201 = 8 THEN
             IF ifgoneno <= 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - scriptnametrim)
-            IF ifgoneno > 10 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifgoneno > 10 AND ifgoneno <= 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 1))
+            IF ifgoneno > 100 THEN LET scriptname$ = LEFT$(scriptname$, LEN(scriptname$) - (scriptnametrim + 2))
         END IF
     END IF
     LET triggerspoofname$ = scriptname$ + "-ifgone" + LTRIM$(STR$(ifgoneno))

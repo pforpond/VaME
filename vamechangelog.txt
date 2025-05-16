@@ -1,6 +1,14 @@
 VAME CHANGELOG
 By Danielle Pond
 
+16/05/2025 - Update 198. (2.9.35)
+BUG FIXES
+- Fixed issue with some script 'if' commands that wouldn't function correctly beyond the tenth divert.
+TWEAKS
+- Script 'if' commands now work up to one thousand diverts (previously one hundred).
+REMOVED FEATURES
+- Windows 10 is now no longer supported.
+
 10/05/2025 - Update 197. (2.9.34)
 BUG FIXES
 - Fixed bug where pockets wouldn't close whilst a pocket item was selected.
