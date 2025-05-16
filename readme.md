@@ -16,7 +16,7 @@ Download VaME.zip and extract into a place of your choosing. Use [QB64](https://
 Hardware requirements are dependant on game content. 32bit users must compile [vame.bas](https://github.com/pforpond/VaME/blob/main/vame.bas) with [QB64](https://github.com/QB64Official/qb64)
 
 ## Default Software Requirements
-* Windows 10 or 11 (64bit)  
+* Windows 11 (64bit)  
 * Linux (64bit)  
 * Other platforms must compile [vame.bas](https://github.com/pforpond/VaME/blob/main/vame.bas) with [QB64](https://github.com/QB64Official/qb64)
 
