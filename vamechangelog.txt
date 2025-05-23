@@ -1,6 +1,11 @@
 VAME CHANGELOG
 By Danielle Pond
 
+23/05/2025 - Update 199. (2.9.36)
+BUG FIXES
+- Fix to prompt colour bleeding.
+- Fix to invisible prompt bug.
+
 16/05/2025 - Update 198. (2.9.35)
 BUG FIXES
 - Fixed issue with some script 'if' commands that wouldn't function correctly beyond the tenth divert.

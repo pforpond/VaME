@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.35
+REM Build 2.9.36
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,35,2935
-$VERSIONINFO:PRODUCTVERSION#=2,9,35,2935
+$VERSIONINFO:FILEVERSION#=2,9,36,2936
+$VERSIONINFO:PRODUCTVERSION#=2,9,36,2936
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.35"
+LET hardbuild$ = "2.9.36"
 
 setup:
 REM initiates engine and assigns values
@@ -11579,8 +11579,8 @@ RETURN
 
 prompt:
 REM ENGINE COMMAND PROMPT
-COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
 DO
+	COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
     LET temp = 0: REM flush value for loop purposes
     INPUT ">"; prompt$
     IF prompt$ = "" THEN
@@ -11620,10 +11620,12 @@ DO
 			LET temp230 = 0
 			LET mapscript = 5
 			LET scriptname$ = "promptscript"
+			COLOR 0, 0
 			GOSUB script
 			REM removes script 
 			IF ros$ = "win" THEN SHELL _HIDE "del " + scriptloc$ + "system/promptscript.vsf"
 			IF ros$ = "lnx" OR ros$ = "mac" THEN SHELL _HIDE "rm " + scriptloc$ + "system/promptscript.vsf"
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
 			PRINT "SCRIPT COMPLETE!"
 		ELSE
 			PRINT "SCRIPT CANNOT BE EMPTY!"
@@ -11632,16 +11634,19 @@ DO
     END IF
     REM say
     IF action$ = "save" THEN
-        IF value$ = "erase" THEN GOSUB erasesave: PRINT "SAVE ERASED!": LET temp = 1
-        IF value$ = "game" THEN GOSUB savesave: PRINT "GAME SAVED!": LET temp = 1
+		COLOR 0, 0
+        IF value$ = "erase" THEN GOSUB erasesave: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SAVE ERASED!": LET temp = 1
+        IF value$ = "game" THEN GOSUB savesave: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "GAME SAVED!": LET temp = 1
         IF value$ = "load" THEN
             GOSUB loadgame
+            COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
             PRINT "GAME LOADED!"
             LET temp = 1
         END IF
-        IF value$ = "default" THEN GOSUB savedefault: PRINT "SAVE DEFAULT SET!": LET temp = 1
+        IF value$ = "default" THEN GOSUB savedefault: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SAVE DEFAULT SET!": LET temp = 1
     END IF
     IF action$ = "say" THEN
+		COLOR 0, 0
         LET textspeech$ = value$
         GOSUB variablevalueinjector
         GOSUB textbannerdraw
@@ -11655,7 +11660,9 @@ DO
         INPUT temp24$
         IF UCASE$(temp24$) = "Y" THEN
             LET takeitem$ = value$
+            COLOR 0, 0
             GOSUB markgone
+            COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
             PRINT value$ + " marked as gone forever"
         END IF
         LET temp = 1
@@ -11689,6 +11696,7 @@ DO
     REM give currency
     IF action$ = "givecurrency" THEN
         LET currencychange = VAL(value$)
+        COLOR 0, 0
         GOSUB givecurrency
         COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
         LET temp = 1
@@ -11696,6 +11704,7 @@ DO
     REM take currency
     IF action$ = "takecurrency" THEN
         LET currencychange = VAL(value$)
+        COLOR 0, 0
         GOSUB takecurrency
         COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
         LET temp = 1
@@ -11703,24 +11712,28 @@ DO
     REM hide item
     IF action$ = "hideitem" THEN
         LET hideitem$ = value$
+        COLOR 0, 0
         GOSUB hideitem
         IF pocketfile$ = hideitem$ THEN PRINT hideitem$ + " HIDDEN!": LET temp = 1
     END IF
     REM show item
     IF action$ = "showitem" THEN
         LET showitem$ = value$
+        COLOR 0, 0
         GOSUB showitem
         IF pocketfile$ = showitem$ THEN PRINT showitem$ + " VISIBLE!": LET temp = 1
     END IF
     REM give item
     IF action$ = "giveitem" THEN
         LET giveitem$ = value$
+        COLOR 0, 0
         GOSUB giveitem
         IF pocketfile$ = giveitem$ THEN LET temp = 1
     END IF
     REM take item
     IF action$ = "takeitem" THEN
         LET takeitem$ = value$
+        COLOR 0, 0
         GOSUB takeitem
         IF pocketfile$ = takeitem$ THEN LET temp = 1
     END IF
@@ -11728,6 +11741,7 @@ DO
     REM play sound effect
     IF action$ = "sfx" THEN
         LET playsfx$ = value$
+        COLOR 0, 0
         GOSUB sfxplay
         LET temp = 1
     END IF
@@ -11736,11 +11750,11 @@ DO
         REM map script
         _KEYCLEAR
         IF _FILEEXISTS(scriptloc$ + mapdir$ + value$ + ".vsf") THEN
-            LET scriptname$ = value$: LET mapscript = 1: GOSUB script: LET temp = 1
+            LET scriptname$ = value$: LET mapscript = 1: COLOR 0, 0: GOSUB script: LET temp = 1
         ELSE
             REM combination script
             IF _FILEEXISTS(scriptloc$ + "combine/" + value$ + ".vsf") THEN
-                LET scriptname$ = value$: LET mapscript = 2: GOSUB script
+                LET scriptname$ = value$: LET mapscript = 2: COLOR 0, 0: GOSUB script
             ELSE
                 PRINT "SCRIPT NOT FOUND": LET action$ = "ilovexander"
             END IF
@@ -11959,6 +11973,7 @@ DO
     END IF
     REM system (resets or halts system subs)
     IF action$ = "system" THEN
+		COLOR 0, 0
         LET promptquit = 1
         IF value$ = "now" THEN LET temp = 1: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SYSTEM NOW!": GOSUB consolequit: SYSTEM
         IF value$ = "hang" THEN LET temp = 1: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SYSTEM HUNG!": GOSUB consolequit: END
