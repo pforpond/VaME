@@ -1,6 +1,14 @@
 VAME CHANGELOG
 By Danielle Pond
 
+25/05/2025 - Update 200. (2.9.37)
+NEW FEATURES
+- Mainplayer sprite can be auto switched to another when a script is run.
+- New arguments for prompt commands 'change' and 'whatis'.
+TWEAKS
+- Version numbers now appear during menus whilst in Developer Mode.
+- Small tweak to Main Menu image in example game and mods to accommodate for version numbers.
+
 23/05/2025 - Update 199. (2.9.36)
 BUG FIXES
 - Fix to prompt colour bleeding.
