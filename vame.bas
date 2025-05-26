@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.37
+REM Build 2.9.38
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,37,2937
-$VERSIONINFO:PRODUCTVERSION#=2,9,37,2937
+$VERSIONINFO:FILEVERSION#=2,9,38,2938
+$VERSIONINFO:PRODUCTVERSION#=2,9,38,2938
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.37"
+LET hardbuild$ = "2.9.38"
 
 setup:
 REM initiates engine and assigns values
@@ -4293,6 +4293,8 @@ LET mpposx = (resx / 2) - (mpx / 2)
 LET mpposy = (resy / 2) - (mpy / 2)
 REM sets foot value
 LET mpfoot = 1
+REM passes over script switch values
+IF scriptrun = 1 AND scriptswitch = 1 THEN LET oldscriptswitch$ = mplayermodel$: LET scriptswitch2 = 1
 REM tells console of load
 LET eventtitle$ = "MAIN PLAYER LOADED: "
 LET eventdata$ = mplayermodel$
@@ -9950,25 +9952,26 @@ ELSE
     LET temp26 = 1
     RETURN
 END IF
-LET scriptrun = 1: REM sets script value to running
 LET oldscript$ = scriptname$
-IF triggerspoofa = 1 THEN LET triggerspoofa = 0
-REM prints to console
-LET eventtitle$ = "SCRIPT LAUNCHED:"
-LET eventdata$ = scriptname$
-LET eventnumber = 0
-GOSUB consoleprinter
-IF scriptswitch = 1 THEN
+IF scriptswitch = 1 AND triggerspoofa = 0 THEN
 	REM switches to a different mainplayer sprite
 	LET oldmplayermodel$ = mplayermodel$
 	LET oldscriptswitch$ = mplayermodel$
 	LET mplayermodel$ = mplayermodel$ + "2"
+	LET scriptswitch2 = 0
 	GOSUB mainplayerload
 	LET eventtitle$ = "SCRIPT MAINPLAYER SPRITE:"
 	LET eventdata$ = mplayermodel$
 	LET eventnumber = 0
 	GOSUB consoleprinter
 END IF
+IF triggerspoofa = 1 THEN LET triggerspoofa = 0
+LET scriptrun = 1: REM sets script value to running
+REM prints to console
+LET eventtitle$ = "SCRIPT LAUNCHED:"
+LET eventdata$ = scriptname$
+LET eventnumber = 0
+GOSUB consoleprinter
 DO
     LET scriptline = scriptline + 1: REM counts lines of script
     REM inputs a line from script file and searches for key commands and arguments
@@ -10616,15 +10619,22 @@ IF temp86 = 1 THEN
     LET temp23$ = ""
     LET temp61$ = ""
 END IF
-IF temp26 < 2 AND scriptswitch = 1 THEN
-	REM switches back to a previous sprite is needed
-	LET oldmplayermodel$ = mplayermodel$
-	LET mplayermodel$ = oldscriptswitch$
-	GOSUB mainplayerload
-	LET eventtitle$ = "SCRIPT MAINPLAYER SPRITE RESET:"
-	LET eventdata$ = mplayermodel$
-	LET eventnumber = 0
-	GOSUB consoleprinter
+IF temp200 = 0 AND scriptswitch = 1 THEN
+	IF scriptswitch2 = 0 THEN
+		REM switches back to a previous sprite if needed
+		LET oldmplayermodel$ = mplayermodel$
+		LET mplayermodel$ = oldscriptswitch$
+		LET oldscriptswitch$ = ""
+		GOSUB mainplayerload
+		LET eventtitle$ = "SCRIPT MAINPLAYER SPRITE RESET:"
+		LET eventdata$ = mplayermodel$
+		LET eventnumber = 0
+		GOSUB consoleprinter
+	ELSE
+		REM skips as the mainplayer sprite has already been changed by the script 
+		LET oldscriptswitch$ = ""
+		LET scriptswitch2 = 0
+	END IF
 END IF
 IF scriptskip = 1 AND temp200 = 0 THEN GOSUB fadein: REM fade in after a script is skipped
 REM resets if counting values
@@ -10690,7 +10700,6 @@ IF triggerspoofa = 1 THEN
         LET eventdata$ = triggerspoofname$
         LET eventnumber = 0
         GOSUB consoleprinter
-        'LET diagonalmove = 1
         GOSUB script
     ELSE
         LET triggerspoofa = 0

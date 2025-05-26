@@ -1,6 +1,12 @@
 VAME CHANGELOG
 By Danielle Pond
 
+26/05/2025 - Update 201. (2.9.28)
+BUG FIXES
+- Fixed bug where mainplayer sprite script switching would apply during script diverts.
+TWEAKS
+- Changed mainplayer sprite script switching to allow for mainplayer sprite changes during script.
+
 25/05/2025 - Update 200. (2.9.37)
 NEW FEATURES
 - Mainplayer sprite can be auto switched to another when a script is run.
