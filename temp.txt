@@ -197,3 +197,8 @@ temp239 - scriptexclaimcmd:
 temp240 - scriptexclaimcmd:
 temp241 - scriptmovecmd:
 temp242 - scriptgallerycmd:
+temp243 - scriptchoicecmd: / script:
+temp244 - managesaveslots:
+temp245 - managesaveslots:
+temp246 - managesaveslots:
+temp247 - managesaveslots:

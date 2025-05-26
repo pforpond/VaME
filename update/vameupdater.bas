@@ -304,7 +304,21 @@ IF updatestep = 5 THEN
 		IF _FILEEXISTS("data/saves/savedata.ddf") THEN
 			REM nothing
 		ELSE
-			ERROR 6104
+			IF _FILEEXISTS("data/saves/savedata1.ddf") THEN
+				REM nothing
+			ELSE
+				ERROR 6104
+			END IF
+			IF _FILEEXISTS("data/saves/savedata2.ddf") THEN
+				REM nothing
+			ELSE
+				ERROR 6104
+			END IF
+			IF _FILEEXISTS("data/saves/savedata3.ddf") THEN
+				REM nothing
+			ELSE
+				ERROR 6104
+			END IF
 		END IF
 	END IF
 END IF
@@ -384,8 +398,14 @@ GOSUB nextstep
 REM copy over old save
 GOSUB displaystep
 SHELL _HIDE "del " + datafolder$ + "\saves\savedata.ddf"
+SHELL _HIDE "del " + datafolder$ + "\saves\savedata1.ddf"
+SHELL _HIDE "del " + datafolder$ + "\saves\savedata2.ddf"
+SHELL _HIDE "del " + datafolder$ + "\saves\savedata3.ddf"
 IF erasesave = 0 THEN
 	SHELL _HIDE "copy vamebackup\" + datafolder$ + "\saves\savedata.ddf  " + datafolder$ + "\saves\"
+	SHELL _HIDE "copy vamebackup\" + datafolder$ + "\saves\savedata1.ddf  " + datafolder$ + "\saves\"
+	SHELL _HIDE "copy vamebackup\" + datafolder$ + "\saves\savedata2.ddf  " + datafolder$ + "\saves\"
+	SHELL _HIDE "copy vamebackup\" + datafolder$ + "\saves\savedata3.ddf  " + datafolder$ + "\saves\"
 	SHELL _HIDE "copy vamebackup\" + datafolder$ + "\saves\*.old  " + datafolder$ + "\saves\"
 	SHELL _HIDE "copy vamebackup\" + datafolder$ + "\saves\options.ddf " + datafolder$ + "\saves\"
 	SHELL _HIDE "copy vamebackup\" + datafolder$ + "\consolelog.txt  " + datafolder$ + "\"
@@ -396,7 +416,13 @@ IF erasesave = 0 THEN
 			IF _FILEEXISTS("vamebackup\" + modname$ + "\engine.ddf") AND modname$ <> "data" THEN
 				REM new mod found - transfers saves to new folder
 				SHELL _HIDE "del " + modname$ + "\saves\savedata.ddf"
+				SHELL _HIDE "del " + modname$ + "\saves\savedata1.ddf"
+				SHELL _HIDE "del " + modname$ + "\saves\savedata2.ddf"
+				SHELL _HIDE "del " + modname$ + "\saves\savedata3.ddf"
 				SHELL _HIDE "copy vamebackup\" + modname$ + "\saves\savedata.ddf  " + modname$ + "\saves\"
+				SHELL _HIDE "copy vamebackup\" + modname$ + "\saves\savedata1.ddf  " + modname$ + "\saves\"
+				SHELL _HIDE "copy vamebackup\" + modname$ + "\saves\savedata2.ddf  " + modname$ + "\saves\"
+				SHELL _HIDE "copy vamebackup\" + modname$ + "\saves\savedata3.ddf  " + modname$ + "\saves\"
 				SHELL _HIDE "copy vamebackup\" + modname$ + "\saves\*.old  " + modname$ + "\saves\"
 				SHELL _HIDE "copy vamebackup\" + modname$ + "\saves\options.ddf " + modname$ + "\saves\"
 				SHELL _HIDE "copy vamebackup\" + modname$ + "\consolelog.txt  " + modname$ + "\"
@@ -511,8 +537,14 @@ GOSUB nextstep
 REM copy over old save
 GOSUB displaystep
 SHELL _HIDE "rm " + datafolder$ + "/saves/savedata.ddf"
+SHELL _HIDE "rm " + datafolder$ + "/saves/savedata1.ddf"
+SHELL _HIDE "rm " + datafolder$ + "/saves/savedata2.ddf"
+SHELL _HIDE "rm " + datafolder$ + "/saves/savedata3.ddf"
 IF erasesave = 0 THEN
 	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/savedata.ddf " + datafolder$ + "/saves/"
+	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/savedata1.ddf " + datafolder$ + "/saves/"
+	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/savedata2.ddf " + datafolder$ + "/saves/"
+	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/savedata3.ddf " + datafolder$ + "/saves/"
 	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/*.old " + datafolder$ + "/saves/"
 	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/options.ddf " + datafolder$ + "/saves/"
 	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/consolelog.txt " + datafolder$ + "/"
@@ -523,7 +555,13 @@ IF erasesave = 0 THEN
 			IF _FILEEXISTS("vamebackup/" + modname$ + "engine.ddf") AND modname$ <> "data" THEN
 				REM mod found - transfers saves to new folder
 				SHELL _HIDE "rm " + modname$ + "saves/savedata.ddf"
+				SHELL _HIDE "rm " + modname$ + "saves/savedata1.ddf"
+				SHELL _HIDE "rm " + modname$ + "saves/savedata2.ddf"
+				SHELL _HIDE "rm " + modname$ + "saves/savedata3.ddf"
 				SHELL _HIDE "cp vamebackup/" + modname$ + "saves/savedata.ddf " + modname$ + "saves/"
+				SHELL _HIDE "cp vamebackup/" + modname$ + "saves/savedata1.ddf " + modname$ + "saves/"
+				SHELL _HIDE "cp vamebackup/" + modname$ + "saves/savedata2.ddf " + modname$ + "saves/"
+				SHELL _HIDE "cp vamebackup/" + modname$ + "saves/savedata3.ddf " + modname$ + "saves/"
 				SHELL _HIDE "cp vamebackup/" + modname$ + "saves/*.old " + modname$ + "saves/"
 				SHELL _HIDE "cp vamebackup/" + modname$ + "saves/options.ddf " + modname$ + "saves/"
 				SHELL _HIDE "cp vamebackup/" + modname$ + "consolelog.txt " + modname$
@@ -636,8 +674,14 @@ GOSUB nextstep
 REM copy over old save
 GOSUB displaystep
 SHELL _HIDE "rm " + datafolder$ + "/saves/savedata.ddf"
+SHELL _HIDE "rm " + datafolder$ + "/saves/savedata1.ddf"
+SHELL _HIDE "rm " + datafolder$ + "/saves/savedata2.ddf"
+SHELL _HIDE "rm " + datafolder$ + "/saves/savedata3.ddf"
 IF erasesave = 0 THEN
 	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/savedata.ddf " + datafolder$ + "/saves/"
+	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/savedata1.ddf " + datafolder$ + "/saves/"
+	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/savedata2.ddf " + datafolder$ + "/saves/"
+	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/savedata3.ddf " + datafolder$ + "/saves/"
 	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/*.old " + datafolder$ + "/saves/"
 	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/saves/options.ddf " + datafolder$ + "/saves/"
 	SHELL _HIDE "cp vamebackup/" + datafolder$ + "/consolelog.txt " + datafolder$ + "/"
@@ -647,7 +691,13 @@ IF erasesave = 0 THEN
 		IF _FILEEXISTS("vamebackup/" + modname$ + "engine.ddf") AND modname$ <> "data" THEN
 			REM mod found - transfers saves to new folder
 			SHELL _HIDE "rm " + modname$ + "saves/savedata.ddf"
+			SHELL _HIDE "rm " + modname$ + "saves/savedata1.ddf"
+			SHELL _HIDE "rm " + modname$ + "saves/savedata2.ddf"
+			SHELL _HIDE "rm " + modname$ + "saves/savedata3.ddf"
 			SHELL _HIDE "cp vamebackup/" + modname$ + "saves/savedata.ddf " + modname$ + "saves/"
+			SHELL _HIDE "cp vamebackup/" + modname$ + "saves/savedata1.ddf " + modname$ + "saves/"
+			SHELL _HIDE "cp vamebackup/" + modname$ + "saves/savedata2.ddf " + modname$ + "saves/"
+			SHELL _HIDE "cp vamebackup/" + modname$ + "saves/savedata3.ddf " + modname$ + "saves/"
 			SHELL _HIDE "cp vamebackup/" + modname$ + "saves/*.old " + modname$ + "saves/"
 			SHELL _HIDE "cp vamebackup/" + modname$ + "saves/options.ddf " + modname$ + "saves/"
 			SHELL _HIDE "cp vamebackup/" + modname$ + "consolelog.txt " + modname$

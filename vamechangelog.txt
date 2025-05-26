@@ -1,7 +1,26 @@
 VAME CHANGELOG
 By Danielle Pond
 
-26/05/2025 - Update 201. (2.9.28)
+26/05/2025 - Update 202. (2.9.39)
+NEW FEATURES
+- Changed saves to slot system. Three slots are available.
+- New save slot manager that allows players to manage three saves.
+- New menu command managesaves that opens the save slot manager.
+- New arguments for prompt commands 'change' and 'whatis'.
+- Save health checker that ensures saves are present and not corrupted.
+BUG FIXES
+- Fixed issue where mainplayer sprite script switching would end prematurely if an 'ifchoice' script command was executed.
+- Fixed a bug where version numbers would vanish from the main menu after a menu item was selected.
+TWEAKS
+- Auto mainplayer sprite script switching no longer functions during system scripts.
+- Example game updated to take advantage of the new save slot system.
+REMOVED FEATURES
+- Restore save feature removed in favour of save slots.
+- Menu command restoresave has been removed.
+- Menu command erasesave has been removed.
+- Menu command loadsave has been removed.
+
+26/05/2025 - Update 201. (2.9.38)
 BUG FIXES
 - Fixed bug where mainplayer sprite script switching would apply during script diverts.
 TWEAKS

@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.38
+REM Build 2.9.39
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,38,2938
-$VERSIONINFO:PRODUCTVERSION#=2,9,38,2938
+$VERSIONINFO:FILEVERSION#=2,9,39,2939
+$VERSIONINFO:PRODUCTVERSION#=2,9,39,2939
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.38"
+LET hardbuild$ = "2.9.39"
 
 setup:
 REM initiates engine and assigns values
@@ -27,7 +27,7 @@ GOSUB modload: REM checks to see if any mods are requested instead of main game
 REM check metadata exists, checks developer console settings and load engine values
 IF _FILEEXISTS(dloc$ + "engine.ddf") THEN
     OPEN dloc$ + "engine.ddf" FOR INPUT AS #1
-    INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, moveupgamepad1$, movedowngamepad1$, moveleftgamepad1$, moverightgamepad1$, selectgamepad1$, pocketgamepad1$, backgamepad1$, moveupgamepad2$, movedowngamepad2$, moveleftgamepad2$, moverightgamepad2$, selectgamepad2$, pocketgamepad2$, backgamepad2$, moveupgamepad3$, movedowngamepad3$, moveleftgamepad3$, moverightgamepad3$, selectgamepad3$, pocketgamepad3$, backgamepad3$, moveupgamepad4$, movedowngamepad4$, moveleftgamepad4$, moverightgamepad4$, selectgamepad4$, pocketgamepad4$, backgamepad4$, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, pocketselectlayer, pocketmergeactiontext1x, pocketmergeactiontext1y, pocketmergeactiontext2x, pocketmergeactiontext2y, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, textbannerline1, textbannerline2, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, choicebannerline, galleryarrowlx, galleryarrowly, galleryarrowrx, galleryarrowry, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$, exclaim1name$, exclaim2name$, exclaimresx, exclaimresy, exclaimstep, exclaimamount, scriptswitch
+    INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, moveupgamepad1$, movedowngamepad1$, moveleftgamepad1$, moverightgamepad1$, selectgamepad1$, pocketgamepad1$, backgamepad1$, moveupgamepad2$, movedowngamepad2$, moveleftgamepad2$, moverightgamepad2$, selectgamepad2$, pocketgamepad2$, backgamepad2$, moveupgamepad3$, movedowngamepad3$, moveleftgamepad3$, moverightgamepad3$, selectgamepad3$, pocketgamepad3$, backgamepad3$, moveupgamepad4$, movedowngamepad4$, moveleftgamepad4$, moverightgamepad4$, selectgamepad4$, pocketgamepad4$, backgamepad4$, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, pocketselectlayer, pocketmergeactiontext1x, pocketmergeactiontext1y, pocketmergeactiontext2x, pocketmergeactiontext2y, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, textbannerline1, textbannerline2, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, choicebannerline, galleryarrowlx, galleryarrowly, galleryarrowrx, galleryarrowry, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$, exclaim1name$, exclaim2name$, exclaimresx, exclaimresy, exclaimstep, exclaimamount, scriptswitch, saveslotdname$, saveslotsname$, saveselectname$, ss1x, ss1y, ss2x, ss2y, ss3x, ss3y, saveslottitle$, newslotname$, sst1x, sst1y, sst2x, sst2y, sst3x, sst3y, sstd1x, sstd1y, sstd2x, sstd2y, sstd3x, sstd3y, sss1x, sss1y, sss2x, sss2y, sss3x, sss3y
     CLOSE #1
     REM finds metadata directory paths
     IF _FILEEXISTS(dloc$ + "fileloc.ddf") THEN
@@ -134,6 +134,7 @@ GOSUB dimmer: REM assigns array values
 GOSUB pocketvisiblecalc: REM sets all pocket items as visible
 GOSUB deleteupdaters: REM deletes any left over updater files
 GOSUB optionload: REM loads options values
+GOSUB savehealthcheck: REM checks health of saves
 GOSUB saveload: REM load savedata values
 GOSUB inputload: REM checks and informs console of enabled game controls
 GOSUB screenload: REM sets screen and resolution settings
@@ -432,7 +433,7 @@ RETURN
 checkflatpakupdate:
 REM check for flatpak updates
 OPEN "data/engine.ddf" FOR INPUT AS #42
-INPUT #42, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, moveupgamepad1$, movedowngamepad1$, moveleftgamepad1$, moverightgamepad1$, selectgamepad1$, pocketgamepad1$, backgamepad1$, moveupgamepad2$, movedowngamepad2$, moveleftgamepad2$, moverightgamepad2$, selectgamepad2$, pocketgamepad2$, backgamepad2$, moveupgamepad3$, movedowngamepad3$, moveleftgamepad3$, moverightgamepad3$, selectgamepad3$, pocketgamepad3$, backgamepad3$, moveupgamepad4$, movedowngamepad4$, moveleftgamepad4$, moverightgamepad4$, selectgamepad4$, pocketgamepad4$, backgamepad4$, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, pocketselectlayer, pocketmergeactiontext1x, pocketmergeactiontext1y, pocketmergeactiontext2x, pocketmergeactiontext2y, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, textbannerline1, textbannerline2, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, choicebannerline, galleryarrowlx, galleryarrowly, galleryarrowrx, galleryarrowry, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$, exclaim1name$, exclaim2name$, exclaimresx, exclaimresy, exclaimstep, exclaimamount, scriptswitch
+INPUT #42, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, moveupgamepad1$, movedowngamepad1$, moveleftgamepad1$, moverightgamepad1$, selectgamepad1$, pocketgamepad1$, backgamepad1$, moveupgamepad2$, movedowngamepad2$, moveleftgamepad2$, moverightgamepad2$, selectgamepad2$, pocketgamepad2$, backgamepad2$, moveupgamepad3$, movedowngamepad3$, moveleftgamepad3$, moverightgamepad3$, selectgamepad3$, pocketgamepad3$, backgamepad3$, moveupgamepad4$, movedowngamepad4$, moveleftgamepad4$, moverightgamepad4$, selectgamepad4$, pocketgamepad4$, backgamepad4$, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, pocketselectlayer, pocketmergeactiontext1x, pocketmergeactiontext1y, pocketmergeactiontext2x, pocketmergeactiontext2y, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, textbannerline1, textbannerline2, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, choicebannerline, galleryarrowlx, galleryarrowly, galleryarrowrx, galleryarrowry, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$, exclaim1name$, exclaim2name$, exclaimresx, exclaimresy, exclaimstep, exclaimamount, scriptswitch, saveslotdname$, saveslotsname$, saveselectname$, ss1x, ss1y, ss2x, ss2y, ss3x, ss3y, saveslottitle$, newslotname$, sst1x, sst1y, sst2x, sst2y, sst3x, sst3y, sstd1x, sstd1y, sstd2x, sstd2y, sstd3x, sstd3y, sss1x, sss1y, sss2x, sss2y, sss3x, sss3y
 CLOSE #42
 IF flatpakversionno$ <> versionno$ THEN
 	REM version mismatch! begin upgrade!
@@ -2133,6 +2134,9 @@ LET awardarrowls = _LOADIMAGE(uiloc$ + awardarrowselectleft$ + ".png")
 LET dotdude = _LOADIMAGE(uiloc$ + "dotdude.png")
 LET exclaim1 = _LOADIMAGE(uiloc$ + exclaim1name$ + ".png")
 LET exclaim2 = _LOADIMAGE(uiloc$ + exclaim2name$ + ".png")
+LET saveslotd = _LOADIMAGE(uiloc$ + saveslotdname$ + ".png")
+LET saveslots = _LOADIMAGE(uiloc$ + saveslotsname$ + ".png")
+LET saveselect = _LOADIMAGE(uiloc$ + saveselectname$ + ".png")
 FOR logoloop = 1 TO devlogono
     IF logoloop = 1 THEN LET devlogo1 = _LOADIMAGE(uiloc$ + devlogo$ + "1.png")
     IF logoloop = 2 THEN LET devlogo2 = _LOADIMAGE(uiloc$ + devlogo$ + "2.png")
@@ -2179,6 +2183,9 @@ _FREEIMAGE awardarrowrs
 _FREEIMAGE dotdude
 _FREEIMAGE exclaim1
 _FREEIMAGE exclaim2
+_FREEIMAGE saveslotd
+_FREEIMAGE saveslots
+_FREEIMAGE saveselect
 FOR logoloop = 1 TO devlogono
     IF logoloop = 1 THEN _FREEIMAGE devlogo1
     IF logoloop = 2 THEN _FREEIMAGE devlogo2
@@ -2619,13 +2626,14 @@ REM checks to see if options file exists
 IF _FILEEXISTS(sloc$ + "options.ddf") THEN
     REM loads options
     OPEN sloc$ + "options.ddf" FOR INPUT AS #1
-    INPUT #1, screenmode, soundmode, musicvol, sfxvol, playercontrolmode
+    INPUT #1, screenmode, soundmode, musicvol, sfxvol, playercontrolmode, saveslot
     CLOSE #1
     REM prints to console
     LET eventtitle$ = "OPTION DATA LOADED:"
     LET eventdata$ = menuloc$ + "options.ddf"
     LET eventnumber = 0
     GOSUB consoleprinter
+    IF saveslot = 0 THEN LET saveslot = 1
 ELSE
     REM copies default options
     LET eventtitle$ = "OPTIONS FILE MISSING OR CORRUPT"
@@ -2652,7 +2660,7 @@ RETURN
 savevalue:
 REM saves a specific value to save file
 REM loads savedata, stores temp values
-OPEN sloc$ + "savedata.ddf" FOR INPUT AS #1
+OPEN sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf" FOR INPUT AS #1
 INPUT #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, tempigametime, temppocketcarry, temppocketslot, temphuntmode, temphuntmap
 REM loads pocket items
 LET x = 0
@@ -2691,10 +2699,10 @@ DO
 LOOP UNTIL x >= totalawards
 REM loads main player
 LET x = 0
-INPUT #1, tempmplayermodel$, temptosfile$
+INPUT #1, tempmplayermodel$, temptosfile$, tempsavedate$
 CLOSE #1
 REM saves time to file
-OPEN sloc$ + "savedata.ddf" FOR OUTPUT AS #1
+OPEN sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf" FOR OUTPUT AS #1
 WRITE #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, gametime, temppocketcarry, temppocketslot, temphuntmode, temphuntmap
 REM writes pocket items
 LET x = 0
@@ -2737,7 +2745,7 @@ DO
 LOOP UNTIL x >= totalawards
 REM writes main player
 LET x = 0
-WRITE #1, tempmplayermodel$, temptosfile$
+WRITE #1, tempmplayermodel$, temptosfile$, tempsavedate$
 CLOSE #1
 REM erases temp values
 FOR x = 1 TO totalpockets
@@ -2755,8 +2763,8 @@ LET tempmplayermodel$ = "": LET temptosfile$ = ""
 LET tempmapno = 0: LET tempposx = 0: LET tempposy = 0: LET tempcurrency = 0: LET tempdirection = 0: LET tempigametime = 0: LET temppocketcarry = 0: LET temppocketslot = 0
 REM prints to console
 LET eventtitle$ = "VALUE " + LTRIM$(STR$(valuesaveno)) + " DATA SAVED:"
-LET eventdata$ = sloc$ + "savedata.ddf"
-LET eventnumber = 0
+LET eventdata$ = sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf"
+LET eventnumber = saveslot
 GOSUB consoleprinter
 RETURN
 
@@ -2764,7 +2772,7 @@ savetime:
 REM saves time and award data to save file
 REM loads and stores temp values
 REM loads savedata
-OPEN sloc$ + "savedata.ddf" FOR INPUT AS #1
+OPEN sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf" FOR INPUT AS #1
 INPUT #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, tempigametime, temppocketcarry, temppocketslot, temphuntmode, temphuntmap
 REM loads pocket items
 LET x = 0
@@ -2803,10 +2811,10 @@ DO
 LOOP UNTIL x >= totalawards
 REM loads main player
 LET x = 0
-INPUT #1, tempmplayermodel$, temptosfile$
+INPUT #1, tempmplayermodel$, temptosfile$, tempsavedate$
 CLOSE #1
 REM saves time to file
-OPEN sloc$ + "savedata.ddf" FOR OUTPUT AS #1
+OPEN sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf" FOR OUTPUT AS #1
 WRITE #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, gametime, temppocketcarry, temppocketslot, temphuntmode, temphuntmap
 REM writes pocket items
 LET x = 0
@@ -2845,7 +2853,7 @@ DO
 LOOP UNTIL x >= totalawards
 REM writes main player
 LET x = 0
-WRITE #1, tempmplayermodel$, temptosfile$
+WRITE #1, tempmplayermodel$, temptosfile$, tempsavedate$
 CLOSE #1
 REM erases temp values
 FOR x = 1 TO totalpockets
@@ -2863,7 +2871,7 @@ LET tempmplayermodel$ = "": LET temptosfile$ = ""
 LET tempmapno = 0: LET tempposx = 0: LET tempposy = 0: LET tempcurrency = 0: LET tempdirection = 0: LET tempigametime = 0: LET temppocketcarry = 0: LET temppocketslot = 0
 REM prints to console
 LET eventtitle$ = "TIME AND AWARD DATA SAVED:"
-LET eventdata$ = sloc$ + "savedata.ddf"
+LET eventdata$ = sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf"
 LET eventnumber = 0
 GOSUB consoleprinter
 RETURN
@@ -2876,89 +2884,66 @@ REM halt any timed scripts
 LET scripttimer = 0
 LET iscripttimer = 0
 LET scripttimername$ = ""
-REM checks save data file exists and diverts to save erase if not
-IF _FILEEXISTS(sloc$ + "savedata.ddf") THEN
-    REM loads savedata
-    OPEN sloc$ + "savedata.ddf" FOR INPUT AS #1
-    IF setupboot = 1 THEN
-        INPUT #1, mapno, currency, posx, posy, direction, igametime, pocketcarry, pocketslot, huntmode, huntmap
-    ELSE
-        INPUT #1, mapno, currency, posx, posy, direction, gametime, pocketcarry, pocketslot, huntmode, huntmap
-    END IF
-    REM loads pocket items
-    LET x = 0
-    DO
-        LET x = x + 1
-        INPUT #1, pocketitem(x)
-    LOOP UNTIL x >= totalpockets
-    REM loads extra pocket data
-    LET x = 0
-    DO
-        LET x = x + 1
-        INPUT #1, pocketvisible(x)
-    LOOP UNTIL x >= totalpockets
-    LET x = 0
-	DO
-		LET x = x + 1
-		INPUT #1, pocketitemslot(x)
-	LOOP UNTIL x >= totalpockets
-    REM loads checkpoints
-    LET x = 0
-    DO
-        LET x = x + 1
-        INPUT #1, checkpoint(x)
-    LOOP UNTIL x >= totalcheckpoints
-    REM loads custom script values
-    LET x = 0
-    DO
-        LET x = x + 1
-        INPUT #1, scriptvalue(x)
-    LOOP UNTIL x >= totalscriptvalues
-    REM loads awards
-    LET x = 0
-    DO
-        LET x = x + 1
-        INPUT #1, awardvalue(x)
-    LOOP UNTIL x >= totalawards
-    REM loads main player
-    LET x = 0
-    INPUT #1, mplayermodel$, tosfile$
-    CLOSE #1
-    REM prints to console
-    LET eventtitle$ = "SAVEDATA LOADED:"
-    LET eventdata$ = sloc$ + "savedata.ddf"
-    LET eventnumber = 0
-    GOSUB consoleprinter
-    LET eventtitle$ = "SAVEDATA STATUS:"
-    IF exitsave = 1 THEN
-        LET eventdata$ = "save on exit enabled"
-    ELSE
-        LET eventdata$ = "save on exit disabled"
-    END IF
-    LET eventnumber = exitsave
-    GOSUB consoleprinter
-    LET gametime = 0: REM resets time spent in save file
+REM loads savedata
+OPEN sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf" FOR INPUT AS #1
+IF setupboot = 1 THEN
+	INPUT #1, mapno, currency, posx, posy, direction, igametime, pocketcarry, pocketslot, huntmode, huntmap
 ELSE
-    REM diverts to save erase
-    LET eventtitle$ = "SAVE FILE MISSING OR CORRUPT"
-    LET eventdata$ = "resetting to default"
-    LET eventnumber = 0
-    GOSUB consoleprinter
-    IF _FILEEXISTS(sloc$ + "defaultsave.ddf") THEN
-        REM nothing
-    ELSE
-        ERROR 422
-    END IF
-    REM Linux
-    IF ros$ = "lnx" OR ros$ = "mac" THEN
-        SHELL _HIDE "cp " + sloc$ + "defaultsave.ddf " + sloc$ + "savedata.ddf"
-    END IF
-    REM windows
-    IF ros$ = "win" THEN
-        SHELL _HIDE "copy " + sloc$ + "defaultsave.ddf " + sloc$ + "savedata.ddf"
-    END IF
-    GOTO saveload
+    INPUT #1, mapno, currency, posx, posy, direction, gametime, pocketcarry, pocketslot, huntmode, huntmap
 END IF
+REM loads pocket items
+LET x = 0
+DO
+    LET x = x + 1
+    INPUT #1, pocketitem(x)
+LOOP UNTIL x >= totalpockets
+REM loads extra pocket data
+LET x = 0
+DO
+    LET x = x + 1
+    INPUT #1, pocketvisible(x)
+LOOP UNTIL x >= totalpockets
+LET x = 0
+DO
+	LET x = x + 1
+	INPUT #1, pocketitemslot(x)
+LOOP UNTIL x >= totalpockets
+REM loads checkpoints
+LET x = 0
+DO
+    LET x = x + 1
+    INPUT #1, checkpoint(x)
+LOOP UNTIL x >= totalcheckpoints
+REM loads custom script values
+LET x = 0
+DO
+    LET x = x + 1
+    INPUT #1, scriptvalue(x)
+LOOP UNTIL x >= totalscriptvalues
+REM loads awards
+LET x = 0
+DO
+    LET x = x + 1
+    INPUT #1, awardvalue(x)
+LOOP UNTIL x >= totalawards
+REM loads main player
+LET x = 0
+INPUT #1, mplayermodel$, tosfile$, savedate$
+CLOSE #1
+REM prints to console
+LET eventtitle$ = "SAVEDATA LOADED:"
+LET eventdata$ = sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf"
+LET eventnumber = saveslot
+GOSUB consoleprinter
+LET eventtitle$ = "SAVEDATA STATUS:"
+IF exitsave = 1 THEN
+	LET eventdata$ = "save on exit enabled"
+ELSE
+    LET eventdata$ = "save on exit disabled"
+END IF
+LET eventnumber = exitsave
+GOSUB consoleprinter
+LET gametime = 0: REM resets time spent in save file
 RETURN
 
 savedefault:
@@ -3016,7 +3001,7 @@ RETURN
 optionsave:
 REM saves the option data
 OPEN sloc$ + "options.ddf" FOR OUTPUT AS #1
-WRITE #1, screenmode, soundmode, musicvol, sfxvol, playercontrolmode
+WRITE #1, screenmode, soundmode, musicvol, sfxvol, playercontrolmode, saveslot
 CLOSE #1
 REM prints to console
 LET eventtitle$ = "OPTIONS SAVED:"
@@ -3028,7 +3013,7 @@ RETURN
 savesave:
 REM saves save data x
 IF nosave = 1 THEN RETURN: REM return for if nosave flag is used.
-OPEN sloc$ + "savedata.ddf" FOR OUTPUT AS #1
+OPEN sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf" FOR OUTPUT AS #1
 WRITE #1, mapno, currency, posx, posy, direction, gametime, pocketcarry, pocketslot, huntmode, huntmap
 REM writes pocket items
 LET x = 0
@@ -3067,11 +3052,11 @@ DO
 LOOP UNTIL x >= totalawards
 REM writes main player
 LET x = 0
-WRITE #1, mplayermodel$, tosfile$
+WRITE #1, mplayermodel$, tosfile$, DATE$
 CLOSE #1
 REM prints to console
 LET eventtitle$ = "SAVEDATA SAVED:"
-LET eventdata$ = sloc$ + "savedata.ddf"
+LET eventdata$ = sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf"
 LET eventnumber = 0
 GOSUB consoleprinter
 RETURN
@@ -4486,13 +4471,15 @@ LET playmusic$ = menumusic$
 GOSUB musicplay
 LET menubackdrop = _LOADIMAGE(menuloc$ + menubackdrop$ + ".png")
 _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
-IF devmode = 1 THEN
-	_PRINTSTRING(1, resy - (fontsize * 2)), versionno$
-	_PRINTSTRING(1, resy - fontsize), engineversionno$
-END IF
 LET temp78 = 1
 DO
     _LIMIT extrahertz
+    IF devmode = 1 THEN
+		COLOR _RGBA(letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura), _RGBA(bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura)
+		_PRINTSTRING(1, resy - (fontsize * 2)), versionno$
+		_PRINTSTRING(1, resy - fontsize), engineversionno$
+		COLOR 0, 0
+	END IF
     DO
         LET d = _KEYHIT
         LET xxit = _EXIT: REM sets game exit value
@@ -4699,30 +4686,6 @@ DO
             _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
             GOSUB endgamemenu
         END IF
-        REM erases save
-        IF temp15$ = "erasesave" THEN
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
-            LET scriptname$ = "erasesave"
-            LET mapscript = 5
-            GOSUB script
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
-            FOR x = 1 TO 2
-                IF x = 1 THEN LET choicename$(x) = "YES"
-                IF x = 2 THEN LET choicename$(x) = "NO"
-            NEXT x
-            LET choicetotal = 2
-            GOSUB choicebannerdraw
-            IF choiceno = 1 THEN
-                CLS
-                LET scriptname$ = "posterasesave"
-                LET mapscript = 5
-                GOSUB script
-                CLS
-                GOSUB erasesave
-            END IF
-        END IF
         REM loads award menu
         IF temp15$ = "displayawards" THEN
             CLS
@@ -4734,35 +4697,16 @@ DO
             LET eventnumber = 0
             GOSUB consoleprinter
         END IF
-        REM reloads current save
-        IF temp15$ = "loadsave" THEN
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
-            IF setupboot = 0 THEN
-                LET scriptname$ = "loadsave"
-            ELSE
-                LET scriptname$ = "loadsavefail"
-            END IF
-            LET mapscript = 5
-            GOSUB script
-            IF setupboot = 0 THEN
-                CLS
-                _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
-                FOR x = 1 TO 2
-                    IF x = 1 THEN LET choicename$(x) = "YES"
-                    IF x = 2 THEN LET choicename$(x) = "NO"
-                NEXT x
-                LET choicetotal = 2
-                GOSUB choicebannerdraw
-                IF choiceno = 1 THEN
-                    CLS
-                    GOSUB loadgame
-                    CLS
-                    LET scriptname$ = "postloadsave"
-                    LET mapscript = 5
-                    GOSUB script
-                END IF
-            END IF
+        REM opens save slot manager
+        IF temp15$ = "managesaves" THEN
+			CLS
+			GOSUB managesaveslots
+			CLS
+			REM console dump
+            LET eventtitle$ = "MENU LOADED:"
+            LET eventdata$ = menu$
+            LET eventnumber = 0
+            GOSUB consoleprinter
         END IF
         REM toggles music on and off
         IF temp15$ = "musictoggle" THEN
@@ -5094,17 +5038,6 @@ DO
             LET eventnumber = 0
             GOSUB consoleprinter
         END IF
-        REM displays restore old save menu
-        IF temp15$ = "restoresave" THEN
-            CLS
-            GOSUB saverestore
-            CLS
-            REM console dump
-            LET eventtitle$ = "MENU LOADED:"
-            LET eventdata$ = menu$
-            LET eventnumber = 0
-            GOSUB consoleprinter
-        END IF
     ELSE
         REM executes playgame command
         CLS
@@ -5118,6 +5051,255 @@ DO
     _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop: REM redraws meny background
     LET temp15$ = ""
 LOOP
+RETURN
+
+savehealthcheck:
+REM performs a health check on saves
+LET savecheckloop = 0
+DO
+	LET savecheckloop = savecheckloop + 1
+	IF _FILEEXISTS(sloc$ + "savedata" + LTRIM$(STR$(savecheckloop)) + ".ddf") THEN
+		REM loads savedata
+		OPEN sloc$ + "savedata" + LTRIM$(STR$(savecheckloop)) + ".ddf" FOR INPUT AS #1
+		INPUT #1, tempmapno, tempcurrency, tempposx, tempposy, tempdirection, tempgametime, temppocketcarry, temppocketslot, temphuntmode, temphuntmap
+		REM loads pocket items
+		LET x = 0
+		DO
+			LET x = x + 1
+			INPUT #1, temppocketitem(x)
+		LOOP UNTIL x >= totalpockets
+		REM loads extra pocket data
+		LET x = 0
+		DO
+			LET x = x + 1
+			INPUT #1, temppocketvisible(x)
+		LOOP UNTIL x >= totalpockets
+		LET x = 0
+		DO
+			LET x = x + 1
+			INPUT #1, temppocketitemslot(x)
+		LOOP UNTIL x >= totalpockets
+		REM loads checkpoints
+		LET x = 0
+		DO
+			LET x = x + 1
+			INPUT #1, tempcheckpoint(x)
+		LOOP UNTIL x >= totalcheckpoints
+		REM loads custom script values
+		LET x = 0
+		DO
+			LET x = x + 1
+			INPUT #1, tempscriptvalue(x)
+		LOOP UNTIL x >= totalscriptvalues
+		REM loads awards
+		LET x = 0
+		DO
+			LET x = x + 1
+			INPUT #1, tempawardvalue(x)
+		LOOP UNTIL x >= totalawards
+		REM loads main player
+		LET x = 0
+		IF savecheckloop = 1 THEN INPUT #1, tempmplayermodel$, temptosfile$, saveslot1date$
+		IF savecheckloop = 2 THEN INPUT #1, tempmplayermodel$, temptosfile$, saveslot2date$
+		IF savecheckloop = 3 THEN INPUT #1, tempmplayermodel$, temptosfile$, saveslot3date$
+		CLOSE #1
+		REM tells console
+		LET eventtitle$ = "SAVE FILE " + LTRIM$(STR$(savecheckloop)) + " CHECK:"
+		IF savecheckloop = 1 THEN LET eventdata$ = saveslot1date$
+		IF savecheckloop = 2 THEN LET eventdata$ = saveslot2date$
+		IF savecheckloop = 3 THEN LET eventdata$ = saveslot3date$
+		LET eventnumber = savecheckloop
+		GOSUB consoleprinter
+	ELSE
+		REM diverts to save erase
+		LET eventtitle$ = "SAVE FILE MISSING OR CORRUPT"
+		LET eventdata$ = "resetting to default"
+		LET eventnumber = savecheckloop
+		GOSUB consoleprinter
+		IF _FILEEXISTS(sloc$ + "defaultsave.ddf") THEN
+			REM nothing
+		ELSE
+			ERROR 422
+		END IF
+		REM Linux
+		IF ros$ = "lnx" OR ros$ = "mac" THEN
+			SHELL _HIDE "cp " + sloc$ + "defaultsave.ddf " + sloc$ + "savedata" + LTRIM$(STR$(savecheckloop)) + ".ddf"
+		END IF
+		REM windows
+		IF ros$ = "win" THEN
+			SHELL _HIDE "copy " + sloc$ + "defaultsave.ddf " + sloc$ + "savedata" + LTRIM$(STR$(savecheckloop)) + ".ddf"
+		END IF
+		LET savecheckloop = savecheckloop - 1
+	END IF
+LOOP UNTIL savecheckloop >= 3
+LET savecheckloop = 0
+RETURN
+
+managesaveslots:
+REM manages save slots
+REM load assets and save data
+LET savemenu = 1
+LET savemenubackdrop = _LOADIMAGE(menuloc$ + "savemenu.png")
+GOSUB savehealthcheck
+REM tells console
+LET eventtitle$ = "MENU LOADED:"
+LET eventdata$ = "save slot menu"
+LET eventnumber = 0
+LET temp244 = saveslot
+LET temp245 = 0
+LET temp247 = 0
+GOSUB consoleprinter
+_KEYCLEAR
+DO
+	CLS
+    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+    IF temp244 = 1 THEN 
+		_PUTIMAGE (ss1x, ss1y), saveslots
+	ELSE
+		_PUTIMAGE (ss1x, ss1y), saveslotd
+	END IF
+	IF temp244 = 2 THEN
+		_PUTIMAGE (ss2x, ss2y), saveslots
+	ELSE
+		_PUTIMAGE (ss2x, ss2y), saveslotd
+	END IF
+	IF temp244 = 3 THEN
+		_PUTIMAGE (ss3x, ss3y), saveslots
+	ELSE
+		_PUTIMAGE (ss3x, ss3y), saveslotd
+	END IF
+	COLOR _RGBA(letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura), _RGBA(bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura)
+	_PRINTSTRING(sst1x, sst1y), saveslottitle$ + " 1"
+	_PRINTSTRING(sst2x, sst2y), saveslottitle$ + " 2"
+	_PRINTSTRING(sst3x, sst3y), saveslottitle$ + " 3"
+	IF saveslotdate1$ = "NEW" THEN
+		_PRINTSTRING(sstd1x, sstd1y), newslotname$
+	ELSE
+		_PRINTSTRING(sstd1x, sstd1y), saveslot1date$
+	END IF
+	IF saveslotdate2$ = "NEW" THEN
+		_PRINTSTRING(sstd2x, sstd2y), newslotname$
+	ELSE
+		_PRINTSTRING(sstd2x, sstd2y), saveslot2date$
+	END IF
+	IF saveslotdate3$ = "NEW" THEN
+		_PRINTSTRING(sstd3x, sstd3y), newslotname$
+	ELSE
+		_PRINTSTRING(sstd3x, sstd3y), saveslot3date$
+	END IF
+	IF saveslot = 1 THEN _PUTIMAGE (sss1x, sss1y), saveselect
+	IF saveslot = 2 THEN _PUTIMAGE (sss2x, sss2y), saveselect
+	IF saveslot = 3 THEN _PUTIMAGE (sss3x, sss3y), saveselect
+	LET temp245 = 0
+    DO
+		_LIMIT extrahertz
+		LET d = _KEYHIT
+		IF d = ucontrolcode1 OR d = ucontrolcode2 OR d = ucontrolcode3 OR d = ucontrolcode4 THEN 
+			REM press up
+			LET temp244 = temp244 - 1
+			IF temp244 < 1 THEN 
+				LET temp244 = 1
+			ELSE
+				LET temp245 = 1
+			END IF
+		END IF
+		IF d = dcontrolcode1 OR d = dcontrolcode2 OR d = dcontrolcode3 OR d = dcontrolcode4 THEN 
+			REM press down
+			LET temp244 = temp244 + 1
+			IF temp244 > 3 THEN 
+				LET temp244 = 3
+			ELSE
+				LET temp245 = 1
+			END IF
+		END IF
+		IF d = scontrolcode1 OR d = scontrolcode2 OR d = scontrolcode3 OR d = scontrolcode4 THEN
+			REM select slot
+			FOR x = 1 TO 3
+                IF x = 1 THEN LET choicename$(x) = "SELECT"
+                IF x = 2 THEN LET choicename$(x) = "ERASE"
+                IF x = 3 THEN LET choicename$(x) = "CANCEL"
+            NEXT x
+            LET choicetotal = 3
+            GOSUB choicebannerdraw
+            IF choiceno = 1 THEN
+				REM select save!
+				CLS
+				_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+				IF temp244 <> saveslot THEN
+					IF exitsave = 0 THEN
+						LET scriptname$ = "selectsave"
+						LET mapscript = 5
+						GOSUB script
+						CLS
+						_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+						FOR x = 1 TO 2
+							IF x = 1 THEN LET choicename$(x) = "YES"
+							IF x = 2 THEN LET choicename$(x) = "NO"
+						NEXT x
+						LET choicetotal = 2
+						GOSUB choicebannerdraw
+						IF choiceno = 2 THEN LET temp245 = 1
+					ELSE
+						IF setupboot = 0 THEN GOSUB savesave
+					END IF
+					IF temp245 = 0 THEN
+						LET textspeech$ = saveslottitle$ + " " + LTRIM$(STR$(temp244)) + " SELECTED!"
+						GOSUB textbannerdraw
+						LET saveslot = temp244
+						IF setupboot = 0 THEN
+							GOSUB loadgame
+						ELSE
+							GOSUB saveload
+						END IF
+					END IF
+				ELSE
+					LET scriptname$ = "selectsavefail"
+					LET mapscript = 5
+					GOSUB script	
+				END IF
+				LET temp245 = 1
+				LET choiceno = 0
+            END IF
+            IF choiceno = 2 THEN
+				REM erase save!
+				CLS
+				_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+				LET scriptname$ = "erasesave"
+				LET mapscript = 5
+				GOSUB script
+				CLS
+				_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+				FOR x = 1 TO 2
+					IF x = 1 THEN LET choicename$(x) = "YES"
+					IF x = 2 THEN LET choicename$(x) = "NO"
+				NEXT x
+				LET choicetotal = 2
+				GOSUB choicebannerdraw
+				IF choiceno = 1 THEN
+					CLS
+					LET scriptname$ = "posterasesave"
+					LET mapscript = 5
+					GOSUB script
+					CLS
+					LET temp246 = saveslot
+					LET saveslot = temp244
+					GOSUB erasesave
+					LET saveslot = temp246
+					LET temp246 = 0
+					LET temp247 = 1
+				END IF
+				LET temp245 = 1
+				LET choiceno = 0
+            END IF
+            IF choiceno = 3 THEN LET temp245 = 1
+		END IF
+    LOOP UNTIL d = bcontrolcode1 OR d = bcontrolcode2 OR d = bcontrolcode3 OR d = bcontrolcode4 OR temp245 = 1 OR temp247 = 1
+LOOP UNTIL d = bcontrolcode1 OR d = bcontrolcode2 OR d = bcontrolcode3 OR d = bcontrolcode4 OR temp247 = 1 
+_KEYCLEAR
+_FREEIMAGE savemenubackdrop
+LET savemenu = 0
+IF temp247 = 1 THEN GOTO managesaveslots
+LET temp245 = 0: LET temp244 = 0: LET temp246 = 0: LET temp247 = 0: REM scrub temp values
 RETURN
 
 endgamemenu:
@@ -5413,263 +5595,6 @@ DO
     END IF
     _KEYCLEAR
 LOOP
-RETURN
-
-saverestore:
-REM restores an old save
-REM checks if save controls are enabled
-IF nosave = 1 THEN LET textspeech$ = nosaveprompt$: GOSUB textbannerdraw: RETURN
-REM generates list of old saves
-IF ros$ = "win" THEN SHELL _HIDE "dir /b " + CHR$(34) + sloc$ + CHR$(34) + " > " + dloc$ + "oldsaves.tmp"
-IF ros$ = "lnx" OR ros$ = "mac" THEN SHELL _HIDE "ls " + sloc$ + " > " + dloc$ + "oldsaves.tmp"
-REM checks for old save amount and removes expired saves
-OPEN dloc$ + "oldsaves.tmp" FOR INPUT AS #42
-LET oldsaveamount = 0
-DO
-    INPUT #42, temp48$
-    LET findoldsave% = INSTR(findoldsave% + 1, temp48$, ".old")
-    IF findoldsave% THEN LET oldsaveamount = oldsaveamount + 1
-    LET findoldsave% = 0
-LOOP UNTIL EOF(42)
-CLOSE #42
-IF oldsaveamount = 0 THEN
-    REM if no old saves are found
-    LET scriptname$ = "nooldsaves"
-    LET mapscript = 5
-    GOSUB script
-    LET temp48$ = ""
-    IF ros$ = "win" THEN SHELL _HIDE "del " + dloc$ + "oldsaves.tmp"
-    IF ros$ = "lnx" OR ros$ = "mac" THEN SHELL _HIDE "rm " + dloc$ + "oldsaves.tmp"
-    RETURN
-END IF
-IF oldsaveamount > 9 THEN
-    REM removes saves deemed too old
-    LET temp162 = oldsaveamount - 9
-    LET x = 0
-    OPEN dloc$ + "oldsaves.tmp" FOR INPUT AS #42
-    DO
-        INPUT #42, temp48$
-        LET findoldsave% = INSTR(findoldsave% + 1, temp48$, ".old")
-        IF findoldsave% THEN
-            LET x = x + 1
-            IF ros$ = "win" THEN SHELL _HIDE "del " + sloc$ + temp48$
-            IF ros$ = "lnx" OR ros$ = "mac" THEN SHELL _HIDE "rm " + sloc$ + temp48$
-            REM tells console
-            LET eventtitle$ = "LEGACY SAVE REMOVED:"
-            LET eventdata$ = sloc$ + temp48$
-            LET eventnumber = x
-            GOSUB consoleprinter
-        END IF
-        LET findoldsave% = 0
-    LOOP UNTIL x = temp162
-    CLOSE #42
-    REM scrubs values
-    LET x = 0
-    LET temp162 = 0
-    REM removes list file
-    IF ros$ = "win" THEN SHELL _HIDE "del " + dloc$ + "oldsaves.tmp"
-    IF ros$ = "lnx" OR ros$ = "mac" THEN SHELL _HIDE "rm " + dloc$ + "oldsaves.tmp"
-    GOTO saverestore: REM loops back to start
-END IF
-REM tells console
-LET eventtitle$ = "MENU LOADED:"
-LET eventdata$ = "save restore menu"
-LET eventnumber = 0
-GOSUB consoleprinter
-REM loads menu backdrop
-LET restoremenubackdrop$ = "restoremenu"
-LET restoremenubackdrop = _LOADIMAGE(menuloc$ + restoremenubackdrop$ + ".png")
-REM displays save restore menu
-LET x = 1
-LET xx = 1
-LET restoremenu = 1
-DO
-    CLS
-    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), restoremenubackdrop
-    OPEN dloc$ + "oldsaves.tmp" FOR INPUT AS #42
-    COLOR _RGBA(letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura), _RGBA(bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura)
-    PRINT "SELECT SAVE TO RESTORE:": PRINT
-    IF x = xx THEN
-        COLOR _RGBA(letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura), _RGBA(bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura)
-    ELSE
-        COLOR _RGBA(letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura), _RGBA(bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura)
-    END IF
-    PRINT "BACK"
-    DO
-        INPUT #42, temp48$
-        LET findoldsave% = INSTR(findoldsave% + 1, temp48$, ".old")
-        IF findoldsave% THEN
-            REM seperates date from old save
-            LET x = x + 1
-            LET oldsavename$ = MID$(temp48$, 9, LEN(temp48$) - 12)
-            REM sets colour
-            IF x = xx THEN
-                COLOR _RGBA(letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura), _RGBA(bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura)
-            ELSE
-                COLOR _RGBA(letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura), _RGBA(bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura)
-            END IF
-            REM prints name
-            PRINT oldsavename$
-        END IF
-        LET findoldsave% = 0
-    LOOP UNTIL EOF(42) OR x = 10
-    CLOSE #42
-    REM input loop
-    DO
-        LET dsr = _KEYHIT
-        _LIMIT hertz
-        GOSUB musicfadeout
-        GOSUB musicfadein
-    LOOP UNTIL dsr = ucontrolcode1 OR dsr = ucontrolcode2 OR dsr = ucontrolcode3 OR dsr = ucontrolcode4 OR dsr = dcontrolcode1 OR dsr = dcontrolcode2 OR dsr = dcontrolcode3 OR dsr = dcontrolcode4 OR dsr = scontrolcode1 OR dsr = scontrolcode2 OR dsr = scontrolcode3 OR dsr = scontrolcode4
-    REM decides results from input
-    REM up
-    IF dsr = ucontrolcode1 OR dsr = ucontrolcode2 OR dsr = ucontrolcode3 OR dsr = ucontrolcode4 THEN
-        LET xx = xx - 1
-        IF xx < 1 THEN
-            LET xx = 1
-        ELSE
-            LET playsfx$ = "move"
-            GOSUB sfxplay
-        END IF
-    END IF
-    REM down
-    IF dsr = dcontrolcode1 OR dsr = dcontrolcode2 OR dsr = dcontrolcode3 OR dsr = dcontrolcode4 THEN
-        LET xx = xx + 1
-        IF xx > 10 OR xx > x THEN
-            LET xx = x
-        ELSE
-            LET playsfx$ = "move"
-            GOSUB sfxplay
-        END IF
-    END IF
-    REM select
-    IF dsr = scontrolcode1 OR dsr = scontrolcode2 OR dsr = scontrolcode3 OR dsr = scontrolcode4 THEN
-        REM plays sound
-        LET playsfx$ = "select"
-        GOSUB sfxplay
-        REM back
-        IF xx = 1 THEN LET xxx = 1
-        REM save restore
-        IF xx > 1 THEN
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), modmenubackdrop: REM redraws meny background
-            LET scriptname$ = "restoreoldsave"
-            LET mapscript = 5
-            GOSUB script
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), modmenubackdrop: REM redraws meny background
-            FOR x = 1 TO 2
-                IF x = 1 THEN LET choicename$(x) = "YES"
-                IF x = 2 THEN LET choicename$(x) = "NO"
-            NEXT x
-            LET choicetotal = 2
-            GOSUB choicebannerdraw
-            LET choicetotal = 0
-            IF choiceno = 1 THEN
-                LET xxxx = 1
-                REM show loading icon
-                CLS
-                _PUTIMAGE (1, 1)-((loadiconresx), loadiconresy), loadicon
-                OPEN dloc$ + "oldsaves.tmp" FOR INPUT AS #42
-                DO
-                    REM detects selected save
-                    INPUT #42, temp48$
-                    LET findoldsave% = INSTR(findoldsave% + 1, temp48$, ".old")
-                    IF findoldsave% THEN
-                        LET xxxx = xxxx + 1
-                    END IF
-                    LET findoldsave% = 0
-                LOOP UNTIL xxxx = xx
-                CLOSE #42
-                GOSUB savetime: REM updates time played in save file
-                REM halt any timed scripts
-                LET scripttimer = 0
-                LET iscripttimer = 0
-                LET scripttimername$ = ""
-                REM erases save then restores old one
-                IF ros$ = "win" THEN
-                    IF _FILEEXISTS(sloc$ + "savedata" + DATE$ + ".old") THEN
-                        LET x = 0
-                        LET y = 0
-                        DO
-                            LET x = x + 1
-                            IF _FILEEXISTS(sloc$ + "savedata" + DATE$ + "-" + LTRIM$(STR$(x)) + ".old") THEN
-                                LET y = 0
-                            ELSE
-                                LET y = 1
-                            END IF
-                        LOOP UNTIL y = 1
-                        SHELL _HIDE "copy " + sloc$ + "savedata.ddf " + sloc$ + "savedata" + DATE$ + "-" + LTRIM$(STR$(x)) + ".old"
-                        LET x = 0
-                        LET y = 0
-                    ELSE
-                        SHELL _HIDE "copy " + sloc$ + "savedata.ddf " + sloc$ + "savedata" + DATE$ + ".old"
-                    END IF
-                    SHELL _HIDE "del " + sloc$ + "savedata.ddf"
-                    SHELL _HIDE "copy " + sloc$ + temp48$ + " " + sloc$ + "savedata.ddf"
-                END IF
-                IF ros$ = "lnx" OR ros$ = "mac" THEN
-                    IF _FILEEXISTS(sloc$ + "savedata" + DATE$ + ".old") THEN
-                        LET x = 0
-                        LET y = 0
-                        DO
-                            LET x = x + 1
-                            IF _FILEEXISTS(sloc$ + "savedata" + DATE$ + "-" + LTRIM$(STR$(x)) + ".old") THEN
-                                LET y = 0
-                            ELSE
-                                LET y = 1
-                            END IF
-                        LOOP UNTIL y = 1
-                        SHELL _HIDE "cp " + sloc$ + "savedata.ddf " + sloc$ + "savedata" + DATE$ + "-" + LTRIM$(STR$(x)) + ".old"
-                        LET x = 0
-                        LET y = 0
-                    ELSE
-                        SHELL _HIDE "cp " + sloc$ + "savedata.ddf " + sloc$ + "savedata" + DATE$ + ".old"
-                    END IF
-                    SHELL _HIDE "rm " + sloc$ + "savedata.ddf"
-                    SHELL _HIDE "cp " + sloc$ + temp48$ + " " + sloc$ + "savedata.ddf"
-                END IF
-                REM tells console
-                LET eventtitle$ = "SAVE RESTORED:"
-                LET eventdata$ = sloc$ + temp48$
-                LET eventnumber = 0
-                GOSUB consoleprinter
-                CLS
-                IF setupboot = 0 THEN LET oldmapno = mapno: LET oldmplayermodel$ = mplayermodel$
-                GOSUB saveload: REM loads new save data
-                IF setupboot = 0 THEN GOSUB mainplayerload: GOSUB mapload
-                LET scriptname$ = "saverestored"
-                LET mapscript = 5
-                GOSUB script
-                REM re-enable any disabled controls
-                LET ucontrol = 1
-                LET dcontrol = 1
-                LET lcontrol = 1
-                LET rcontrol = 1
-                LET scontrol = 1
-                LET bcontrol = 1
-                LET pcontrol = 1
-                REM reset save time values
-                LET sitime = TIMER
-                LET stime = 0
-                LET gametime = 0
-                REM removes temp files
-                IF ros$ = "win" THEN SHELL _HIDE "del " + dloc$ + "oldsaves.tmp"
-                IF ros$ = "lnx" OR ros$ = "mac" THEN SHELL _HIDE "rm " + dloc$ + "oldsaves.tmp"
-                LET restoremenu = 0
-                LET x = 0: LET xx = 0: LET xxx = 0: LET xxxx = 0: LET dsr = 0: LET temp48$ = "": LET oldsaveamount = 0: LET oldsavename$ = "": REM scrub temp values
-                RETURN
-            END IF
-        END IF
-    END IF
-    LET x = 1
-LOOP UNTIL xxx = 1
-REM removes temp files
-IF ros$ = "win" THEN SHELL _HIDE "del " + dloc$ + "oldsaves.tmp"
-IF ros$ = "lnx" OR ros$ = "mac" THEN SHELL _HIDE "rm " + dloc$ + "oldsaves.tmp"
-LET restoremenu = 0
-LET x = 0: LET xx = 0: LET xxx = 0: LET xxxx = 0: LET dsr = 0: LET temp161 = 0: LET temp48$ = "": LET oldsaveamount = 0: LET oldsavename$ = "": REM scrub temp values
-_FREEIMAGE restoremenubackdrop
 RETURN
 
 displayconsole:
@@ -6263,14 +6188,14 @@ IF ros$ = "lnx" OR ros$ = "mac" THEN
                 LET y = 1
             END IF
         LOOP UNTIL y = 1
-        SHELL _HIDE "cp " + sloc$ + "savedata.ddf " + sloc$ + "savedata" + DATE$ + "-" + LTRIM$(STR$(x)) + ".old"
+        SHELL _HIDE "cp " + sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf " + sloc$ + "savedata" + DATE$ + "-" + LTRIM$(STR$(x)) + ".old"
         LET x = 0
         LET y = 0
     ELSE
-        SHELL _HIDE "cp " + sloc$ + "savedata.ddf " + sloc$ + "savedata" + DATE$ + ".old"
+        SHELL _HIDE "cp " + sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf " + sloc$ + "savedata" + DATE$ + ".old"
     END IF
-    SHELL _HIDE "rm " + sloc$ + "savedata.ddf"
-    SHELL _HIDE "cp " + sloc$ + "defaultsave.ddf " + sloc$ + "savedata.ddf"
+    SHELL _HIDE "rm " + sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf"
+    SHELL _HIDE "cp " + sloc$ + "defaultsave.ddf " + sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf"
 END IF
 REM windows
 IF ros$ = "win" THEN
@@ -6285,18 +6210,18 @@ IF ros$ = "win" THEN
                 LET y = 1
             END IF
         LOOP UNTIL y = 1
-        SHELL _HIDE "copy " + sloc$ + "savedata.ddf " + sloc$ + "savedata" + DATE$ + "-" + LTRIM$(STR$(x)) + ".old"
+        SHELL _HIDE "copy " + sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf " + sloc$ + "savedata" + DATE$ + "-" + LTRIM$(STR$(x)) + ".old"
         LET x = 0
         LET y = 0
     ELSE
-        SHELL _HIDE "copy " + sloc$ + "savedata.ddf " + sloc$ + "savedata" + DATE$ + ".old"
+        SHELL _HIDE "copy " + sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf " + sloc$ + "savedata" + DATE$ + ".old"
     END IF
-    SHELL _HIDE "del " + sloc$ + "savedata.ddf"
-    SHELL _HIDE "copy " + sloc$ + "defaultsave.ddf " + sloc$ + "savedata.ddf"
+    SHELL _HIDE "del " + sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf"
+    SHELL _HIDE "copy " + sloc$ + "defaultsave.ddf " + sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf"
 END IF
 REM tells console
 LET eventtitle$ = "SAVEDATA ERASED:"
-LET eventdata$ = sloc$ + "savedata.ddf"
+LET eventdata$ = sloc$ + "savedata" + LTRIM$(STR$(saveslot)) + ".ddf"
 LET eventnumber = 0
 GOSUB consoleprinter
 CLS
@@ -6385,7 +6310,7 @@ LOOP UNTIL x >= maptriggerno
 REM plays music
 IF playmusic$ <> "" THEN GOSUB musicplay
 REM fades in
-IF setupboot = 0 AND scriptrun = 0 THEN GOSUB fadein
+IF setupboot = 0 AND scriptrun = 0 AND savemenu = 0 THEN GOSUB fadein
 RETURN
 
 carryplayervalues:
@@ -8327,6 +8252,7 @@ ELSE
     LET triggerspoofa = 1
     LET nextmapscript = mapscript
     LET nodraw = 1
+    LET temp243 = 1
     IF findbackchoice% THEN
         REM script in previous chain
         LET findchoiceno% = 0
@@ -9953,7 +9879,7 @@ ELSE
     RETURN
 END IF
 LET oldscript$ = scriptname$
-IF scriptswitch = 1 AND triggerspoofa = 0 THEN
+IF scriptswitch = 1 AND triggerspoofa = 0 AND mapscript <> 5 THEN
 	REM switches to a different mainplayer sprite
 	LET oldmplayermodel$ = mplayermodel$
 	LET oldscriptswitch$ = mplayermodel$
@@ -10619,21 +10545,25 @@ IF temp86 = 1 THEN
     LET temp23$ = ""
     LET temp61$ = ""
 END IF
-IF temp200 = 0 AND scriptswitch = 1 THEN
-	IF scriptswitch2 = 0 THEN
-		REM switches back to a previous sprite if needed
-		LET oldmplayermodel$ = mplayermodel$
-		LET mplayermodel$ = oldscriptswitch$
-		LET oldscriptswitch$ = ""
-		GOSUB mainplayerload
-		LET eventtitle$ = "SCRIPT MAINPLAYER SPRITE RESET:"
-		LET eventdata$ = mplayermodel$
-		LET eventnumber = 0
-		GOSUB consoleprinter
-	ELSE
-		REM skips as the mainplayer sprite has already been changed by the script 
-		LET oldscriptswitch$ = ""
-		LET scriptswitch2 = 0
+REM changes back mainplayer sprite of auto script switching is on
+IF triggerspoofa = 0 THEN LET temp243 = 0
+IF temp200 = 0 AND temp243 = 0 THEN
+	IF scriptswitch = 1 THEN
+		IF scriptswitch2 = 0 THEN
+			REM switches back to a previous sprite if needed
+			LET oldmplayermodel$ = mplayermodel$
+			LET mplayermodel$ = oldscriptswitch$
+			LET oldscriptswitch$ = ""
+			GOSUB mainplayerload
+			LET eventtitle$ = "SCRIPT MAINPLAYER SPRITE RESET:"
+			LET eventdata$ = mplayermodel$
+			LET eventnumber = 0
+			GOSUB consoleprinter
+		ELSE
+			REM skips as the mainplayer sprite has already been changed by the script 
+			LET oldscriptswitch$ = ""
+			LET scriptswitch2 = 0
+		END IF
 	END IF
 END IF
 IF scriptskip = 1 AND temp200 = 0 THEN GOSUB fadein: REM fade in after a script is skipped
@@ -11831,6 +11761,7 @@ DO
         IF value$ = "tosfile" THEN INPUT "INSERT VALUE> "; temp1$: LET tosfile$ = temp1$: LET temp = 1
         IF value$ = "huntstatus" THEN INPUT "INSERT VALUE> "; temp5: LET huntstatus = temp5: LET temp = 1
         IF value$ = "scriptswitch" THEN INPUT "INSERT VALUE> "; temp5: LET scriptswitch = temp5: LET temp = 1
+        IF value$ = "saveslot" THEN INPUT "INSERT VALUE> "; temp5: LET saveslot = temp5: LET temp = 1
         IF value$ = "checkpoint" THEN
             INPUT "INSERT VALUE> "; temp5
             IF checkpoint(temp5) = 0 THEN
@@ -11947,6 +11878,7 @@ DO
         IF value$ = "tempmusicfade" THEN PRINT tempmusicfade: LET temp = 1
         IF value$ = "tosfile" THEN PRINT tosfile$: LET temp = 1
         IF value$ = "scriptswitch" THEN PRINT scriptswitch: LET temp = 1
+        IF value$ = "saveslot" THEN PRINT saveslot: LET temp = 1
         IF value$ = "checkpoint" THEN
             LET temp = 1
             LET x = 0
