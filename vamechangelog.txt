@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+27/05/2025 - Update 204. (2.9.41)
+BUG FIXES
+- Fixed bug where auto script sprite changing would mess up if the player attempted to quit via clicking the window close button.
+
 27/05/2025 - Update 203. (2.9.40)
 BUG FIXES
 - Fixed bug where erasing a save slot that wasn't currently selected would erase both that save slot and the selected save slot.

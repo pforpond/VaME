@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.40
+REM Build 2.9.41
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,40,2940
-$VERSIONINFO:PRODUCTVERSION#=2,9,40,2940
+$VERSIONINFO:FILEVERSION#=2,9,41,2941
+$VERSIONINFO:PRODUCTVERSION#=2,9,41,2941
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.40"
+LET hardbuild$ = "2.9.41"
 
 setup:
 REM initiates engine and assigns values
@@ -10551,7 +10551,7 @@ IF temp86 = 1 THEN
 END IF
 REM changes back mainplayer sprite of auto script switching is on
 IF triggerspoofa = 0 THEN LET temp243 = 0
-IF temp200 = 0 AND temp243 = 0 THEN
+IF temp200 = 0 AND temp243 = 0 AND mapscript <> 5 THEN
 	IF scriptswitch = 1 THEN
 		IF scriptswitch2 = 0 THEN
 			REM switches back to a previous sprite if needed
