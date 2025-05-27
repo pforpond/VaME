@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.39
+REM Build 2.9.40
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,39,2939
-$VERSIONINFO:PRODUCTVERSION#=2,9,39,2939
+$VERSIONINFO:FILEVERSION#=2,9,40,2940
+$VERSIONINFO:PRODUCTVERSION#=2,9,40,2940
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.39"
+LET hardbuild$ = "2.9.40"
 
 setup:
 REM initiates engine and assigns values
@@ -5172,17 +5172,17 @@ DO
 	_PRINTSTRING(sst1x, sst1y), saveslottitle$ + " 1"
 	_PRINTSTRING(sst2x, sst2y), saveslottitle$ + " 2"
 	_PRINTSTRING(sst3x, sst3y), saveslottitle$ + " 3"
-	IF saveslotdate1$ = "NEW" THEN
+	IF saveslot1date$ = "NEW" THEN
 		_PRINTSTRING(sstd1x, sstd1y), newslotname$
 	ELSE
 		_PRINTSTRING(sstd1x, sstd1y), saveslot1date$
 	END IF
-	IF saveslotdate2$ = "NEW" THEN
+	IF saveslot2date$ = "NEW" THEN
 		_PRINTSTRING(sstd2x, sstd2y), newslotname$
 	ELSE
 		_PRINTSTRING(sstd2x, sstd2y), saveslot2date$
 	END IF
-	IF saveslotdate3$ = "NEW" THEN
+	IF saveslot3date$ = "NEW" THEN
 		_PRINTSTRING(sstd3x, sstd3y), newslotname$
 	ELSE
 		_PRINTSTRING(sstd3x, sstd3y), saveslot3date$
@@ -5253,7 +5253,7 @@ DO
 						END IF
 					END IF
 				ELSE
-					LET scriptname$ = "selectsavefail"
+					LET scriptname$ = "selectsavefailed"
 					LET mapscript = 5
 					GOSUB script	
 				END IF
@@ -5276,17 +5276,21 @@ DO
 				LET choicetotal = 2
 				GOSUB choicebannerdraw
 				IF choiceno = 1 THEN
-					CLS
-					LET scriptname$ = "posterasesave"
-					LET mapscript = 5
-					GOSUB script
-					CLS
-					LET temp246 = saveslot
-					LET saveslot = temp244
-					GOSUB erasesave
-					LET saveslot = temp246
-					LET temp246 = 0
-					LET temp247 = 1
+					IF saveslot = temp244 THEN
+						CLS
+						GOSUB erasesave
+						LET temp247 = 1
+						CLS
+						_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+						LET scriptname$ = "posterasesave"
+						LET mapscript = 5
+						GOSUB script
+					ELSE
+						_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+						LET scriptname$ = "erasesavefailed"
+						LET mapscript = 5
+						GOSUB script
+					END IF
 				END IF
 				LET temp245 = 1
 				LET choiceno = 0

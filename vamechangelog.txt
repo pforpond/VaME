@@ -1,6 +1,13 @@
 VAME CHANGELOG
 By Danielle Pond
 
+27/05/2025 - Update 203. (2.9.40)
+BUG FIXES
+- Fixed bug where erasing a save slot that wasn't currently selected would erase both that save slot and the selected save slot.
+- Fixed bug where NEW GAME text wasn't showing in an empty save slot correctly.
+TWEAKS
+- Changed majorskip script in example game so it doesn't spawn the mainplayer on top of an exit trigger.
+
 26/05/2025 - Update 202. (2.9.39)
 NEW FEATURES
 - Changed saves to slot system. Three slots are available.
