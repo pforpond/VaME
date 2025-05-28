@@ -1,6 +1,15 @@
 VAME CHANGELOG
 By Danielle Pond
 
+28/05/2025 - Update 205. (2.9.42)
+BUG FIXES
+- Fixed issue where switching save slot would prematurely play the map music.
+TWEAKS
+- Added loading icon for when switching save slot.
+- Added loading icon for when erasing a save slot.
+- Added loading icon for when loading the save slot manager.
+- Changed erase save menus to display the failure error before the confirmation dialogue.
+
 27/05/2025 - Update 204. (2.9.41)
 BUG FIXES
 - Fixed bug where auto script sprite changing would mess up if the player attempted to quit via clicking the window close button.

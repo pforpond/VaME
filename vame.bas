@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.41
+REM Build 2.9.42
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,41,2941
-$VERSIONINFO:PRODUCTVERSION#=2,9,41,2941
+$VERSIONINFO:FILEVERSION#=2,9,42,2942
+$VERSIONINFO:PRODUCTVERSION#=2,9,42,2942
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.41"
+LET hardbuild$ = "2.9.42"
 
 setup:
 REM initiates engine and assigns values
@@ -5140,6 +5140,9 @@ REM manages save slots
 REM load assets and save data
 LET savemenu = 1
 LET savemenubackdrop = _LOADIMAGE(menuloc$ + "savemenu.png")
+CLS
+_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+_PUTIMAGE (1, 1)-((loadiconresx), loadiconresy), loadicon
 GOSUB savehealthcheck
 REM tells console
 LET eventtitle$ = "MENU LOADED:"
@@ -5243,14 +5246,19 @@ DO
 						IF setupboot = 0 THEN GOSUB savesave
 					END IF
 					IF temp245 = 0 THEN
-						LET textspeech$ = saveslottitle$ + " " + LTRIM$(STR$(temp244)) + " SELECTED!"
-						GOSUB textbannerdraw
+						CLS
+						_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+						_PUTIMAGE (1, 1)-((loadiconresx), loadiconresy), loadicon
 						LET saveslot = temp244
 						IF setupboot = 0 THEN
 							GOSUB loadgame
 						ELSE
 							GOSUB saveload
 						END IF
+						CLS
+						_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+						LET textspeech$ = saveslottitle$ + " " + LTRIM$(STR$(temp244)) + " SELECTED!"
+						GOSUB textbannerdraw
 					END IF
 				ELSE
 					LET scriptname$ = "selectsavefailed"
@@ -5262,22 +5270,24 @@ DO
             END IF
             IF choiceno = 2 THEN
 				REM erase save!
-				CLS
-				_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
-				LET scriptname$ = "erasesave"
-				LET mapscript = 5
-				GOSUB script
-				CLS
-				_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
-				FOR x = 1 TO 2
-					IF x = 1 THEN LET choicename$(x) = "YES"
-					IF x = 2 THEN LET choicename$(x) = "NO"
-				NEXT x
-				LET choicetotal = 2
-				GOSUB choicebannerdraw
-				IF choiceno = 1 THEN
-					IF saveslot = temp244 THEN
+				IF saveslot = temp244 THEN
+					CLS
+					_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+					LET scriptname$ = "erasesave"
+					LET mapscript = 5
+					GOSUB script
+					CLS
+					_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+					FOR x = 1 TO 2
+						IF x = 1 THEN LET choicename$(x) = "YES"
+						IF x = 2 THEN LET choicename$(x) = "NO"
+					NEXT x
+					LET choicetotal = 2
+					GOSUB choicebannerdraw
+					IF choiceno = 1 THEN
 						CLS
+						_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+						_PUTIMAGE (1, 1)-((loadiconresx), loadiconresy), loadicon
 						GOSUB erasesave
 						LET temp247 = 1
 						CLS
@@ -5285,12 +5295,13 @@ DO
 						LET scriptname$ = "posterasesave"
 						LET mapscript = 5
 						GOSUB script
-					ELSE
-						_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
-						LET scriptname$ = "erasesavefailed"
-						LET mapscript = 5
-						GOSUB script
 					END IF
+				ELSE
+					CLS
+					_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+					LET scriptname$ = "erasesavefailed"
+					LET mapscript = 5
+					GOSUB script
 				END IF
 				LET temp245 = 1
 				LET choiceno = 0
@@ -6312,7 +6323,7 @@ DO
     LET triggera(x) = 0
 LOOP UNTIL x >= maptriggerno
 REM plays music
-IF playmusic$ <> "" THEN GOSUB musicplay
+IF playmusic$ <> "" AND savemenu = 0 THEN GOSUB musicplay
 REM fades in
 IF setupboot = 0 AND scriptrun = 0 AND savemenu = 0 THEN GOSUB fadein
 RETURN
