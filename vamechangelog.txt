@@ -1,6 +1,17 @@
 VAME CHANGELOG
 By Danielle Pond
 
+09/06/2025 - Update 206. (2.9.43)
+NEW FEATURES
+- Footstep audio for when players or NPCs are walking.
+- Added footstep audio to example game.
+BUG FIXES
+- Sound effects now play whilst using the new save slot menu.
+TWEAKS
+- Switching save slot loading is now done on a black background instead of the menu background.
+- Removed redundant code when erasing a save.
+- Added engine card sound effect to example game.
+
 28/05/2025 - Update 205. (2.9.42)
 BUG FIXES
 - Fixed issue where switching save slot would prematurely play the map music.

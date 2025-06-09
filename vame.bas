@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.42
+REM Build 2.9.43
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,42,2942
-$VERSIONINFO:PRODUCTVERSION#=2,9,42,2942
+$VERSIONINFO:FILEVERSION#=2,9,43,2943
+$VERSIONINFO:PRODUCTVERSION#=2,9,43,2943
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.42"
+LET hardbuild$ = "2.9.43"
 
 setup:
 REM initiates engine and assigns values
@@ -27,7 +27,7 @@ GOSUB modload: REM checks to see if any mods are requested instead of main game
 REM check metadata exists, checks developer console settings and load engine values
 IF _FILEEXISTS(dloc$ + "engine.ddf") THEN
     OPEN dloc$ + "engine.ddf" FOR INPUT AS #1
-    INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, moveupgamepad1$, movedowngamepad1$, moveleftgamepad1$, moverightgamepad1$, selectgamepad1$, pocketgamepad1$, backgamepad1$, moveupgamepad2$, movedowngamepad2$, moveleftgamepad2$, moverightgamepad2$, selectgamepad2$, pocketgamepad2$, backgamepad2$, moveupgamepad3$, movedowngamepad3$, moveleftgamepad3$, moverightgamepad3$, selectgamepad3$, pocketgamepad3$, backgamepad3$, moveupgamepad4$, movedowngamepad4$, moveleftgamepad4$, moverightgamepad4$, selectgamepad4$, pocketgamepad4$, backgamepad4$, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, pocketselectlayer, pocketmergeactiontext1x, pocketmergeactiontext1y, pocketmergeactiontext2x, pocketmergeactiontext2y, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, textbannerline1, textbannerline2, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, choicebannerline, galleryarrowlx, galleryarrowly, galleryarrowrx, galleryarrowry, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$, exclaim1name$, exclaim2name$, exclaimresx, exclaimresy, exclaimstep, exclaimamount, scriptswitch, saveslotdname$, saveslotsname$, saveselectname$, ss1x, ss1y, ss2x, ss2y, ss3x, ss3y, saveslottitle$, newslotname$, sst1x, sst1y, sst2x, sst2y, sst3x, sst3y, sstd1x, sstd1y, sstd2x, sstd2y, sstd3x, sstd3y, sss1x, sss1y, sss2x, sss2y, sss3x, sss3y
+    INPUT #1, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, moveupgamepad1$, movedowngamepad1$, moveleftgamepad1$, moverightgamepad1$, selectgamepad1$, pocketgamepad1$, backgamepad1$, moveupgamepad2$, movedowngamepad2$, moveleftgamepad2$, moverightgamepad2$, selectgamepad2$, pocketgamepad2$, backgamepad2$, moveupgamepad3$, movedowngamepad3$, moveleftgamepad3$, moverightgamepad3$, selectgamepad3$, pocketgamepad3$, backgamepad3$, moveupgamepad4$, movedowngamepad4$, moveleftgamepad4$, moverightgamepad4$, selectgamepad4$, pocketgamepad4$, backgamepad4$, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, footstepmode, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, pocketselectlayer, pocketmergeactiontext1x, pocketmergeactiontext1y, pocketmergeactiontext2x, pocketmergeactiontext2y, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, textbannerline1, textbannerline2, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, choicebannerline, galleryarrowlx, galleryarrowly, galleryarrowrx, galleryarrowry, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$, exclaim1name$, exclaim2name$, exclaimresx, exclaimresy, exclaimstep, exclaimamount, scriptswitch, saveslotdname$, saveslotsname$, saveselectname$, ss1x, ss1y, ss2x, ss2y, ss3x, ss3y, saveslottitle$, newslotname$, sst1x, sst1y, sst2x, sst2y, sst3x, sst3y, sstd1x, sstd1y, sstd2x, sstd2y, sstd3x, sstd3y, sss1x, sss1y, sss2x, sss2y, sss3x, sss3y
     CLOSE #1
     REM finds metadata directory paths
     IF _FILEEXISTS(dloc$ + "fileloc.ddf") THEN
@@ -312,6 +312,8 @@ DIM playerlayer(totalplayers) AS INTEGER
 DIM playerlayer2(totalplayers) AS INTEGER
 DIM autoplayercull(totalplayers) AS INTEGER
 DIM playerhighlight(totalplayers) AS INTEGER
+DIM playeronscreen1(totalplayers) AS INTEGER
+DIM playeronscreen2(totalplayers) AS INTEGER
 REM hunter values
 DIM hunttempn(totaltriggers) AS INTEGER
 DIM hunttemps(totaltriggers) AS STRING
@@ -433,7 +435,7 @@ RETURN
 checkflatpakupdate:
 REM check for flatpak updates
 OPEN "data/engine.ddf" FOR INPUT AS #42
-INPUT #42, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, moveupgamepad1$, movedowngamepad1$, moveleftgamepad1$, moverightgamepad1$, selectgamepad1$, pocketgamepad1$, backgamepad1$, moveupgamepad2$, movedowngamepad2$, moveleftgamepad2$, moverightgamepad2$, selectgamepad2$, pocketgamepad2$, backgamepad2$, moveupgamepad3$, movedowngamepad3$, moveleftgamepad3$, moverightgamepad3$, selectgamepad3$, pocketgamepad3$, backgamepad3$, moveupgamepad4$, movedowngamepad4$, moveleftgamepad4$, moverightgamepad4$, selectgamepad4$, pocketgamepad4$, backgamepad4$, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, pocketselectlayer, pocketmergeactiontext1x, pocketmergeactiontext1y, pocketmergeactiontext2x, pocketmergeactiontext2y, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, textbannerline1, textbannerline2, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, choicebannerline, galleryarrowlx, galleryarrowly, galleryarrowrx, galleryarrowry, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$, exclaim1name$, exclaim2name$, exclaimresx, exclaimresy, exclaimstep, exclaimamount, scriptswitch, saveslotdname$, saveslotsname$, saveselectname$, ss1x, ss1y, ss2x, ss2y, ss3x, ss3y, saveslottitle$, newslotname$, sst1x, sst1y, sst2x, sst2y, sst3x, sst3y, sstd1x, sstd1y, sstd2x, sstd2y, sstd3x, sstd3y, sss1x, sss1y, sss2x, sss2y, sss3x, sss3y
+INPUT #42, devmode, consolelogging, displayconsole, autoupdate, installtype, devlogono, selectobjecthighlight, musictransitionmode, musicfadechange, title$, filename$, totalobjects, totalplayers, totaltriggers, totalpockets, totalcheckpoints, totalframes, totalsfxs, totalmusics, totalscriptvalues, totalawards, resx, resy, hertz, extrahertz, exitsave, autotxtsfx, ucontrol, dcontrol, lcontrol, rcontrol, scontrol, pcontrol, bcontrol, ucontrolcode1, ucontrolcode2, ucontrolcode3, ucontrolcode4, dcontrolcode1, dcontrolcode2, dcontrolcode3, dcontrolcode4, lcontrolcode1, lcontrolcode2, lcontrolcode3, locontrolcode4, rcontrolcode1, rcontrolcode2, rcontrolcode3, rcontrolcode4, scontrolcode1, scontrolcode2, scontrolcode3, scontrolcode4, pcontrolcode1, pcontrolcode2, pcontrolcode3, pcontrolcode4, bcontrolcode1, bcontrolcode2, bcontrolcode3, bcontrolcode4, moveupgamepad1$, movedowngamepad1$, moveleftgamepad1$, moverightgamepad1$, selectgamepad1$, pocketgamepad1$, backgamepad1$, moveupgamepad2$, movedowngamepad2$, moveleftgamepad2$, moverightgamepad2$, selectgamepad2$, pocketgamepad2$, backgamepad2$, moveupgamepad3$, movedowngamepad3$, moveleftgamepad3$, moverightgamepad3$, selectgamepad3$, pocketgamepad3$, backgamepad3$, moveupgamepad4$, movedowngamepad4$, moveleftgamepad4$, moverightgamepad4$, selectgamepad4$, pocketgamepad4$, backgamepad4$, enableobjectoffsets, enableplayeroffsets, enablemapoffsets, fadespeed, pace, objectstep, collisionstep, playeridle, footpace, footstepmode, fontname$, fontsize, fontstyle$, fontbuffer, imode, playerwalkdivide, scriptwalkdivide, scriptimage$, scriptimageresx, scriptimageresy, pockethudimage$, pockethudresx, pockethudresy, pocketarrowright$, pocketarrowleft$, pocketarrowselectright$, pocketarrowselectleft$, pocketarrowresx, pocketarrowresy, pockethudanispeed, pocketarrowrlocx, pocketarrowrlocy, pocketarrowllocx, pocketarrowllocy, pocketspritex, pocketspritey, pocketspriteresx, pocketspriteresy, pocketbanner$, pocketbannerresx, pocketbannerresy, pocketselectlayer, pocketmergeactiontext1x, pocketmergeactiontext1y, pocketmergeactiontext2x, pocketmergeactiontext2y, textbannersound, textbanner$, textbannername$, textbannerresx, textbannerresy, textbannerline1, textbannerline2, pocketselect$, pocketselectx, pocketselecty, pocketselectresx, pocketselectresy, lookaction$, lookx, useaction$, giveaction$, combineaction$, usex, givex, combinex, textbannerfacey, textbannerfaceresx, textbannerfaceresy, choicebanner$, choicearrowl, choicearrowr, choicebannerline, galleryarrowlx, galleryarrowly, galleryarrowrx, galleryarrowry, currencyname$, loadicon$, loadiconresx, loadiconresy, saveicon$, saveiconresx, saveiconresy, downloadicon$, downloadiconresx, downloadiconresy, torcheffectfile$, loadbar$, devlogo$, devlogomode, awardbanner$, awardbannerresx, awardbannerresy, awardbannerlocx, awardbannerlocy, awarditemresx, awarditemresy, awarditemlocx, awarditemlocy, awardtextlocx, awardtextlocy, awardgracetime, awardtitle$, awardnotification$, awardspeed, awardnone$, awardarrowleft$, awardarrowright$, awardarrowselectleft$, awardarrowselectright$, versionno$, engineversionno$, updatelink$, updatekey$, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura, letselectbannercolourr, letselectbannercolourg, letselectbannercolourb, letselectbannercoloura, bgselectbannercolourr, bgselectbannercolourg, bgselectbannercolourb, bgselectbannercoloura, spoofoptiontitle$, spoofoption1$, spoofoption2$, spoofoption1result$, spoofoption2result$, moddingname$, exclaim1name$, exclaim2name$, exclaimresx, exclaimresy, exclaimstep, exclaimamount, scriptswitch, saveslotdname$, saveslotsname$, saveselectname$, ss1x, ss1y, ss2x, ss2y, ss3x, ss3y, saveslottitle$, newslotname$, sst1x, sst1y, sst2x, sst2y, sst3x, sst3y, sstd1x, sstd1y, sstd2x, sstd2y, sstd3x, sstd3y, sss1x, sss1y, sss2x, sss2y, sss3x, sss3y
 CLOSE #42
 IF flatpakversionno$ <> versionno$ THEN
 	REM version mismatch! begin upgrade!
@@ -5204,6 +5206,8 @@ DO
 				LET temp244 = 1
 			ELSE
 				LET temp245 = 1
+				LET playsfx$ = "move"
+				GOSUB sfxplay
 			END IF
 		END IF
 		IF d = dcontrolcode1 OR d = dcontrolcode2 OR d = dcontrolcode3 OR d = dcontrolcode4 THEN 
@@ -5213,10 +5217,14 @@ DO
 				LET temp244 = 3
 			ELSE
 				LET temp245 = 1
+				LET playsfx$ = "move"
+				GOSUB sfxplay
 			END IF
 		END IF
 		IF d = scontrolcode1 OR d = scontrolcode2 OR d = scontrolcode3 OR d = scontrolcode4 THEN
 			REM select slot
+			LET playsfx$ = "select"
+			GOSUB sfxplay
 			FOR x = 1 TO 3
                 IF x = 1 THEN LET choicename$(x) = "SELECT"
                 IF x = 2 THEN LET choicename$(x) = "ERASE"
@@ -5247,7 +5255,6 @@ DO
 					END IF
 					IF temp245 = 0 THEN
 						CLS
-						_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
 						_PUTIMAGE (1, 1)-((loadiconresx), loadiconresy), loadicon
 						LET saveslot = temp244
 						IF setupboot = 0 THEN
@@ -5285,9 +5292,6 @@ DO
 					LET choicetotal = 2
 					GOSUB choicebannerdraw
 					IF choiceno = 1 THEN
-						CLS
-						_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
-						_PUTIMAGE (1, 1)-((loadiconresx), loadiconresy), loadicon
 						GOSUB erasesave
 						LET temp247 = 1
 						CLS
@@ -10686,16 +10690,68 @@ DO
 LOOP UNTIL temp49 >= mapplayerno OR temp49 >= totalplayers
 REM changes players foot when walking mainplayer
 IF mpfootloop >= footpace THEN
-    IF temp2 = 0 THEN IF mpfoot = 1 THEN LET mpfoot = 2: LET mpfootloop = 0: LET temp2 = 1
-    IF temp2 = 0 THEN IF mpfoot = 2 THEN LET mpfoot = 1: LET mpfootloop = 0: LET temp2 = 1
+	IF temp2 = 0 THEN
+		IF mpfoot = 1 THEN 
+			LET mpfoot = 2
+			LET mpfootloop = 0
+			LET temp2 = 1
+			IF mpwalking = 1 THEN
+				IF footstepmode = 1 OR footstepmode = -1 THEN LET playsfx$ = "footstep": GOSUB sfxplay
+				IF footstepmode = 2 THEN LET playsfx$ = "footstep-" + mplayermodel$: GOSUB sfxplay
+				IF footstepmode = 3 OR footstepmode = -2 THEN LET playsfx$ = "footstep1": GOSUB sfxplay
+				IF footstepmode = 4 THEN LET playsfx$ = "footstep1-" + mplayermodel$: GOSUB sfxplay
+			END IF
+		END IF
+	END IF
+	IF temp2 = 0 THEN
+		IF mpfoot = 2 THEN 
+			LET mpfoot = 1
+			LET mpfootloop = 0
+			LET temp2 = 1
+			IF mpwalking = 1 THEN
+				IF footstepmode = 1 OR footstepmode = -1 THEN LET playsfx$ = "footstep": GOSUB sfxplay
+				IF footstepmode = 2 THEN LET playsfx$ = "footstep-" + mplayermodel$: GOSUB sfxplay
+				IF footstepmode = 3 OR footstepmode = -2 THEN LET playsfx$ = "footstep2": GOSUB sfxplay
+				IF footstepmode = 4 THEN LET playsfx$ = "footstep2-" + mplayermodel$: GOSUB sfxplay
+			END IF
+		END IF
+    END IF
 END IF
 REM changes NPCs feet
 LET temp49 = 0
 DO
     LET temp49 = temp49 + 1
     IF pfootloop(temp49) >= footpace THEN
-        IF temp50 = 0 THEN IF pfoot(temp49) = 1 THEN LET pfoot(temp49) = 2: LET pfootloop(temp49) = 0: LET temp50 = 1
-        IF temp50 = 0 THEN IF pfoot(temp49) = 2 THEN LET pfoot(temp49) = 1: LET pfootloop(temp49) = 0: LET temp50 = 1
+        IF temp50 = 0 THEN 
+			IF pfoot(temp49) = 1 THEN
+				LET pfoot(temp49) = 2
+				LET pfootloop(temp49) = 0
+				LET temp50 = 1
+				IF playerwalking(temp49) = 1 THEN
+					IF playeronscreen1(temp49) = 1 OR playeronscreen2(temp49) = 1 THEN 
+						IF footstepmode = 1 THEN LET playsfx$ = "footstep": GOSUB sfxplay
+						IF footstepmode = 2 THEN LET playsfx$ = "footstep-" + playername$(temp49): GOSUB sfxplay
+						IF footstepmode = 3 THEN LET playsfx$ = "footstep1": GOSUB sfxplay
+						IF footstepmode = 4 THEN LET playsfx$ = "footstep1-" + playername$(temp49): GOSUB sfxplay
+					END IF
+				END IF
+			END IF
+		END IF
+        IF temp50 = 0 THEN 
+			IF pfoot(temp49) = 2 THEN
+				LET pfoot(temp49) = 1
+				LET pfootloop(temp49) = 0
+				LET temp50 = 1
+				IF playerwalking(temp49) = 1 THEN
+					IF playeronscreen1(temp49) = 1 OR playeronscreen2(temp49) = 1 THEN 
+						IF footstepmode = 1 THEN LET playsfx$ = "footstep": GOSUB sfxplay
+						IF footstepmode = 2 THEN LET playsfx$ = "footstep-" + playername$(temp49): GOSUB sfxplay
+						IF footstepmode = 3 THEN LET playsfx$ = "footstep2": GOSUB sfxplay
+						IF footstepmode = 4 THEN LET playsfx$ = "footstep2-" + playername$(temp49): GOSUB sfxplay
+					END IF
+				END IF
+			END IF
+		END IF
     END IF
     LET temp50 = 0
 LOOP UNTIL temp49 >= mapplayerno OR temp49 >= totalplayers
@@ -11212,8 +11268,12 @@ DO
     IF playerx(temp42) + playerresx(temp42) > ((resx / 2) - posx) - (resx / 2) AND playerx(temp42) < ((resx / 2) - posx) + (resx / 2) THEN LET drawpass1 = 1
     IF playery(temp42) + playerresy(temp42) > ((resy / 2) - posy) - (resy / 2) AND playery(temp42) < ((resy / 2) - posy) + (resy / 2) THEN LET drawpass2 = 1
     IF autoplayercull(temp42) = 0 THEN LET drawpass1 = 1: LET drawpass2 = 1
+    IF objectl = 1 THEN LET playeronscreen1(temp42) = 0
+    IF objectl = 2 THEN LET playeronscreen2(temp42) = 0
     REM draws player
     IF anisprite$ <> playername(temp42) AND objectl = playerlayer(temp42) AND drawpass1 = 1 AND drawpass2 = 1 THEN
+		IF objectl = 1 THEN LET playeronscreen1(temp42) = 1
+		IF objectl = 2 THEN LET playeronscreen2(temp42) = 1
         IF playerwalking(temp42) = 0 THEN
             IF playerd(temp42) = 2 THEN
                 IF INT(ctime + playeroffset(temp42)) MOD 2 THEN
