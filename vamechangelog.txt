@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+10/06/2025 - Update 207. (2.9.44)
+BUG FIXES
+- Fixed issue where running scripts from in game PCs whilst auto mainplayer sprite script switching is enabled would get confused and erase the name of the mainplayer sprite, resulting in a missing texture sprite appearing in place of the mainplayer.
+
 09/06/2025 - Update 206. (2.9.43)
 NEW FEATURES
 - Footstep audio for when players or NPCs are walking.

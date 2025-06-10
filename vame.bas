@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.43
+REM Build 2.9.44
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,43,2943
-$VERSIONINFO:PRODUCTVERSION#=2,9,43,2943
+$VERSIONINFO:FILEVERSION#=2,9,44,2944
+$VERSIONINFO:PRODUCTVERSION#=2,9,44,2944
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.43"
+LET hardbuild$ = "2.9.44"
 
 setup:
 REM initiates engine and assigns values
@@ -7298,8 +7298,10 @@ IF tselect$ = "exit" THEN
     REM plays sound
     LET playsfx$ = "terminaloff"
     GOSUB sfxplay
+    IF scriptswitch = 1 THEN LET triggerspoofa = 0
 END IF
 COLOR 0, 0
+IF scriptswitch = 1 AND triggerspoofa = 0 THEN GOSUB scriptswitchreset
 REM tells console
 LET eventtitle$ = "TERMINAL STOPPED:"
 LET eventdata$ = runterminal$
@@ -7308,6 +7310,25 @@ GOSUB consoleprinter
 REM return to game
 IF tselect$ = "exit" THEN LET fadestatus = 1: GOSUB fadein
 LET runterminal = 0: LET temp87 = 0: LET temp88 = 0: LET temp89 = 0: LET temp147 = 0: LET terminaldir = 0: LET terminalhold$ = "": REM scub temp values
+RETURN
+
+scriptswitchreset:
+REM reset sprite to standard if script switch is enabled
+IF scriptswitch2 = 0 THEN
+	REM switches back to a previous sprite if needed
+	LET oldmplayermodel$ = mplayermodel$
+	LET mplayermodel$ = oldscriptswitch$
+	LET oldscriptswitch$ = ""
+	GOSUB mainplayerload
+	LET eventtitle$ = "SCRIPT MAINPLAYER SPRITE RESET:"
+	LET eventdata$ = mplayermodel$
+	LET eventnumber = 0
+	GOSUB consoleprinter
+ELSE
+	REM skips as the mainplayer sprite has already been changed by the script 
+	LET oldscriptswitch$ = ""
+	LET scriptswitch2 = 0
+END IF
 RETURN
 
 ifcurrency:
@@ -10566,25 +10587,7 @@ IF temp86 = 1 THEN
 END IF
 REM changes back mainplayer sprite of auto script switching is on
 IF triggerspoofa = 0 THEN LET temp243 = 0
-IF temp200 = 0 AND temp243 = 0 AND mapscript <> 5 THEN
-	IF scriptswitch = 1 THEN
-		IF scriptswitch2 = 0 THEN
-			REM switches back to a previous sprite if needed
-			LET oldmplayermodel$ = mplayermodel$
-			LET mplayermodel$ = oldscriptswitch$
-			LET oldscriptswitch$ = ""
-			GOSUB mainplayerload
-			LET eventtitle$ = "SCRIPT MAINPLAYER SPRITE RESET:"
-			LET eventdata$ = mplayermodel$
-			LET eventnumber = 0
-			GOSUB consoleprinter
-		ELSE
-			REM skips as the mainplayer sprite has already been changed by the script 
-			LET oldscriptswitch$ = ""
-			LET scriptswitch2 = 0
-		END IF
-	END IF
-END IF
+IF temp200 = 0 AND temp243 = 0 AND mapscript <> 5 AND runterminal = 0 THEN IF scriptswitch = 1 THEN GOSUB scriptswitchreset
 IF scriptskip = 1 AND temp200 = 0 THEN GOSUB fadein: REM fade in after a script is skipped
 REM resets if counting values
 IF temp200 = 0 AND temp200 <> 999 THEN
