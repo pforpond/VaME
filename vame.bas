@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.44
+REM Build 2.9.45
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,44,2944
-$VERSIONINFO:PRODUCTVERSION#=2,9,44,2944
+$VERSIONINFO:FILEVERSION#=2,9,45,2945
+$VERSIONINFO:PRODUCTVERSION#=2,9,45,2945
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.44"
+LET hardbuild$ = "2.9.45"
 
 setup:
 REM initiates engine and assigns values
@@ -155,6 +155,7 @@ REM directs to mainmenu
 LET menu$ = "mainmenu"
 GOSUB menugenerator
 _PUTIMAGE (1, 1)-(loadiconresx, loadiconresy), loadicon: REM displays load icon
+GOSUB displayrefresh
 REM setup timer
 RANDOMIZE TIMER
 LET itime = TIMER: REM timer function
@@ -786,9 +787,8 @@ FOR logoloop = 1 TO devlogono
         IF logoloop = 9 THEN _PUTIMAGE (0, 0)-(resx - 1, resy - 1), devlogo9
         IF logoloop = 10 THEN _PUTIMAGE (0, 0)-(resx - 1, resy - 1), devlogo10
         LINE (0, 0)-(resx - 1, resy - 1), _RGBA(0, 0, 0, i%), BF: REM slowly fills screen with black box
-        _DISPLAY
+        GOSUB displayrefresh
     NEXT
-    _AUTODISPLAY
     IF logoloop = 1 THEN _PUTIMAGE (0, 0)-(resx - 1, resy - 1), devlogo1
     IF logoloop = 2 THEN _PUTIMAGE (0, 0)-(resx - 1, resy - 1), devlogo2
     IF logoloop = 3 THEN _PUTIMAGE (0, 0)-(resx - 1, resy - 1), devlogo3
@@ -799,6 +799,7 @@ FOR logoloop = 1 TO devlogono
     IF logoloop = 8 THEN _PUTIMAGE (0, 0)-(resx - 1, resy - 1), devlogo8
     IF logoloop = 9 THEN _PUTIMAGE (0, 0)-(resx - 1, resy - 1), devlogo9
     IF logoloop = 10 THEN _PUTIMAGE (0, 0)-(resx - 1, resy - 1), devlogo10
+    GOSUB displayrefresh
     REM play sound (if needed)
     IF devlogomode = 2 THEN
         LET playsfx$ = "devlogo" + LTRIM$(STR$(logoloop))
@@ -828,9 +829,8 @@ FOR logoloop = 1 TO devlogono
         IF logoloop = 9 THEN _PUTIMAGE (0, 0)-(resx - 1, resy - 1), devlogo9
         IF logoloop = 10 THEN _PUTIMAGE (0, 0)-(resx - 1, resy - 1), devlogo10
         LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF: REM slowly empties black box from screen
-        _DISPLAY
+        GOSUB displayrefresh
     NEXT
-    _AUTODISPLAY
     LET temp128 = 0: REM scrub temp values
 NEXT logoloop
 RETURN
@@ -875,6 +875,7 @@ LET temp127 = temp125
 LET loadcount = loadcount + 1
 _PUTIMAGE (1, 1)-(loadiconresx, loadiconresy), loadicon: REM displays load icon
 _PUTIMAGE (loadiconresx + 5, 1)-((loadiconresx + 5) + temp127 - 1, loadiconresy), loadbar: REM displays load bar
+GOSUB displayrefresh
 RETURN
 
 awardload:
@@ -1005,6 +1006,7 @@ DO
     _LIMIT pockethudanispeed
     _PUTIMAGE (0, (0 - temp59))-(pockethudresx - 1, temp59), pockethud
     _PUTIMAGE (pocketspritex, temp206)-(((pocketspritex + pocketspriteresx) - 1), ((pocketspriteresy - 1) + temp206)), pocketsprite(pocketdisplay)
+    GOSUB displayrefresh
     LET temp59 = temp59 + 1
     LET temp206 = temp206 + 1
 LOOP UNTIL temp59 >= pockethudresy
@@ -1012,6 +1014,7 @@ IF mainmenu = 0 THEN
     DO
         _LIMIT pockethudanispeed
         _PUTIMAGE (((resx / 2) - (pocketbannerresx / 2)), pockethudresy)-(((resx / 2) + (pocketbannerresx / 2)) - 1, (temp59 - 1) - 1), pocketbanner
+        GOSUB displayrefresh
         LET temp59 = temp59 + 1
     LOOP UNTIL temp59 >= (pockethudresy + pocketbannerresy + 1)
 END IF
@@ -1054,6 +1057,7 @@ DO
         IF currentpocketshort$ = "currency" THEN LET pocketdisplayname$ = temp22$
         GOSUB timeframecounter
         LET pocketredraw = 0
+        GOSUB displayrefresh
     LOOP UNTIL b = bcontrolcode1 OR b = bcontrolcode2 OR b = bcontrolcode3 OR b = bcontrolcode4 OR b = pcontrolcode1 OR b = pcontrolcode2 OR b = pcontrolcode3 OR b = pcontrolcode4 OR b = lcontrolcode1 OR b = lcontrolcode2 OR b = lcontrolcode3 OR b = lcontrolcode4 OR b = rcontrolcode1 OR b = rcontrolcode2 OR b = rcontrolcode3 OR b = rcontrolcode4 OR b = scontrolcode1 OR b = scontrolcode2 OR b = scontrolcode3 OR b = scontrolcode4
     REM arrow keys divert
     IF b = rcontrolcode1 OR b = rcontrolcode2 OR b = rcontrolcode3 OR b = rcontrolcode4 THEN
@@ -1129,6 +1133,7 @@ DO
         _PRINTSTRING ((combinex), (pockethudresy)), combineaction$
     END IF
     GOSUB timeframecounter
+    GOSUB displayrefresh
     IF c = rcontrolcode1 OR c = rcontrolcode2 OR c = rcontrolcode3 OR c = rcontrolcode4 THEN
         _KEYCLEAR
         IF temp74 = 1 THEN
@@ -1158,14 +1163,16 @@ IF c = scontrolcode1 OR c = scontrolcode2 OR c = scontrolcode3 OR c = scontrolco
 			_PRINTSTRING ((lookx), (pockethudresy)), lookaction$
 		ELSE
 			_PRINTSTRING ((lookx), (pockethudresy)), pocketword$(pocketdisplay)
-		END IF        
+		END IF    
+		GOSUB displayrefresh    
 		_DELAY 0.1
         COLOR _RGBA(letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura), _RGBA(bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura)
 		IF pocketword$(pocketdisplay) = "" THEN
 			_PRINTSTRING ((lookx), (pockethudresy)), lookaction$
 		ELSE
 			_PRINTSTRING ((lookx), (pockethudresy)), pocketword$(pocketdisplay)
-		END IF        
+		END IF 
+		GOSUB displayrefresh     
 		REM checks to see if item needs a script running
         LET lookscript% = INSTR(lookscript% + 1, pocketdisplaydescription$, "[RUNSCRIPT]")
         IF lookscript% THEN
@@ -1192,9 +1199,11 @@ IF c = scontrolcode1 OR c = scontrolcode2 OR c = scontrolcode3 OR c = scontrolco
             REM give item to npc
             COLOR _RGBA(letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura), _RGBA(bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura)
             _PRINTSTRING ((givex), (pockethudresy)), giveaction$
+            GOSUB displayrefresh
             _DELAY 0.1
             COLOR _RGBA(letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura), _RGBA(bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura)
             _PRINTSTRING ((givex), (pockethudresy)), giveaction$
+            GOSUB displayrefresh
             GOSUB usepocket
             LET objecttype$ = ""
         END IF
@@ -1202,9 +1211,11 @@ IF c = scontrolcode1 OR c = scontrolcode2 OR c = scontrolcode3 OR c = scontrolco
             REM use item with world
             COLOR _RGBA(letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura), _RGBA(bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura)
             _PRINTSTRING ((usex), (pockethudresy)), useaction$
+            GOSUB displayrefresh
             _DELAY 0.1
             COLOR _RGBA(letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura), _RGBA(bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura)
             _PRINTSTRING ((usex), (pockethudresy)), useaction$
+            GOSUB displayrefresh
             GOSUB usepocket
             LET objecttype$ = ""
         END IF
@@ -1212,9 +1223,11 @@ IF c = scontrolcode1 OR c = scontrolcode2 OR c = scontrolcode3 OR c = scontrolco
             REM use item with item
             COLOR _RGBA(letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura), _RGBA(bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura)
             _PRINTSTRING ((combinex), (pockethudresy)), combineaction$
+            GOSUB displayrefresh
             _DELAY 0.1
             COLOR _RGBA(letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura), _RGBA(bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura)
             _PRINTSTRING ((combinex), (pockethudresy)), combineaction$
+            GOSUB displayrefresh
             GOSUB pocketcombine
         END IF
     END IF
@@ -1304,6 +1317,7 @@ DO
         LET d = _KEYHIT
         GOSUB timeframecounter
         LET pocketredraw = 0
+        GOSUB displayrefresh
     LOOP UNTIL d = bcontrolcode1 OR d = bcontrolcode2 OR d = bcontrolcode3 OR d = bcontrolcode4 OR d = pcontrolcode1 OR d = pcontrolcode2 OR d = pcontrolcode3 OR d = pcontrolcode4 OR d = lcontrolcode1 OR d = lcontrolcode2 OR d = lcontrolcode3 OR d = lcontrolcode4 OR d = rcontrolcode1 OR d = rcontrolcode2 OR d = rcontrolcode3 OR d = rcontrolcode4 OR d = scontrolcode1 OR d = scontrolcode2 OR d = scontrolcode3 OR d = scontrolcode4
     IF d = rcontrolcode1 OR d = rcontrolcode2 OR d = rcontrolcode3 OR d = rcontrolcode4 THEN
         REM right key
@@ -1398,15 +1412,11 @@ givecurrency:
 REM gives currency to player
 IF currencychange = 0 THEN RETURN: REM return for if there is no currency change
 LET currency = currency + currencychange: REM adds money
-REM changes font colour
-COLOR _RGBA(letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura), _RGBA(bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura)
 REM find
-OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
 DO
     LET temp93 = temp93 + 1
-    INPUT #1, pocketfile$
-LOOP UNTIL pocketfile$ = "currency" OR EOF(1)
-CLOSE #1
+    LET pocketfile$ = pocketshort$(temp93)
+LOOP UNTIL pocketfile$ = "currency" OR pocketfile$ = ""
 IF silentgive = 0 THEN
     REM animation
     GOSUB slightfadeout
@@ -1414,6 +1424,7 @@ IF silentgive = 0 THEN
         REM pockets scroll in
         _LIMIT pockethudanispeed
         _PUTIMAGE (0, (0 - temp94))-(pockethudresx - 1, temp94 - 1), pockethud
+        GOSUB displayrefresh
         LET temp94 = temp94 + 1
     LOOP UNTIL temp94 >= pockethudresy
     LET temp94 = (0 - pocketspriteresx)
@@ -1422,7 +1433,10 @@ IF silentgive = 0 THEN
         _LIMIT pockethudanispeed
         _PUTIMAGE (0, 0)-(pockethudresx - 1, pockethudresy - 1), pockethud
         _PUTIMAGE (temp94, pocketspritey)-((temp94 + pocketspriteresx) - 1, (pocketspritey + pocketspriteresy) - 1), pocketsprite(temp93)
+        COLOR _RGBA(letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura), _RGBA(bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura)
         _PRINTSTRING (temp94 - (pocketspriteresx / 2), pocketspritey), STR$(currencychange)
+        COLOR 0, 0
+        GOSUB displayrefresh
         LET temp94 = temp94 + 1
         GOSUB timeframecounter
     LOOP UNTIL temp94 >= pocketspritex
@@ -1437,7 +1451,6 @@ LET eventtitle$ = "CURRENCY ADDED:"
 LET eventdata$ = "+" + STR$(currencychange)
 LET eventnumber = currency
 GOSUB consoleprinter
-COLOR 0, 0
 LET currencychange = 0: LET temp93 = 0: LET temp94 = 0: LET silentgive = 0: REM scrubs temp values
 RETURN
 
@@ -1445,15 +1458,11 @@ takecurrency:
 REM takes currency from player
 IF currencychange = 0 THEN RETURN: REM return for if there is no currency change
 LET currency = currency - currencychange: REM removes money
-REM changes font colour
-COLOR _RGBA(letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura), _RGBA(bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura)
 REM finds currency slot
-OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
 DO
     LET temp91 = temp91 + 1
-    INPUT #1, pocketfile$
-LOOP UNTIL pocketfile$ = "currency" OR EOF(1)
-CLOSE #1
+    LET pocketfile$ = pocketshort$(temp91)
+LOOP UNTIL pocketfile$ = "currency" OR pocketfile$ = ""
 IF silenttake = 0 THEN
     REM animation
     GOSUB slightfadeout
@@ -1461,6 +1470,7 @@ IF silenttake = 0 THEN
         REM pockets scroll in
         _LIMIT pockethudanispeed
         _PUTIMAGE (0, (0 - temp92))-(pockethudresx - 1, temp92 - 1), pockethud
+        GOSUB displayrefresh
         LET temp92 = temp92 + 1
     LOOP UNTIL temp92 >= pockethudresy
     LET temp92 = pocketspritex
@@ -1469,7 +1479,10 @@ IF silenttake = 0 THEN
         _LIMIT pockethudanispeed
         _PUTIMAGE (0, 0)-(pockethudresx - 1, pockethudresy - 1), pockethud
         _PUTIMAGE (temp92, pocketspritey)-((temp92 + pocketspriteresx) - 1, (pocketspritey + pocketspriteresy) - 1), pocketsprite(temp91)
+        COLOR _RGBA(letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura), _RGBA(bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura)
         _PRINTSTRING (temp92 - (pocketspriteresx / 2), pocketspritey), STR$(currencychange)
+        COLOR 0, 0
+        GOSUB displayrefresh
         LET temp92 = temp92 + 1
         GOSUB timeframecounter
     LOOP UNTIL temp92 >= (resx + (pocketspriteresx / 2) + 1)
@@ -1493,7 +1506,6 @@ IF currency < 0 THEN
     LET eventnumber = currency
     GOSUB consoleprinter
 END IF
-COLOR 0, 0
 LET currencychange = 0: LET temp91 = 0: LET temp92 = 0: LET silenttake = 0: REM scrubs temp values
 RETURN
 
@@ -1519,6 +1531,7 @@ IF temp81 = 0 THEN
 ELSE
     _PUTIMAGE (pocketarrowrlocx, pocketarrowrlocy + pockethudresy)-((pocketarrowrlocx + pocketarrowresx) - 1, (pocketarrowrlocy + pocketarrowresy + pockethudresy) - 1), pocketarrowrs
 END IF
+GOSUB displayrefresh
 _DELAY 0.1
 RETURN
 
@@ -1529,6 +1542,7 @@ IF temp81 = 0 THEN
 ELSE
     _PUTIMAGE (pocketarrowllocx, pocketarrowllocy + pockethudresy)-((pocketarrowllocx + pocketarrowresx) - 1, (pocketarrowllocy + pocketarrowresy + pockethudresy) - 1), pocketarrowls
 END IF
+GOSUB displayrefresh
 _DELAY 0.1
 RETURN
 
@@ -1649,6 +1663,7 @@ DO
     _LIMIT pockethudanispeed
     _PUTIMAGE (0, temp71)-(textbannerresx - 1, (textbannerresy + temp71) - 1), choicebanner
     _PUTIMAGE (choicearrowr, (temp71 + (textbannerresy / 2)) - (pocketarrowresy / 2))-(choicearrowr + pocketarrowresx - 1, (pocketarrowresy + (temp71 + (textbannerresy / 2))) - (pocketarrowresy / 2) - 1), pocketarrowr
+    GOSUB displayrefresh
     LET temp71 = temp71 - 1
 LOOP UNTIL temp71 <= (resy - textbannerresy - 1)
 GOSUB choicebannercalc
@@ -1719,7 +1734,7 @@ DO
     LET temp14$ = bannercharacter$(temp201)
     LET ci = _KEYHIT
     GOSUB timeframecounter
-    IF ci = scontrolcode1 OR ci = scontrolcode2 OR ci = scontrolcode3 OR ci = scontrolcode4 THEN LET y = 1
+    IF ci = scontrolcode1 OR ci = scontrolcode2 OR ci = scontrolcode3 OR ci = scontrolcode4 OR ci = lcontrolcode1 OR ci = lcontrolcode2 OR ci = lcontrolcode3 OR ci = lcontrolcode4 OR ci = rcontrolcode1 OR ci = rcontrolcode2 OR ci = rcontrolcode3 Or ci = rcontrolcode4 THEN LET y = 1
     COLOR _RGBA(letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura), _RGBA(bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura)
     REM i mode
     IF imode = 0 THEN
@@ -1743,6 +1758,7 @@ DO
     IF y = 0 THEN _DELAY 0.05: REM letter delay
     LET x = x + (fontsize / 2) + 1
     IF temp14$ <> " " THEN LET x = x + fontbuffer
+    GOSUB displayrefresh
 LOOP UNTIL temp201 >= LEN(choicename$(choiceno))
 _KEYCLEAR
 LET x = 0: LET y = 0: LET temp14$ = ""
@@ -1762,8 +1778,10 @@ DO
             LET playsfx$ = "move"
             GOSUB sfxplay
             _PUTIMAGE (choicearrowl, (temp71 + (textbannerresy / 2)) - (pocketarrowresy / 2))-(choicearrowl + pocketarrowresx - 1, (pocketarrowresy + (temp71 + (textbannerresy / 2))) - (pocketarrowresy / 2) - 1), pocketarrowls
+            GOSUB displayrefresh
             _DELAY 0.1
             _PUTIMAGE (choicearrowl, (temp71 + (textbannerresy / 2)) - (pocketarrowresy / 2))-(choicearrowl + pocketarrowresx - 1, (pocketarrowresy + (temp71 + (textbannerresy / 2))) - (pocketarrowresy / 2) - 1), pocketarrowl
+            GOSUB displayrefresh
             LET choiceno = choiceno - 1
             GOTO choiceloop
         END IF
@@ -1775,8 +1793,10 @@ DO
             LET playsfx$ = "move"
             GOSUB sfxplay
             _PUTIMAGE (choicearrowr, (temp71 + (textbannerresy / 2)) - (pocketarrowresy / 2))-(choicearrowr + pocketarrowresx - 1, (pocketarrowresy + (temp71 + (textbannerresy / 2))) - (pocketarrowresy / 2) - 1), pocketarrowrs
+            GOSUB displayrefresh
             _DELAY 0.1
             _PUTIMAGE (choicearrowr, (temp71 + (textbannerresy / 2)) - (pocketarrowresy / 2))-(choicearrowr + pocketarrowresx - 1, (pocketarrowresy + (temp71 + (textbannerresy / 2))) - (pocketarrowresy / 2) - 1), pocketarrowr
+            GOSUB displayrefresh
             LET choiceno = choiceno + 1
             GOTO choiceloop
         END IF
@@ -1807,6 +1827,7 @@ DO
         RETURN
     END IF
     _KEYCLEAR
+    GOSUB displayrefresh
 LOOP
 RETURN
 
@@ -1845,6 +1866,7 @@ DO
         END IF
     END IF
     _PUTIMAGE (0, temp71)-(textbannerresx - 1, (textbannerresy + temp71) - 1), textbanner
+    GOSUB displayrefresh
     LET temp71 = temp71 - 1
 LOOP UNTIL temp71 <= (resy - textbannerresy - 1)
 LET temp71 = resx + 1
@@ -1867,6 +1889,7 @@ DO
             END IF
         END IF
     END IF
+    GOSUB displayrefresh
     LET temp71 = temp71 - 1
 LOOP UNTIL temp71 = (resx - textbannerfaceresx)
 _PUTIMAGE (0, (resy - textbannerresy))-(textbannerresx - 1, resy - 1), textbanner
@@ -1886,6 +1909,7 @@ IF mainmenu = 0 THEN
         END IF
     END IF
 END IF
+GOSUB displayrefresh
 GOSUB textbannercalc
 COLOR 0, 0
 IF mainmenu = 0 THEN GOSUB slightfadein
@@ -2067,6 +2091,7 @@ DO
                         END IF
                     END IF
                 END IF
+                GOSUB displayrefresh
             LOOP UNTIL dd = scontrolcode1 OR dd = scontrolcode2 OR dd = scontrolcode3 OR dd = scontrolcode4 OR skipscript = 1
             _KEYCLEAR
             _PUTIMAGE (0, (resy - textbannerresy))-(textbannerresx - 1, resy - 1), textbanner
@@ -2074,6 +2099,7 @@ DO
             LET temp76 = 1
         END IF
     END IF
+    GOSUB displayrefresh
 LOOP UNTIL temp201 >= LEN(textspeech$) OR scriptskip = 1
 CLOSE #1
 DO
@@ -2097,6 +2123,7 @@ DO
             END IF
         END IF
     END IF
+    GOSUB displayrefresh
 LOOP UNTIL ddd = scontrolcode1 OR ddd = scontrolcode2 OR ddd = scontrolcode3 OR ddd = scontrolcode4 OR scriptskip = 1
 REM plays select sound effect
 IF textbannersound = 1 THEN
@@ -3065,9 +3092,9 @@ RETURN
 
 screenload:
 REM sets screen mode
-_TITLE title$
 SCREEN _NEWIMAGE(resx, resy, 32), , 1, 0
 $RESIZE:STRETCH
+_TITLE title$
 REM manages any screen changing parameters
 IF forcewindowed = 1 THEN LET screenmode = 2: LET forcewindowed = 0: REM forces windowed mode if launch parameter used
 IF forcefullscreen = 1 THEN LET screenmode = 1: LET forcefullscreen = 0: REM forces fullscreen mode if launch parameter used
@@ -3130,7 +3157,7 @@ IF anisprite$ = "mainplayer" THEN
         _PUTIMAGE (mpposx, mpposy), aniframe(temp98)
         IF parallaxmode = 2 THEN GOSUB parallaxdraw
         GOSUB effectdraw
-        _DISPLAY
+        GOSUB displayrefresh
         REM calculates when to move onto next frame
         IF frames >= temp99 THEN LET temp98 = temp98 + 1: LET temp99 = 0
     LOOP UNTIL temp98 > aniframes OR scriptskip = 1
@@ -3175,7 +3202,7 @@ ELSE
         END IF
         IF parallaxmode = 2 THEN GOSUB parallaxdraw
         GOSUB effectdraw
-        _DISPLAY
+        GOSUB displayrefresh
         REM calculates when to move onto next frame
         IF frames >= temp99 THEN LET temp98 = temp98 + 1: LET temp99 = 0
     LOOP UNTIL temp98 > aniframes OR scriptskip = 1
@@ -3214,7 +3241,7 @@ IF displayconsole = 1 THEN
     _DEST _CONSOLE
     IF eventnumber <> 0 THEN PRINT DATE$, TIME$, eventtitle$, eventdata$; eventnumber
     IF eventnumber = 0 THEN PRINT DATE$, TIME$, eventtitle$, eventdata$
-    _DEST 0
+    _DEST 1
 END IF
 REM set value for hud display
 LET lastconsoleline$ = eventtitle$ + " " + eventdata$ + " " + STR$(eventnumber)
@@ -3315,19 +3342,16 @@ END
 
 whitefadein:
 REM white fade in utility
-IF fadestatus = 0 THEN _AUTODISPLAY: RETURN: REM return if fade already on
-IF disablefade = 1 THEN _AUTODISPLAY: RETURN: REM return for if disablefade is on.
+IF fadestatus = 0 OR disablefade = 1 THEN RETURN: REM return if fade already on
 LET fadestatus = 0
 LET temp206 = (fadespeed - fadespeed) - fadespeed
 LET fading = 1
 FOR i% = 255 TO 0 STEP temp206
     _LIMIT hertz: REM sets framerate
-    PCOPY 1, 0
     GOSUB screendraw: REM draws screen
     LINE (0, 0)-(resx, resy), _RGBA(255, 255, 255, i%), BF
-    _DISPLAY
+    GOSUB displayrefresh
 NEXT
-_AUTODISPLAY
 LET fading = 0
 REM print to console
 LET eventtitle$ = "DISPLAY EFFECT:"
@@ -3336,22 +3360,18 @@ LET eventnumber = 0
 GOSUB consoleprinter
 RETURN
 
-
 fadein:
 REM fade in utility
-IF fadestatus = 0 THEN _AUTODISPLAY: RETURN: REM return if fade already on
-IF disablefade = 1 THEN _AUTODISPLAY: RETURN: REM return for if disablefade is on.
+IF fadestatus = 0 OR disablefade = 1 THEN RETURN: REM return if fade already on
 LET fadestatus = 0
 LET temp206 = (fadespeed - fadespeed) - fadespeed
 LET fading = 1
 FOR i% = 255 TO 0 STEP temp206
     _LIMIT hertz: REM sets framerate
-    PCOPY 1, 0
     GOSUB screendraw: REM draws screen
     LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF
-    _DISPLAY
+    GOSUB displayrefresh
 NEXT
-_AUTODISPLAY
 LET fading = 0
 REM print to console
 LET eventtitle$ = "DISPLAY EFFECT:"
@@ -3362,20 +3382,17 @@ RETURN
 
 slowfadein:
 REM slow fade in utility
-IF fadestatus = 0 THEN _AUTODISPLAY: RETURN: REM return if fade already off
-IF disablefade = 1 THEN _AUTODISPLAY: RETURN: REM return for if disablefade is on.
+IF fadestatus = 0 OR disablefade = 1 THEN RETURN: REM return if fade already off
 LET fadestatus = 0
 LET temp206 = (fadespeed - fadespeed) - fadespeed
 LET fading = 1
 FOR i% = 255 TO 0 STEP temp206
     _LIMIT hertz: REM sets framerate
-    PCOPY 1, 0
     GOSUB screendraw: REM draws screen
     LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF
-    _DISPLAY
+    GOSUB displayrefresh
     _DELAY 0.5
 NEXT
-_AUTODISPLAY
 LET fading = 0
 REM print to console
 LET eventtitle$ = "DISPLAY EFFECT:"
@@ -3384,21 +3401,24 @@ LET eventnumber = 0
 GOSUB consoleprinter
 RETURN
 
+displayrefresh:
+REM refreshes display, switches screen buffer, displays whatever has been drawn!
+PCOPY 1, 0
+_DISPLAY
+RETURN
+
 slightfadein:
 REM slight fade in utility
-IF fadestatus = 0 THEN _AUTODISPLAY: RETURN: REM return if fade already off
-IF disablefade = 1 THEN _AUTODISPLAY: RETURN: REM return for if disablefade is on.
+IF fadestatus = 0 OR disablefade = 1 THEN RETURN: REM return if fade already off
 LET fadestatus = 0
 LET fading = 1
 LET temp206 = (fadespeed - fadespeed) - fadespeed
 FOR i% = (255 / 2) TO 0 STEP temp206
     _LIMIT hertz: REM sets framerate
-    PCOPY 1, 0
     GOSUB screendraw: REM draws screen
     LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF
-    _DISPLAY
+    GOSUB displayrefresh
 NEXT
-_AUTODISPLAY
 LET fading = 0
 REM print to console
 LET eventtitle$ = "DISPLAY EFFECT:"
@@ -3409,20 +3429,18 @@ RETURN
 
 whitefadeout:
 REM fade out utility
-IF fadestatus = 1 OR fadestatus = 2 THEN _AUTODISPLAY: RETURN: REM return if fade already off
-IF disablefade = 1 THEN _AUTODISPLAY: RETURN: REM return for if disablefade is on.
+IF fadestatus = 1 OR fadestatus = 2 OR disablefade = 1 THEN RETURN: REM return if fade already off
 LET temp206 = fadespeed
 LET fading = 1
 FOR i% = 0 TO 255 STEP fadespeed
     _LIMIT hertz: REM sets framerate
-    PCOPY 1, 0
     GOSUB screendraw: REM draws screen
     LINE (0, 0)-(resx, resy), _RGBA(255, 255, 255, i%), BF
-    _DISPLAY
+    GOSUB displayrefresh
 NEXT
-_AUTODISPLAY
 LET fading = 0
 LINE (0, 0)-(resx, resy), _RGBA(255, 255, 255, 255), BF
+GOSUB displayrefresh
 REM print to console
 LET eventtitle$ = "DISPLAY EFFECT:"
 LET eventdata$ = "white fade out"
@@ -3433,20 +3451,18 @@ RETURN
 
 fadeout:
 REM fade out utility
-IF fadestatus = 1 OR fadestatus = 2 THEN _AUTODISPLAY: RETURN: REM return if fade already off
-IF disablefade = 1 THEN _AUTODISPLAY: RETURN: REM return for if disablefade is on.
+IF fadestatus = 1 OR fadestatus = 2 OR disablefade = 1 THEN RETURN: REM return if fade already off
 LET temp206 = fadespeed
 LET fading = 1
 FOR i% = 0 TO 255 STEP fadespeed
     _LIMIT hertz: REM sets framerate
-    PCOPY 1, 0
     GOSUB screendraw: REM draws screen
     LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF
-    _DISPLAY
+    GOSUB displayrefresh
 NEXT
-_AUTODISPLAY
 LET fading = 0
 LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, 255), BF
+GOSUB displayrefresh
 REM print to console
 LET eventtitle$ = "DISPLAY EFFECT:"
 LET eventdata$ = "fade out"
@@ -3457,21 +3473,19 @@ RETURN
 
 slowfadeout:
 REM slow fade out utility
-IF fadestatus = 1 OR fadestatus = 2 THEN _AUTODISPLAY: RETURN: REM return if fade already off
-IF disablefade = 1 THEN _AUTODISPLAY: RETURN: REM return for if disablefade is on.
+IF fadestatus = 1 OR fadestatus = 2 OR disablefade = 1 THEN RETURN: REM return if fade already off
 LET temp206 = fadespeed
 LET fading = 1
 FOR i% = 0 TO 255 STEP temp206
     _LIMIT hertz: REM sets framerate
-    PCOPY 1, 0
     GOSUB screendraw: REM draws screen
     LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF: REM slowly empties black box from screen
-    _DISPLAY
+    GOSUB displayrefresh
     _DELAY 0.5
 NEXT
-_AUTODISPLAY
 LET fadidng = 0
 LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, 255), BF
+GOSUB displayrefresh
 REM print to console
 LET eventtitle$ = "DISPLAY EFFECT:"
 LET eventdata$ = "slow fade out"
@@ -3482,17 +3496,14 @@ RETURN
 
 slightfadeout:
 REM slight fade out utility
-IF fadestatus = 1 OR fadestatus = 2 THEN _AUTODISPLAY: RETURN: REM return if fade already off
-IF disablefade = 1 THEN _AUTODISPLAY: RETURN: REM return for if disablefade is on.
+IF fadestatus = 1 OR fadestatus = 2 OR disablefade = 1 THEN RETURN: REM return if fade already off
 LET temp206 = fadespeed
 FOR i% = 0 TO (255 / 2) STEP temp206
     _LIMIT hertz: REM sets framerate
-    PCOPY 1, 0
     GOSUB screendraw: REM draws screen
     LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF: REM slowly empties black box from screen
-    _DISPLAY
+    GOSUB displayrefresh
 NEXT
-_AUTODISPLAY
 REM print to console
 LET eventtitle$ = "DISPLAY EFFECT:"
 LET eventdata$ = "dim screen"
@@ -3631,7 +3642,7 @@ IF displayconsole = 1 THEN
     ELSE
         PRINT DATE$, TIME$, "ERROR: "; ERR, "LINE: "; _ERRORLINE, errdescription$
     END IF
-    _DEST 0
+    _DEST 1
 END IF
 REM sets hud display value
 IF errdescription$ = "" THEN
@@ -4458,7 +4469,6 @@ END IF
 LET mainmenu = 1: REM tells engine menu is active
 LET oldobjecttype$ = objecttype$: REM passes over object type to temp value
 LET objecttype$ = "NON": REM removes any in-game object types.
-CLS
 REM menu loop
 OPEN menuloc$ + menu$ + ".ddf" FOR INPUT AS #1
 INPUT #1, menuchoice1$, menuchoice2$, menuchoice3$, menuchoice4$, menuchoice5$, menuchoice6$, menucommand1$, menucommand2$, menucommand3$, menucommand4$, menucommand5$, menucommand6$, mcy1, mcy2, mcy3, mcy4, mcy5, mcy6, menunos, menuposx, menubackdrop$, menumusic$
@@ -4472,7 +4482,7 @@ REM plays music
 LET playmusic$ = menumusic$
 GOSUB musicplay
 LET menubackdrop = _LOADIMAGE(menuloc$ + menubackdrop$ + ".png")
-_PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+GOSUB menubgredraw
 LET temp78 = 1
 DO
     _LIMIT extrahertz
@@ -4629,12 +4639,13 @@ DO
         IF temp79 > 0 THEN LET temp79 = 0
         IF _EXIT THEN
             REM end game if close button is pressed
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             GOSUB endgamemenu
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
         END IF
+        GOSUB displayrefresh
     LOOP UNTIL d = scontrolcode1 OR d = scontrolcode2 OR d = scontrolcode3 OR d = scontrolcode4
     REM plays select sound
     LET playsfx$ = "select"
@@ -4663,13 +4674,13 @@ DO
         END IF
         REM executes menucommand
         IF temp15$ = "updategame" THEN
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             LET scriptname$ = "updateprompt"
             LET mapscript = 5
             GOSUB script
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             FOR x = 1 TO 2
                 IF x = 1 THEN LET choicename$(x) = "YES"
                 IF x = 2 THEN LET choicename$(x) = "NO"
@@ -4684,8 +4695,8 @@ DO
         END IF
         REM quits game
         IF temp15$ = "endgame" THEN
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             GOSUB endgamemenu
         END IF
         REM loads award menu
@@ -4712,13 +4723,13 @@ DO
         END IF
         REM toggles music on and off
         IF temp15$ = "musictoggle" THEN
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             LET scriptname$ = "musictoggle"
             LET mapscript = 5
             GOSUB script
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             FOR x = 1 TO 2
                 IF x = 1 THEN LET choicename$(x) = "ON"
                 IF x = 2 THEN LET choicename$(x) = "OFF"
@@ -4727,16 +4738,16 @@ DO
             GOSUB choicebannerdraw
             IF choiceno = 1 THEN
                 IF soundmode = 2 OR soundmode = 3 THEN
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "musicalreadyon"
                     LET mapscript = 5
                     GOSUB script
                 END IF
                 IF soundmode = 1 OR soundmode = 4 THEN
                     GOSUB musictoggle
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "musicon"
                     LET mapscript = 5
                     GOSUB script
@@ -4744,16 +4755,16 @@ DO
             END IF
             IF choiceno = 2 THEN
                 IF soundmode = 1 OR soundmode = 4 THEN
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "musicalreadyoff"
                     LET mapscript = 5
                     GOSUB script
                 END IF
                 IF soundmode = 2 OR soundmode = 3 THEN
                     GOSUB musictoggle
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "musicoff"
                     LET mapscript = 5
                     GOSUB script
@@ -4763,13 +4774,13 @@ DO
         END IF
         REM toggles sound effects on and off
         IF temp15$ = "sfxtoggle" THEN
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             LET scriptname$ = "sfxtoggle"
             LET mapscript = 5
             GOSUB script
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             FOR x = 1 TO 2
                 IF x = 1 THEN LET choicename$(x) = "ON"
                 IF x = 2 THEN LET choicename$(x) = "OFF"
@@ -4778,16 +4789,16 @@ DO
             GOSUB choicebannerdraw
             IF choiceno = 1 THEN
                 IF soundmode = 2 OR soundmode = 4 THEN
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "sfxalreadyon"
                     LET mapscript = 5
                     GOSUB script
                 END IF
                 IF soundmode = 1 OR soundmode = 3 THEN
                     GOSUB sfxtoggle
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "sfxon"
                     LET mapscript = 5
                     GOSUB script
@@ -4795,16 +4806,16 @@ DO
             END IF
             IF choiceno = 2 THEN
                 IF soundmode = 1 OR soundmode = 3 THEN
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "sfxalreadyoff"
                     LET mapscript = 5
                     GOSUB script
                 END IF
                 IF soundmode = 2 OR soundmode = 4 THEN
                     GOSUB sfxtoggle
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "sfxoff"
                     LET mapscript = 5
                     GOSUB script
@@ -4814,13 +4825,13 @@ DO
         END IF
         REM toggles fullscreen and windowed modes
         IF temp15$ = "screentoggle" THEN
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             LET scriptname$ = "screenmodetoggle"
             LET mapscript = 5
             GOSUB script
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             FOR x = 1 TO 2
                 IF x = 1 THEN LET choicename$(x) = "FULLSCREEN"
                 IF x = 2 THEN LET choicename$(x) = "WINDOWED"
@@ -4829,16 +4840,16 @@ DO
             GOSUB choicebannerdraw
             IF choiceno = 1 THEN
                 IF screenmode = 1 THEN
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "fullscreenalreadyon"
                     LET mapscript = 5
                     GOSUB script
                 END IF
                 IF screenmode = 2 THEN
                     GOSUB screentoggle
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "fullscreenon"
                     LET mapscript = 5
                     GOSUB script
@@ -4846,16 +4857,16 @@ DO
             END IF
             IF choiceno = 2 THEN
                 IF screenmode = 2 THEN
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "windowedalreadyon"
                     LET mapscript = 5
                     GOSUB script
                 END IF
                 IF screenmode = 1 THEN
                     GOSUB screentoggle
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "windowedon"
                     LET mapscript = 5
                     GOSUB script
@@ -4865,21 +4876,21 @@ DO
         END IF
         REM displays game controls
         IF temp15$ = "displaycontrols" THEN
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             IF playercontrolmode = 1 THEN GOSUB keycontrolgenerator
             IF playercontrolmode = 2 THEN GOSUB padcontrolgenerator
             GOSUB textbannerdraw
         END IF
         REM switches game controls
         IF temp15$ = "switchcontrols" THEN
-			CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+			GOSUB menubgredraw
+            GOSUB displayrefresh
             LET scriptname$ = "switchcontrolstoggle"
             LET mapscript = 5
             GOSUB script
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             FOR x = 1 TO 2
                 IF x = 1 THEN LET choicename$(x) = "KEYBOARD"
                 IF x = 2 THEN LET choicename$(x) = "GAMEPAD"
@@ -4888,16 +4899,16 @@ DO
             GOSUB choicebannerdraw
             IF choiceno = 1 THEN
                 IF playercontrolmode = 1 THEN
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "keyboardalreadyon"
                     LET mapscript = 5
                     GOSUB script
                 END IF
                 IF playercontrolmode = 2 THEN
                     GOSUB controltoggle
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "keyboardon"
                     LET mapscript = 5
                     GOSUB script
@@ -4905,16 +4916,16 @@ DO
             END IF
             IF choiceno = 2 THEN
                 IF playercontrolmode = 2 THEN
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "gamepadalreadyon"
                     LET mapscript = 5
                     GOSUB script
                 END IF
                 IF playercontrolmode = 1 THEN
 					GOSUB controltoggle
-                    CLS
-                    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                    GOSUB menubgredraw
+                    GOSUB displayrefresh
                     LET scriptname$ = "gamepadon"
                     LET mapscript = 5
                     GOSUB script
@@ -4924,20 +4935,20 @@ DO
         END IF
         REM fake options for bants
         IF temp15$ = "spooftoggle" THEN
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             LET textspeech$ = spoofoptiontitle$
             GOSUB textbannerdraw
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             FOR x = 1 TO 2
                 IF x = 1 THEN LET choicename$(x) = spoofoption1$
                 IF x = 2 THEN LET choicename$(x) = spoofoption2$
             NEXT x
             LET choicetotal = 2
             GOSUB choicebannerdraw
-            CLS
-            _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+            GOSUB menubgredraw
+            GOSUB displayrefresh
             IF choiceno = 1 THEN LET textspeech$ = spoofoption1result$
             IF choiceno = 2 THEN LET textspeech$ = spoofoption2result$
             GOSUB textbannerdraw
@@ -4946,13 +4957,13 @@ DO
         REM set music vol
         IF temp15$ = "musicvol" THEN
             IF soundmode = 2 OR soundmode = 3 THEN
-                CLS
-                _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                GOSUB menubgredraw
+                GOSUB displayrefresh
                 LET scriptname$ = "musicvolumeprompt"
                 LET mapscript = 5
                 GOSUB script
-                CLS
-                _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                GOSUB menubgredraw
+                GOSUB displayrefresh
                 FOR x = 1 TO 10
                     IF x = 1 THEN LET choicename$(x) = "10%"
                     IF x = 2 THEN LET choicename$(x) = "20%"
@@ -4969,16 +4980,16 @@ DO
                 GOSUB choicebannerdraw
                 LET musicvol = choiceno / 10
                 GOSUB musicvol
-                CLS
-                _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                GOSUB menubgredraw
+                GOSUB displayrefresh
                 LET scriptname$ = "musicvolumeset"
                 LET mapscript = 5
                 GOSUB script
                 LET choiceno = 0
             ELSE
                 REM if music is switched off
-                CLS
-                _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                GOSUB menubgredraw
+                GOSUB displayrefresh
                 LET scriptname$ = "musicvolumeoff"
                 LET mapscript = 5
                 GOSUB script
@@ -4987,13 +4998,13 @@ DO
         REM set sfx vol
         IF temp15$ = "sfxvol" THEN
             IF soundmode = 2 OR soundmode = 4 THEN
-                CLS
-                _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                GOSUB menubgredraw
+                GOSUB displayrefresh
                 LET scriptname$ = "sfxvolumeprompt"
                 LET mapscript = 5
                 GOSUB script
-                CLS
-                _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                GOSUB menubgredraw
+                GOSUB displayrefresh
                 FOR x = 1 TO 10
                     IF x = 1 THEN LET choicename$(x) = "10%"
                     IF x = 2 THEN LET choicename$(x) = "20%"
@@ -5010,16 +5021,16 @@ DO
                 GOSUB choicebannerdraw
                 LET sfxvol = choiceno / 10
                 GOSUB sfxvol
-                CLS
-                _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                GOSUB menubgredraw
+                GOSUB displayrefresh
                 LET scriptname$ = "sfxvolumeset"
                 LET mapscript = 5
                 GOSUB script
                 LET choiceno = 0
             ELSE
                 REM is sfx are turned off
-                CLS
-                _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+                GOSUB menubgredraw
+                GOSUB displayrefresh
                 LET scriptname$ = "sfxvolumeoff"
                 LET mapscript = 5
                 GOSUB script
@@ -5033,7 +5044,7 @@ DO
         IF temp15$ = "loadmod" THEN
             CLS
             GOSUB modmenu
-            CLS
+            GOSUB menubgredraw
             REM console dump
             LET eventtitle$ = "MENU LOADED:"
             LET eventdata$ = menu$
@@ -5049,10 +5060,15 @@ DO
         LET mainmenu = 0: LET temp76 = 1: LET temp77 = 0: LET temp78 = 0: LET findmenu% = 0: LET oldobjecttype$ = "": LET d$ = "": LET temp15$ = "": LET temp16$ = "": LET temp17$ = "": LET temp29$ = "": REM scrubs temp values
         RETURN
     END IF
-    CLS
-    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop: REM redraws meny background
+    GOSUB menubgredraw
     LET temp15$ = ""
 LOOP
+RETURN
+
+menubgredraw:
+REM redraws menu background
+CLS
+_PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
 RETURN
 
 savehealthcheck:
@@ -5145,6 +5161,7 @@ LET savemenubackdrop = _LOADIMAGE(menuloc$ + "savemenu.png")
 CLS
 _PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
 _PUTIMAGE (1, 1)-((loadiconresx), loadiconresy), loadicon
+GOSUB displayrefresh
 GOSUB savehealthcheck
 REM tells console
 LET eventtitle$ = "MENU LOADED:"
@@ -5196,6 +5213,7 @@ DO
 	IF saveslot = 2 THEN _PUTIMAGE (sss2x, sss2y), saveselect
 	IF saveslot = 3 THEN _PUTIMAGE (sss3x, sss3y), saveselect
 	LET temp245 = 0
+	GOSUB displayrefresh
     DO
 		_LIMIT extrahertz
 		LET d = _KEYHIT
@@ -5243,6 +5261,7 @@ DO
 						GOSUB script
 						CLS
 						_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+						GOSUB displayrefresh
 						FOR x = 1 TO 2
 							IF x = 1 THEN LET choicename$(x) = "YES"
 							IF x = 2 THEN LET choicename$(x) = "NO"
@@ -5256,6 +5275,7 @@ DO
 					IF temp245 = 0 THEN
 						CLS
 						_PUTIMAGE (1, 1)-((loadiconresx), loadiconresy), loadicon
+						GOSUB displayrefresh
 						LET saveslot = temp244
 						IF setupboot = 0 THEN
 							GOSUB loadgame
@@ -5264,6 +5284,7 @@ DO
 						END IF
 						CLS
 						_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+						GOSUB displayrefresh
 						LET textspeech$ = saveslottitle$ + " " + LTRIM$(STR$(temp244)) + " SELECTED!"
 						GOSUB textbannerdraw
 					END IF
@@ -5280,11 +5301,13 @@ DO
 				IF saveslot = temp244 THEN
 					CLS
 					_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+					GOSUB displayrefresh
 					LET scriptname$ = "erasesave"
 					LET mapscript = 5
 					GOSUB script
 					CLS
 					_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+					GOSUB displayrefresh
 					FOR x = 1 TO 2
 						IF x = 1 THEN LET choicename$(x) = "YES"
 						IF x = 2 THEN LET choicename$(x) = "NO"
@@ -5296,6 +5319,7 @@ DO
 						LET temp247 = 1
 						CLS
 						_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+						GOSUB displayrefresh
 						LET scriptname$ = "posterasesave"
 						LET mapscript = 5
 						GOSUB script
@@ -5303,6 +5327,7 @@ DO
 				ELSE
 					CLS
 					_PUTIMAGE (0, 0)-(resx - 1, resy - 1), savemenubackdrop
+					GOSUB displayrefresh
 					LET scriptname$ = "erasesavefailed"
 					LET mapscript = 5
 					GOSUB script
@@ -5328,8 +5353,7 @@ LET mapscript = 5
 GOSUB script
 IF mainmenu = 1 THEN
     REM draws menu if needed
-    CLS
-    _PUTIMAGE (0, 0)-(resx - 1, resy - 1), menubackdrop
+    GOSUB menubgredraw
 END IF
 FOR x = 1 TO 2
     IF x = 1 THEN LET choicename$(x) = "YES"
@@ -5343,11 +5367,9 @@ IF choiceno = 1 THEN
         LET temp206 = fadespeed
         FOR i% = 0 TO 255 STEP temp206
             _LIMIT hertz: REM sets framerate
-            PCOPY 1, 0
             LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF: REM slowly empties black box from screen
-            _DISPLAY
+            GOSUB displayrefresh
         NEXT
-        _AUTODISPLAY
     END IF
     GOTO endgame
 END IF
@@ -5437,6 +5459,7 @@ DO
                 PRINT temp48$
             END IF
         END IF
+        GOSUB displayrefresh
     LOOP UNTIL EOF(42) OR x = 10 OR x = modamount + 1
     CLOSE #42
     REM input loop
@@ -5493,11 +5516,13 @@ DO
             CLOSE #42
             CLS
             _PUTIMAGE (0, 0)-(resx - 1, resy - 1), modmenubackdrop: REM redraws meny background
+            GOSUB displayrefresh
             LET scriptname$ = "modloadprompt"
             LET mapscript = 5
             GOSUB script
             CLS
             _PUTIMAGE (0, 0)-(resx - 1, resy - 1), modmenubackdrop: REM redraws meny background
+            GOSUB displayrefresh
             FOR x = 1 TO 2
                 IF x = 1 THEN LET choicename$(x) = "YES"
                 IF x = 2 THEN LET choicename$(x) = "NO"
@@ -5583,6 +5608,7 @@ DO
         END IF
         GOSUB musicfadeout
         GOSUB musicfadein
+        GOSUB displayrefresh
     LOOP UNTIL ami = bcontrolcode1 OR ami = bcontrolcode2 OR ami = bcontrolcode3 OR ami = bcontrolcode4 OR ami = lcontrolcode1 OR ami = lcontrolcode2 OR ami = lcontrolcode3 OR ami = lcontrolcode4 OR ami = rcontrolcode1 OR ami = rcontrolcode2 OR ami = rcontrolcode3 OR ami = rcontrolcode4
     REM processes inputs
     IF ami = bcontrolcode1 OR ami = bcontrolcode2 OR ami = bcontrolcode3 OR ami = bcontrolcode4 THEN
@@ -5596,6 +5622,7 @@ DO
             LET playsfx$ = "move"
             GOSUB sfxplay
             _PUTIMAGE (1, (resy / 2) - (pocketarrowresy / 2)), awardarrowls
+            GOSUB displayrefresh
             _DELAY 0.1
             LET awardmenuno = awardmenuno - 1
             CLS
@@ -5607,6 +5634,7 @@ DO
             LET playsfx$ = "move"
             GOSUB sfxplay
             _PUTIMAGE ((resx - pocketarrowresx) - 1, (resy / 2) - (pocketarrowresy / 2)), awardarrowrs
+            GOSUB displayrefresh
             _DELAY 0.1
             LET awardmenuno = awardmenuno + 1
             CLS
@@ -6823,6 +6851,7 @@ IF silentgive = 0 THEN
         IF _KEYDOWN(bcontrolcode1) OR _KEYDOWN(bcontrolcode2) OR _KEYDOWN(bcontrolcode3) OR _KEYDOWN(bcontrolcode4) THEN IF skipallowed = 1 THEN LET scriptskip = 1
         _LIMIT pockethudanispeed
         _PUTIMAGE (0, (0 - temp68))-(pockethudresx - 1, temp68 - 1), pockethud
+        GOSUB displayrefresh
         LET temp68 = temp68 + 1
     LOOP UNTIL temp68 >= pockethudresy OR scriptskip = 1
     LET temp68 = (0 - pocketspriteresx)
@@ -6833,6 +6862,7 @@ IF silentgive = 0 THEN
         _LIMIT pockethudanispeed
         _PUTIMAGE (0, 0)-(pockethudresx - 1, pockethudresy - 1), pockethud
         _PUTIMAGE (temp68, pocketspritey)-((temp68 + pocketspriteresx) - 1, (pocketspritey + pocketspriteresy) - 1), pocketsprite(temp63)
+        GOSUB displayrefresh
     LOOP UNTIL temp68 >= pocketspritex OR scriptskip = 1
     REM plays sound effect
     LET playsfx$ = "pickup"
@@ -6878,6 +6908,7 @@ IF silenttake = 0 THEN
         _LIMIT pockethudanispeed
         _PUTIMAGE (0, (0 - temp69))-(pockethudresx - 1, temp69 - 1), pockethud
         _PUTIMAGE (pocketspritex, temp205)-(((pocketspritex + pocketspriteresx) - 1), ((pocketspriteresy - 1) + temp205)), pocketsprite(temp65)
+        GOSUB displayrefresh
         LET temp69 = temp69 + 1
         LET temp205 = temp205 + 1
     LOOP UNTIL temp69 >= pockethudresy OR scriptskip = 1
@@ -6888,6 +6919,7 @@ IF silenttake = 0 THEN
         _LIMIT pockethudanispeed
         _PUTIMAGE (0, 0)-(pockethudresx - 1, pockethudresy), pockethud
         _PUTIMAGE (temp69, pocketspritey)-((temp69 + pocketspriteresx) - 1, (pocketspritey + pocketspriteresy) - 1), pocketsprite(temp65)
+        GOSUB displayrefresh
         LET temp69 = temp69 + 1
     LOOP UNTIL temp69 >= (resx + 1) OR scriptskip = 1
     REM plays sound effect
@@ -6910,13 +6942,11 @@ RETURN
 
 markgone:
 REM marks pocket item as "gone forever"
-OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
 REM seaches for item in pocketfiles
 DO
     LET temp95 = temp95 + 1
-    INPUT #1, pocketfile$
-LOOP UNTIL pocketfile$ = takeitem$ OR EOF(1)
-CLOSE #1
+    LET pocketfile$ = pocketshort$(temp95)
+LOOP UNTIL pocketfile$ = takeitem$ OR pocketfile$ = ""
 IF pocketfile$ <> takeitem$ OR pocketfile$ = "currency" THEN
     REM if search finds nothing or currency is attempted to be removed
     REM prints to console
@@ -6984,13 +7014,11 @@ RETURN
 
 ifgone:
 REM checks for pocket item
-OPEN pocketloc$ + "pocketfiles.ddf" FOR INPUT AS #1
 REM seaches for item in pocketfiles
 DO
     LET temp122 = temp122 + 1
-    INPUT #1, pocketfile$
-LOOP UNTIL pocketfile$ = ifgone$ OR EOF(1)
-CLOSE #1
+    LET pocketfile$ = pocketshort$(temp122)
+LOOP UNTIL pocketfile$ = ifgone$ OR pocketfile$ = ""
 IF pocketfile$ <> ifgone$ THEN
     REM if search finds nothing
     REM prints to console
@@ -7130,6 +7158,7 @@ IF terminaldir = 0 AND terminalnoboot = 0 THEN
         IF x = 2 THEN _PUTIMAGE (1, 1)-(resx, resy), tani2
         IF x = 3 THEN _PUTIMAGE (1, 1)-(resx, resy), tani3
         IF x = 4 THEN _PUTIMAGE (1, 1)-(resx, resy), tani4
+        GOSUB displayrefresh
         GOSUB timeframecounter
         _DELAY tanidelay
     NEXT x
@@ -7138,38 +7167,44 @@ CLS
 termloop:
 COLOR _RGBA(letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura), _RGBA(bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura)
 PRINT tos$
-IF terminalnoboot = 1 THEN _AUTODISPLAY: LET terminalnoboot = 0: REM re-enables drawing for when boot gui is skipped
+IF terminalnoboot = 1 THEN LET terminalnoboot = 0: REM re-enables drawing for when boot gui is skipped
 REM display terminal files animation
 IF temp147 <> 1 THEN _PUTIMAGE (terminalfacex, terminalfacey), sysbusy
 IF ct1 = 0 THEN _PUTIMAGE (terminalcol1, terminalrow1), tno
 IF ct1 = 1 THEN _PUTIMAGE (terminalcol1, terminalrow1), tfile
 IF ct1 = 2 THEN _PUTIMAGE (terminalcol1, terminalrow1), tdir
 IF ct1 = 3 THEN _PUTIMAGE (terminalcol1, terminalrow1), tapp
+GOSUB displayrefresh
 _DELAY temp87: LET temp87 = temp87 / 2
 IF ct2 = 0 THEN _PUTIMAGE (terminalcol2, terminalrow1), tno
 IF ct2 = 1 THEN _PUTIMAGE (terminalcol2, terminalrow1), tfile
 IF ct2 = 2 THEN _PUTIMAGE (terminalcol2, terminalrow1), tdir
 IF ct2 = 3 THEN _PUTIMAGE (terminalcol2, terminalrow1), tapp
+GOSUB displayrefresh
 _DELAY temp87: LET temp87 = temp87 / 2
 IF ct3 = 0 THEN _PUTIMAGE (terminalcol3, terminalrow1), tno
 IF ct3 = 1 THEN _PUTIMAGE (terminalcol3, terminalrow1), tfile
 IF ct3 = 2 THEN _PUTIMAGE (terminalcol3, terminalrow1), tdir
 IF ct3 = 3 THEN _PUTIMAGE (terminalcol3, terminalrow1), tapp
+GOSUB displayrefresh
 _DELAY temp87: LET temp87 = temp87 / 2
 IF ct4 = 0 THEN _PUTIMAGE (terminalcol1, terminalrow2), tno
 IF ct4 = 1 THEN _PUTIMAGE (terminalcol1, terminalrow2), tfile
 IF ct4 = 2 THEN _PUTIMAGE (terminalcol1, terminalrow2), tdir
 IF ct4 = 3 THEN _PUTIMAGE (terminalcol1, terminalrow2), tapp
+GOSUB displayrefresh
 _DELAY temp87: LET temp87 = temp87 / 2
 IF ct5 = 0 THEN _PUTIMAGE (terminalcol2, terminalrow2), tno
 IF ct5 = 1 THEN _PUTIMAGE (terminalcol2, terminalrow2), tfile
 IF ct5 = 2 THEN _PUTIMAGE (terminalcol2, terminalrow2), tdir
 IF ct5 = 3 THEN _PUTIMAGE (terminalcol2, terminalrow2), tapp
+GOSUB displayrefresh
 _DELAY temp87: LET temp87 = temp87 / 2
 IF ct6 = 0 THEN _PUTIMAGE (terminalcol3, terminalrow2), tno
 IF ct6 = 1 THEN _PUTIMAGE (terminalcol3, terminalrow2), tfile
 IF ct6 = 2 THEN _PUTIMAGE (terminalcol3, terminalrow2), tdir
 IF ct6 = 3 THEN _PUTIMAGE (terminalcol3, terminalrow2), tapp
+GOSUB displayrefresh
 _DELAY temp87
 _PUTIMAGE (terminalfacex, terminalfacey), sysok
 COLOR _RGBA(letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura), _RGBA(bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura)
@@ -7184,6 +7219,7 @@ IF ttype = 2 THEN PRINT "folder - "; tselect$: _PUTIMAGE (temp88 - 1, temp89 - 1
 IF ttype = 3 THEN PRINT "app - "; tselect$: _PUTIMAGE (temp88 - 1, temp89 - 1), tselectf
 IF ttype = 0 THEN PRINT "no data": _PUTIMAGE (temp88 - 1, temp89 - 1), tselectn
 LET temp147 = 1
+GOSUB displayrefresh
 REM input loop
 _KEYCLEAR
 DO
@@ -7343,10 +7379,10 @@ RETURN
 readtxt:
 REM terminal file opener
 CLS
-_AUTODISPLAY
 COLOR _RGBA(letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura), _RGBA(bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura)
 LET temp90 = tdelay
 _PUTIMAGE (terminalfacex, terminalfacey), sysbusy
+GOSUB displayrefresh
 IF scriptrun <> 1 THEN
     OPEN tloc$ + "terminaldata\" + runterminal$ + "\" + tselect$ + ".ddf" FOR INPUT AS #1
     INPUT #1, txtfile1$, txtfile2$, txtfile3$, txtfile4$, txtfile5$, txtfile6$, sysstat
@@ -7373,18 +7409,23 @@ PRINT tos$
 PRINT
 PRINT txtfile1$
 COLOR _RGBA(letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura), _RGBA(bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura)
+GOSUB displayrefresh
 _DELAY temp90: LET temp90 = temp90 / 2
 PRINT txtfile2$
 COLOR _RGBA(letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura), _RGBA(bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura)
+GOSUB displayrefresh
 _DELAY temp90: LET temp90 = temp90 / 2
 PRINT txtfile3$
 COLOR _RGBA(letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura), _RGBA(bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura)
+GOSUB displayrefresh
 _DELAY temp90: LET temp90 = temp90 / 2
 PRINT txtfile4$
 COLOR _RGBA(letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura), _RGBA(bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura)
+GOSUB displayrefresh
 _DELAY temp90: LET temp90 = temp90 / 2
 PRINT txtfile5$
 COLOR _RGBA(letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura), _RGBA(bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura)
+GOSUB displayrefresh
 _DELAY temp90: LET temp90 = temp90 / 2
 PRINT txtfile6$
 COLOR _RGBA(letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura), _RGBA(bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura)
@@ -7403,6 +7444,7 @@ GOSUB consoleprinter
 IF sysstat = 1 THEN _PUTIMAGE (terminalfacex, terminalfacey), sysok
 IF sysstat = 2 THEN _PUTIMAGE (terminalfacex, terminalfacey), sysbusy
 IF sysstat = 3 THEN _PUTIMAGE (terminalfacex, terminalfacey), syserr
+GOSUB displayrefresh
 _KEYCLEAR
 DO
     IF _KEYDOWN(bcontrolcode1) OR _KEYDOWN(bcontrolcode2) OR _KEYDOWN(bcontrolcode3) OR _KEYDOWN(bcontrolcode4) THEN IF skipallowed = 1 THEN LET scriptskip = 1
@@ -7435,11 +7477,11 @@ FOR i% = 255 TO 0 STEP temp206
     _LIMIT hertz: REM sets framerate
     _PUTIMAGE (0, 0)-(resx - 1, resy - 1), fullscreenimage
     LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF: REM slowly fills screen with black box
+    GOSUB displayrefresh
     GOSUB timeframecounter: REM timer function
-    _DISPLAY
 NEXT
-_AUTODISPLAY
 _PUTIMAGE (0, 0)-(resx - 1, resy - 1), fullscreenimage: REM displays image
+GOSUB displayrefresh
 LET eventtitle$ = "FULLSCREEN IMAGE DISPLAYED:"
 LET eventdata$ = showimage$
 LET eventnumber = 0
@@ -7460,10 +7502,9 @@ FOR i% = 0 TO 255 STEP temp206
     _LIMIT hertz: REM sets framerate
     _PUTIMAGE (0, 0)-(resx - 1, resy - 1), fullscreenimage
     LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF: REM slowly empties black box from screen
+    GOSUB displayrefresh
     GOSUB timeframecounter
-    _DISPLAY
 NEXT
-_AUTODISPLAY
 REM fade in game
 GOSUB fadein
 REM free image
@@ -7989,15 +8030,6 @@ DO
     LET x = x + 1
     LET tempn(x) = VAL(temps$(x))
 LOOP UNTIL temps$(x) = ""
-RETURN
-_DEST _CONSOLE
-LET x = 0
-DO
-    LET x = x + 1
-    PRINT LTRIM$(STR$(x)) + ": " + temps$(x) + " " + LTRIM$(STR$(tempn(x)))
-LOOP UNTIL temps$(x) = ""
-LET x = 0
-_DEST 0
 RETURN
 
 scriptsaycmd:
@@ -9816,7 +9848,7 @@ IF temp26 = 1 THEN
 				ELSE
 					_PUTIMAGE (temp238, temp239), exclaim1
 				END IF
-				_DISPLAY
+				GOSUB displayrefresh
 			END IF
 		LOOP UNTIL ctime >= scriptwaittime
 	LOOP UNTIL temp240 >= exclaimamount
@@ -9851,13 +9883,13 @@ DO
 		IF temp235 - 1 > 1 THEN _PUTIMAGE (galleryarrowlx, galleryarrowly), pocketarrowl 
 		IF temps$(temp235 + 1) <> "" THEN _PUTIMAGE (galleryarrowrx, galleryarrowry), pocketarrowr
 		LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF: REM slowly fills screen with black box
+		GOSUB displayrefresh
 		GOSUB timeframecounter: REM timer function
-		_DISPLAY
 	NEXT
-	_AUTODISPLAY
 	_PUTIMAGE (0, 0)-(resx - 1, resy - 1), fullscreenimage: REM displays image
 	IF temp235 - 1 > 1 THEN _PUTIMAGE (galleryarrowlx, galleryarrowly), pocketarrowl 
 	IF temps$(temp235 + 1) <> "" THEN _PUTIMAGE (galleryarrowrx, galleryarrowry), pocketarrowr
+	GOSUB displayrefresh
 	LET eventtitle$ = "GALLERY IMAGE DISPLAYED:"
 	LET eventdata$ = temps$(temp235)
 	LET eventnumber = temp235 - 1
@@ -9878,13 +9910,17 @@ DO
 	REM arrow flashes
 	IF ss = rcontrolcode1 OR ss = rcontrolcode2 OR ss = rcontrolcode3 OR ss = rcontrolcode4 THEN
 		_PUTIMAGE (galleryarrowrx, galleryarrowry), pocketarrowrs
+		GOSUB displayrefresh
 		_DELAY 0.1
 		_PUTIMAGE (galleryarrowrx, galleryarrowry), pocketarrowr
+		GOSUB displayrefresh
 	END IF
 	IF ss = lcontrolcode1 OR ss = lcontrolcode2 OR ss = lcontrolcode3 OR ss = lcontrolcode4 THEN
 		_PUTIMAGE (galleryarrowlx, galleryarrowly), pocketarrowls
+		GOSUB displayrefresh
 		_DELAY 0.1
 		_PUTIMAGE (galleryarrowlx, galleryarrowly), pocketarrowl
+		GOSUB displayrefresh
 	END IF
 	REM fade out with image
 	LET temp206 = fadespeed
@@ -9894,10 +9930,9 @@ DO
 		IF temp242 - 1 > 1 THEN _PUTIMAGE (galleryarrowlx, galleryarrowly), pocketarrowl 
 		IF temps$(temp242 + 1) <> "" THEN _PUTIMAGE (galleryarrowrx, galleryarrowry), pocketarrowr
 		LINE (0, 0)-(resx, resy), _RGBA(0, 0, 0, i%), BF: REM slowly empties black box from screen
+		GOSUB displayrefresh
 		GOSUB timeframecounter
-		_DISPLAY
 	NEXT
-	_AUTODISPLAY
 LOOP UNTIL ss = bcontrolcode1 OR ss = bcontrolcode2 OR ss = bcontrolcode3 OR ss = bcontrolcode4
 GOSUB fadein
 LET temp235 = 0: LET temp206 = 0: LET temp242 = 0
@@ -10113,7 +10148,9 @@ DO
             GOSUB consoleprinter
             IF fadestatus = 0 THEN GOSUB fadeout
             IF fadestatus = 2 THEN GOSUB slightfadein: GOSUB fadeout
+            CLS
             _PUTIMAGE (1, 1)-((loadiconresx), loadiconresy), loadicon
+            GOSUB displayrefresh
         END IF
     END IF
     REM processes a line
@@ -10245,12 +10282,14 @@ DO
     IF findloading% THEN
         REM displays loading icon
         _PUTIMAGE (1, 1)-((loadiconresx), loadiconresy), loadicon
+        GOSUB displayrefresh
         LET temp26 = 1
         GOTO endscriptcmd
     END IF
     IF findsaving% THEN
         REM displays saving icon
         _PUTIMAGE (1, 1)-(saveiconresx, saveiconresy), saveicon
+        GOSUB displayrefresh
         LET temp26 = 1
         GOTO endscriptcmd
     END IF
@@ -11401,7 +11440,6 @@ REM return for if screen draw isn't neeeded
 IF nodraw = 1 THEN LET nodraw = 0: RETURN
 IF fadestatus = 1 THEN RETURN
 IF scriptskip = 1 THEN RETURN
-IF effectani = 0 AND fading = 0 THEN PCOPY 1, 0
 CLS
 REM calculates map location
 LET posx = INT(posx): REM remove decimals
@@ -11428,7 +11466,7 @@ REM draws cutscene running image
 IF scriptrun = 1 AND mainmenu = 0 THEN _PUTIMAGE (1, 1)-(scriptimageresx, scriptimageresy), scriptimage
 IF selectobjecthighlight = 1 AND fading = 0 THEN GOSUB selectobjectbanner
 GOSUB awarddraw
-IF effectani = 0 AND fading = 0 THEN _DISPLAY
+IF effectani = 0 AND fading = 0 THEN GOSUB displayrefresh
 RETURN
 
 awarddraw:
@@ -12102,7 +12140,7 @@ DO
         IF displayconsole = 1 THEN
             _DEST _CONSOLE
             PRINT DATE$, TIME$, "INVALID PROMPT COMMAND: ", prompt$
-            _DEST 0
+            _DEST 1
         END IF
     END IF
     IF temp = 1 THEN
@@ -12111,7 +12149,7 @@ DO
         IF displayconsole = 1 THEN
             _DEST _CONSOLE
             PRINT DATE$, TIME$, "PROMPT COMMAND: ", prompt$
-            _DEST 0
+            _DEST 1
         END IF
     END IF
     IF temp = 2 THEN
@@ -12120,7 +12158,7 @@ DO
         IF displayconsole = 1 THEN
             _DEST _CONSOLE
             PRINT DATE$, TIME$, "INVALID PROMPT ARGUMENT: ", prompt$
-            _DEST 0
+            _DEST 1
         END IF
     END IF
     CLOSE #2
@@ -12382,7 +12420,7 @@ IF hud = 15 THEN
     _DEST _CONSOLE
     PRINT "PRESS ENTER TO CONTINUE"
     INPUT temp2988$
-    _DEST 0
+    _DEST 1
     LET hud = 0
     LET xxyy = 0
     LET xxxyyy = 0

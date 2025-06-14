@@ -1,6 +1,20 @@
 VAME CHANGELOG
 By Danielle Pond
 
+14/06/2025 - Update 208. (2.9.45)
+NEW FEATURES
+- Double buffering is now everywhere instead of just main engine loop. Use of terminals, pockets and other features outside of the main engine loop will now perform a lot smoother.
+BUG FIXES
+- Fix to black screen when displayconsole is set to 0.
+- Fixed issue where skipping scripts wouldn't always fade to black.
+- Fixed colour bleed when removing currency.
+TWEAKS
+- Removed redundant code.
+- Menu generator drawing optimised.
+- Taking and giving currency to the mainplayer no longer needs to read the disk and instead uses values loaded into memory.
+- Script command 'ifgone' no longer needs to read the disk and instead uses values loaded into memory.
+- Pressing one of the arrow keys during a choice banner drawing text will skip the text drawing.
+
 10/06/2025 - Update 207. (2.9.44)
 BUG FIXES
 - Fixed issue where running scripts from in game PCs whilst auto mainplayer sprite script switching is enabled would get confused and erase the name of the mainplayer sprite, resulting in a missing texture sprite appearing in place of the mainplayer.
