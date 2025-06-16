@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.45
+REM Build 2.9.46
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,45,2945
-$VERSIONINFO:PRODUCTVERSION#=2,9,45,2945
+$VERSIONINFO:FILEVERSION#=2,9,46,2946
+$VERSIONINFO:PRODUCTVERSION#=2,9,46,2946
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.45"
+LET hardbuild$ = "2.9.46"
 
 setup:
 REM initiates engine and assigns values
@@ -10135,6 +10135,7 @@ DO
     LET findautosave% = INSTR(findautosave% + 1, scriptline$, "autosave ")
     LET findexclaim% = INSTR(findexclaim% + 1, scriptline$, "exclaim ")
     LET findifselectobject% = INSTR(findifselectobject% + 1, scriptline$, "ifselectobject ")
+    LET findsethertz% = INSTR(findsethertz% + 1, scriptline$, "sethertz ")
     GOSUB seperatecommand
     IF _KEYDOWN(bcontrolcode1) OR _KEYDOWN(bcontrolcode2) OR _KEYDOWN(bcontrolcode3) OR _KEYDOWN(bcontrolcode4) THEN
         REM request that the script be skipped
@@ -10547,6 +10548,15 @@ DO
 		GOSUB scriptexclaimcmd
 		GOTO endscriptcmd
     END IF
+    IF findsethertz% THEN
+		REM sets fps
+		LET hertz = tempn(2)
+		LET eventtitle$ = "FRAMERATE CHANGED:"
+		LET eventdata$ = ""
+		LET eventnumber = hertz
+		GOSUB consoleprinter
+		LET temp26 = 1
+    END IF
     IF findautosave% THEN
 		REM toggles autosave
 		IF findon% THEN 
@@ -10597,7 +10607,7 @@ DO
         LET temps$(x) = ""
         LET x = x + 1
     LOOP UNTIL temps$(x) = ""
-    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholdinga% = 0: LET findifholdingb% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findwhitefade% = 0: LET findsfxloop% = 0: LET findsfxstop% = 0: LET findcut% = 0: LET findresetsavetime% = 0: LET findterminalos% = 0: LET findchangeslot% = 0: LET findpocketslot% = 0: LET findhuntercontrol% = 0: LET findifcontrol% = 0: LET findgallery% = 0: LET findlightmap% = 0: LET findautosave% = 0: LET findexclaim% = 0: LET findifselectobject% = 0
+    LET temp27 = 0: LET temp56 = 0: LET temp12$ = "": LET temp13$ = "": LET temp131 = 0: LET findfade% = 0: LET findin% = 0: LET findout% = 0: LET findwait% = 0: LET findmap% = 0: LET findwarp% = 0: LET findx% = 0: LET findy% = 0: LET findmainplayer% = 0: LET finddirection% = 0: LET findmove% = 0: LET findmodel% = 0: LET findon% = 0: LET findoff% = 0: LET findcollision% = 0: LET findscript% = 0: LET findmusic% = 0: LET findcontrol% = 0: LET findplay% = 0: LET findstop% = 0: LET findfile% = 0: LET findpause% = 0: LET findsfx% = 0: LET findhalt% = 0: LET findplayer% = 0: LET findpilot% = 0: LET finddim% = 0: LET findgive% = 0: LET findtake% = 0: LET findsay% = 0: LET findspeaker% = 0: LET findeffects% = 0: LET findifpocket% = 0: LET findterminal% = 0: LET findgivecurrency% = 0: LET findtakecurrency% = 0: LET findifholdinga% = 0: LET findifholdingb% = 0: LET findifcurrency% = 0: LET findmarkgone% = 0: LET findloading% = 0: LET findmapeffect% = 0: LET finddark% = 0: LET findrain% = 0: LET findstorm% = 0: LET findtorch% = 0: LET findanimate% = 0: LET findsavegame% = 0: LET findifgone% = 0: LET findsunsetup% = 0: LET findsunsetdown% = 0: LET findsunsetleft% = 0: LET findsunsetright% = 0: LET findsprint% = 0: LET findshowimage% = 0: LET findslowfade% = 0: LET findsilenttake% = 0: LET findsilentgive% = 0: LET findsilentgivecurrency% = 0: LET findsilenttakecurrency% = 0: LET findifmapno% = 0: LET findifmodel% = 0: LET findfaceplayer% = 0: LET findback% = 0: LET findrun% = 0: LET findminus% = 0: LET findifdirection% = 0: LET findcarryvalues% = 0: LET findpitchblack% = 0: LET findloadgame% = 0: LET findobject% = 0: LET findcheckpoint% = 0: LET findifcheckpoint% = 0: LET findpockets% = 0: LET findup% = 0: LET finddown% = 0: LET findleft% = 0: LET findright% = 0: LET findselect% = 0: LET findterminaltext% = 0: LET findtimedscript% = 0: LET findsaving% = 0: LET findchoice% = 0: LET findhalttimed% = 0: LET findiftimed% = 0: LET findbackchoice% = 0: LET findshow% = 0: LET findhide% = 0: LET findremark% = 0: LET findall% = 0: LET findtrigger% = 0: LET findallowskip% = 0: LET findmakerandom% = 0: LET finduserandom% = 0: LET findabove% = 0: LET findbelow% = 0: LET findequal% = 0: LET findifrandom% = 0: LET findshelllnx% = 0: LET findshellwin% = 0: LET findmakevalue% = 0: LET findmodvalue% = 0: LET findusevalue% = 0: LET findifvalue% = 0: LET findadd% = 0: LET findtakeaway% = 0: LET findtimes% = 0: LET finddivide% = 0: LET findgiveaward% = 0: LET findifaward% = 0: LET findsavevalue% = 0: LET findwhitefade% = 0: LET findsfxloop% = 0: LET findsfxstop% = 0: LET findcut% = 0: LET findresetsavetime% = 0: LET findterminalos% = 0: LET findchangeslot% = 0: LET findpocketslot% = 0: LET findhuntercontrol% = 0: LET findifcontrol% = 0: LET findgallery% = 0: LET findlightmap% = 0: LET findautosave% = 0: LET findexclaim% = 0: LET findifselectobject% = 0: LET findsethertz% = 0
     LET x = 0
     DO
         LET x = x + 1
@@ -11657,13 +11667,138 @@ GOSUB mainplayerload
 GOSUB mapload
 RETURN
 
+parser:
+REM text parser (fuck sierra)
+LET parserresult$ = ""
+IF parserlog = 126 THEN LET parserresult$ = "~"
+IF parserlog = 96 THEN LET parserresult$ = "`"
+IF parserlog = 33 THEN LET parserresult$ = "!"
+IF parserlog = 49 THEN LET parserresult$ = "1"
+IF parserlog = 64 THEN LET parserresult$ = "@"
+IF parserlog = 50 THEN LET parserresult$ = "2"
+IF parserlog = 35 THEN LET parserresult$ = "#"
+IF parserlog = 51 THEN LET parserresult$ = "3"
+IF parserlog = 36 THEN LET parserresult$ = "$"
+IF parserlog = 52 THEN LET parserresult$ = "4"
+IF parserlog = 37 THEN LET parserresult$ = "%"
+IF parserlog = 53 THEN LET parserresult$ = "5"
+IF parserlog = 94 THEN LET parserresult$ = "^"
+IF parserlog = 54 THEN LET parserresult$ = "6"
+IF parserlog = 38 THEN LET parserresult$ = "&"
+IF parserlog = 55 THEN LET parserresult$ = "7"
+IF parserlog = 42 THEN LET parserresult$ = "*"
+IF parserlog = 56 THEN LET parserresult$ = "8"
+IF parserlog = 40 THEN LET parserresult$ = "("
+IF parserlog = 57 THEN LET parserresult$ = "9"
+IF parserlog = 41 THEN LET parserresult$ = ")"
+IF parserlog = 48 THEN LET parserresult$ = "0"
+IF parserlog = 95 THEN LET parserresult$ = "_"
+IF parserlog = 45 THEN LET parserresult$ = "-"
+IF parserlog = 43 THEN LET parserresult$ = "+"
+IF parserlog = 61 THEN LET parserresult$ = "="
+IF parserlog = 81 THEN LET parserresult$ = "Q"
+IF parserlog = 113 THEN LET parserresult$ = "q"
+IF parserlog = 87 THEN LET parserresult$ = "W"
+IF parserlog = 119 THEN LET parserresult$ = "w"
+IF parserlog = 69 THEN LET parserresult$ = "E" 
+IF parserlog = 101 THEN LET parserresult$ = "e"
+IF parserlog = 82 THEN LET parserresult$ = "R"
+IF parserlog = 114 THEN LET parserresult$ = "r"
+IF parserlog = 84 THEN LET parserresult$ = "T"
+IF parserlog = 116 THEN LET parserresult$ = "t"
+IF parserlog = 89 THEN LET parserresult$ = "Y"
+IF parserlog = 121 THEN LET parserresult$ = "y"
+IF parserlog = 85 THEN LET parserresult$ = "U" 
+IF parserlog = 117 THEN LET parserresult$ = "u"
+IF parserlog = 73 THEN LET parserresult$ = "I" 
+IF parserlog = 105 THEN LET parserresult$ = "i"
+IF parserlog = 79 THEN LET parserresult$ = "O" 
+IF parserlog = 111 THEN LET parserresult$ = "o"
+IF parserlog = 80 THEN LET parserresult$ = "P"
+IF parserlog = 112 THEN LET parserresult$ = "p"
+IF parserlog = 123 THEN LET parserresult$ = "{"
+IF parserlog = 91 THEN LET parserresult$ = "["
+IF parserlog = 125 THEN LET parserresult$ = "}"
+IF parserlog = 93 THEN LET parserresult$ = "]"
+IF parserlog = 124 THEN LET parserresult$ = "|"
+IF parserlog = 92 THEN LET parserresult$ = "\"
+IF parserlog = 65 THEN LET parserresult$ = "A" 
+IF parserlog = 97 THEN LET parserresult$ = "a"
+IF parserlog = 83 THEN LET parserresult$ = "S" 
+IF parserlog = 115 THEN LET parserresult$ = "s"
+IF parserlog = 68 THEN LET parserresult$ = "D" 
+IF parserlog = 100 THEN LET parserresult$ = "d"
+IF parserlog = 70 THEN LET parserresult$ = "F"
+IF parserlog = 102 THEN LET parserresult$ = "f"
+IF parserlog = 71 THEN LET parserresult$ = "G" 
+IF parserlog = 103 THEN LET parserresult$ = "g"
+IF parserlog = 72 THEN LET parserresult$ = "H" 
+IF parserlog = 104 THEN LET parserresult$ = "h"
+IF parserlog = 74 THEN LET parserresult$ = "J" 
+IF parserlog = 106 THEN LET parserresult$ = "j"
+IF parserlog = 75 THEN LET parserresult$ = "K"
+IF parserlog = 107 THEN LET parserresult$ = "k"
+IF parserlog = 76 THEN LET parserresult$ = "L"
+IF parserlog = 108 THEN LET parserresult$ = "l"
+IF parserlog = 58 THEN LET parserresult$ = ":"
+IF parserlog = 59 THEN LET parserresult$ = ";"
+IF parserlog = 34 THEN LET parserresult$ = CHR$(0) + CHR$(34)
+IF parserlog = 39 THEN LET parserresult$ = "'"
+IF parserlog = 90 THEN LET parserresult$ = "Z"
+IF parserlog = 122 THEN LET parserresult$ = "z"
+IF parserlog = 88 THEN LET parserresult$ = "X"
+IF parserlog = 120 THEN LET parserresult$ = "x"
+IF parserlog = 67 THEN LET parserresult$ = "C" 
+IF parserlog = 99 THEN LET parserresult$ = "c"
+IF parserlog = 86 THEN LET parserresult$ = "V"
+IF parserlog = 118 THEN LET parserresult$ = "v"
+IF parserlog = 66 THEN LET parserresult$ = "B"
+IF parserlog = 98 THEN LET parserresult$ = "b"
+IF parserlog = 78 THEN LET parserresult$ = "N"
+IF parserlog = 110 THEN LET parserresult$ = "n"
+IF parserlog = 77 THEN LET parserresult$ = "M"
+IF parserlog = 109 THEN LET parserresult$ = "m"
+IF parserlog = 60 THEN LET parserresult$ = "<"
+IF parserlog = 44 THEN LET parserresult$ = ","
+IF parserlog = 62 THEN LET parserresult$ = ">"
+IF parserlog = 46 THEN LET parserresult$ = "."
+IF parserlog = 63 THEN LET parserresult$ = "?"
+IF parserlog = 47 THEN LET parserresult$ = "/"
+IF parserlog = 32 THEN LET parserresult$ = " "
+IF parserlog = 8 OR parserlog = 21248 THEN LET parserresult$ = "666"
+RETURN
+
 prompt:
 REM ENGINE COMMAND PROMPT
+LET promptypos = 0
+LET prompton = 1
+GOSUB screendraw
 DO
 	COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
     LET temp = 0: REM flush value for loop purposes
-    INPUT ">"; prompt$
-    IF prompt$ = "" THEN
+    LET makeprompt$ = ""
+    DO
+		DO
+			_LIMIT extrahertz
+			LET parserlog = _KEYHIT
+			_PRINTSTRING(0, promptypos), "> " + makeprompt$ + "|"
+			GOSUB displayrefresh
+		LOOP WHILE parserlog = 0
+		IF parserlog <> 13 OR parserlog <> 27 THEN
+			GOSUB parser
+			IF parserresult$ = "666" THEN
+				LET makeprompt$ = LEFT$(makeprompt$, LEN(makeprompt$) - 1)
+				COLOR 0, 0
+				GOSUB screendraw
+				COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			ELSE
+				LET makeprompt$ = makeprompt$ + parserresult$
+			END IF
+		END IF
+    LOOP UNTIL parserlog = 13 OR parserlog = 27
+    LET prompt$ = makeprompt$
+    LET promptypos = promptypos + fontsize
+    IF prompt$ = "" OR parserlog = 27 THEN
         COLOR 0, 0
         CLS
         LET temp = 0
@@ -11672,6 +11807,7 @@ DO
         LET prompt$ = ""
         LET action$ = ""
         LET value$ = ""
+        LET prompton = 0
         RETURN
     END IF
     LET action$ = LEFT$(prompt$, INSTR(prompt$, " ") - 1)
@@ -11680,13 +11816,33 @@ DO
     LET action$ = LCASE$(action$)
     LET value$ = LCASE$(value$)
     REM script command 
-    IF prompt$ = "sd" THEN
+    IF LCASE$(prompt$) = "sd" THEN
 		REM collects commands
 		LET temp230 = 0
 		DO
 			LET temp230 = temp230 + 1
-			PRINT "SDC" + LTRIM$(STR$(temp230)) + ">"
-			INPUT promptsd$(temp230)
+			LET makesdcmd$ = ""
+			DO
+				DO
+					_LIMIT extrahertz
+					LET parserlog = _KEYHIT
+					_PRINTSTRING(0, promptypos), "SDC" + LTRIM$(STR$(temp230)) + "> " + makesdcmd$ + "|"
+					GOSUB displayrefresh
+				LOOP WHILE parserlog = 0
+				IF parserlog <> 13 THEN
+					GOSUB parser
+					IF parserresult$ = "666" THEN
+						LET makesdcmd$ = LEFT$(makesdcmd$, LEN(makesdcmd$) - 1)
+						COLOR 0, 0
+						GOSUB screendraw
+						COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+					ELSE
+						LET makesdcmd$ = makesdcmd$ + parserresult$
+					END IF
+				END IF
+			LOOP UNTIL parserlog = 13
+			LET promptsd$(temp230) = promptsd$(temp230) + makesdcmd$
+			LET promptypos = promptypos + fontsize
 		LOOP UNTIL promptsd$(temp230) = ""
 		IF temp230 > 1 THEN
 			REM writes commands to script
@@ -11706,24 +11862,33 @@ DO
 			IF ros$ = "win" THEN SHELL _HIDE "del " + scriptloc$ + "system/promptscript.vsf"
 			IF ros$ = "lnx" OR ros$ = "mac" THEN SHELL _HIDE "rm " + scriptloc$ + "system/promptscript.vsf"
 			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
-			PRINT "SCRIPT COMPLETE!"
+			LET promptypos = 0
+			_PRINTSTRING(0, promptypos), "SCRIPT COMPLETE!"
 		ELSE
-			PRINT "SCRIPT CANNOT BE EMPTY!"
+			_PRINTSTRING(0, promptypos), "SCRIPT CANNOT BE EMPTY!"
 		END IF
+		LET promptypos = promptypos + fontsize
 		LET temp = 1
     END IF
     REM say
     IF action$ = "save" THEN
 		COLOR 0, 0
-        IF value$ = "erase" THEN GOSUB erasesave: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SAVE ERASED!": LET temp = 1
-        IF value$ = "game" THEN GOSUB savesave: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "GAME SAVED!": LET temp = 1
+        IF value$ = "erase" THEN 
+			GOSUB erasesave
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			LET promptypos = 0
+			_PRINTSTRING(0, promptypos), "SAVE ERASED!"
+			LET temp = 1
+		END IF
+        IF value$ = "game" THEN GOSUB savesave: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): _PRINTSTRING(0, promptypos), "GAME SAVED!": LET temp = 1
         IF value$ = "load" THEN
             GOSUB loadgame
             COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
-            PRINT "GAME LOADED!"
+            LET promptypos = 0
+            _PRINTSTRING(0, promptypos), "GAME LOADED!"
             LET temp = 1
         END IF
-        IF value$ = "default" THEN GOSUB savedefault: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SAVE DEFAULT SET!": LET temp = 1
+        IF value$ = "default" THEN GOSUB savedefault: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): _PRINTSTRING(0, promptypos), "SAVE DEFAULT SET!": LET temp = 1
     END IF
     IF action$ = "say" THEN
 		COLOR 0, 0
@@ -11735,16 +11900,11 @@ DO
     END IF
     REM mark item as "gone forever"
     IF action$ = "markgone" THEN
-        PRINT "WARNING: this will remove the " + value$ + " from the gameplay FOREVER!"
-        PRINT "are you sure you want to proceed? (Y/N)"
-        INPUT temp24$
-        IF UCASE$(temp24$) = "Y" THEN
-            LET takeitem$ = value$
-            COLOR 0, 0
-            GOSUB markgone
-            COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
-            PRINT value$ + " marked as gone forever"
-        END IF
+		LET takeitem$ = value$
+        COLOR 0, 0
+        GOSUB markgone
+        COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+        _PRINTSTRING(0, promptypos), value$ + " marked as gone forever"
         LET temp = 1
     END IF
     REM recover item
@@ -11794,14 +11954,14 @@ DO
         LET hideitem$ = value$
         COLOR 0, 0
         GOSUB hideitem
-        IF pocketfile$ = hideitem$ THEN PRINT hideitem$ + " HIDDEN!": LET temp = 1
+        IF pocketfile$ = hideitem$ THEN _PRINTSTRING(0, promptypos), hideitem$ + " HIDDEN!": LET temp = 1
     END IF
     REM show item
     IF action$ = "showitem" THEN
         LET showitem$ = value$
         COLOR 0, 0
         GOSUB showitem
-        IF pocketfile$ = showitem$ THEN PRINT showitem$ + " VISIBLE!": LET temp = 1
+        IF pocketfile$ = showitem$ THEN _PRINTSTRING(0, promptypos), showitem$ + " VISIBLE!": LET temp = 1
     END IF
     REM give item
     IF action$ = "giveitem" THEN
@@ -11836,7 +11996,9 @@ DO
             IF _FILEEXISTS(scriptloc$ + "combine/" + value$ + ".vsf") THEN
                 LET scriptname$ = value$: LET mapscript = 2: COLOR 0, 0: GOSUB script
             ELSE
-                PRINT "SCRIPT NOT FOUND": LET action$ = "ilovexander"
+                _PRINTSTRING(0, promptypos), "SCRIPT NOT FOUND"
+                LET promptypos = promptypos + fontsize
+                LET action$ = "ilovexander"
             END IF
             LET temp = 1
         END IF
@@ -11850,53 +12012,70 @@ DO
     IF action$ = "shell" THEN SHELL value$: LET temp = 1
     REM change  value
     IF action$ = "change" THEN
-        IF value$ = "pace" THEN INPUT "INSERT VALUE> "; temp5: LET pace = temp5: LET temp = 1
-        IF value$ = "mapno" THEN INPUT "INSERT VALUE> "; temp5: LET oldmapname$ = mapname$: LET oldmapno = mapno: LET mapno = temp5: LET temp = 1
-        IF value$ = "direction" THEN INPUT "INSERT VALUE> "; temp5: LET direction = temp5: LET temp = 1
-        IF value$ = "mainplayer" THEN PRINT "INSERT VALUE>": INPUT temp1$: LET oldmplayermodel$ = mplayermodel$: LET mplayermodel$ = temp1$: LET temp = 1
-        IF value$ = "posx" THEN INPUT "INSERT VALUE> "; temp5: LET posx = temp5: LET temp = 1
-        IF value$ = "posy" THEN INPUT "INSERT VALUE> "; temp5: LET posy = temp5: LET temp = 1
-        IF value$ = "resx" THEN INPUT "INSERT VALUE> "; temp5: LET resx = temp5: PRINT "VaME requires resolution to be set in "; dloc$; "engine.ddf for object collsion to function.": LET temp = 1
-        IF value$ = "resy" THEN INPUT "INSERT VALUE> "; temp5: LET resy = temp5: PRINT "VaME requires resolution to be set in "; dloc$; "engine.ddf for object collsion to function.": LET temp = 1
-        IF value$ = "fontsize" THEN INPUT "INSERT VALUE> "; temp5: LET fontsize = temp5: LET temp = 1
-        IF value$ = "fontname" THEN PRINT "INSERT VALUE>": INPUT temp1$: LET fontname$ = temp1$: LET temp = 1
-        IF value$ = "fontstyle" THEN PRINT "INSERT VALUE>": INPUT temp1$: LET fontstyle$ = temp1$: LET temp = 1
-        IF value$ = "noclip" THEN INPUT "INSERT VALUE> "; temp5: LET noclip = temp5: LET temp = 1
-        IF value$ = "devmode" THEN INPUT "INSERT VALUE> "; temp5: LET devmode = temp5: LET temp = 1
-        IF value$ = "playmusic" THEN INPUT "INSERT VALUE> "; temp1$: LET playmusic$ = temp1$: LET temp = 1
-        IF value$ = "soundmode" THEN INPUT "INSERT VALUE> "; temp5: LET soundmode = temp5: LET temp = 1
-        IF value$ = "ros" THEN INPUT "INSERT VALUE> "; temp1$: LET ros$ = temp1$: LET temp = 1
-        IF value$ = "disablefade" THEN INPUT "INSERT VALUE> "; temp5: LET disablefade = temp5: LET temp = 1
-        IF value$ = "currency" THEN INPUT "INSERT VALUE> "; temp5: LET currency = temp5: LET temp = 1
-        IF value$ = "mapeffect" THEN INPUT "INSERT VALUE> "; temp5: LET mapeffect = temp5: LET temp = 1
-        IF value$ = "versionno" THEN INPUT "INSERT VALUE> "; temp1$: LET versionno$ = temp1$: LET temp = 1
-        IF value$ = "musicvol" THEN INPUT "INSERT VALUE> "; temp5: LET musicvol = temp5: GOSUB musicvol: LET temp = 1
-        IF value$ = "sfxvol" THEN INPUT "INSERT VALUE> "; temp5: LET sfxvol = temp5: GOSUB sfxvol: LET temp = 1
-        IF value$ = "displayconsole" THEN INPUT "INSERT VALUE> "; temp5: LET displayconsole = temp5: LET temp = 1
-        IF value$ = "hertz" THEN INPUT "INSERT VALUE> "; temp5: LET hertz = temp5: LET temp = 1
-        IF value$ = "tosfile" THEN INPUT "INSERT VALUE> "; temp1$: LET tosfile$ = temp1$: LET temp = 1
-        IF value$ = "huntstatus" THEN INPUT "INSERT VALUE> "; temp5: LET huntstatus = temp5: LET temp = 1
-        IF value$ = "scriptswitch" THEN INPUT "INSERT VALUE> "; temp5: LET scriptswitch = temp5: LET temp = 1
-        IF value$ = "saveslot" THEN INPUT "INSERT VALUE> "; temp5: LET saveslot = temp5: LET temp = 1
+		LET makechangecmd$ = ""
+		DO
+			DO
+				_LIMIT extrahertz
+				LET parserlog = _KEYHIT
+				_PRINTSTRING(0, promptypos), "INSERT VALUE> " + makechangecmd$ + "|"
+				GOSUB displayrefresh
+			LOOP WHILE parserlog = 0
+			IF parserlog <> 13 THEN
+				GOSUB parser
+				IF parserresult$ = "666" THEN
+					LET makechangecmd$ = LEFT$(makechangecmd$, LEN(makechangecmd$) - 1)
+					COLOR 0, 0
+					GOSUB screendraw
+					COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+				ELSE
+					LET makechangecmd$ = makechangecmd$ + parserresult$
+				END IF
+			END IF
+		LOOP UNTIL parserlog = 13
+		LET promptypos = promptypos + fontsize
+        IF value$ = "pace" THEN LET pace = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "mapno" THEN LET oldmapname$ = mapname$: LET oldmapno = mapno: LET mapno = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "direction" THEN LET direction = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "mainplayer" THEN LET oldmplayermodel$ = mplayermodel$: LET mplayermodel$ = makechangecmd$: LET temp = 1
+        IF value$ = "posx" THEN LET posx = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "posy" THEN LET posy = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "fontsize" THEN LET fontsize = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "fontname" THEN LET fontname$ = makechangecmd$: LET temp = 1
+        IF value$ = "fontstyle" THEN LET fontstyle$ = makechangecmd$: LET temp = 1
+        IF value$ = "noclip" THEN LET noclip = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "devmode" THEN LET devmode = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "playmusic" THEN LET playmusic$ = makechangecmd$: LET temp = 1
+        IF value$ = "soundmode" THEN LET soundmode = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "ros" THEN LET ros$ = makechangecmd$: LET temp = 1
+        IF value$ = "disablefade" THEN LET disablefade = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "currency" THEN LET currency = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "mapeffect" THEN LET mapeffect = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "versionno" THEN LET versionno$ = makechangecmd$: LET temp = 1
+        IF value$ = "musicvol" THEN LET musicvol = VAL(makechangecmd$): GOSUB musicvol: LET temp = 1
+        IF value$ = "sfxvol" THEN LET sfxvol = VAL(makechangecmd$): GOSUB sfxvol: LET temp = 1
+        IF value$ = "displayconsole" THEN LET displayconsole = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "hertz" THEN LET hertz = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "tosfile" THEN LET tosfile$ = makechangecmd$: LET temp = 1
+        IF value$ = "huntstatus" THEN LET huntstatus = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "scriptswitch" THEN LET scriptswitch = VAL(makechangecmd$): LET temp = 1
+        IF value$ = "saveslot" THEN LET saveslot = VAL(makechangecmd$): LET temp = 1
         IF value$ = "checkpoint" THEN
-            INPUT "INSERT VALUE> "; temp5
-            IF checkpoint(temp5) = 0 THEN
+            IF checkpoint(VAL(makechangecmd$)) = 0 THEN
                 LET checkpoint(temp5) = 1
-                PRINT "CHECKPOINT" + STR$(temp5) + " IS NOW ON!"
+                _PRINTSTRING(0, promptypos), "CHECKPOINT" + STR$(VAL(makechangecmd$)) + " IS NOW ON!"
             ELSE
                 LET checkpoint(temp5) = 0
-                PRINT "CHECKPOINT" + STR$(temp5) + " IS NOW OFF!"
+                _PRINTSTRING(0, promptypos), "CHECKPOINT" + STR$(VAL(makechangecmd$)) + " IS NOW OFF!"
             END IF
             LET temp = 1
         END IF
         IF value$ = "trigger" THEN
-            INPUT "INSERT VALUE> "; temp5
-            IF triggerd(temp5) = 0 THEN
-                LET triggerd(temp5) = 1
-                PRINT "TRIGGER" + STR$(temp5) + " IS NOW ON!"
+            IF triggerd(VAL(makechangecmd$)) = 0 THEN
+                LET triggerd(VAL(makechangecmd$)) = 1
+                _PRINTSTRING(0, promptypos), "TRIGGER" + STR$(VAL(makechangecmd$)) + " IS NOW ON!"
             ELSE
-                LET triggerd(temp5) = 0
-                PRINT "TRIGGER" + STR$(temp5) + " IS NOW OFF!"
+                LET triggerd(VAL(makechangecmd$)) = 0
+                _PRINTSTRING(0, promptypos), "TRIGGER" + STR$(VAL(makechangecmd$)) + " IS NOW OFF!"
             END IF
             LET temp = 1
         END IF
@@ -11904,7 +12083,7 @@ DO
             RANDOMIZE TIMER
             LET itime = TIMER: REM timer function
             LET ctime = 0: REM timer function
-            PRINT "TIMER RESET"
+            _PRINTSTRING(0, promptypos), "TIMER RESET"
             LET temp = 1
         END IF
         REM prints extra console data confirming value change
@@ -11912,9 +12091,9 @@ DO
             LET eventtitle$ = "VALUE CHANGE: "
             IF temp5 <> 0 THEN
                 LET eventdata$ = value$ + " = "
-                LET eventnumber = temp5
+                LET eventnumber = VAL(makechangecmd$)
             ELSE
-                LET eventdata$ = value$ + " = " + temp1$
+                LET eventdata$ = value$ + " = " + makechangecmd$
             END IF
             GOSUB consoleprinter
             LET eventtitle$ = "": LET eventdata$ = "": LET eventnumber = 0
@@ -11923,84 +12102,85 @@ DO
     END IF
     REM Whatis?
     IF action$ = "whatis" THEN
-        IF value$ = "noclip" THEN PRINT noclip: LET temp = 1
-        IF value$ = "resx" THEN PRINT resx: LET temp = 1
-        IF value$ = "resy" THEN PRINT resy: LET temp = 1
-        IF value$ = "mapno" THEN PRINT mapno: LET temp = 1
-        IF value$ = "frames" THEN PRINT frames: LET temp = 1
-        IF value$ = "ros" THEN PRINT ros$: LET temp = 1
-        IF value$ = "mplayermodel" THEN PRINT mplayermodel$: LET temp = 1
-        IF value$ = "pace" THEN PRINT pace: LET temp = 1
-        IF value$ = "ctime" THEN PRINT ctime: LET temp = 1
-        IF value$ = "itime" THEN PRINT itime: LET temp = 1
-        IF value$ = "location" THEN PRINT "X: "; posx: PRINT "Y: "; posy: LET temp = 1
-        IF value$ = "oldlocation" THEN PRINT "oX: "; oposx: PRINT "oY :"; oposy: LET temp = 1
-        IF value$ = "direction" THEN PRINT direction: LET temp = 1
-        IF value$ = "posx" THEN PRINT posx: LET temp = 1
-        IF value$ = "posy" THEN PRINT posy: LET temp = 1
-        IF value$ = "oposx" THEN PRINT oposx: LET temp = 1
-        IF value$ = "oposy" THEN PRINT oposy: LET temp = 1
-        IF value$ = "mapname" THEN PRINT mapname$: LET temp = 1
-        IF value$ = "mpx" THEN PRINT mpx: LET temp = 1
-        IF value$ = "mpy" THEN PRINT mpy: LET temp = 1
-        IF value$ = "mpposx" THEN PRINT mpposx: LET temp = 1
-        IF value$ = "mpposy" THEN PRINT mpposy: LET temp = 1
-        IF value$ = "mapx" THEN PRINT mapx: LET temp = 1
-        IF value$ = "mapy" THEN PRINT mapy: LET temp = 1
-        IF value$ = "mpwalking" THEN PRINT mpwalking: LET temp = 1
-        IF value$ = "mpfoot" THEN PRINT mpfoot: LET temp = 1
-        IF value$ = "mpfootloop" THEN PRINT mpfootloop: LET temp = 1
-        IF value$ = "footpace" THEN PRINT footpace: LET temp = 1
-        IF value$ = "hud" THEN PRINT hud: LET temp = 1
-        IF value$ = "errdescription" THEN PRINT errdescription$: LET temp = 1
-        IF value$ = "err" THEN PRINT ERR: LET temp = 1
-        IF value$ = "errorline" THEN PRINT _ERRORLINE: LET temp = 1
-        IF value$ = "date" THEN PRINT DATE$: LET temp = 1
-        IF value$ = "time" THEN PRINT TIME$: LET temp = 1
-        IF value$ = "fps" THEN PRINT fps: LET temp = 1
-        IF value$ = "oldmapno" THEN PRINT oldmapno: LET temp = 1
-        IF value$ = "oldmapname" THEN PRINT oldmapname$: LET temp = 1
-        IF value$ = "oldmplayermodel" THEN PRINT oldmplayermodel$: LET temp = 1
-        IF value$ = "fontname" THEN PRINT fontsname$: LET temp = 1
-        IF value$ = "fontstyle" THEN PRINT fontstyle$: LET temp = 1
-        IF value$ = "fontsize" THEN PRINT fontsize: LET temp = 1
-        IF value$ = "devmode" THEN PRINT devmode: LET temp = 1
-        IF value$ = "mapobjectno" THEN PRINT mapobjectno: LET temp = 1
-        IF value$ = "maptriggerno" THEN PRINT maptriggerno: LET temp = 1
-        IF value$ = "mapplayerno" THEN PRINT mapplayerno: LET temp = 1
-        IF value$ = "playmusic" THEN PRINT playmusic$: LET temp = 1
-        IF value$ = "currentmusic" THEN PRINT currentmusic$: LET temp = 1
-        IF value$ = "oldmusic" THEN PRINT oldmusic$: LET temp = 1
-        IF value$ = "soundmode" THEN PRINT soundmode: LET temp = 1
-        IF value$ = "mpidle" THEN PRINT mpidle: LET temp = 1
-        IF value$ = "playeridle" THEN PRINT playeridle: LET temp = 1
-        IF value$ = "pocketnos" THEN PRINT pocketnos: LET temp = 1
-        IF value$ = "disablefade" THEN PRINT disablefade: LET temp = 1
-        IF value$ = "currency" THEN PRINT currency: LET temp = 1
-        IF value$ = "mapeffect" THEN PRINT mapeffect: LET temp = 1
-        IF value$ = "pocketcarry" THEN PRINT pocketcarry: LET temp = 1
-        IF value$ = "versionno" THEN PRINT versionno$: LET temp = 1
-        IF value$ = "timer" THEN PRINT TIMER: LET temp = 1
-        IF value$ = "scriptline" THEN PRINT scriptline$: LET temp = 1
-        IF value$ = "musicvol" THEN PRINT musicvol: LET temp = 1
-        IF value$ = "sfxvol" THEN PRINT sfxvol: LET temp = 1
-        IF value$ = "engineversionno" THEN PRINT engineversionno$: LET temp = 1
-        IF value$ = "exitsave" THEN PRINT exitsave: LET temp = 1
-        IF value$ = "collisionstep" THEN PRINT collisionstep: LET temp = 1
-        IF value$ = "mainmenu" THEN PRINT mainmenu: LET temp = 1
-        IF value$ = "fadestatus" THEN PRINT fadestatus: LET temp = 1
-        IF value$ = "random" THEN PRINT randomscriptvalue: LET temp = 1
-        IF value$ = "tempmusiccut" THEN PRINT tempmusiccut: LET temp = 1
-        IF value$ = "tempmusicfade" THEN PRINT tempmusicfade: LET temp = 1
-        IF value$ = "tosfile" THEN PRINT tosfile$: LET temp = 1
-        IF value$ = "scriptswitch" THEN PRINT scriptswitch: LET temp = 1
-        IF value$ = "saveslot" THEN PRINT saveslot: LET temp = 1
+        IF value$ = "noclip" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(noclip)): LET temp = 1
+        IF value$ = "resx" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(resx)): LET temp = 1
+        IF value$ = "resy" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(resy)): LET temp = 1
+        IF value$ = "mapno" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mapno)): LET temp = 1
+        IF value$ = "frames" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(frames)): LET temp = 1
+        IF value$ = "ros" THEN _PRINTSTRING(0, promptypos), ros$: LET temp = 1
+        IF value$ = "mplayermodel" THEN _PRINTSTRING(0, promptypos), mplayermodel$: LET temp = 1
+        IF value$ = "pace" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(pace)): LET temp = 1
+        IF value$ = "ctime" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(ctime)): LET temp = 1
+        IF value$ = "itime" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(itime)): LET temp = 1
+        IF value$ = "location" THEN _PRINTSTRING(0, promptypos), "X: " + LTRIM$(STR$(posx)): LET promptypos = promptypos + fontsize: _PRINTSTRING(0, promptypos), "Y: " + LTRIM$(STR$(posy)): LET temp = 1
+        IF value$ = "oldlocation" THEN _PRINTSTRING(0, promptypos), "oX: " + LTRIM$(STR$(oposx)): LET promptypos = promptypos + fontsize: _PRINTSTRING(0, promptypos), "oY :" + LTRIM$(STR$(oposy)): LET temp = 1
+        IF value$ = "direction" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(direction)): LET temp = 1
+        IF value$ = "posx" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(posx)): LET temp = 1
+        IF value$ = "posy" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(posy)): LET temp = 1
+        IF value$ = "oposx" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(oposx)): LET temp = 1
+        IF value$ = "oposy" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(oposy)): LET temp = 1
+        IF value$ = "mapname" THEN _PRINTSTRING(0, promptypos), mapname$: LET temp = 1
+        IF value$ = "mpx" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mpx)): LET temp = 1
+        IF value$ = "mpy" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mpy)): LET temp = 1
+        IF value$ = "mpposx" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mpposx)): LET temp = 1
+        IF value$ = "mpposy" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mpposy)): LET temp = 1
+        IF value$ = "mapx" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mapx)): LET temp = 1
+        IF value$ = "mapy" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mapy)): LET temp = 1
+        IF value$ = "mpwalking" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mpwalking)): LET temp = 1
+        IF value$ = "mpfoot" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mpfoot)): LET temp = 1
+        IF value$ = "mpfootloop" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mpfootloop)): LET temp = 1
+        IF value$ = "footpace" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(footpace)): LET temp = 1
+        IF value$ = "hud" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(hud)): LET temp = 1
+        IF value$ = "errdescription" THEN _PRINTSTRING(0, promptypos), errdescription$: LET temp = 1
+        IF value$ = "err" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(ERR)): LET temp = 1
+        IF value$ = "errorline" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(_ERRORLINE)): LET temp = 1
+        IF value$ = "date" THEN _PRINTSTRING(0, promptypos), DATE$: LET temp = 1
+        IF value$ = "time" THEN _PRINTSTRING(0, promptypos), TIME$: LET temp = 1
+        IF value$ = "fps" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(fps)): LET temp = 1
+        IF value$ = "oldmapno" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(oldmapno)): LET temp = 1
+        IF value$ = "oldmapname" THEN _PRINTSTRING(0, promptypos), oldmapname$: LET temp = 1
+        IF value$ = "oldmplayermodel" THEN _PRINTSTRING(0, promptypos), oldmplayermodel$: LET temp = 1
+        IF value$ = "fontname" THEN _PRINTSTRING(0, promptypos), fontsname$: LET temp = 1
+        IF value$ = "fontstyle" THEN _PRINTSTRING(0, promptypos), fontstyle$: LET temp = 1
+        IF value$ = "fontsize" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(fontsize)): LET temp = 1
+        IF value$ = "devmode" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(devmode)): LET temp = 1
+        IF value$ = "mapobjectno" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mapobjectno)): LET temp = 1
+        IF value$ = "maptriggerno" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(maptriggerno)): LET temp = 1
+        IF value$ = "mapplayerno" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mapplayerno)): LET temp = 1
+        IF value$ = "playmusic" THEN _PRINTSTRING(0, promptypos), playmusic$: LET temp = 1
+        IF value$ = "currentmusic" THEN _PRINTSTRING(0, promptypos), currentmusic$: LET temp = 1
+        IF value$ = "oldmusic" THEN _PRINTSTRING(0, promptypos), oldmusic$: LET temp = 1
+        IF value$ = "soundmode" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(soundmode)): LET temp = 1
+        IF value$ = "mpidle" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mpidle)): LET temp = 1
+        IF value$ = "playeridle" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(playeridle)): LET temp = 1
+        IF value$ = "pocketnos" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(pocketnos)): LET temp = 1
+        IF value$ = "disablefade" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(disablefade)): LET temp = 1
+        IF value$ = "currency" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(currency)): LET temp = 1
+        IF value$ = "mapeffect" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mapeffect)): LET temp = 1
+        IF value$ = "pocketcarry" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(pocketcarry)): LET temp = 1
+        IF value$ = "versionno" THEN _PRINTSTRING(0, promptypos), versionno$: LET temp = 1
+        IF value$ = "timer" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(TIMER)): LET temp = 1
+        IF value$ = "scriptline" THEN _PRINTSTRING(0, promptypos), scriptline$: LET temp = 1
+        IF value$ = "musicvol" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(musicvol)): LET temp = 1
+        IF value$ = "sfxvol" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(sfxvol)): LET temp = 1
+        IF value$ = "engineversionno" THEN _PRINTSTRING(0, promptypos), engineversionno$: LET temp = 1
+        IF value$ = "exitsave" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(exitsave)): LET temp = 1
+        IF value$ = "collisionstep" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(collisionstep)): LET temp = 1
+        IF value$ = "mainmenu" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(mainmenu)): LET temp = 1
+        IF value$ = "fadestatus" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(fadestatus)): LET temp = 1
+        IF value$ = "random" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(randomscriptvalue)): LET temp = 1
+        IF value$ = "tempmusiccut" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(tempmusiccut)): LET temp = 1
+        IF value$ = "tempmusicfade" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(tempmusicfade)): LET temp = 1
+        IF value$ = "tosfile" THEN _PRINTSTRING(0, promptypos), tosfile$: LET temp = 1
+        IF value$ = "scriptswitch" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(scriptswitch)): LET temp = 1
+        IF value$ = "saveslot" THEN _PRINTSTRING(0, promptypos), LTRIM$(STR$(saveslot)): LET temp = 1
         IF value$ = "checkpoint" THEN
             LET temp = 1
             LET x = 0
             DO
                 LET x = x + 1
-                IF checkpoint(x) <> 0 THEN PRINT STR$(x)
+                IF checkpoint(x) <> 0 THEN _PRINTSTRING(0, promptypos), STR$(x)
+                LET promptypos = promptypos + fontsize
             LOOP UNTIL x >= totalcheckpoints
         END IF
         IF value$ = "objectname" THEN
@@ -12009,11 +12189,12 @@ DO
                 LET x = 0
                 DO
                     LET x = x + 1
-                    PRINT objectname(x)
+                    _PRINTSTRING(0, promptypos), objectname(x)
+                    LET promptypos = promptypos + fontsize
                 LOOP UNTIL x >= mapobjectno
                 LET x = 0
             ELSE
-                PRINT "NO OBJECTS ATTACHED TO MAP"
+                _PRINTSTRING(0, promptypos), "NO OBJECTS ATTACHED TO MAP"
             END IF
         END IF
         IF value$ = "pocketname" THEN
@@ -12022,11 +12203,12 @@ DO
                 LET x = 0
                 DO
                     LET x = x + 1
-                    PRINT pocketname(x)
+                    _PRINTSTRING(0, promptypos), pocketname(x)
+                    LET promptypos = promptypos + fontsize
                 LOOP UNTIL x >= pocketnos
                 LET x = 0
             ELSE
-                PRINT "NO POCKET ITEMS LOADED"
+                _PRINTSTRING(0, promptypos), "NO POCKET ITEMS LOADED"
             END IF
         END IF
         IF value$ = "triggername" THEN
@@ -12034,11 +12216,12 @@ DO
             IF maptriggerno > 0 THEN
                 DO
                     LET temp15 = temp15 + 1
-                    PRINT triggername(temp15)
+                    _PRINTSTRING(0, promptypos), triggername(temp15)
+                    LET promptypos = promptypos + fontsize
                 LOOP UNTIL temp15 >= maptriggerno
                 LET temp15 = 0: REM scrub temp values
             ELSE
-                PRINT "NO TRIGGERS ATTACHED TO MAP"
+                _PRINTSTRING(0, promptypos), "NO TRIGGERS ATTACHED TO MAP"
             END IF
         END IF
         IF value$ = "playername" THEN
@@ -12046,11 +12229,12 @@ DO
             IF mapplayerno > 0 THEN
                 DO
                     LET temp43 = temp43 + 1
-                    PRINT playername$(temp43)
+                    _PRINTSTRING(0, promptypos), playername$(temp43)
+                    LET promptypos = promptypos + fontsize
                 LOOP UNTIL temp43 >= mapplayerno
                 LET temp43 = 0: REM scrub temp values
             ELSE
-                PRINT "NO PLAYERS ATTACHED TO MAP"
+                _PRINTSTRING(0, promptypos), "NO PLAYERS ATTACHED TO MAP"
             END IF
         END IF
         IF temp = 0 THEN LET temp = 2: REM sets invalid argument error
@@ -12059,14 +12243,55 @@ DO
     IF action$ = "system" THEN
 		COLOR 0, 0
         LET promptquit = 1
-        IF value$ = "now" THEN LET temp = 1: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SYSTEM NOW!": GOSUB consolequit: SYSTEM
-        IF value$ = "hang" THEN LET temp = 1: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SYSTEM HUNG!": GOSUB consolequit: END
-        IF value$ = "map" THEN LET temp = 1: GOSUB mapload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "MAP DATA RELOADED!"
-        IF value$ = "mainplayer" THEN LET temp = 1: GOSUB mainplayerload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "MAINPLAYER DATA RELOADED!": LET temp = 1
-        IF value$ = "screen" THEN LET temp = 1: GOSUB screenload: GOSUB fontload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SCREEN DATA RELOADED!"
-        IF value$ = "font" THEN LET temp = 1: GOSUB fontunload: GOSUB fontload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "FONT DATA RELOADED!"
-        IF value$ = "quit" THEN LET temp = 1: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SYSTEM QUIT!": GOSUB consolequit: GOTO endgame
-        IF value$ = "ui" THEN LET temp = 1: GOSUB uiunload: GOSUB uiload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "UI DATA RELOADED!"
+        IF value$ = "now" THEN 
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			_PRINTSTRING(0, promptypos), "SYSTEM NOW!"
+			COLOR 0, 0
+			GOSUB consolequit
+			SYSTEM
+		END IF
+        IF value$ = "hang" THEN 
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			_PRINTSTRING(0, promptypos), "SYSTEM HUNG!"
+			COLOR 0, 0
+			GOSUB consolequit
+			END
+		END IF
+        IF value$ = "map" THEN 
+			LET temp = 1
+			COLOR 0, 0
+			GOSUB mapload
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			LET promptypos = 0
+			_PRINTSTRING(0, promptypos), "MAP DATA RELOADED!"
+		END IF
+        IF value$ = "mainplayer" THEN 
+			LET temp = 1
+			GOSUB mainplayerload
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			_PRINTSTRING(0, promptypos), "MAINPLAYER DATA RELOADED!"
+		END IF
+        IF value$ = "font" THEN 
+			LET temp = 1
+			GOSUB fontunload
+			GOSUB fontload
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			_PRINTSTRING(0, promptypos), "FONT DATA RELOADED!"
+		END IF
+        IF value$ = "quit" THEN 
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			_PRINTSTRING(0, promptypos), "SYSTEM QUIT!"
+			COLOR 0, 0
+			GOSUB consolequit
+			GOTO endgame
+		END IF
+        IF value$ = "ui" THEN 
+			LET temp = 1
+			GOSUB uiunload
+			GOSUB uiload
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			_PRINTSTRING(0, promptypos), "UI DATA RELOADED!"
+		END IF
         IF value$ = "pockets" THEN
 			REM reloads pockets 
 			LET temp = 1
@@ -12080,20 +12305,55 @@ DO
 			NEXT temp228
 			GOSUB pocketitemcalc
 			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
-			PRINT "POCKET DATA RELOADED!"
+			_PRINTSTRING(0, promptypos), "POCKET DATA RELOADED!"
+			LET promptypos = promptypos + fontsize
 		END IF
-        IF value$ = "music" THEN LET temp = 1: GOSUB musicunload: GOSUB musicload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "MUSIC DATA RELOADED!"
-        IF value$ = "sfx" THEN LET temp = 1: GOSUB sfxunload: GOSUB sfxload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "SOUND EFFECT DATA RELOADED!"
-        IF value$ = "terminal" THEN LET temp = 1: GOSUB terminalunload: GOSUB terminalload: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "TERMINAL DATA RELOADED!"
-        IF value$ = "update" THEN LET temp = 1: GOSUB updatechecker: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "UPDATE CHECK COMPLETE!"
-        IF value$ = "fix" THEN LET temp = 1: LET fixvame = 1: GOSUB updatechecker: LET fixvame = 0: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura): PRINT "FIXING COMPLETE!"
-        IF value$ = "restart" THEN LET temp = 1: LET temp160 = 1: GOTO endgame
+        IF value$ = "music" THEN 
+			LET temp = 1
+			GOSUB musicunload
+			GOSUB musicload
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			_PRINTSTRING(0, promptypos), "MUSIC DATA RELOADED!"
+		END IF
+        IF value$ = "sfx" THEN 
+			LET temp = 1
+			GOSUB sfxunload
+			GOSUB sfxload
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			_PRINTSTRING(0, promptypos), "SOUND EFFECT DATA RELOADED!"
+		END IF
+        IF value$ = "terminal" THEN 
+			LET temp = 1
+			GOSUB terminalunload
+			GOSUB terminalload
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			_PRINTSTRING(0, promptypos), "TERMINAL DATA RELOADED!"
+		END IF
+        IF value$ = "update" THEN 
+			LET temp = 1
+			GOSUB updatechecker
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			_PRINTSTRING(0, promptypos), "UPDATE CHECK COMPLETE!"
+		END IF
+        IF value$ = "fix" THEN 
+			LET temp = 1
+			LET fixvame = 1
+			GOSUB updatechecker
+			LET fixvame = 0
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
+			_PRINTSTRING(0, promptypos), "FIXING COMPLETE!"
+		END IF
+        IF value$ = "restart" THEN 
+			LET temp160 = 1
+			GOTO endgame
+		END IF
         IF value$ = "colour" THEN
             OPEN "data\colours.ddf" FOR INPUT AS #1
             INPUT #1, letmenuselectcolourr, letmenuselectcolourg, letmenuselectcolourb, letmenuselectcoloura, bgmenuselectcolourr, bgmenuselectcolourg, bgmenuselectcolourb, bgmenuselectcoloura, letmenudefaultcolourr, letmenudefaultcolourg, letmenudefaultcolourb, letmenudefaultcoloura, bgmenudefaultcolourr, bgmenudefaultcolourg, bgmenudefaultcolourb, bgmenudefaultcoloura, letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura, bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura, letpocketselectcolourr, letpocketselectcolourg, letpocketselectcolourb, letpocketselectcoloura, bgpocketselectcolourr, bgpocketselectcolourg, bgpocketselectcolourb, bgpocketselectcoloura, letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura, bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura, letcurrencycolourr, letcurrencycolourg, letcurrencycolourb, letcurrencycoloura, bgcurrencycolourr, bgcurrencycolourg, bgcurrencycolourb, bgcurrencycoloura, letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura, bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura, letterminalcolourr, letterminalcolourg, letterminalcolourb, letterminalcoloura, bgterminalcolourr, bgterminalcolourg, bgterminalcolourb, bgterminalcoloura
             CLOSE #1
             COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
-            PRINT "COLOURS RELOADED!"
+            _PRINTSTRING(0, promptypos), "COLOURS RELOADED!"
+            LET promptypos = promptypos + fontsize
             LET temp = 1
         END IF
         IF value$ = "consolelog" THEN
@@ -12102,7 +12362,8 @@ DO
             PRINT #3, DATE$, TIME$, "VaME CONSOLE LOG"
             CLOSE #3
             COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
-            PRINT "CONSOLELOG.TXT ERASED"
+            _PRINTSTRING(0, promptypos), "CONSOLELOG.TXT ERASED"
+            LET promptypos = promptypos + fontsize
             LET temp = 1
         END IF
         IF temp = 0 THEN LET temp = 2: REM sets invalid argument error
@@ -12136,7 +12397,8 @@ DO
     OPEN consolelog$ FOR APPEND AS #2
     IF temp = 0 THEN
         IF consolelogging = 1 THEN PRINT #2, DATE$, TIME$, "INVALID PROMPT COMMAND: ", prompt$
-        PRINT "INVALID COMMAND - "; prompt$
+        _PRINTSTRING(0, promptypos), "INVALID COMMAND - " + prompt$
+        LET promptypos = promptypos + fontsize
         IF displayconsole = 1 THEN
             _DEST _CONSOLE
             PRINT DATE$, TIME$, "INVALID PROMPT COMMAND: ", prompt$
@@ -12145,7 +12407,9 @@ DO
     END IF
     IF temp = 1 THEN
         IF consolelogging = 1 THEN PRINT #2, DATE$, TIME$, "PROMPT COMMAND: ", prompt$
-        PRINT "OK!"
+        LET promptypos = promptypos + fontsize
+        _PRINTSTRING(0, promptypos), "OK!"
+        LET promptypos = promptypos + fontsize
         IF displayconsole = 1 THEN
             _DEST _CONSOLE
             PRINT DATE$, TIME$, "PROMPT COMMAND: ", prompt$
@@ -12154,7 +12418,8 @@ DO
     END IF
     IF temp = 2 THEN
         PRINT #2, DATE$, TIME$, "INVALID PROMPT ARGUMENT: ", prompt$
-        PRINT "INVALID ARGUMENT - "; value$
+        _PRINTSTRING(0, promptypos), "INVALID ARGUMENT - " + value$
+        LET promptypos = promptypos + fontsize
         IF displayconsole = 1 THEN
             _DEST _CONSOLE
             PRINT DATE$, TIME$, "INVALID PROMPT ARGUMENT: ", prompt$
@@ -12169,9 +12434,11 @@ DO
         LET temp5 = 0
         LET temp1$ = ""
         LET prompt$ = "": LET action$ = "": LET value$ = ""
+        LET prompton = 0
         REM return to engine loop
         RETURN
     END IF
+    IF promptypos + fontsize >= resy THEN LET promptypos = 0: COLOR 0, 0: GOSUB screendraw: COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
 LOOP
 RETURN
 
@@ -12230,6 +12497,7 @@ RETURN
 
 hud:
 REM developer hud display
+IF prompton = 1 THEN RETURN: REM returns if developer prompt is enabled
 COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
 REM location hud
 IF hud = 1 THEN

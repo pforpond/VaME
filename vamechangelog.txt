@@ -1,6 +1,22 @@
 VAME CHANGELOG
 By Danielle Pond
 
+16/06/2025 - Update 209. (2.9.46)
+NEW FEATURES
+- New script command 'sethertz' that can change the frames per second of a game on the fly.
+- Text parser (useless except for prompt, I really resent the fact I had to make this because it turned out adding double buffering breaks the INPUT command which I only used in the prompt).
+BUG FIXES
+- Fixed bug where developer prompt would be invisible.
+TWEAKS
+- Removed "Are you sure?" prompt when running prompt command 'markgone'.
+- Example game now runs at 60 fps.
+- Removal of some redundant and inefficient prompt code.
+- Prompt now loops back to the top of the screen when it reaches the bottom.
+- Developer value display is now auto hidden when the prompt is started.
+REMOVED FEATURES
+- Prompt command 'system screen' has been removed. It was useless.
+- Prompt commands 'change resx' and 'change resy' have been removed. They were useless.
+
 14/06/2025 - Update 208. (2.9.45)
 NEW FEATURES
 - Double buffering is now everywhere instead of just main engine loop. Use of terminals, pockets and other features outside of the main engine loop will now perform a lot smoother.
