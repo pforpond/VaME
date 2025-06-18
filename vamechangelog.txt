@@ -1,6 +1,12 @@
 VAME CHANGELOG
 By Danielle Pond
 
+17/06/2025 - Update 210. (2.9.47)
+BUG FIXES
+- Fixed issue where loading icon would fail to show when erasing a save.
+- Fixed Award Granted notification from displaying only the first award on the list.
+- Fixed occasional overlaying of text on top of prompt text when using the prompt command 'sd'.
+
 16/06/2025 - Update 209. (2.9.46)
 NEW FEATURES
 - New script command 'sethertz' that can change the frames per second of a game on the fly.

@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.46
+REM Build 2.9.47
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,46,2946
-$VERSIONINFO:PRODUCTVERSION#=2,9,46,2946
+$VERSIONINFO:FILEVERSION#=2,9,47,2947
+$VERSIONINFO:PRODUCTVERSION#=2,9,47,2947
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.46"
+LET hardbuild$ = "2.9.47"
 
 setup:
 REM initiates engine and assigns values
@@ -6218,6 +6218,7 @@ END IF
 REM show loading icon
 CLS
 _PUTIMAGE (1, 1)-((loadiconresx), loadiconresy), loadicon
+GOSUB displayrefresh
 REM halt any timed scripts
 LET scripttimer = 0
 LET iscripttimer = 0
@@ -11488,15 +11489,12 @@ DO
 	LET awarddisplay = awarddisplay + 1
 	IF awardqueue(awarddisplay) > 0 THEN LET temp236 = temp236 + 1
 LOOP UNTIL awarddisplay => totalawards OR temp236 = 1
-IF awardqueue(awarddisplay) = 0 THEN RETURN
-REM returns
-IF awarddisplay = 0 THEN RETURN
-IF fading <> 0 THEN RETURN
+IF awardqueue(awarddisplay) = 0 OR awarddisplay = 0 OR fading <> 0 OR prompton = 1 THEN RETURN: REM returns
 IF temp212 = 0 THEN LET temp213 = (awarditemlocy - awardbannerresy) - 1
 IF temp212 >= awardbannerresy THEN GOTO awarddraw2
 REM banner scrolls in
 _PUTIMAGE (awardbannerlocx, (awardbannerlocy - temp212))-(awardbannerlocx + awardbannerresx - 1, awardbannerlocy + temp212 - 1), awardbanner
-_PUTIMAGE (awarditemlocx, temp213), awardsprite(awarddisplay)
+_PUTIMAGE (awarditemlocx, temp213), awardsprite(awardqueue(awarddisplay))
 IF temp212 < awardbannerresy THEN LET temp212 = temp212 + awardspeed: LET temp213 = temp213 + awardspeed: RETURN: REM returns while scrolling animation occurs
 awarddraw2:
 REM banner hovers for a while
@@ -11509,9 +11507,9 @@ IF temp217 = 0 THEN
 END IF
 COLOR _RGBA(letpocketdefaultcolourr, letpocketdefaultcolourg, letpocketdefaultcolourb, letpocketdefaultcoloura), _RGBA(bgpocketdefaultcolourr, bgpocketdefaultcolourg, bgpocketdefaultcolourb, bgpocketdefaultcoloura)
 _PUTIMAGE (awardbannerlocx, awardbannerlocy)-(awardbannerresx - 1, awardbannerresy - 1), awardbanner
-_PUTIMAGE (awarditemlocx, awarditemlocy)-(awarditemlocx + awarditemresx - 1, awarditemlocy + awarditemresy - 1), awardsprite(awarddisplay)
+_PUTIMAGE (awarditemlocx, awarditemlocy)-(awarditemlocx + awarditemresx - 1, awarditemlocy + awarditemresy - 1), awardsprite(awardqueue(awarddisplay))
 _PRINTSTRING (awardtextlocx, awardtextlocy), awardnotification$
-_PRINTSTRING (awardtextlocx, awardtextlocy + fontsize), awardname$(awarddisplay)
+_PRINTSTRING (awardtextlocx, awardtextlocy + fontsize), awardname$(awardqueue(awarddisplay))
 IF temp214 <= ctime THEN
     REM end award display
     LET awardqueue(awarddisplay) = 0
@@ -11861,8 +11859,9 @@ DO
 			REM removes script 
 			IF ros$ = "win" THEN SHELL _HIDE "del " + scriptloc$ + "system/promptscript.vsf"
 			IF ros$ = "lnx" OR ros$ = "mac" THEN SHELL _HIDE "rm " + scriptloc$ + "system/promptscript.vsf"
-			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
 			LET promptypos = 0
+			GOSUB screendraw
+			COLOR _RGBA(letpromptcolourr, letpromptcolourg, letpromptcolourb, letpromptcoloura), _RGBA(bgpromptcolourr, bgpromptcolourg, bgpromptcolourb, bgpromptcoloura)
 			_PRINTSTRING(0, promptypos), "SCRIPT COMPLETE!"
 		ELSE
 			_PRINTSTRING(0, promptypos), "SCRIPT CANNOT BE EMPTY!"
