@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.47
+REM Build 2.9.48
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,47,2947
-$VERSIONINFO:PRODUCTVERSION#=2,9,47,2947
+$VERSIONINFO:FILEVERSION#=2,9,48,2948
+$VERSIONINFO:PRODUCTVERSION#=2,9,48,2948
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.47"
+LET hardbuild$ = "2.9.48"
 
 setup:
 REM initiates engine and assigns values
@@ -1656,13 +1656,20 @@ _KEYCLEAR
 LET banneron = 1
 COLOR _RGBA(letspeechcolourr, letspeechcolourg, letspeechcolourb, letspeechcoloura), _RGBA(bgspeechcolourr, bgspeechcolourg, bgspeechcolourb, bgspeechcoloura)
 IF pocketon = 0 AND mainmenu = 0 OR scriptrun = 1 THEN GOSUB slightfadeout
+IF findbackchoice% THEN
+	LET choiceno = backchoice
+ELSE
+	LET choiceno = 1
+END IF
+IF choiceno > choicetotal THEN LET choiceno = 1
 LET temp71 = (resy + 1)
 REM draws choice banner and arrows
 DO
     GOSUB timeframecounter
     _LIMIT pockethudanispeed
     _PUTIMAGE (0, temp71)-(textbannerresx - 1, (textbannerresy + temp71) - 1), choicebanner
-    _PUTIMAGE (choicearrowr, (temp71 + (textbannerresy / 2)) - (pocketarrowresy / 2))-(choicearrowr + pocketarrowresx - 1, (pocketarrowresy + (temp71 + (textbannerresy / 2))) - (pocketarrowresy / 2) - 1), pocketarrowr
+    IF choiceno > 1 THEN _PUTIMAGE (choicearrowl, (temp71 + (textbannerresy / 2)) - (pocketarrowresy / 2))-(choicearrowl + pocketarrowresx - 1, (pocketarrowresy + (temp71 + (textbannerresy / 2))) - (pocketarrowresy / 2) - 1), pocketarrowl
+    IF choiceno < choicetotal THEN _PUTIMAGE (choicearrowr, (temp71 + (textbannerresy / 2)) - (pocketarrowresy / 2))-(choicearrowr + pocketarrowresx - 1, (pocketarrowresy + (temp71 + (textbannerresy / 2))) - (pocketarrowresy / 2) - 1), pocketarrowr
     GOSUB displayrefresh
     LET temp71 = temp71 - 1
 LOOP UNTIL temp71 <= (resy - textbannerresy - 1)
@@ -1693,7 +1700,6 @@ LOOP UNTIL x >= choicetotal
 LET x = 0
 LET eventnumber = choicetotal
 GOSUB consoleprinter
-LET choiceno = 1
 LET temp71 = temp71 + 1
 choiceloop:
 REM clears values
@@ -1707,16 +1713,8 @@ LET centretext$ = choicename$(choiceno)
 GOSUB centretext
 REM draws ui
 _PUTIMAGE (0, (resy - textbannerresy))-(textbannerresx - 1, resy - 1), choicebanner
-IF choiceno = 1 THEN
-    REM nothing
-ELSE
-    _PUTIMAGE (choicearrowl, (temp71 + (textbannerresy / 2)) - (pocketarrowresy / 2))-(choicearrowl + pocketarrowresx - 1, (pocketarrowresy + (temp71 + (textbannerresy / 2))) - (pocketarrowresy / 2) - 1), pocketarrowl
-END IF
-IF choiceno = choicetotal THEN
-    REM nothing
-ELSE
-    _PUTIMAGE (choicearrowr, (temp71 + (textbannerresy / 2)) - (pocketarrowresy / 2))-(choicearrowr + pocketarrowresx - 1, (pocketarrowresy + (temp71 + (textbannerresy / 2))) - (pocketarrowresy / 2) - 1), pocketarrowr
-END IF
+IF choiceno > 1 THEN _PUTIMAGE (choicearrowl, (temp71 + (textbannerresy / 2)) - (pocketarrowresy / 2))-(choicearrowl + pocketarrowresx - 1, (pocketarrowresy + (temp71 + (textbannerresy / 2))) - (pocketarrowresy / 2) - 1), pocketarrowl
+IF choiceno < choicetotal THEN _PUTIMAGE (choicearrowr, (temp71 + (textbannerresy / 2)) - (pocketarrowresy / 2))-(choicearrowr + pocketarrowresx - 1, (pocketarrowresy + (temp71 + (textbannerresy / 2))) - (pocketarrowresy / 2) - 1), pocketarrowr
 LET x = 0
 DO
     LET x = x + 1
@@ -8285,6 +8283,11 @@ RETURN
 scriptchoicecmd:
 REM displays a player choice
 LET x = 0
+IF findbackchoice% THEN
+	REM nothing
+ELSE
+	LET backchoice = 0
+END IF
 DO
     LET x = x + 1
     LET choicename$(x) = LEFT$(seperate2$, INSTR(seperate2$, ",") - 1)
@@ -8321,6 +8324,7 @@ ELSE
     END IF
     GOSUB choicebannerdraw
     LET temp26 = 2
+    LET backchoice = choiceno
     REM enables a spoof trigger to run a script
     LET triggerspoofa = 1
     LET nextmapscript = mapscript
@@ -12728,6 +12732,7 @@ LET eventnumber = frames
 GOSUB consoleprinter
 REM saves game, unloads data and fades out game
 IF mainmenu = 1 THEN _PUTIMAGE (1, 1)-((loadiconresx), loadiconresy), loadicon
+GOSUB displayrefresh
 REM if game is running
 IF setupboot = 0 THEN
     IF temp82 <> 1 AND temp159 <> 1 AND runupdate <> 1 AND exitsave = 1 THEN
@@ -12763,6 +12768,7 @@ IF setupboot = 1 THEN
 END IF
 GOSUB consolequit: REM writes quit to consolelog.txt
 CLS
+GOSUB displayrefresh
 IF runupdate = 1 THEN RETURN: REM return to continue update process if needed
 GOSUB gamereboots: REM reboots the game if required
 SYSTEM

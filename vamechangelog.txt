@@ -1,6 +1,12 @@
 VAME CHANGELOG
 By Danielle Pond
 
+24/06/2025 - Update 211. (2.9.48)
+BUG FIXES
+- Fixed issue where loading icon would not appear on quit whilst unloading assets.
+TWEAKS
+- Script command 'backchoice' is now able to recall choice made and defaults upon that position.
+
 17/06/2025 - Update 210. (2.9.47)
 BUG FIXES
 - Fixed issue where loading icon would fail to show when erasing a save.
