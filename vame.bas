@@ -1,5 +1,5 @@
 REM Variable Map Engine
-REM Build 2.9.48
+REM Build 2.9.49
 REM By Danielle Pond
 
 REM icon, version info and error handler
@@ -8,11 +8,11 @@ $VERSIONINFO:CompanyName=STUDIO_POND
 $VERSIONINFO:ProductName=VaME
 $VERSIONINFO:FileDescription=Variable Map Engine
 $VERSIONINFO:InternalName=VaME
-$VERSIONINFO:FILEVERSION#=2,9,48,2948
-$VERSIONINFO:PRODUCTVERSION#=2,9,48,2948
+$VERSIONINFO:FILEVERSION#=2,9,49,2949
+$VERSIONINFO:PRODUCTVERSION#=2,9,49,2949
 $EXEICON:'data\icon.ico'
 _ICON
-LET hardbuild$ = "2.9.48"
+LET hardbuild$ = "2.9.49"
 
 setup:
 REM initiates engine and assigns values
@@ -4079,6 +4079,7 @@ IF modrunning = 1 THEN
 END IF
 REM checks for available updates
 _PUTIMAGE (1, 1)-(downloadiconresx, downloadiconresy), downloadicon
+GOSUB displayrefresh
 IF fixvame = 1 THEN
     LET eventtitle$ = "ENGINE REPAIR:"
 ELSE

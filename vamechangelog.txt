@@ -1,6 +1,10 @@
 VAME CHANGELOG
 By Danielle Pond
 
+28/06/2025 - Update 212. (2.9.49)
+BUG FIXES
+- Fixed bug where downloading icon would fail to appear when initially checking for updates.
+
 24/06/2025 - Update 211. (2.9.48)
 BUG FIXES
 - Fixed issue where loading icon would not appear on quit whilst unloading assets.
