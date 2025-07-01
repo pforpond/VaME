@@ -1,6 +1,13 @@
 VAME CHANGELOG
 By Danielle Pond
 
+01/07/2025 - Update 213. (2.9.50)
+NEW FEATURES
+- Text banner blinker.
+- New script command 'saytimed' that will create a timed text banner that will automatically close after a specified number of seconds.
+TWEAKS
+- Optimised text banner code.
+
 28/06/2025 - Update 212. (2.9.49)
 BUG FIXES
 - Fixed bug where downloading icon would fail to appear when initially checking for updates.
